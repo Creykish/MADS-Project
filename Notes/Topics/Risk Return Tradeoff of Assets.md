@@ -1,0 +1,1 @@
+Riskier financial assets are associated with high asset returns.

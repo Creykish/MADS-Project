@@ -11,3 +11,6 @@ Emprical Evidence has suggested that retirees' [[Life Cycle Wealth Trajectory]] 
 
 Presents a model of household consumption which considers the retiree's propesity toward [[Precautionary Saving]] in the face of the uncertain costs of  [[Medical Expenses]]. By accounting for these costs, optimal wealth decumulates more slowly which is in-line with empirical data, although actual wealth accumulation is slower yet again, suggesting that retirees are even more conservative than the optimal model. 
 
+## Findings
+
+[[Retirees Spend Less in Retirement than Predicted by Theory]]

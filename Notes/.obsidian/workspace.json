@@ -4,21 +4,17 @@
     "type": "split",
     "children": [
       {
-        "id": "b82cec4e7df62813",
+        "id": "d16da2feef1717cf",
         "type": "tabs",
         "children": [
           {
-            "id": "5a4afcea861f9588",
+            "id": "55cdb3ad946a3fd3",
             "type": "leaf",
             "state": {
-              "type": "markdown",
-              "state": {
-                "file": "Papers/Retirement Saving Preferences in Australia and Netherlands.md",
-                "mode": "source",
-                "source": false
-              },
-              "icon": "lucide-file",
-              "title": "Retirement Saving Preferences in Australia and Netherlands"
+              "type": "graph",
+              "state": {},
+              "icon": "lucide-git-fork",
+              "title": "Graph view"
             }
           }
         ]
@@ -166,43 +162,43 @@
       "bases:Create new base": false
     }
   },
-  "active": "5a4afcea861f9588",
+  "active": "55cdb3ad946a3fd3",
   "lastOpenFiles": [
-    "Topics/Destitution Risk.md",
-    "Topics/Life-Span Risk.md",
-    "Findings/Bequeathment not significant motive.md",
+    "Papers/The Distribution of Bequest Motives.md",
+    "Papers/The Life Cycle Hypothesis of Saving.md",
     "Papers/Uncertain medical expenses and precautionary saving near the end of the life cycle.md",
     "Papers/Trajectory of Wealth in Retirement (United States).md",
-    "Papers/The Life Cycle Hypothesis of Saving.md",
-    "Papers/Retirement Saving Preferences in Australia and Netherlands.md",
-    "Papers/Precautionary Saving and Social Insurance.md",
-    "Topics/Financial Independence.md",
-    "Findings/Greater Aversion Destitution Risk than Underspending.md",
-    "Findings/Retirees Spend Less in Retirement than Predicted by Theory.md",
-    "Topics/Bequeathment.md",
-    "Papers/PDF Downloads/saving_pref_aus_ned.pdf",
-    "Topics/Pensions & Social Security.md",
-    "Papers/Differential Mortality, Uncertain Medical Expenses, and the Saving of Elderly Singles.md",
+    "Papers/Mortality Risk and Bequests.md",
     "Papers/Life Cycle Wealth in Canada 1977.md",
-    "MADS Thesis.md",
-    "Findings/Findings.md",
-    "Literature Review/Literature Review.md",
-    "Topics/Consumption Floor.md",
-    "Papers/PDF Downloads/hubbard1995.pdf",
-    "Papers/Papers.md",
+    "Papers/Differential Mortality, Uncertain Medical Expenses, and the Saving of Elderly Singles.md",
+    "Findings/Bequeathment a significant motive.md",
+    "Papers/Precautionary Saving and Social Insurance.md",
+    "Papers/Retirement Saving Preferences in Australia and Netherlands.md",
+    "Papers/Risk-Return Trade Off Long Run.md",
+    "Topics/Risk Return Tradeoff of Assets.md",
+    "Topics/Topics.md",
+    "Topics/Untitled 1.md",
+    "Topics/Financial Independence.md",
     "Topics/Medical Expenses.md",
+    "Topics/Pensions & Social Security.md",
     "Topics/Precautionary Saving.md",
-    "Topics/Life Cycle Wealth Trajectory.md",
+    "Topics/Destitution Risk.md",
+    "Topics/Bequeathment.md",
+    "Papers/Savings and Desired Bequests.md",
+    "Papers/Papers.md",
+    "Papers/Bequests and Life-Cycle Savings.md",
+    "Papers/Asset Allocation Explains Fund Performance.md",
+    "Papers/PDF Downloads/Kopczuk-LeaveLeaveDistribution-2007.pdf",
+    "Papers/PDF Downloads/bequeth.pdf",
+    "Topics/Asset Allocation.md",
+    "Papers/PDF Downloads/Does_Asset_Allocation_Policy_Explain_40_90_100_Per.pdf",
+    "Findings/Greater Aversion Destitution Risk than Underspending.md",
+    "Papers/PDF Downloads/saving_pref_aus_ned.pdf",
+    "Papers/PDF Downloads/hubbard1995.pdf",
     "Papers/PDF Downloads/Differential Mortality, Uncertain Medical Expenses, and the Saving of Elderly Singles.pdf",
     "Literature Review/Papers/PDF Downloads/Differential Mortality, Uncertain Medical Expenses, and the Saving of Elderly Singles",
-    "Topics/The Life Cycle Model of Consumption.md",
-    "Topics/Topics.md",
     "Findings",
-    "Literature Review/Untitled.md",
     "Papers/PDF Downloads/King-AssetHoldingsLifeCycle-1982.pdf",
-    "Papers/PDF Downloads/Ando, A., & Modigliani, F. (1963).pdf",
-    "Papers/PDF Downloads/Palumbo, M. G. (1999).pdf",
-    "Papers/PDF Downloads",
-    "Topics"
+    "Papers/PDF Downloads/Ando, A., & Modigliani, F. (1963).pdf"
   ]
 }

@@ -1,0 +1,1 @@
+Asset allocation is an investment strategy that divides a portfolio among different asset categories, such as stocks, bonds, and cash, to balance risk and reward.
