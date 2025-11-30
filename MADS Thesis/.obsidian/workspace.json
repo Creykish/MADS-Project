@@ -1,0 +1,208 @@
+{
+  "main": {
+    "id": "a669e2f0e1d241b9",
+    "type": "split",
+    "children": [
+      {
+        "id": "b82cec4e7df62813",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "5a4afcea861f9588",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "Papers/Retirement Saving Preferences in Australia and Netherlands.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "Retirement Saving Preferences in Australia and Netherlands"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "vertical"
+  },
+  "left": {
+    "id": "f7bfee6e18be3d1c",
+    "type": "split",
+    "children": [
+      {
+        "id": "1fb6430d9578a821",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "9d701d70a47ced20",
+            "type": "leaf",
+            "state": {
+              "type": "file-explorer",
+              "state": {
+                "sortOrder": "alphabetical",
+                "autoReveal": false
+              },
+              "icon": "lucide-folder-closed",
+              "title": "Files"
+            }
+          },
+          {
+            "id": "5cf184bb59c81d93",
+            "type": "leaf",
+            "state": {
+              "type": "search",
+              "state": {
+                "query": "",
+                "matchingCase": false,
+                "explainSearch": false,
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical"
+              },
+              "icon": "lucide-search",
+              "title": "Search"
+            }
+          },
+          {
+            "id": "637d8fb6de40efed",
+            "type": "leaf",
+            "state": {
+              "type": "bookmarks",
+              "state": {},
+              "icon": "lucide-bookmark",
+              "title": "Bookmarks"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 289.5
+  },
+  "right": {
+    "id": "c6e07dc95c11240b",
+    "type": "split",
+    "children": [
+      {
+        "id": "c10b12b823f68da4",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "47cb91e10fe821f7",
+            "type": "leaf",
+            "state": {
+              "type": "backlink",
+              "state": {
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical",
+                "showSearch": false,
+                "searchQuery": "",
+                "backlinkCollapsed": false,
+                "unlinkedCollapsed": true
+              },
+              "icon": "links-coming-in",
+              "title": "Backlinks"
+            }
+          },
+          {
+            "id": "1c26f1c013fd7471",
+            "type": "leaf",
+            "state": {
+              "type": "outgoing-link",
+              "state": {
+                "linksCollapsed": false,
+                "unlinkedCollapsed": true
+              },
+              "icon": "links-going-out",
+              "title": "Outgoing links"
+            }
+          },
+          {
+            "id": "9d87250a59ff0e8c",
+            "type": "leaf",
+            "state": {
+              "type": "tag",
+              "state": {
+                "sortOrder": "frequency",
+                "useHierarchy": true,
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-tags",
+              "title": "Tags"
+            }
+          },
+          {
+            "id": "8d47dfeebad57aeb",
+            "type": "leaf",
+            "state": {
+              "type": "outline",
+              "state": {
+                "followCursor": false,
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-list",
+              "title": "Outline"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300,
+    "collapsed": true
+  },
+  "left-ribbon": {
+    "hiddenItems": {
+      "switcher:Open quick switcher": false,
+      "graph:Open graph view": false,
+      "canvas:Create new canvas": false,
+      "daily-notes:Open today's daily note": false,
+      "templates:Insert template": false,
+      "command-palette:Open command palette": false,
+      "bases:Create new base": false
+    }
+  },
+  "active": "5a4afcea861f9588",
+  "lastOpenFiles": [
+    "Topics/Destitution Risk.md",
+    "Topics/Life-Span Risk.md",
+    "Findings/Bequeathment not significant motive.md",
+    "Papers/Uncertain medical expenses and precautionary saving near the end of the life cycle.md",
+    "Papers/Trajectory of Wealth in Retirement (United States).md",
+    "Papers/The Life Cycle Hypothesis of Saving.md",
+    "Papers/Retirement Saving Preferences in Australia and Netherlands.md",
+    "Papers/Precautionary Saving and Social Insurance.md",
+    "Topics/Financial Independence.md",
+    "Findings/Greater Aversion Destitution Risk than Underspending.md",
+    "Findings/Retirees Spend Less in Retirement than Predicted by Theory.md",
+    "Topics/Bequeathment.md",
+    "Papers/PDF Downloads/saving_pref_aus_ned.pdf",
+    "Topics/Pensions & Social Security.md",
+    "Papers/Differential Mortality, Uncertain Medical Expenses, and the Saving of Elderly Singles.md",
+    "Papers/Life Cycle Wealth in Canada 1977.md",
+    "MADS Thesis.md",
+    "Findings/Findings.md",
+    "Literature Review/Literature Review.md",
+    "Topics/Consumption Floor.md",
+    "Papers/PDF Downloads/hubbard1995.pdf",
+    "Papers/Papers.md",
+    "Topics/Medical Expenses.md",
+    "Topics/Precautionary Saving.md",
+    "Topics/Life Cycle Wealth Trajectory.md",
+    "Papers/PDF Downloads/Differential Mortality, Uncertain Medical Expenses, and the Saving of Elderly Singles.pdf",
+    "Literature Review/Papers/PDF Downloads/Differential Mortality, Uncertain Medical Expenses, and the Saving of Elderly Singles",
+    "Topics/The Life Cycle Model of Consumption.md",
+    "Topics/Topics.md",
+    "Findings",
+    "Literature Review/Untitled.md",
+    "Papers/PDF Downloads/King-AssetHoldingsLifeCycle-1982.pdf",
+    "Papers/PDF Downloads/Ando, A., & Modigliani, F. (1963).pdf",
+    "Papers/PDF Downloads/Palumbo, M. G. (1999).pdf",
+    "Papers/PDF Downloads",
+    "Topics"
+  ]
+}

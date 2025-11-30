@@ -1,0 +1,1 @@
+This is the timeseries of an investor's wealth over the course of their entire lifetimes. 

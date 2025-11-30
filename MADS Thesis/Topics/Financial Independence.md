@@ -1,0 +1,1 @@
+The state of having accumulated enough wealth and assets that generate sufficient passive income to cover one's living expenses for the rest of their life, without needing to rely on active employment or financial assistance from others, including via [[Pensions & Social Security]].

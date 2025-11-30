@@ -1,0 +1,1 @@
+A consumption floor is the minimum level of consumption or standard of living considered acceptable, either biologically, economically, or as a policy goal.

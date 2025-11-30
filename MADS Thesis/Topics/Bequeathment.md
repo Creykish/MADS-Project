@@ -1,0 +1,1 @@
+Bequeathment is the proportion of wealth left after the investor dies that can be given (bequeathed) to the individuals families, loved ones or charities. 
