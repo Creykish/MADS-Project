@@ -1,0 +1,104 @@
+\documentclass{article}
+\usepackage{graphicx} % Required for inserting images
+\usepackage[a4paper,margin=1.25cm,footskip=.5cm]{geometry}
+\usepackage{amsmath}
+\usepackage{booktabs}
+\usepackage[
+backend=biber,
+style=apa,
+]{biblatex}
+\addbibresource{./bib.bib}
+
+\title{MADS Thesis}
+\author{Callum Davidson}
+\date{July 2025}
+
+\begin{document}
+
+\maketitle
+
+\section{Foreword}
+
+This research is conducted in partnership with Consilium NZ LTD. 
+
+\section{Introduction}
+
+The management of a retiree's nest egg requires balancing two different types of financial risk. It is a widely proven principle that higher asset returns tend to be associated with correspondingly higher risks in the form of the volatility of that asset's price \parencite[e.g.][]{lundbladRiskAndReturns, campbellRiskAndReturns, ghyselsRiskAndReturns}. The challenge for individuals facing retirement is selecting securities or funds such that they will provide the returns necessary for a comfortable retirement lifestyle, but not expose the investor to excessive amounts of risk. 
+
+Balancing these risks is not a trivial task. Despite the attention given to picking specific securities or funds, \textcite{ibbotsonAssetAllocation} find that allocation to major asset classes (equities, bonds, and cash) explains about 90\% of the variation in returns between funds. This makes asset allocation the primary driver of a portfolio's long-term profile. For the average investor, whose retirement portfolio is typically composed of mutual funds that preclude individual security selection, this means the most important strategic decision is managing their overall exposure to these asset classes.
+
+When we consider this allocation as a function not only of the investors appetite for risk, but of their particular lifetime savings capacity, spending needs, lifespan, and overall wealth, finding an optimal trajectory becomes a complex problem to solve and one that depends on a vast number of factors unique to a particular individual. 
+
+Arguably, the consequence of this complexity has resulted in the generation of a number of heuristics and rules-of-thumb to deal with this decision. The goal of this paper will be twofold, firstly to understand the lifetime spending needs and risk concerns of typical retirees, particularly in New Zealand. Understanding 
+
+
+
+
+
+The goal of this research paper is to put common lifetime allocation ideas to test within a flexible optimization approach driven by gradient descent. We will build on work by \textcite{Makinen2024} who propose a Monte Carlo portfolio optimization framework for lifetime portfolio allocation, which is agnostic to the source of returns used to drive the simulated outcomes of the strategy. We use a similar framework to construct and optimize our allocation strategies in order to study and optimize allocation strategies in retirement. The goal of this paper is not to provide precise recommendations for individual investors but rather to challenge existing ideas around lifetime asset allocation and to prove the effectiveness of this t
+
+\subsection{Literature Review}
+
+large amount of literature, rules-of-thumb, and financial products already exist which seek to answer this question. However, these solutions often come to different and contradictory conclusions. An example of this are the various 'age-in-bonds rules' or 'glide path' approaches in which the investor's asset allocation is presented as a function of their age, with the allocation to less risky securities increasing linearly over time. \textcite{dolvin2010asset} find that most target-date funds also follow a similar strategy, with the allocation to risky assets declining over time. New Zealand fund manager Superlife's 'Age Steps' product is an example of this type of strategy, with the funds' allocations to equities decreasing from 95\% (at age-step 20) to 10\% (age-step 80) \parencite{superlife_nodate}. 
+
+However, academic work by \textcite{estrada2014glidepath, estrada2015retirement}, \textcite{shiller2005life}, and others all find robust, international evidence that this decreasing-equity approach is not the correct strategy. Rather, an increasing allocation to risk as the person moves further into retirement offers both better upside potential and better protection against destitution. When considering the accumulation period as well, \textcite{estrada2014glidepath} and \textcite{anarkulova2025beyond} find that “inverted-U” shaped strategies to be more advantageous, where the allocation to safe assets starts low, is highest at retirement and decreases thereafter. Additionally, Estrada, J. (2015) and Anarkulova et al. (2025) also argue that an all-equity allocation presents virtually the same downside risks and better upside benefits, suggesting that this may be the optimal approach for many investors. 
+
+Asset allocation optimization is a well-established field within quantitative finance, with much of its current mathematical form dating back to the work of \parencite{MPTMarkowitz} who proposed Modern Portfolio Theory as a way of determining asset allocations to maximize the expected return of a portfolio for a given level of risk. While this type of asset allocation is well-understood and extensively studied, lifetime allocations for individual investors present researchers with difficult and often intractable mathematical problems, especially when the full range of potential degrees of freedom and the complexity of real-world investor behavior and decisions are taken into account. There is also the problem that real market returns do not tend to follow a gaussian distribution \parencite{MandelbrotPrices} and this poses a potential limitation to variance as the risk measure of a portfolio. This is further confounded, at least as it pertains to determining lifetime portfolio allocation, by the interpretability or lack thereof of variance as the risk of a particular retirement strategy. I.e. real-world investors are much more likely to be concerned with outcomes like the chance of them becoming destitute or not hitting some savings goal, which the variance of returns is not a good measure of.
+
+\textcite{Makinen2024} propose a Monte-Carlo approach that can be used to numerically optimize the asset allocation of a portfolio of assets base of a cost-function of the terminal values of wealth within the simulated window. Their method is for a few reasons. Firstly, it makes no assumptions about the distribution or source of asset returns used to drive the simulation. In their paper, they use returns randomly generated by a gaussian process, but the returns could just have easily been bootstrapped from a historical datasource or generated from some other model. Secondly, the method is also able to account for deposits and withdrawals from the portfolio over time, which is a real-world feature of portfolio construction that is usually left out mathematical formulations of portfolio optimization because fixed-dollar contributions do not lend themselves to tractable solutions to these problems. In the paper, the authors use a simple fixed-dollar contribution amount, but this can also be a function that varied with time and the core optimization would still hold. Finally, their optimization makes use of a control-matrix that is able to account for the information known about the system such that different allocation policies can be applied based on the state of the individual's portfolio at a different time. In the paper, they use a control matrix that is able to offer policy prescriptions base both on the age of the investors (time) and in terms of the investors' wealth. This means that their optimization can recommend a different asset allocation to an investor who is 40 years old and has \$1 million dollars versus an investor of the same age with \$500K. 
+
+The method proposed in their paper does have some limitations however, principally the cost-function used to optimise the asset allocation is only base on the terminal value of the wealth of the investor. For studying lifetime portfolio allocation this is sub-optimal, as real-world investors are concerned about wealth differently depending on where in their lifetime it is. For instance, an investor would reasonably care money about running out of money at age 60 than they would at age 90. Additionally, the control matrix they use has a fixed upper bound in the wealth dimension, which means that there are a large number of useless parameters when the spread of simulated outcomes are low (for example, at the beginning of the simulated period). This also means that the useful parameters at the start of the simulation period become under-defined, as a large number of initial outcomes become condensed onto a just a few points in the control matrix, giving the optimization a limited ability to decern between different trajectories early on, which is precisely when intervention will have the greatest effect due to the compounding nature of asset returns. As a result, their method has too little control early on, which is arguably when it needs it the most.
+
+
+
+
+
+\section{Method}
+
+
+
+
+% \begin{equation}
+%     W_i^{n+1} = \begin{cases} \left( W_i^n + \mathrm{IC}_n \right) \cdot \left( P(W_i)_{n, \text{bond}} \cdot \left(1 + R_i^{n, \text{bond}}\right) + P(W_i)_{n, \text{stock}} \cdot \left(1 + R_i^{n, \text{stock}}\right) \right), & \text{if } W_i^{n+1} > 0, \ 0, & \text{otherwise.} \end{cases}
+% \end{equation}
+Our paper will look at just a three-asset portfolio consisting of "Cash", "Income", and "Equity" proportions, respectively. These proportions are based on existing asset allocations from Consilium Companies' model portfolios. Returns for these model portfolio allocations are calculated monthly, assuming annual re-balancing and assuming that all distributions are reinvested. 
+
+
+
+\begin{table}[h!]
+\centering
+\begin{tabular}{lccc}
+\toprule
+\textbf{Name} & \textbf{Cash} & \textbf{Equity} & \textbf{Income} \\
+\midrule
+Start date & Jan-95 & Jan-95 & Jan-95 \\
+Rebalancing Frequency & 6 & 6 & 6 \\
+\midrule
+\textbf{Asset} & & & \\
+Dimensional Global Core Equity Trust (NZD) & & 28.57\% & \\
+Dimensional Australian Value Trust & & 5.61\% & \\
+Dimensional Australian Small Company Trust & & 4.08\% & \\
+Dimensional Emerging Markets Value Trust & & 7.65\% & \\
+Evidential Sustainable Targeted Factor Fund & & 34.69\% & \\
+Harbour NZ Index Shares Fund & & 15.31\% & \\
+Kernel NZ Small \& Mid Cap Opportunities Fund & & 4.08\% & \\
+Harbour NZ Corporate Bond Fund & & & 25.64\% \\
+Dimensional Two-Year Sustainability Fixed Interest PIE & & & 34.62\% \\
+Dimensional Five-Year Diversified Fixed Interest PIE & & & 29.49\% \\
+Evidential Sustainable Global Bond Fund (NZD) & & & 10.26\% \\
+NZ OCR Less 25bps & 100.00\% & & \\
+\bottomrule
+\end{tabular}
+\caption{Model Allocation constructions for the three asset classes used in the study.}
+\label{tab:consilium_allocations}
+\end{table}
+
+\subsection{Two Asset Portfolio, Gaussian Returns}
+
+
+
+
+\end{document}
+
+
+

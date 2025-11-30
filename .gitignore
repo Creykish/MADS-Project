@@ -1,0 +1,147 @@
+# .gitignore for Python + LaTeX projects
+
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# C extensions
+*.so
+
+# Distribution / packaging
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+pip-wheel-metadata/
+*.manifest
+*.spec
+
+# Installer logs
+pip-log.txt
+pip-delete-this-directory.txt
+
+# Virtual environments
+env/
+venv/
+ENV/
+.venv/
+.ENV/
+venv.bak/
+env.bak/
+
+# Pytest, coverage, nose
+.pytest_cache/
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+*.coverage
+htmlcov/
+.coverage.*
+
+# MyPy, Pyre, Pylint
+.mypy_cache/
+.dmypy.json
+.pyre/
+.pytype/
+.pylint.d/
+
+# Jupyter Notebook
+.ipynb_checkpoints
+*.ipynb_checkpoints
+
+# IDEs and editors
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+*.code-workspace
+
+# Editor temporary files
+*~
+*.swp
+*.swo
+*.bak
+*.tmp
+*.orig
+
+# Environment / secret files
+.env
+.env.*
+secrets/
+credentials/
+*.key
+*.pem
+
+# Logs and databases
+*.log
+*.sqlite3
+*.db
+*.db-journal
+
+# OS files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# LaTeX build artifacts
+*.aux
+*.bbl
+*.blg
+*.brf
+*.fls
+*.fdb_latexmk
+*.log
+*.out
+*.toc
+*.lof
+*.lot
+*.gz
+*.synctex.gz
+*.nav
+*.snm
+*.vrb
+*.idx
+*.ind
+*.ilg
+*.glg
+*.glo
+*.gls
+*.ist
+*.acn
+*.acr
+*.alg
+*.loa
+*.lot
+*.lol
+
+# LaTeX intermediate and backup files
+*.run.xml
+*.bcf
+*.blx.bib
+*.blx-cache
+*.auxlock
+
+# Generated PDFs (uncomment to ignore generated PDFs)
+# *.pdf
+
+# Misc build tools
+*.auxlock
+build/
+latexbuild/
+out/
+
+# Keep README, source .tex and important files tracked explicitly if needed
