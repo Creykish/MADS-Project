@@ -4,11 +4,11 @@
     "type": "split",
     "children": [
       {
-        "id": "d16da2feef1717cf",
+        "id": "cfb9372c99ef58e8",
         "type": "tabs",
         "children": [
           {
-            "id": "55cdb3ad946a3fd3",
+            "id": "c67b6f64edf362e9",
             "type": "leaf",
             "state": {
               "type": "graph",
@@ -74,7 +74,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 289.5
+    "width": 293.5
   },
   "right": {
     "id": "c6e07dc95c11240b",
@@ -162,11 +162,23 @@
       "bases:Create new base": false
     }
   },
-  "active": "55cdb3ad946a3fd3",
+  "active": "c67b6f64edf362e9",
   "lastOpenFiles": [
+    "Papers/Dolvin - Asset Allocation for Retirement Simple Heuristics and Target-Date Funds.md",
+    "Papers/PDF Downloads/dolvin.pdf",
+    "Papers/PDF Downloads/document.pdf",
+    "Papers/Uncertain medical expenses and precautionary saving near the end of the life cycle.md",
+    "Topics/100% Stock Portfolio.md",
+    "Topics/Untitled 1.md",
+    "Topics/Asset Allocation.md",
+    "Topics/Topics.md",
+    "Papers/Papers.md",
+    "Papers/Shiller - Life-cycle personal accounts proposal for Social Security.md",
+    "Topics/Age in Bonds Rule.md",
+    "Topics/Life-cycle Asset Allocation.md",
+    "Topics/Life Cycle Wealth Trajectory.md",
     "Papers/The Distribution of Bequest Motives.md",
     "Papers/The Life Cycle Hypothesis of Saving.md",
-    "Papers/Uncertain medical expenses and precautionary saving near the end of the life cycle.md",
     "Papers/Trajectory of Wealth in Retirement (United States).md",
     "Papers/Mortality Risk and Bequests.md",
     "Papers/Life Cycle Wealth in Canada 1977.md",
@@ -176,29 +188,16 @@
     "Papers/Retirement Saving Preferences in Australia and Netherlands.md",
     "Papers/Risk-Return Trade Off Long Run.md",
     "Topics/Risk Return Tradeoff of Assets.md",
-    "Topics/Topics.md",
-    "Topics/Untitled 1.md",
     "Topics/Financial Independence.md",
     "Topics/Medical Expenses.md",
     "Topics/Pensions & Social Security.md",
-    "Topics/Precautionary Saving.md",
-    "Topics/Destitution Risk.md",
-    "Topics/Bequeathment.md",
-    "Papers/Savings and Desired Bequests.md",
-    "Papers/Papers.md",
-    "Papers/Bequests and Life-Cycle Savings.md",
-    "Papers/Asset Allocation Explains Fund Performance.md",
     "Papers/PDF Downloads/Kopczuk-LeaveLeaveDistribution-2007.pdf",
     "Papers/PDF Downloads/bequeth.pdf",
-    "Topics/Asset Allocation.md",
     "Papers/PDF Downloads/Does_Asset_Allocation_Policy_Explain_40_90_100_Per.pdf",
-    "Findings/Greater Aversion Destitution Risk than Underspending.md",
     "Papers/PDF Downloads/saving_pref_aus_ned.pdf",
     "Papers/PDF Downloads/hubbard1995.pdf",
     "Papers/PDF Downloads/Differential Mortality, Uncertain Medical Expenses, and the Saving of Elderly Singles.pdf",
     "Literature Review/Papers/PDF Downloads/Differential Mortality, Uncertain Medical Expenses, and the Saving of Elderly Singles",
-    "Findings",
-    "Papers/PDF Downloads/King-AssetHoldingsLifeCycle-1982.pdf",
-    "Papers/PDF Downloads/Ando, A., & Modigliani, F. (1963).pdf"
+    "Findings"
   ]
 }

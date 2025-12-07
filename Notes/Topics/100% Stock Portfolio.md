@@ -1,0 +1,1 @@
+A [[Life-cycle Asset Allocation]] strategy that allocates 100% of funds to stocks. 

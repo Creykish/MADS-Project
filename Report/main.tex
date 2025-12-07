@@ -26,22 +26,30 @@ This research is conducted in partnership with Consilium NZ LTD.
 The management of a retiree's nest egg requires balancing two different types of financial risk. It is a widely proven principle that higher asset returns tend to be associated with correspondingly higher risks in the form of the volatility of that asset's price \parencite[e.g.][]{lundbladRiskAndReturns, campbellRiskAndReturns, ghyselsRiskAndReturns}. Despite the attention given to picking specific securities or funds, \textcite{ibbotsonAssetAllocation} find that allocation to major asset classes (equities, bonds, and cash) explains about 90\% of the variation in returns between funds. This makes asset allocation the primary driver of a portfolio's long-term profile. This means that for the typical investor (whose retirement portfolio is typically composed of managed funds that preclude granular security selection anyway) the most important strategic decision is managing their overall exposure to these asset classes.
 
 
-The challenge for individuals facing retirement is choosing an allocation to safe and risky assets such that they will provide both the returns necessary for a comfortable retirement lifestyle, but not expose the investor to excessive amounts of risk. Balancing this trade-off is not a trivial task. Particularly, when we consider this allocation as a function not only of the investors appetite for risk, but also of their particular lifetime savings capacity, spending needs, lifespan, and overall wealth, then finding an optimal trajectory becomes a complex problem to solve and one that depends on a vast number of factors unique to a particular individual.
+The challenge for individuals facing retirement is choosing an allocation to safe and risky assets such that they will provide both the returns necessary for a comfortable retirement lifestyle, but not expose the investor to excessive amounts of risk. Balancing this trade-off is not a trivial task. Particularly, when we consider this allocation as a function not only of the investors appetite for risk, but also of their particular lifetime savings capacity, spending needs, lifespan, and overall wealth, then finding an optimal trajectory becomes a complex problem to solve and one that depends on a vast number of factors unique to a particular individual. Arguably, the consequence of this complexity has resulted in the generation of a number of heuristics and rules-of-thumb to deal with this decision. 
 
-Arguably, the consequence of this complexity has resulted in the generation of a number of heuristics and rules-of-thumb to deal with this decision. The goal of this paper will be threefold. We firstly aim to understand the lifetime spending needs and risk concerns of typical retirees, with a particular focus on the New Zealand context. Understanding these factors is crucial for developing effective retirement strategies both at the individual and policy levels. There will be a particular focus on identifying the key risks and spending patterns that investors face with the goal of creating realistic simulations of lifetime spending needs.
-
-Secondly, we will discuss the current state of the literature around lifetime asset allocation strategies, highlighting both common themes and contradictions in the existing body of work. In particular, we will focus on the various 'glide-path' strategies that are commonly recommended both in academic literature and in practice by fund managers. We will also discuss the various risk measures and optimization approaches that have been used to study lifetime asset allocation strategies.
+The goal of this paper will be threefold. Firstly, we will discuss the current state of the literature around lifetime asset allocation strategies, highlighting both common themes and contradictions in the existing body of work. In particular, we will focus on the various 'glide-path' strategies that are commonly recommended both in academic literature and in practice by fund managers. We will also discuss the various risk measures and optimization approaches that have been used to study lifetime asset allocation strategies.
 
 
+Our second goal will be to understand the lifetime spending needs and risk concerns of typical retirees, with a particular focus on the New Zealand context. Understanding these factors is crucial for developing effective retirement strategies both at the individual and policy levels. There will be a particular focus on identifying the key risks and spending patterns that investors face with the goal of creating realistic simulations of lifetime spending needs. This will involve both a review of existing literature on retiree spending patterns, as well as an analysis of available data sources to identify common trends and outliers.
 
 The third objective of this research paper is to develop and test a flexible simulation and optimization framework for lifetime asset allocation strategies. Building on work by \textcite{Makinen2024} who propose a Monte Carlo portfolio optimization framework for portfolio selection, we will extend and adapt their method to better suit the particular challenges of lifetime asset allocation and modify their risk measure to better reflect the concerns of real-world investors.
 
-Our goal will be to demonstrate this framework produces stable and robust asset allocation strategies that are flexible enough to incorporate various risk measures and simulations of asset returns and lifetime spending needs. This will be done both in order to test and challenge existing lifetime allocation ideas, as well as to provide a tool for future research in this area.
+We aim to demonstrate this framework produces stable and robust asset allocation strategies that are flexible enough to incorporate various risk measures and simulations of asset returns and lifetime spending needs. This will be done both in order to test and challenge existing lifetime allocation ideas, as well as to provide a starting point for further research into this important area of personal finance.
 
 
 \subsection{Literature Review}
 
-A large amount of literature, rules-of-thumb, and financial products already exist which seek to answer this question. However, these solutions often come to different and contradictory conclusions. An example of this are the various 'age-in-bonds rules' or 'glide path' approaches in which the investor's asset allocation is presented as a function of their age, with the allocation to less risky securities increasing linearly over time. \textcite{dolvin2010asset} find that most target-date funds also follow a similar strategy, with the allocation to risky assets declining over time. New Zealand fund manager Superlife's 'Age Steps' product is an example of this type of strategy, with the funds' allocations to equities decreasing from 95\% (at age-step 20) to 10\% (age-step 80) \parencite{superlife_nodate}.
+The asset-backed pension market as of 2024 is valued at 68.9 trillion USD globally \parencite{oecd2025pension}. For many individuals, their retirement portfolio represents the largest single pool of wealth they will ever manage, aside from their primary residence. As a result, the question of how to optimally allocate this wealth over the course of an individual's lifetime is of great importance both to individuals and to society as a whole. From a governmental perspective, even small improvements in the efficiency of retirement savings strategies can lead to significant reductions in the need for public assistance programs. In New Zealand, for example, the government provides a universal pension (New Zealand Superannuation) to all citizens over the age of 65, regardless of their income or assets. This program is funded through general taxation. Faced with an aging population and increasing life expectancies, the fiscal sustainability of such programs is a growing concern. A recent Treasury report \parencite{nztreasury2025tirohanga} estimates that government spending on New Zealand Superannuation and healthcare spending will grow to nearly half of all government spending by 2065 if current policies remain unchanged. Increasing the public's ability to self-fund their retirements through increased KiwiSaver contributions, combined with means-testing or raising the age of superannuation eligibility, is widely recognised as a key policy lever to help mitigate this issue, with a broad and growing consensus that New Zealanders are under-saving for retirement \parencite[e.g.][]{national2025kiwisaver, gilbert2025lifting, palmer2025watch,dexter2025kiwisaver}. 
+
+However, key to the success of these policies is ensuring that individuals are able to make optimal decisions about how to allocate their retirement savings over their lifetime. Currently, the government does not provide much formal guidance on how individuals should allocate their retirement savings. The Financial Market Authority (FMA) mandates that "Default" KiwiSaver funds must be designed around a "Balanced" risk profile \parencite{fma2023kiwisaverDefault}. A balanced fund is defined by the FMA as one that has between 35\% and 63\% of its assets allocated to growth assets (equities and property), with the remainder in income assets (bonds and cash) \Parencite{fma2024spotlightBalanced}. This was changed in 2021 from a default "Conservative" fund \parencite{retirementnz2025snapshot}, because it was recognised that a large number of KiwiSaver investors did not change their fund allocation over time, and because a conservative allocation was far too risk-averse for the typical investor \parencite{nztreasury2019review}. While the balanced fund allocation represents a reasonable on-size-fits-all approach, it is arguably still too conservative for many investors, particularly younger ones with long investment horizons.
+
+As we have already discussed, the optimal lifetime asset allocation for an individual investor is a complex problem that depends on a wide range of factors unique to that individual. These factors include their risk tolerance, savings capacity, spending needs, lifespan, and overall wealth. The question of how to best balance these factors to achieve an optimal asset allocation over the course of an individual's lifetime is a topic of ongoing research and debate within the field of personal finance. already, a large amount of literature, rules-of-thumb, and financial products already exist which seek to answer this question.
+
+In general, the typical approach implemented by advisors and fund managers is to recommend a decreasing allocation to risky assets (equities) as the investor ages \parencite[e.g.][]{dolvin2010asset}. An example of this are the various 'age-in-bonds rules' or 'glide path' approaches in which the investor's asset allocation is presented as a function of their age, with the allocation to less risky securities increasing linearly over time. 
+
+
+ New Zealand fund manager Superlife's 'Age Steps' product is an example of this type of strategy, with the funds' allocations to equities decreasing from 95\% (at age-step 20) to 10\% (age-step 80) \parencite{superlife_nodate}.
 
 However, academic work by \textcite{estrada2014glidepath, estrada2015retirement}, \textcite{shiller2005life}, and others all find robust, international evidence that this decreasing-equity approach is not the correct strategy. Rather, an increasing allocation to risk as the person moves further into retirement offers both better upside potential and better protection against destitution. When considering the accumulation period as well, \textcite{estrada2014glidepath} and \textcite{anarkulova2025beyond} find that “inverted-U” shaped strategies to be more advantageous, where the allocation to safe assets starts low, is highest at retirement and decreases thereafter. Additionally, Estrada, J. (2015) and Anarkulova et al. (2025) also argue that an all-equity allocation presents virtually the same downside risks and better upside benefits, suggesting that this may be the optimal approach for many investors. 
 
@@ -53,50 +61,7 @@ The method proposed in their paper does have some limitations however, principal
 
 
 
-
-
-\section{Method}
-
-
-
-
-% \begin{equation}
-%     W_i^{n+1} = \begin{cases} \left( W_i^n + \mathrm{IC}_n \right) \cdot \left( P(W_i)_{n, \text{bond}} \cdot \left(1 + R_i^{n, \text{bond}}\right) + P(W_i)_{n, \text{stock}} \cdot \left(1 + R_i^{n, \text{stock}}\right) \right), & \text{if } W_i^{n+1} > 0, \ 0, & \text{otherwise.} \end{cases}
-% \end{equation}
-Our paper will look at just a three-asset portfolio consisting of "Cash", "Income", and "Equity" proportions, respectively. These proportions are based on existing asset allocations from Consilium Companies' model portfolios. Returns for these model portfolio allocations are calculated monthly, assuming annual re-balancing and assuming that all distributions are reinvested. 
-
-
-
-\begin{table}[h!]
-\centering
-\begin{tabular}{lccc}
-\toprule
-\textbf{Name} & \textbf{Cash} & \textbf{Equity} & \textbf{Income} \\
-\midrule
-Start date & Jan-95 & Jan-95 & Jan-95 \\
-Rebalancing Frequency & 6 & 6 & 6 \\
-\midrule
-\textbf{Asset} & & & \\
-Dimensional Global Core Equity Trust (NZD) & & 28.57\% & \\
-Dimensional Australian Value Trust & & 5.61\% & \\
-Dimensional Australian Small Company Trust & & 4.08\% & \\
-Dimensional Emerging Markets Value Trust & & 7.65\% & \\
-Evidential Sustainable Targeted Factor Fund & & 34.69\% & \\
-Harbour NZ Index Shares Fund & & 15.31\% & \\
-Kernel NZ Small \& Mid Cap Opportunities Fund & & 4.08\% & \\
-Harbour NZ Corporate Bond Fund & & & 25.64\% \\
-Dimensional Two-Year Sustainability Fixed Interest PIE & & & 34.62\% \\
-Dimensional Five-Year Diversified Fixed Interest PIE & & & 29.49\% \\
-Evidential Sustainable Global Bond Fund (NZD) & & & 10.26\% \\
-NZ OCR Less 25bps & 100.00\% & & \\
-\bottomrule
-\end{tabular}
-\caption{Model Allocation constructions for the three asset classes used in the study.}
-\label{tab:consilium_allocations}
-\end{table}
-
-\subsection{Two Asset Portfolio, Gaussian Returns}
-
+\printbibliography
 
 
 
