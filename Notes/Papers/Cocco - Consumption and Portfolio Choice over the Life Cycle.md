@@ -19,5 +19,5 @@
 
 ## Summary
 
-Studied optimal [[Life-cycle Asset Allocation]]. Found that because [[Human Capital]] is equivalent to a risk-free asset, yound investors should have more exposure to equities.
+Studied optimal [[Life-cycle Asset Allocation]]. Found that because [[Human Capital]] is equivalent to a risk-free asset, yound investors should have more exposure to equities ([[Decreasing Equity Strategy]])
 

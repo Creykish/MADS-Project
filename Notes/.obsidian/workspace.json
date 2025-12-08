@@ -37,14 +37,10 @@
             "id": "a63f9aafff8bfb4f",
             "type": "leaf",
             "state": {
-              "type": "markdown",
-              "state": {
-                "file": "Papers/Merton & Bodie - Labor supply flexibility and portfolio choice in a life cycle model.md",
-                "mode": "source",
-                "source": false
-              },
-              "icon": "lucide-file",
-              "title": "Merton & Bodie - Labor supply flexibility and portfolio choice in a life cycle model"
+              "type": "graph",
+              "state": {},
+              "icon": "lucide-git-fork",
+              "title": "Graph view"
             }
           }
         ],
@@ -195,9 +191,11 @@
   },
   "active": "a63f9aafff8bfb4f",
   "lastOpenFiles": [
-    "Papers/PDF Downloads/metronandbodiehumancp.pdf",
     "Papers/Cocco - Consumption and Portfolio Choice over the Life Cycle.md",
+    "Findings/Declining-risk Strategies are sub-optimal.md",
+    "Findings/Greater Aversion Destitution Risk than Underspending.md",
     "Papers/Merton & Bodie - Labor supply flexibility and portfolio choice in a life cycle model.md",
+    "Papers/PDF Downloads/metronandbodiehumancp.pdf",
     "Topics/Human Capital.md",
     "Papers/Merton - Lifetime Portfolio Selection under Uncertainty.md",
     "Topics/Human Capital",
@@ -220,7 +218,6 @@
     "Papers/Anarkulova - A Critical Assessment of Lifecycle Investment Advice.md",
     "Papers/Asset Allocation Explains Fund Performance.md",
     "Findings/Retirees Spend Less in Retirement than Predicted by Theory.md",
-    "Findings/Declining-risk Strategies are sub-optimal.md",
     "Findings/Bequeathment a significant motive.md",
     "Findings/Bequeathment not significant motive.md",
     "Papers/PDF Downloads/ssrn-4590406.pdf",
@@ -229,7 +226,6 @@
     "Papers/PDF Downloads/Kopczuk-LeaveLeaveDistribution-2007.pdf",
     "Papers/PDF Downloads/bequeth.pdf",
     "Papers/PDF Downloads/Does_Asset_Allocation_Policy_Explain_40_90_100_Per.pdf",
-    "Papers/PDF Downloads/saving_pref_aus_ned.pdf",
-    "Papers/PDF Downloads/hubbard1995.pdf"
+    "Papers/PDF Downloads/saving_pref_aus_ned.pdf"
   ]
 }
