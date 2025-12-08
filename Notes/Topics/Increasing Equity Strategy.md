@@ -1,0 +1,1 @@
+A [[Life-cycle Asset Allocation]] strategy that increase one's exposure to equities with age. 

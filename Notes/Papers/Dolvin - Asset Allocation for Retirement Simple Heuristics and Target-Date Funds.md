@@ -22,3 +22,5 @@ url = {https://digitalcommons.butler.edu/cob_papers/17}
 Examines common [[Life-cycle Asset Allocation]] strategies. Finds most implemented solutions follow an [[Age in Bonds Rule]], approximating a 120-age rule. Used bootstrapped historical returns to simulate the performance of different strategies. 
 
 Finds these strategies sub-optimal compared to a [[100% Stock Portfolio]]. 
+
+[[Declining-risk Strategies are sub-optimal]]

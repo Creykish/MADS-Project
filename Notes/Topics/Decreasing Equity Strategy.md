@@ -1,0 +1,1 @@
+A [[Life-cycle Asset Allocation]] strategy that decreases exposure to risky assets over time. 

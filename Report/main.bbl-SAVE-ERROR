@@ -1,0 +1,2251 @@
+% $ biblatex auxiliary file $
+% $ biblatex bbl format version 3.3 $
+% Do not modify the above lines!
+%
+% This is an auxiliary file used by the 'biblatex' package.
+% This file may safely be deleted. It will be recreated by
+% biber as required.
+%
+\begingroup
+\makeatletter
+\@ifundefined{ver@biblatex.sty}
+  {\@latex@error
+     {Missing 'biblatex' package}
+     {The bibliography requires the 'biblatex' package.}
+      \aftergroup\endinput}
+  {}
+\endgroup
+
+
+\refsection{0}
+  \datalist[entry]{apa/apasortcite//global/global/global}
+    \entry{anarkulova2025beyond}{misc}{}{}
+      \name{author}{3}{}{%
+        {{un=0,uniquepart=base,hash=58dc9f500f01dae1f945184b7c5b7194}{%
+           family={Anarkulova},
+           familyi={A\bibinitperiod},
+           given={A.},
+           giveni={A\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=cc1cc8ceb037b12b67a5888a4f3fd1a4}{%
+           family={Cederburg},
+           familyi={C\bibinitperiod},
+           given={S.},
+           giveni={S\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=952102f7f3ce73af52b47ac2ad8d0c57}{%
+           family={O'Doherty},
+           familyi={O\bibinitperiod},
+           given={M.\bibnamedelimi S.},
+           giveni={M\bibinitperiod\bibinitdelim S\bibinitperiod},
+           givenun=0}}%
+      }
+      \strng{namehash}{d72215f7d097fd7bb8b9ed415aaa45c2}
+      \strng{fullhash}{5266c60ba07017405877013cababa1d1}
+      \strng{fullhashraw}{5266c60ba07017405877013cababa1d1}
+      \strng{bibnamehash}{5266c60ba07017405877013cababa1d1}
+      \strng{authorbibnamehash}{5266c60ba07017405877013cababa1d1}
+      \strng{authornamehash}{d72215f7d097fd7bb8b9ed415aaa45c2}
+      \strng{authorfullhash}{5266c60ba07017405877013cababa1d1}
+      \strng{authorfullhashraw}{5266c60ba07017405877013cababa1d1}
+      \field{sortinit}{A}
+      \field{sortinithash}{2f401846e2029bad6b3ecc16d50031e2}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \true{uniqueprimaryauthor}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{month}{3}
+      \field{note}{SSRN Working Paper}
+      \field{title}{Beyond the Status Quo: A Critical Assessment of Lifecycle Investment Advice}
+      \field{year}{2025}
+      \verb{urlraw}
+      \verb https://doi.org/10.2139/ssrn.4590406
+      \endverb
+      \verb{url}
+      \verb https://doi.org/10.2139/ssrn.4590406
+      \endverb
+    \endentry
+    \entry{ando1963life}{article}{}{}
+      \name{author}{2}{}{%
+        {{un=0,uniquepart=base,hash=c620229431dd7e2437f8b363866c2b63}{%
+           family={Ando},
+           familyi={A\bibinitperiod},
+           given={Albert},
+           giveni={A\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=e7dc8055ba1f80fed2d1eeba6cc2e246}{%
+           family={Modigliani},
+           familyi={M\bibinitperiod},
+           given={Franco},
+           giveni={F\bibinitperiod},
+           givenun=0}}%
+      }
+      \strng{namehash}{bcb7be9c67ec4e65623718bdc61a29af}
+      \strng{fullhash}{bcb7be9c67ec4e65623718bdc61a29af}
+      \strng{fullhashraw}{bcb7be9c67ec4e65623718bdc61a29af}
+      \strng{bibnamehash}{bcb7be9c67ec4e65623718bdc61a29af}
+      \strng{authorbibnamehash}{bcb7be9c67ec4e65623718bdc61a29af}
+      \strng{authornamehash}{bcb7be9c67ec4e65623718bdc61a29af}
+      \strng{authorfullhash}{bcb7be9c67ec4e65623718bdc61a29af}
+      \strng{authorfullhashraw}{bcb7be9c67ec4e65623718bdc61a29af}
+      \field{sortinit}{A}
+      \field{sortinithash}{2f401846e2029bad6b3ecc16d50031e2}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \true{uniqueprimaryauthor}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{The American Economic Review}
+      \field{number}{1}
+      \field{title}{The “Life Cycle” Hypothesis of Saving: Aggregate Implications and Tests}
+      \field{volume}{53}
+      \field{year}{1963}
+      \field{pages}{55\bibrangedash 84}
+      \range{pages}{30}
+      \verb{urlraw}
+      \verb https://www.jstor.org/stable/1817129
+      \endverb
+      \verb{url}
+      \verb https://www.jstor.org/stable/1817129
+      \endverb
+    \endentry
+    \entry{bengen1996asset}{article}{}{}
+      \name{author}{1}{}{%
+        {{un=0,uniquepart=base,hash=258c559913f71e8aa8a88f36697e4db3}{%
+           family={Bengen},
+           familyi={B\bibinitperiod},
+           given={William\bibnamedelima P.},
+           giveni={W\bibinitperiod\bibinitdelim P\bibinitperiod},
+           givenun=0}}%
+      }
+      \strng{namehash}{258c559913f71e8aa8a88f36697e4db3}
+      \strng{fullhash}{258c559913f71e8aa8a88f36697e4db3}
+      \strng{fullhashraw}{258c559913f71e8aa8a88f36697e4db3}
+      \strng{bibnamehash}{258c559913f71e8aa8a88f36697e4db3}
+      \strng{authorbibnamehash}{258c559913f71e8aa8a88f36697e4db3}
+      \strng{authornamehash}{258c559913f71e8aa8a88f36697e4db3}
+      \strng{authorfullhash}{258c559913f71e8aa8a88f36697e4db3}
+      \strng{authorfullhashraw}{258c559913f71e8aa8a88f36697e4db3}
+      \field{sortinit}{B}
+      \field{sortinithash}{d7095fff47cda75ca2589920aae98399}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \true{uniqueprimaryauthor}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Journal of Financial Planning}
+      \field{month}{8}
+      \field{number}{4}
+      \field{title}{Asset Allocation for a Lifetime}
+      \field{volume}{9}
+      \field{year}{1996}
+      \field{pages}{86\bibrangedash 92}
+      \range{pages}{7}
+      \verb{urlraw}
+      \verb https://www.financialplanningassociation.org/article/journal/AUG96-asset-allocation-lifetime
+      \endverb
+      \verb{url}
+      \verb https://www.financialplanningassociation.org/article/journal/AUG96-asset-allocation-lifetime
+      \endverb
+    \endentry
+    \entry{bodie2023investments}{book}{}{}
+      \name{author}{3}{}{%
+        {{un=0,uniquepart=base,hash=2341ffa07063e2a6c6e1f0dda3fbd1dd}{%
+           family={Bodie},
+           familyi={B\bibinitperiod},
+           given={Zvi},
+           giveni={Z\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=e180d175815926e10cf844c326004d79}{%
+           family={Kane},
+           familyi={K\bibinitperiod},
+           given={Alex},
+           giveni={A\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=fe7c3240cca252d2ecb35f73e1413443}{%
+           family={Marcus},
+           familyi={M\bibinitperiod},
+           given={Alan\bibnamedelima J.},
+           giveni={A\bibinitperiod\bibinitdelim J\bibinitperiod},
+           givenun=0}}%
+      }
+      \list{publisher}{1}{%
+        {McGraw-Hill US Higher Ed ISE}%
+      }
+      \strng{namehash}{543f6933a0861972e69aff64c285e2d1}
+      \strng{fullhash}{3a95f5ed5540e98aadcfda15b8a75cb5}
+      \strng{fullhashraw}{3a95f5ed5540e98aadcfda15b8a75cb5}
+      \strng{bibnamehash}{3a95f5ed5540e98aadcfda15b8a75cb5}
+      \strng{authorbibnamehash}{3a95f5ed5540e98aadcfda15b8a75cb5}
+      \strng{authornamehash}{543f6933a0861972e69aff64c285e2d1}
+      \strng{authorfullhash}{3a95f5ed5540e98aadcfda15b8a75cb5}
+      \strng{authorfullhashraw}{3a95f5ed5540e98aadcfda15b8a75cb5}
+      \field{sortinit}{B}
+      \field{sortinithash}{d7095fff47cda75ca2589920aae98399}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \true{uniqueprimaryauthor}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{Investments}
+      \field{year}{2023}
+      \verb{urlraw}
+      \verb https://ebookcentral.proquest.com/lib/canterbury/detail.action?docID=7190049
+      \endverb
+      \verb{url}
+      \verb https://ebookcentral.proquest.com/lib/canterbury/detail.action?docID=7190049
+      \endverb
+    \endentry
+    \entry{campbellRiskAndReturns}{article}{}{}
+      \name{author}{1}{}{%
+        {{un=0,uniquepart=base,hash=b7ec0e33525f8b94af88e38cc709b02d}{%
+           family={Campbell},
+           familyi={C\bibinitperiod},
+           given={John\bibnamedelima Y.},
+           giveni={J\bibinitperiod\bibinitdelim Y\bibinitperiod},
+           givenun=0}}%
+      }
+      \strng{namehash}{b7ec0e33525f8b94af88e38cc709b02d}
+      \strng{fullhash}{b7ec0e33525f8b94af88e38cc709b02d}
+      \strng{fullhashraw}{b7ec0e33525f8b94af88e38cc709b02d}
+      \strng{bibnamehash}{b7ec0e33525f8b94af88e38cc709b02d}
+      \strng{authorbibnamehash}{b7ec0e33525f8b94af88e38cc709b02d}
+      \strng{authornamehash}{b7ec0e33525f8b94af88e38cc709b02d}
+      \strng{authorfullhash}{b7ec0e33525f8b94af88e38cc709b02d}
+      \strng{authorfullhashraw}{b7ec0e33525f8b94af88e38cc709b02d}
+      \field{sortinit}{C}
+      \field{sortinithash}{4d103a86280481745c9c897c925753c0}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \true{uniqueprimaryauthor}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Journal of Political Economy}
+      \field{number}{2}
+      \field{title}{Understanding Risk and Return}
+      \field{volume}{104}
+      \field{year}{1996}
+      \field{pages}{298\bibrangedash 345}
+      \range{pages}{48}
+    \endentry
+    \entry{choi2022popular}{article}{}{}
+      \name{author}{1}{}{%
+        {{un=0,uniquepart=base,hash=e96a662fdf14508da4dafa1b1631e1cd}{%
+           family={Choi},
+           familyi={C\bibinitperiod},
+           given={James\bibnamedelima J.},
+           giveni={J\bibinitperiod\bibinitdelim J\bibinitperiod},
+           givenun=0}}%
+      }
+      \strng{namehash}{e96a662fdf14508da4dafa1b1631e1cd}
+      \strng{fullhash}{e96a662fdf14508da4dafa1b1631e1cd}
+      \strng{fullhashraw}{e96a662fdf14508da4dafa1b1631e1cd}
+      \strng{bibnamehash}{e96a662fdf14508da4dafa1b1631e1cd}
+      \strng{authorbibnamehash}{e96a662fdf14508da4dafa1b1631e1cd}
+      \strng{authornamehash}{e96a662fdf14508da4dafa1b1631e1cd}
+      \strng{authorfullhash}{e96a662fdf14508da4dafa1b1631e1cd}
+      \strng{authorfullhashraw}{e96a662fdf14508da4dafa1b1631e1cd}
+      \field{sortinit}{C}
+      \field{sortinithash}{4d103a86280481745c9c897c925753c0}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \true{uniqueprimaryauthor}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Journal of Economic Perspectives}
+      \field{number}{4}
+      \field{title}{Popular Personal Financial Advice versus the Professors}
+      \field{volume}{36}
+      \field{year}{2022}
+      \field{pages}{167\bibrangedash 192}
+      \range{pages}{26}
+      \verb{urlraw}
+      \verb https://www.jstor.org/stable/27171135
+      \endverb
+      \verb{url}
+      \verb https://www.jstor.org/stable/27171135
+      \endverb
+    \endentry
+    \entry{dexter2025kiwisaver}{online}{}{}
+      \name{author}{1}{}{%
+        {{un=0,uniquepart=base,hash=fd6b8d115c4757551c4a90cc1be40df5}{%
+           family={Dexter},
+           familyi={D\bibinitperiod},
+           given={Giles},
+           giveni={G\bibinitperiod},
+           givenun=0}}%
+      }
+      \strng{namehash}{fd6b8d115c4757551c4a90cc1be40df5}
+      \strng{fullhash}{fd6b8d115c4757551c4a90cc1be40df5}
+      \strng{fullhashraw}{fd6b8d115c4757551c4a90cc1be40df5}
+      \strng{bibnamehash}{fd6b8d115c4757551c4a90cc1be40df5}
+      \strng{authorbibnamehash}{fd6b8d115c4757551c4a90cc1be40df5}
+      \strng{authornamehash}{fd6b8d115c4757551c4a90cc1be40df5}
+      \strng{authorfullhash}{fd6b8d115c4757551c4a90cc1be40df5}
+      \strng{authorfullhashraw}{fd6b8d115c4757551c4a90cc1be40df5}
+      \field{sortinit}{D}
+      \field{sortinithash}{6f385f66841fb5e82009dc833c761848}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \true{uniqueprimaryauthor}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{day}{24}
+      \field{month}{11}
+      \field{title}{KiwiSaver provider calls for increased contribution to be compulsory}
+      \field{urlday}{6}
+      \field{urlmonth}{12}
+      \field{urlyear}{2025}
+      \field{year}{2025}
+      \field{dateera}{ce}
+      \field{urldateera}{ce}
+      \verb{urlraw}
+      \verb https://www.rnz.co.nz/news/political/579777/kiwisaver-provider-calls-for-increased-contribution-to-be-compulsory
+      \endverb
+      \verb{url}
+      \verb https://www.rnz.co.nz/news/political/579777/kiwisaver-provider-calls-for-increased-contribution-to-be-compulsory
+      \endverb
+    \endentry
+    \entry{dolvin2010asset}{article}{}{}
+      \name{author}{3}{}{%
+        {{un=0,uniquepart=base,hash=528f94fb9f395f6b1995429bfb4ea6c9}{%
+           family={Dolvin},
+           familyi={D\bibinitperiod},
+           given={S.\bibnamedelimi D.},
+           giveni={S\bibinitperiod\bibinitdelim D\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=4cf669dca49acb065df5e308dd9d0398}{%
+           family={Templeton},
+           familyi={T\bibinitperiod},
+           given={W.\bibnamedelimi K.},
+           giveni={W\bibinitperiod\bibinitdelim K\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=81d78a145def6d9c2ae4327a78917199}{%
+           family={Rieber},
+           familyi={R\bibinitperiod},
+           given={W.},
+           giveni={W\bibinitperiod},
+           givenun=0}}%
+      }
+      \strng{namehash}{793ef1a8a5f1b28e442f4ada4520a694}
+      \strng{fullhash}{28b78c1ca39bb04b2f8c6d2dc8ff3a52}
+      \strng{fullhashraw}{28b78c1ca39bb04b2f8c6d2dc8ff3a52}
+      \strng{bibnamehash}{28b78c1ca39bb04b2f8c6d2dc8ff3a52}
+      \strng{authorbibnamehash}{28b78c1ca39bb04b2f8c6d2dc8ff3a52}
+      \strng{authornamehash}{793ef1a8a5f1b28e442f4ada4520a694}
+      \strng{authorfullhash}{28b78c1ca39bb04b2f8c6d2dc8ff3a52}
+      \strng{authorfullhashraw}{28b78c1ca39bb04b2f8c6d2dc8ff3a52}
+      \field{sortinit}{D}
+      \field{sortinithash}{6f385f66841fb5e82009dc833c761848}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \true{uniqueprimaryauthor}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Scholarship and Professional Work - Business}
+      \field{number}{17}
+      \field{title}{Asset Allocation for Retirement: Simple Heuristics and Target-Date Funds}
+      \field{year}{2010}
+      \verb{urlraw}
+      \verb https://digitalcommons.butler.edu/cob_papers/17
+      \endverb
+      \verb{url}
+      \verb https://digitalcommons.butler.edu/cob_papers/17
+      \endverb
+    \endentry
+    \entry{estrada2014glidepath}{article}{}{}
+      \name{author}{1}{}{%
+        {{un=0,uniquepart=base,hash=d2b858efdd160f70144d94cd0a344e0e}{%
+           family={Estrada},
+           familyi={E\bibinitperiod},
+           given={J.},
+           giveni={J\bibinitperiod},
+           givenun=0}}%
+      }
+      \strng{namehash}{d2b858efdd160f70144d94cd0a344e0e}
+      \strng{fullhash}{d2b858efdd160f70144d94cd0a344e0e}
+      \strng{fullhashraw}{d2b858efdd160f70144d94cd0a344e0e}
+      \strng{bibnamehash}{d2b858efdd160f70144d94cd0a344e0e}
+      \strng{authorbibnamehash}{d2b858efdd160f70144d94cd0a344e0e}
+      \strng{authornamehash}{d2b858efdd160f70144d94cd0a344e0e}
+      \strng{authorfullhash}{d2b858efdd160f70144d94cd0a344e0e}
+      \strng{authorfullhashraw}{d2b858efdd160f70144d94cd0a344e0e}
+      \field{extraname}{1}
+      \field{sortinit}{E}
+      \field{sortinithash}{8da8a182d344d5b9047633dfc0cc9131}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \true{uniqueprimaryauthor}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{The Journal of Portfolio Management}
+      \field{number}{4}
+      \field{title}{The Glidepath Illusion: An International Perspective}
+      \field{volume}{40}
+      \field{year}{2014}
+      \field{pages}{52\bibrangedash 64}
+      \range{pages}{13}
+      \verb{doi}
+      \verb 10.3905/jpm.2014.40.4.052
+      \endverb
+    \endentry
+    \entry{estrada2015retirement}{article}{}{}
+      \name{author}{1}{}{%
+        {{un=0,uniquepart=base,hash=d2b858efdd160f70144d94cd0a344e0e}{%
+           family={Estrada},
+           familyi={E\bibinitperiod},
+           given={J.},
+           giveni={J\bibinitperiod},
+           givenun=0}}%
+      }
+      \strng{namehash}{d2b858efdd160f70144d94cd0a344e0e}
+      \strng{fullhash}{d2b858efdd160f70144d94cd0a344e0e}
+      \strng{fullhashraw}{d2b858efdd160f70144d94cd0a344e0e}
+      \strng{bibnamehash}{d2b858efdd160f70144d94cd0a344e0e}
+      \strng{authorbibnamehash}{d2b858efdd160f70144d94cd0a344e0e}
+      \strng{authornamehash}{d2b858efdd160f70144d94cd0a344e0e}
+      \strng{authorfullhash}{d2b858efdd160f70144d94cd0a344e0e}
+      \strng{authorfullhashraw}{d2b858efdd160f70144d94cd0a344e0e}
+      \field{extraname}{2}
+      \field{sortinit}{E}
+      \field{sortinithash}{8da8a182d344d5b9047633dfc0cc9131}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \true{uniqueprimaryauthor}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{The Journal of Investing}
+      \field{number}{2}
+      \field{title}{The Retirement Glidepath: An International Perspective}
+      \field{volume}{25}
+      \field{year}{2015}
+      \field{pages}{28\bibrangedash 36}
+      \range{pages}{9}
+      \verb{doi}
+      \verb 10.3905/joi.2016.25.2.028
+      \endverb
+    \endentry
+    \entry{fma2023kiwisaverDefault}{online}{}{}
+      \name{author}{1}{}{%
+        {{un=0,uniquepart=base,hash=08b75521487779898ccf763abc312dca}{%
+           family={{Financial Markets Authority}},
+           familyi={F\bibinitperiod}}}%
+      }
+      \strng{namehash}{08b75521487779898ccf763abc312dca}
+      \strng{fullhash}{08b75521487779898ccf763abc312dca}
+      \strng{fullhashraw}{08b75521487779898ccf763abc312dca}
+      \strng{bibnamehash}{08b75521487779898ccf763abc312dca}
+      \strng{authorbibnamehash}{08b75521487779898ccf763abc312dca}
+      \strng{authornamehash}{08b75521487779898ccf763abc312dca}
+      \strng{authorfullhash}{08b75521487779898ccf763abc312dca}
+      \strng{authorfullhashraw}{08b75521487779898ccf763abc312dca}
+      \field{extraname}{1}
+      \field{sortinit}{F}
+      \field{sortinithash}{2638baaa20439f1b5a8f80c6c08a13b4}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \true{uniqueprimaryauthor}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{day}{9}
+      \field{month}{8}
+      \field{title}{KiwiSaver default funds}
+      \field{urlday}{6}
+      \field{urlmonth}{12}
+      \field{urlyear}{2025}
+      \field{year}{2023}
+      \field{dateera}{ce}
+      \field{urldateera}{ce}
+      \verb{urlraw}
+      \verb https://www.fma.govt.nz/consumer/kiwisaver-and-superannuation/about-kiwisaver/kiwisaver-default-funds/
+      \endverb
+      \verb{url}
+      \verb https://www.fma.govt.nz/consumer/kiwisaver-and-superannuation/about-kiwisaver/kiwisaver-default-funds/
+      \endverb
+    \endentry
+    \entry{fma2024spotlightBalanced}{online}{}{}
+      \name{author}{1}{}{%
+        {{un=0,uniquepart=base,hash=08b75521487779898ccf763abc312dca}{%
+           family={{Financial Markets Authority}},
+           familyi={F\bibinitperiod}}}%
+      }
+      \strng{namehash}{08b75521487779898ccf763abc312dca}
+      \strng{fullhash}{08b75521487779898ccf763abc312dca}
+      \strng{fullhashraw}{08b75521487779898ccf763abc312dca}
+      \strng{bibnamehash}{08b75521487779898ccf763abc312dca}
+      \strng{authorbibnamehash}{08b75521487779898ccf763abc312dca}
+      \strng{authornamehash}{08b75521487779898ccf763abc312dca}
+      \strng{authorfullhash}{08b75521487779898ccf763abc312dca}
+      \strng{authorfullhashraw}{08b75521487779898ccf763abc312dca}
+      \field{extraname}{2}
+      \field{sortinit}{F}
+      \field{sortinithash}{2638baaa20439f1b5a8f80c6c08a13b4}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \true{uniqueprimaryauthor}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{day}{24}
+      \field{month}{6}
+      \field{title}{Spotlight on: Balanced Funds}
+      \field{urlday}{6}
+      \field{urlmonth}{12}
+      \field{urlyear}{2025}
+      \field{year}{2024}
+      \field{dateera}{ce}
+      \field{urldateera}{ce}
+      \verb{urlraw}
+      \verb https://www.fma.govt.nz/library/articles/spotlight-on-balanced-funds/
+      \endverb
+      \verb{url}
+      \verb https://www.fma.govt.nz/library/articles/spotlight-on-balanced-funds/
+      \endverb
+    \endentry
+    \entry{ghyselsRiskAndReturns}{article}{}{}
+      \name{author}{3}{}{%
+        {{un=0,uniquepart=base,hash=fe30f81765eb94de52128d1b6585cc7f}{%
+           family={Ghysels},
+           familyi={G\bibinitperiod},
+           given={Eric},
+           giveni={E\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=f453cf806ab92ceaec8a50dc7e02fdcc}{%
+           family={Santa-Clara},
+           familyi={S\bibinithyphendelim C\bibinitperiod},
+           given={Pedro},
+           giveni={P\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=fce03caedd153edb10b8a1e828897c1f}{%
+           family={Valkanov},
+           familyi={V\bibinitperiod},
+           given={Rossen},
+           giveni={R\bibinitperiod},
+           givenun=0}}%
+      }
+      \strng{namehash}{6460f47dd78cf3a8eaf1974023b095a9}
+      \strng{fullhash}{dd627e520d120dd8b3e319fb649dd3b3}
+      \strng{fullhashraw}{dd627e520d120dd8b3e319fb649dd3b3}
+      \strng{bibnamehash}{dd627e520d120dd8b3e319fb649dd3b3}
+      \strng{authorbibnamehash}{dd627e520d120dd8b3e319fb649dd3b3}
+      \strng{authornamehash}{6460f47dd78cf3a8eaf1974023b095a9}
+      \strng{authorfullhash}{dd627e520d120dd8b3e319fb649dd3b3}
+      \strng{authorfullhashraw}{dd627e520d120dd8b3e319fb649dd3b3}
+      \field{sortinit}{G}
+      \field{sortinithash}{32d67eca0634bf53703493fb1090a2e8}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \true{uniqueprimaryauthor}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Journal of Financial Economics}
+      \field{number}{3}
+      \field{title}{There is a risk-return trade-off after all}
+      \field{volume}{76}
+      \field{year}{2005}
+      \field{pages}{509}
+      \range{pages}{1}
+    \endentry
+    \entry{gilbert2025lifting}{online}{}{}
+      \name{author}{1}{}{%
+        {{un=0,uniquepart=base,hash=87b5b51e8a66a2e44295a6e9fcde3239}{%
+           family={Gilbert},
+           familyi={G\bibinitperiod},
+           given={Aaron},
+           giveni={A\bibinitperiod},
+           givenun=0}}%
+      }
+      \strng{namehash}{87b5b51e8a66a2e44295a6e9fcde3239}
+      \strng{fullhash}{87b5b51e8a66a2e44295a6e9fcde3239}
+      \strng{fullhashraw}{87b5b51e8a66a2e44295a6e9fcde3239}
+      \strng{bibnamehash}{87b5b51e8a66a2e44295a6e9fcde3239}
+      \strng{authorbibnamehash}{87b5b51e8a66a2e44295a6e9fcde3239}
+      \strng{authornamehash}{87b5b51e8a66a2e44295a6e9fcde3239}
+      \strng{authorfullhash}{87b5b51e8a66a2e44295a6e9fcde3239}
+      \strng{authorfullhashraw}{87b5b51e8a66a2e44295a6e9fcde3239}
+      \field{sortinit}{G}
+      \field{sortinithash}{32d67eca0634bf53703493fb1090a2e8}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \true{uniqueprimaryauthor}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{day}{27}
+      \field{month}{11}
+      \field{title}{Lifting Kiwisaver contributions to 12\% makes sense – when the whole scheme is fixed}
+      \field{urlday}{6}
+      \field{urlmonth}{12}
+      \field{urlyear}{2025}
+      \field{year}{2025}
+      \field{dateera}{ce}
+      \field{urldateera}{ce}
+      \verb{urlraw}
+      \verb https://www.nzherald.co.nz/nz/lifting-kiwisaver-contributions-to-12-makes-sense-when-the-whole-scheme-is-fixed/ZTPV3QXEYBBUVDCCTQTAW2CT3A/
+      \endverb
+      \verb{url}
+      \verb https://www.nzherald.co.nz/nz/lifting-kiwisaver-contributions-to-12-makes-sense-when-the-whole-scheme-is-fixed/ZTPV3QXEYBBUVDCCTQTAW2CT3A/
+      \endverb
+    \endentry
+    \entry{ibbotsonAssetAllocation}{article}{}{}
+      \name{author}{2}{}{%
+        {{un=0,uniquepart=base,hash=a0d7a3da3fc41f403d14e12f284dc223}{%
+           family={Ibbotson},
+           familyi={I\bibinitperiod},
+           given={Roger},
+           giveni={R\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=c2444041a423561db4636482f3618b8f}{%
+           family={Kaplan},
+           familyi={K\bibinitperiod},
+           given={Paul},
+           giveni={P\bibinitperiod},
+           givenun=0}}%
+      }
+      \strng{namehash}{b16a243647b8ac6aa9e675256f4d19cf}
+      \strng{fullhash}{b16a243647b8ac6aa9e675256f4d19cf}
+      \strng{fullhashraw}{b16a243647b8ac6aa9e675256f4d19cf}
+      \strng{bibnamehash}{b16a243647b8ac6aa9e675256f4d19cf}
+      \strng{authorbibnamehash}{b16a243647b8ac6aa9e675256f4d19cf}
+      \strng{authornamehash}{b16a243647b8ac6aa9e675256f4d19cf}
+      \strng{authorfullhash}{b16a243647b8ac6aa9e675256f4d19cf}
+      \strng{authorfullhashraw}{b16a243647b8ac6aa9e675256f4d19cf}
+      \field{sortinit}{I}
+      \field{sortinithash}{8d291c51ee89b6cd86bf5379f0b151d8}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \true{uniqueprimaryauthor}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{isbn}{9781118115060}
+      \field{journaltitle}{Yale School of Management, Yale School of Management Working Papers}
+      \field{month}{01}
+      \field{title}{Does Asset Allocation Policy Explain 40, 90, 100 Percent of Performance?}
+      \field{volume}{56}
+      \field{year}{2001}
+      \verb{doi}
+      \verb 10.2469/faj.v56.n1.2327
+      \endverb
+    \endentry
+    \entry{lundbladRiskAndReturns}{article}{}{}
+      \name{author}{1}{}{%
+        {{un=0,uniquepart=base,hash=75ddf1779c756ae91faf1951db977a03}{%
+           family={Lundblad},
+           familyi={L\bibinitperiod},
+           given={Christian},
+           giveni={C\bibinitperiod},
+           givenun=0}}%
+      }
+      \strng{namehash}{75ddf1779c756ae91faf1951db977a03}
+      \strng{fullhash}{75ddf1779c756ae91faf1951db977a03}
+      \strng{fullhashraw}{75ddf1779c756ae91faf1951db977a03}
+      \strng{bibnamehash}{75ddf1779c756ae91faf1951db977a03}
+      \strng{authorbibnamehash}{75ddf1779c756ae91faf1951db977a03}
+      \strng{authornamehash}{75ddf1779c756ae91faf1951db977a03}
+      \strng{authorfullhash}{75ddf1779c756ae91faf1951db977a03}
+      \strng{authorfullhashraw}{75ddf1779c756ae91faf1951db977a03}
+      \field{sortinit}{L}
+      \field{sortinithash}{7c47d417cecb1f4bd38d1825c427a61a}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \true{uniqueprimaryauthor}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Journal of Financial Economics}
+      \field{number}{1}
+      \field{title}{The risk return tradeoff in the long run: 1836--2003}
+      \field{volume}{85}
+      \field{year}{2007}
+      \field{pages}{123\bibrangedash 150}
+      \range{pages}{28}
+      \verb{doi}
+      \verb 10.1016/j.jfineco.2006.06.003
+      \endverb
+      \verb{urlraw}
+      \verb https://doi.org/10.1016/j.jfineco.2006.06.003
+      \endverb
+      \verb{url}
+      \verb https://doi.org/10.1016/j.jfineco.2006.06.003
+      \endverb
+    \endentry
+    \entry{national2025kiwisaver}{online}{}{}
+      \name{author}{1}{}{%
+        {{un=0,uniquepart=base,hash=929cbdec017757087b3a267ff12553e1}{%
+           family={Luxon},
+           familyi={L\bibinitperiod},
+           given={Christopher},
+           giveni={C\bibinitperiod},
+           givenun=0}}%
+      }
+      \strng{namehash}{929cbdec017757087b3a267ff12553e1}
+      \strng{fullhash}{929cbdec017757087b3a267ff12553e1}
+      \strng{fullhashraw}{929cbdec017757087b3a267ff12553e1}
+      \strng{bibnamehash}{929cbdec017757087b3a267ff12553e1}
+      \strng{authorbibnamehash}{929cbdec017757087b3a267ff12553e1}
+      \strng{authornamehash}{929cbdec017757087b3a267ff12553e1}
+      \strng{authorfullhash}{929cbdec017757087b3a267ff12553e1}
+      \strng{authorfullhashraw}{929cbdec017757087b3a267ff12553e1}
+      \field{sortinit}{L}
+      \field{sortinithash}{7c47d417cecb1f4bd38d1825c427a61a}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \true{uniqueprimaryauthor}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{day}{23}
+      \field{month}{11}
+      \field{title}{National to lift Kiwisaver Contributions}
+      \field{urlday}{6}
+      \field{urlmonth}{12}
+      \field{urlyear}{2025}
+      \field{year}{2025}
+      \field{dateera}{ce}
+      \field{urldateera}{ce}
+      \verb{urlraw}
+      \verb https://www.national.org.nz/news/20251123-hon-christopher-luxon-national-to-lift-kiwisaver-contributions
+      \endverb
+      \verb{url}
+      \verb https://www.national.org.nz/news/20251123-hon-christopher-luxon-national-to-lift-kiwisaver-contributions
+      \endverb
+    \endentry
+    \entry{Makinen2024}{article}{}{}
+      \name{author}{2}{}{%
+        {{un=0,uniquepart=base,hash=0b28b3e0e0ed96c24f7085619a4cac59}{%
+           family={Mäkinen},
+           familyi={M\bibinitperiod},
+           given={Raino\bibnamedelimb A.\bibnamedelimi E.},
+           giveni={R\bibinitperiod\bibinitdelim A\bibinitperiod\bibinitdelim E\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=33b2ab881ab693f2eb20b85d1ada859d}{%
+           family={Toivanen},
+           familyi={T\bibinitperiod},
+           given={Jari},
+           giveni={J\bibinitperiod},
+           givenun=0}}%
+      }
+      \strng{namehash}{6fd8abcc461845db376e34a32315568e}
+      \strng{fullhash}{6fd8abcc461845db376e34a32315568e}
+      \strng{fullhashraw}{6fd8abcc461845db376e34a32315568e}
+      \strng{bibnamehash}{6fd8abcc461845db376e34a32315568e}
+      \strng{authorbibnamehash}{6fd8abcc461845db376e34a32315568e}
+      \strng{authornamehash}{6fd8abcc461845db376e34a32315568e}
+      \strng{authorfullhash}{6fd8abcc461845db376e34a32315568e}
+      \strng{authorfullhashraw}{6fd8abcc461845db376e34a32315568e}
+      \field{sortinit}{M}
+      \field{sortinithash}{4625c616857f13d17ce56f7d4f97d451}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \true{uniqueprimaryauthor}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{abstract}{A multiperiod portfolio optimization is described with Monte Carlo sampled risky asset paths under realistic constraints on the investment policies. The proposed approach can be used with various asset and risk models. It is flexible as it does not require dynamic programming or any transformations. As examples, the variance and semivariance risks are considered leading to mean-variance and mean-semivariance formulations, respectively. A quasi-Newton method with an adjoint gradient computation can solve the resulting optimization problems efficiently. Numerical examples show efficient frontiers together with optimal asset allocations computed for mean-variance and mean-semivariance portfolios with two and five assets.}
+      \field{issn}{1945-497X}
+      \field{journaltitle}{SIAM Journal on Financial Mathematics}
+      \field{title}{Monte Carlo Expected Wealth and Risk Measure Trade-Off Portfolio Optimization}
+      \field{year}{2024}
+    \endentry
+    \entry{MandelbrotPrices}{article}{}{}
+      \name{author}{1}{}{%
+        {{un=0,uniquepart=base,hash=83ced72c407b4739f234545c111ae19f}{%
+           family={Mandelbrot},
+           familyi={M\bibinitperiod},
+           given={Benoit},
+           giveni={B\bibinitperiod},
+           givenun=0}}%
+      }
+      \list{publisher}{1}{%
+        {University of Chicago Press}%
+      }
+      \strng{namehash}{83ced72c407b4739f234545c111ae19f}
+      \strng{fullhash}{83ced72c407b4739f234545c111ae19f}
+      \strng{fullhashraw}{83ced72c407b4739f234545c111ae19f}
+      \strng{bibnamehash}{83ced72c407b4739f234545c111ae19f}
+      \strng{authorbibnamehash}{83ced72c407b4739f234545c111ae19f}
+      \strng{authornamehash}{83ced72c407b4739f234545c111ae19f}
+      \strng{authorfullhash}{83ced72c407b4739f234545c111ae19f}
+      \strng{authorfullhashraw}{83ced72c407b4739f234545c111ae19f}
+      \field{sortinit}{M}
+      \field{sortinithash}{4625c616857f13d17ce56f7d4f97d451}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \true{uniqueprimaryauthor}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{issn}{00219398, 15375374}
+      \field{journaltitle}{The Journal of Business}
+      \field{number}{4}
+      \field{title}{The Variation of Certain Speculative Prices}
+      \field{urlday}{6}
+      \field{urlmonth}{8}
+      \field{urlyear}{2025}
+      \field{volume}{36}
+      \field{year}{1963}
+      \field{urldateera}{ce}
+      \field{pages}{394\bibrangedash 419}
+      \range{pages}{26}
+      \verb{urlraw}
+      \verb http://www.jstor.org/stable/2350970
+      \endverb
+      \verb{url}
+      \verb http://www.jstor.org/stable/2350970
+      \endverb
+    \endentry
+    \entry{MPTMarkowitz}{article}{}{}
+      \name{author}{1}{}{%
+        {{un=0,uniquepart=base,hash=bdfa1c8585b5a4ae901315043a00f2f2}{%
+           family={Markowitz},
+           familyi={M\bibinitperiod},
+           given={Harry},
+           giveni={H\bibinitperiod},
+           givenun=0}}%
+      }
+      \list{publisher}{1}{%
+        {[American Finance Association, Wiley]}%
+      }
+      \strng{namehash}{bdfa1c8585b5a4ae901315043a00f2f2}
+      \strng{fullhash}{bdfa1c8585b5a4ae901315043a00f2f2}
+      \strng{fullhashraw}{bdfa1c8585b5a4ae901315043a00f2f2}
+      \strng{bibnamehash}{bdfa1c8585b5a4ae901315043a00f2f2}
+      \strng{authorbibnamehash}{bdfa1c8585b5a4ae901315043a00f2f2}
+      \strng{authornamehash}{bdfa1c8585b5a4ae901315043a00f2f2}
+      \strng{authorfullhash}{bdfa1c8585b5a4ae901315043a00f2f2}
+      \strng{authorfullhashraw}{bdfa1c8585b5a4ae901315043a00f2f2}
+      \field{sortinit}{M}
+      \field{sortinithash}{4625c616857f13d17ce56f7d4f97d451}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \true{uniqueprimaryauthor}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{issn}{00221082, 15406261}
+      \field{journaltitle}{The Journal of Finance}
+      \field{number}{1}
+      \field{title}{Portfolio Selection}
+      \field{urlday}{6}
+      \field{urlmonth}{8}
+      \field{urlyear}{2025}
+      \field{volume}{7}
+      \field{year}{1952}
+      \field{urldateera}{ce}
+      \field{pages}{77\bibrangedash 91}
+      \range{pages}{15}
+      \verb{urlraw}
+      \verb http://www.jstor.org/stable/2975974
+      \endverb
+      \verb{url}
+      \verb http://www.jstor.org/stable/2975974
+      \endverb
+    \endentry
+    \entry{nztreasury2019review}{online}{}{}
+      \name{author}{1}{}{%
+        {{un=0,uniquepart=base,hash=c4d6ab62c06fcc28b6accfa39bbf9ba2}{%
+           family={{Ministry of Business, Innovation and Employment and The Treasury}},
+           familyi={M\bibinitperiod}}}%
+      }
+      \strng{namehash}{c4d6ab62c06fcc28b6accfa39bbf9ba2}
+      \strng{fullhash}{c4d6ab62c06fcc28b6accfa39bbf9ba2}
+      \strng{fullhashraw}{c4d6ab62c06fcc28b6accfa39bbf9ba2}
+      \strng{bibnamehash}{c4d6ab62c06fcc28b6accfa39bbf9ba2}
+      \strng{authorbibnamehash}{c4d6ab62c06fcc28b6accfa39bbf9ba2}
+      \strng{authornamehash}{c4d6ab62c06fcc28b6accfa39bbf9ba2}
+      \strng{authorfullhash}{c4d6ab62c06fcc28b6accfa39bbf9ba2}
+      \strng{authorfullhashraw}{c4d6ab62c06fcc28b6accfa39bbf9ba2}
+      \field{sortinit}{M}
+      \field{sortinithash}{4625c616857f13d17ce56f7d4f97d451}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \true{uniqueprimaryauthor}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{day}{7}
+      \field{month}{8}
+      \field{note}{Consultation document}
+      \field{title}{Review of KiwiSaver default provider arrangements}
+      \field{urlday}{6}
+      \field{urlmonth}{12}
+      \field{urlyear}{2025}
+      \field{year}{2019}
+      \field{dateera}{ce}
+      \field{urldateera}{ce}
+      \verb{urlraw}
+      \verb https://www.treasury.govt.nz/publications/consultation/review-kiwisaver-default-provider-arrangements
+      \endverb
+      \verb{url}
+      \verb https://www.treasury.govt.nz/publications/consultation/review-kiwisaver-default-provider-arrangements
+      \endverb
+    \endentry
+    \entry{oecd2025pension}{report}{}{}
+      \name{author}{1}{}{%
+        {{un=0,uniquepart=base,hash=bdbed435a416a918aa494017fda4c7fb}{%
+           family={{OECD}},
+           familyi={O\bibinitperiod}}}%
+      }
+      \list{institution}{1}{%
+        {OECD Publishing}%
+      }
+      \list{location}{1}{%
+        {Paris}%
+      }
+      \strng{namehash}{bdbed435a416a918aa494017fda4c7fb}
+      \strng{fullhash}{bdbed435a416a918aa494017fda4c7fb}
+      \strng{fullhashraw}{bdbed435a416a918aa494017fda4c7fb}
+      \strng{bibnamehash}{bdbed435a416a918aa494017fda4c7fb}
+      \strng{authorbibnamehash}{bdbed435a416a918aa494017fda4c7fb}
+      \strng{authornamehash}{bdbed435a416a918aa494017fda4c7fb}
+      \strng{authorfullhash}{bdbed435a416a918aa494017fda4c7fb}
+      \strng{authorfullhashraw}{bdbed435a416a918aa494017fda4c7fb}
+      \field{sortinit}{O}
+      \field{sortinithash}{2cd7140a07aea5341f9e2771efe90aae}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \true{uniqueprimaryauthor}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{Pension Markets in Focus 2025}
+      \field{year}{2025}
+      \verb{doi}
+      \verb 10.1787/b095d0a0-en
+      \endverb
+      \verb{urlraw}
+      \verb https://doi.org/10.1787/b095d0a0-en
+      \endverb
+      \verb{url}
+      \verb https://doi.org/10.1787/b095d0a0-en
+      \endverb
+    \endentry
+    \entry{palmer2025watch}{online}{}{}
+      \name{author}{1}{}{%
+        {{un=0,uniquepart=base,hash=873b6c04f71e72af086f0e3061bca956}{%
+           family={Palmer},
+           familyi={P\bibinitperiod},
+           given={Russell},
+           giveni={R\bibinitperiod},
+           givenun=0}}%
+      }
+      \strng{namehash}{873b6c04f71e72af086f0e3061bca956}
+      \strng{fullhash}{873b6c04f71e72af086f0e3061bca956}
+      \strng{fullhashraw}{873b6c04f71e72af086f0e3061bca956}
+      \strng{bibnamehash}{873b6c04f71e72af086f0e3061bca956}
+      \strng{authorbibnamehash}{873b6c04f71e72af086f0e3061bca956}
+      \strng{authornamehash}{873b6c04f71e72af086f0e3061bca956}
+      \strng{authorfullhash}{873b6c04f71e72af086f0e3061bca956}
+      \strng{authorfullhashraw}{873b6c04f71e72af086f0e3061bca956}
+      \field{sortinit}{P}
+      \field{sortinithash}{ff3bcf24f47321b42cb156c2cc8a8422}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \true{uniqueprimaryauthor}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{day}{7}
+      \field{month}{9}
+      \field{title}{Watch: Peters promises compulsory 10\% KiwiSaver and tax cuts}
+      \field{urlday}{6}
+      \field{urlmonth}{12}
+      \field{urlyear}{2025}
+      \field{year}{2025}
+      \field{dateera}{ce}
+      \field{urldateera}{ce}
+      \verb{urlraw}
+      \verb https://www.rnz.co.nz/news/national/572352/watch-peters-promises-compulsory-10-percent-kiwisaver-and-tax-cuts
+      \endverb
+      \verb{url}
+      \verb https://www.rnz.co.nz/news/national/572352/watch-peters-promises-compulsory-10-percent-kiwisaver-and-tax-cuts
+      \endverb
+    \endentry
+    \entry{retirementnz2025snapshot}{online}{}{}
+      \name{author}{1}{}{%
+        {{un=0,uniquepart=base,hash=080955f3e4cdb899cdda66566d6ddf85}{%
+           family={{Retirement Commission Te Ara Ahunga Ora}},
+           familyi={R\bibinitperiod}}}%
+      }
+      \strng{namehash}{080955f3e4cdb899cdda66566d6ddf85}
+      \strng{fullhash}{080955f3e4cdb899cdda66566d6ddf85}
+      \strng{fullhashraw}{080955f3e4cdb899cdda66566d6ddf85}
+      \strng{bibnamehash}{080955f3e4cdb899cdda66566d6ddf85}
+      \strng{authorbibnamehash}{080955f3e4cdb899cdda66566d6ddf85}
+      \strng{authornamehash}{080955f3e4cdb899cdda66566d6ddf85}
+      \strng{authorfullhash}{080955f3e4cdb899cdda66566d6ddf85}
+      \strng{authorfullhashraw}{080955f3e4cdb899cdda66566d6ddf85}
+      \field{sortinit}{R}
+      \field{sortinithash}{5e1c39a9d46ffb6bebd8f801023a9486}
+      \field{labeldatesource}{nodate}
+      \true{uniqueprimaryauthor}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{note}{PDF pamphlet}
+      \field{title}{A Snapshot of the History of KiwiSaver}
+      \field{urlday}{6}
+      \field{urlmonth}{12}
+      \field{urlyear}{2025}
+      \field{urldateera}{ce}
+      \verb{urlraw}
+      \verb https://assets.retirement.govt.nz/public/Uploads/Retirement-Income-Policy-Review/TAAO-A-Snapshot-of-the-History-of-KiwiSaver.pdf
+      \endverb
+      \verb{url}
+      \verb https://assets.retirement.govt.nz/public/Uploads/Retirement-Income-Policy-Review/TAAO-A-Snapshot-of-the-History-of-KiwiSaver.pdf
+      \endverb
+      \warn{\item online entry 'retirementnz2025snapshot' (./bib.bib): Invalid format 'N.D.' of date field 'date' - ignoring}
+    \endentry
+    \entry{shiller2005life}{article}{}{}
+      \name{author}{1}{}{%
+        {{un=1,uniquepart=given,hash=cfac8cb46cd989bf8667b5d5a183e4c7}{%
+           family={Shiller},
+           familyi={S\bibinitperiod},
+           given={R.},
+           giveni={R\bibinitperiod},
+           givenun=1}}%
+      }
+      \strng{namehash}{cfac8cb46cd989bf8667b5d5a183e4c7}
+      \strng{fullhash}{cfac8cb46cd989bf8667b5d5a183e4c7}
+      \strng{fullhashraw}{cfac8cb46cd989bf8667b5d5a183e4c7}
+      \strng{bibnamehash}{cfac8cb46cd989bf8667b5d5a183e4c7}
+      \strng{authorbibnamehash}{cfac8cb46cd989bf8667b5d5a183e4c7}
+      \strng{authornamehash}{cfac8cb46cd989bf8667b5d5a183e4c7}
+      \strng{authorfullhash}{cfac8cb46cd989bf8667b5d5a183e4c7}
+      \strng{authorfullhashraw}{cfac8cb46cd989bf8667b5d5a183e4c7}
+      \field{sortinit}{S}
+      \field{sortinithash}{b164b07b29984b41daf1e85279fbc5ab}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{The Economists' Voice}
+      \field{number}{1}
+      \field{title}{Life-Cycle Portfolios as Government Policy}
+      \field{volume}{2}
+      \field{year}{2005}
+      \field{pages}{14\bibrangedash 14}
+      \range{pages}{1}
+      \verb{doi}
+      \verb 10.2202/1553-3832.1095
+      \endverb
+    \endentry
+    \entry{shiller2006lifecycleSocialSecurity}{article}{}{}
+      \name{author}{1}{}{%
+        {{un=1,uniquepart=given,hash=9d82a77d715bb25ddd61e8456f95a4f4}{%
+           family={Shiller},
+           familyi={S\bibinitperiod},
+           given={Robert\bibnamedelima J.},
+           giveni={R\bibinitperiod\bibinitdelim J\bibinitperiod},
+           givenun=1}}%
+      }
+      \strng{namehash}{9d82a77d715bb25ddd61e8456f95a4f4}
+      \strng{fullhash}{9d82a77d715bb25ddd61e8456f95a4f4}
+      \strng{fullhashraw}{9d82a77d715bb25ddd61e8456f95a4f4}
+      \strng{bibnamehash}{9d82a77d715bb25ddd61e8456f95a4f4}
+      \strng{authorbibnamehash}{9d82a77d715bb25ddd61e8456f95a4f4}
+      \strng{authornamehash}{9d82a77d715bb25ddd61e8456f95a4f4}
+      \strng{authorfullhash}{9d82a77d715bb25ddd61e8456f95a4f4}
+      \strng{authorfullhashraw}{9d82a77d715bb25ddd61e8456f95a4f4}
+      \field{sortinit}{S}
+      \field{sortinithash}{b164b07b29984b41daf1e85279fbc5ab}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{abstract}{The life-cycle portfolio proposal for personal accounts within a Social Security system would have the government undertake the dynamic portfolio allocation program for individuals. This paper evaluates, using U.S. historical data 1871–2004, several versions of conventional life-cycle portfolios. The results show disappointing performance relative to the rhetoric of the promoters of the proposal. Dynamic portfolio theory suggests that the optimal life-cycle portfolio may look very different from the conventional form. Moreover, behavioral finance suggests that the design of a life-cycle portfolio for Social Security should consider the attitudes and habits of individuals and as well as their diversity.}
+      \field{issn}{0161-8938}
+      \field{journaltitle}{Journal of Policy Modeling}
+      \field{number}{4}
+      \field{title}{Life-cycle personal accounts proposal for Social Security: An evaluation of President Bush's proposal}
+      \field{volume}{28}
+      \field{year}{2006}
+      \field{pages}{427\bibrangedash 444}
+      \range{pages}{18}
+      \verb{doi}
+      \verb https://doi.org/10.1016/j.jpolmod.2005.10.010
+      \endverb
+      \verb{urlraw}
+      \verb https://www.sciencedirect.com/science/article/pii/S0161893805001341
+      \endverb
+      \verb{url}
+      \verb https://www.sciencedirect.com/science/article/pii/S0161893805001341
+      \endverb
+      \keyw{Dynamic portfolio theory,Life-cycle portfolio,Social Security system}
+    \endentry
+    \entry{superlife_nodate}{misc}{}{}
+      \name{author}{1}{}{%
+        {{un=0,uniquepart=base,hash=7ce9280260cbe5ef47707c99622af8aa}{%
+           family={{SuperLife}},
+           familyi={S\bibinitperiod}}}%
+      }
+      \strng{namehash}{7ce9280260cbe5ef47707c99622af8aa}
+      \strng{fullhash}{7ce9280260cbe5ef47707c99622af8aa}
+      \strng{fullhashraw}{7ce9280260cbe5ef47707c99622af8aa}
+      \strng{bibnamehash}{7ce9280260cbe5ef47707c99622af8aa}
+      \strng{authorbibnamehash}{7ce9280260cbe5ef47707c99622af8aa}
+      \strng{authornamehash}{7ce9280260cbe5ef47707c99622af8aa}
+      \strng{authorfullhash}{7ce9280260cbe5ef47707c99622af8aa}
+      \strng{authorfullhashraw}{7ce9280260cbe5ef47707c99622af8aa}
+      \field{sortinit}{S}
+      \field{sortinithash}{b164b07b29984b41daf1e85279fbc5ab}
+      \field{labeldatesource}{nodate}
+      \true{uniqueprimaryauthor}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{howpublished}{\url{https://www.superlife.co.nz/investment/age-steps}}
+      \field{note}{Accessed: 2025-05-05}
+      \field{title}{Age Steps}
+    \endentry
+    \entry{nztreasury2025tirohanga}{report}{}{}
+      \name{author}{1}{}{%
+        {{un=0,uniquepart=base,hash=e8ce73d8575a25627f1eeba5cb945c0f}{%
+           family={{The Treasury}},
+           familyi={T\bibinitperiod}}}%
+      }
+      \list{institution}{1}{%
+        {The Treasury}%
+      }
+      \list{location}{1}{%
+        {New Zealand Government}%
+      }
+      \strng{namehash}{e8ce73d8575a25627f1eeba5cb945c0f}
+      \strng{fullhash}{e8ce73d8575a25627f1eeba5cb945c0f}
+      \strng{fullhashraw}{e8ce73d8575a25627f1eeba5cb945c0f}
+      \strng{bibnamehash}{e8ce73d8575a25627f1eeba5cb945c0f}
+      \strng{authorbibnamehash}{e8ce73d8575a25627f1eeba5cb945c0f}
+      \strng{authornamehash}{e8ce73d8575a25627f1eeba5cb945c0f}
+      \strng{authorfullhash}{e8ce73d8575a25627f1eeba5cb945c0f}
+      \strng{authorfullhashraw}{e8ce73d8575a25627f1eeba5cb945c0f}
+      \field{sortinit}{T}
+      \field{sortinithash}{9af77f0292593c26bde9a56e688eaee9}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \true{uniqueprimaryauthor}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{day}{24}
+      \field{month}{9}
+      \field{note}{Retrieved from \url{https://www.treasury.govt.nz/publications/ltfp/he-tirohanga-mokopuna-2025} on December 6, 2025}
+      \field{title}{He Tirohanga Mokopuna 2025: Statement on the long term fiscal position}
+      \field{urlday}{6}
+      \field{urlmonth}{12}
+      \field{urlyear}{2025}
+      \field{year}{2025}
+      \field{dateera}{ce}
+      \field{urldateera}{ce}
+      \verb{urlraw}
+      \verb https://www.treasury.govt.nz/publications/ltfp/he-tirohanga-mokopuna-2025
+      \endverb
+      \verb{url}
+      \verb https://www.treasury.govt.nz/publications/ltfp/he-tirohanga-mokopuna-2025
+      \endverb
+    \endentry
+  \enddatalist
+  \datalist[entry]{apa/global//global/global/global}
+    \entry{anarkulova2025beyond}{misc}{}{}
+      \name{author}{3}{}{%
+        {{un=0,uniquepart=base,hash=58dc9f500f01dae1f945184b7c5b7194}{%
+           family={Anarkulova},
+           familyi={A\bibinitperiod},
+           given={A.},
+           giveni={A\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=cc1cc8ceb037b12b67a5888a4f3fd1a4}{%
+           family={Cederburg},
+           familyi={C\bibinitperiod},
+           given={S.},
+           giveni={S\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=952102f7f3ce73af52b47ac2ad8d0c57}{%
+           family={O'Doherty},
+           familyi={O\bibinitperiod},
+           given={M.\bibnamedelimi S.},
+           giveni={M\bibinitperiod\bibinitdelim S\bibinitperiod},
+           givenun=0}}%
+      }
+      \strng{namehash}{d72215f7d097fd7bb8b9ed415aaa45c2}
+      \strng{fullhash}{5266c60ba07017405877013cababa1d1}
+      \strng{fullhashraw}{5266c60ba07017405877013cababa1d1}
+      \strng{bibnamehash}{5266c60ba07017405877013cababa1d1}
+      \strng{authorbibnamehash}{5266c60ba07017405877013cababa1d1}
+      \strng{authornamehash}{d72215f7d097fd7bb8b9ed415aaa45c2}
+      \strng{authorfullhash}{5266c60ba07017405877013cababa1d1}
+      \strng{authorfullhashraw}{5266c60ba07017405877013cababa1d1}
+      \field{sortinit}{A}
+      \field{sortinithash}{2f401846e2029bad6b3ecc16d50031e2}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \true{uniqueprimaryauthor}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{month}{3}
+      \field{note}{SSRN Working Paper}
+      \field{title}{Beyond the Status Quo: A Critical Assessment of Lifecycle Investment Advice}
+      \field{year}{2025}
+      \verb{urlraw}
+      \verb https://doi.org/10.2139/ssrn.4590406
+      \endverb
+      \verb{url}
+      \verb https://doi.org/10.2139/ssrn.4590406
+      \endverb
+    \endentry
+    \entry{ando1963life}{article}{}{}
+      \name{author}{2}{}{%
+        {{un=0,uniquepart=base,hash=c620229431dd7e2437f8b363866c2b63}{%
+           family={Ando},
+           familyi={A\bibinitperiod},
+           given={Albert},
+           giveni={A\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=e7dc8055ba1f80fed2d1eeba6cc2e246}{%
+           family={Modigliani},
+           familyi={M\bibinitperiod},
+           given={Franco},
+           giveni={F\bibinitperiod},
+           givenun=0}}%
+      }
+      \strng{namehash}{bcb7be9c67ec4e65623718bdc61a29af}
+      \strng{fullhash}{bcb7be9c67ec4e65623718bdc61a29af}
+      \strng{fullhashraw}{bcb7be9c67ec4e65623718bdc61a29af}
+      \strng{bibnamehash}{bcb7be9c67ec4e65623718bdc61a29af}
+      \strng{authorbibnamehash}{bcb7be9c67ec4e65623718bdc61a29af}
+      \strng{authornamehash}{bcb7be9c67ec4e65623718bdc61a29af}
+      \strng{authorfullhash}{bcb7be9c67ec4e65623718bdc61a29af}
+      \strng{authorfullhashraw}{bcb7be9c67ec4e65623718bdc61a29af}
+      \field{sortinit}{A}
+      \field{sortinithash}{2f401846e2029bad6b3ecc16d50031e2}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \true{uniqueprimaryauthor}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{The American Economic Review}
+      \field{number}{1}
+      \field{title}{The “Life Cycle” Hypothesis of Saving: Aggregate Implications and Tests}
+      \field{volume}{53}
+      \field{year}{1963}
+      \field{pages}{55\bibrangedash 84}
+      \range{pages}{30}
+      \verb{urlraw}
+      \verb https://www.jstor.org/stable/1817129
+      \endverb
+      \verb{url}
+      \verb https://www.jstor.org/stable/1817129
+      \endverb
+    \endentry
+    \entry{bengen1996asset}{article}{}{}
+      \name{author}{1}{}{%
+        {{un=0,uniquepart=base,hash=258c559913f71e8aa8a88f36697e4db3}{%
+           family={Bengen},
+           familyi={B\bibinitperiod},
+           given={William\bibnamedelima P.},
+           giveni={W\bibinitperiod\bibinitdelim P\bibinitperiod},
+           givenun=0}}%
+      }
+      \strng{namehash}{258c559913f71e8aa8a88f36697e4db3}
+      \strng{fullhash}{258c559913f71e8aa8a88f36697e4db3}
+      \strng{fullhashraw}{258c559913f71e8aa8a88f36697e4db3}
+      \strng{bibnamehash}{258c559913f71e8aa8a88f36697e4db3}
+      \strng{authorbibnamehash}{258c559913f71e8aa8a88f36697e4db3}
+      \strng{authornamehash}{258c559913f71e8aa8a88f36697e4db3}
+      \strng{authorfullhash}{258c559913f71e8aa8a88f36697e4db3}
+      \strng{authorfullhashraw}{258c559913f71e8aa8a88f36697e4db3}
+      \field{sortinit}{B}
+      \field{sortinithash}{d7095fff47cda75ca2589920aae98399}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \true{uniqueprimaryauthor}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Journal of Financial Planning}
+      \field{month}{8}
+      \field{number}{4}
+      \field{title}{Asset Allocation for a Lifetime}
+      \field{volume}{9}
+      \field{year}{1996}
+      \field{pages}{86\bibrangedash 92}
+      \range{pages}{7}
+      \verb{urlraw}
+      \verb https://www.financialplanningassociation.org/article/journal/AUG96-asset-allocation-lifetime
+      \endverb
+      \verb{url}
+      \verb https://www.financialplanningassociation.org/article/journal/AUG96-asset-allocation-lifetime
+      \endverb
+    \endentry
+    \entry{bodie2023investments}{book}{}{}
+      \name{author}{3}{}{%
+        {{un=0,uniquepart=base,hash=2341ffa07063e2a6c6e1f0dda3fbd1dd}{%
+           family={Bodie},
+           familyi={B\bibinitperiod},
+           given={Zvi},
+           giveni={Z\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=e180d175815926e10cf844c326004d79}{%
+           family={Kane},
+           familyi={K\bibinitperiod},
+           given={Alex},
+           giveni={A\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=fe7c3240cca252d2ecb35f73e1413443}{%
+           family={Marcus},
+           familyi={M\bibinitperiod},
+           given={Alan\bibnamedelima J.},
+           giveni={A\bibinitperiod\bibinitdelim J\bibinitperiod},
+           givenun=0}}%
+      }
+      \list{publisher}{1}{%
+        {McGraw-Hill US Higher Ed ISE}%
+      }
+      \strng{namehash}{543f6933a0861972e69aff64c285e2d1}
+      \strng{fullhash}{3a95f5ed5540e98aadcfda15b8a75cb5}
+      \strng{fullhashraw}{3a95f5ed5540e98aadcfda15b8a75cb5}
+      \strng{bibnamehash}{3a95f5ed5540e98aadcfda15b8a75cb5}
+      \strng{authorbibnamehash}{3a95f5ed5540e98aadcfda15b8a75cb5}
+      \strng{authornamehash}{543f6933a0861972e69aff64c285e2d1}
+      \strng{authorfullhash}{3a95f5ed5540e98aadcfda15b8a75cb5}
+      \strng{authorfullhashraw}{3a95f5ed5540e98aadcfda15b8a75cb5}
+      \field{sortinit}{B}
+      \field{sortinithash}{d7095fff47cda75ca2589920aae98399}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \true{uniqueprimaryauthor}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{Investments}
+      \field{year}{2023}
+      \verb{urlraw}
+      \verb https://ebookcentral.proquest.com/lib/canterbury/detail.action?docID=7190049
+      \endverb
+      \verb{url}
+      \verb https://ebookcentral.proquest.com/lib/canterbury/detail.action?docID=7190049
+      \endverb
+    \endentry
+    \entry{campbellRiskAndReturns}{article}{}{}
+      \name{author}{1}{}{%
+        {{un=0,uniquepart=base,hash=b7ec0e33525f8b94af88e38cc709b02d}{%
+           family={Campbell},
+           familyi={C\bibinitperiod},
+           given={John\bibnamedelima Y.},
+           giveni={J\bibinitperiod\bibinitdelim Y\bibinitperiod},
+           givenun=0}}%
+      }
+      \strng{namehash}{b7ec0e33525f8b94af88e38cc709b02d}
+      \strng{fullhash}{b7ec0e33525f8b94af88e38cc709b02d}
+      \strng{fullhashraw}{b7ec0e33525f8b94af88e38cc709b02d}
+      \strng{bibnamehash}{b7ec0e33525f8b94af88e38cc709b02d}
+      \strng{authorbibnamehash}{b7ec0e33525f8b94af88e38cc709b02d}
+      \strng{authornamehash}{b7ec0e33525f8b94af88e38cc709b02d}
+      \strng{authorfullhash}{b7ec0e33525f8b94af88e38cc709b02d}
+      \strng{authorfullhashraw}{b7ec0e33525f8b94af88e38cc709b02d}
+      \field{sortinit}{C}
+      \field{sortinithash}{4d103a86280481745c9c897c925753c0}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \true{uniqueprimaryauthor}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Journal of Political Economy}
+      \field{number}{2}
+      \field{title}{Understanding Risk and Return}
+      \field{volume}{104}
+      \field{year}{1996}
+      \field{pages}{298\bibrangedash 345}
+      \range{pages}{48}
+    \endentry
+    \entry{choi2022popular}{article}{}{}
+      \name{author}{1}{}{%
+        {{un=0,uniquepart=base,hash=e96a662fdf14508da4dafa1b1631e1cd}{%
+           family={Choi},
+           familyi={C\bibinitperiod},
+           given={James\bibnamedelima J.},
+           giveni={J\bibinitperiod\bibinitdelim J\bibinitperiod},
+           givenun=0}}%
+      }
+      \strng{namehash}{e96a662fdf14508da4dafa1b1631e1cd}
+      \strng{fullhash}{e96a662fdf14508da4dafa1b1631e1cd}
+      \strng{fullhashraw}{e96a662fdf14508da4dafa1b1631e1cd}
+      \strng{bibnamehash}{e96a662fdf14508da4dafa1b1631e1cd}
+      \strng{authorbibnamehash}{e96a662fdf14508da4dafa1b1631e1cd}
+      \strng{authornamehash}{e96a662fdf14508da4dafa1b1631e1cd}
+      \strng{authorfullhash}{e96a662fdf14508da4dafa1b1631e1cd}
+      \strng{authorfullhashraw}{e96a662fdf14508da4dafa1b1631e1cd}
+      \field{sortinit}{C}
+      \field{sortinithash}{4d103a86280481745c9c897c925753c0}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \true{uniqueprimaryauthor}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Journal of Economic Perspectives}
+      \field{number}{4}
+      \field{title}{Popular Personal Financial Advice versus the Professors}
+      \field{volume}{36}
+      \field{year}{2022}
+      \field{pages}{167\bibrangedash 192}
+      \range{pages}{26}
+      \verb{urlraw}
+      \verb https://www.jstor.org/stable/27171135
+      \endverb
+      \verb{url}
+      \verb https://www.jstor.org/stable/27171135
+      \endverb
+    \endentry
+    \entry{dexter2025kiwisaver}{online}{}{}
+      \name{author}{1}{}{%
+        {{un=0,uniquepart=base,hash=fd6b8d115c4757551c4a90cc1be40df5}{%
+           family={Dexter},
+           familyi={D\bibinitperiod},
+           given={Giles},
+           giveni={G\bibinitperiod},
+           givenun=0}}%
+      }
+      \strng{namehash}{fd6b8d115c4757551c4a90cc1be40df5}
+      \strng{fullhash}{fd6b8d115c4757551c4a90cc1be40df5}
+      \strng{fullhashraw}{fd6b8d115c4757551c4a90cc1be40df5}
+      \strng{bibnamehash}{fd6b8d115c4757551c4a90cc1be40df5}
+      \strng{authorbibnamehash}{fd6b8d115c4757551c4a90cc1be40df5}
+      \strng{authornamehash}{fd6b8d115c4757551c4a90cc1be40df5}
+      \strng{authorfullhash}{fd6b8d115c4757551c4a90cc1be40df5}
+      \strng{authorfullhashraw}{fd6b8d115c4757551c4a90cc1be40df5}
+      \field{sortinit}{D}
+      \field{sortinithash}{6f385f66841fb5e82009dc833c761848}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \true{uniqueprimaryauthor}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{day}{24}
+      \field{month}{11}
+      \field{title}{KiwiSaver provider calls for increased contribution to be compulsory}
+      \field{urlday}{6}
+      \field{urlmonth}{12}
+      \field{urlyear}{2025}
+      \field{year}{2025}
+      \field{dateera}{ce}
+      \field{urldateera}{ce}
+      \verb{urlraw}
+      \verb https://www.rnz.co.nz/news/political/579777/kiwisaver-provider-calls-for-increased-contribution-to-be-compulsory
+      \endverb
+      \verb{url}
+      \verb https://www.rnz.co.nz/news/political/579777/kiwisaver-provider-calls-for-increased-contribution-to-be-compulsory
+      \endverb
+    \endentry
+    \entry{dolvin2010asset}{article}{}{}
+      \name{author}{3}{}{%
+        {{un=0,uniquepart=base,hash=528f94fb9f395f6b1995429bfb4ea6c9}{%
+           family={Dolvin},
+           familyi={D\bibinitperiod},
+           given={S.\bibnamedelimi D.},
+           giveni={S\bibinitperiod\bibinitdelim D\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=4cf669dca49acb065df5e308dd9d0398}{%
+           family={Templeton},
+           familyi={T\bibinitperiod},
+           given={W.\bibnamedelimi K.},
+           giveni={W\bibinitperiod\bibinitdelim K\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=81d78a145def6d9c2ae4327a78917199}{%
+           family={Rieber},
+           familyi={R\bibinitperiod},
+           given={W.},
+           giveni={W\bibinitperiod},
+           givenun=0}}%
+      }
+      \strng{namehash}{793ef1a8a5f1b28e442f4ada4520a694}
+      \strng{fullhash}{28b78c1ca39bb04b2f8c6d2dc8ff3a52}
+      \strng{fullhashraw}{28b78c1ca39bb04b2f8c6d2dc8ff3a52}
+      \strng{bibnamehash}{28b78c1ca39bb04b2f8c6d2dc8ff3a52}
+      \strng{authorbibnamehash}{28b78c1ca39bb04b2f8c6d2dc8ff3a52}
+      \strng{authornamehash}{793ef1a8a5f1b28e442f4ada4520a694}
+      \strng{authorfullhash}{28b78c1ca39bb04b2f8c6d2dc8ff3a52}
+      \strng{authorfullhashraw}{28b78c1ca39bb04b2f8c6d2dc8ff3a52}
+      \field{sortinit}{D}
+      \field{sortinithash}{6f385f66841fb5e82009dc833c761848}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \true{uniqueprimaryauthor}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Scholarship and Professional Work - Business}
+      \field{number}{17}
+      \field{title}{Asset Allocation for Retirement: Simple Heuristics and Target-Date Funds}
+      \field{year}{2010}
+      \verb{urlraw}
+      \verb https://digitalcommons.butler.edu/cob_papers/17
+      \endverb
+      \verb{url}
+      \verb https://digitalcommons.butler.edu/cob_papers/17
+      \endverb
+    \endentry
+    \entry{estrada2014glidepath}{article}{}{}
+      \name{author}{1}{}{%
+        {{un=0,uniquepart=base,hash=d2b858efdd160f70144d94cd0a344e0e}{%
+           family={Estrada},
+           familyi={E\bibinitperiod},
+           given={J.},
+           giveni={J\bibinitperiod},
+           givenun=0}}%
+      }
+      \strng{namehash}{d2b858efdd160f70144d94cd0a344e0e}
+      \strng{fullhash}{d2b858efdd160f70144d94cd0a344e0e}
+      \strng{fullhashraw}{d2b858efdd160f70144d94cd0a344e0e}
+      \strng{bibnamehash}{d2b858efdd160f70144d94cd0a344e0e}
+      \strng{authorbibnamehash}{d2b858efdd160f70144d94cd0a344e0e}
+      \strng{authornamehash}{d2b858efdd160f70144d94cd0a344e0e}
+      \strng{authorfullhash}{d2b858efdd160f70144d94cd0a344e0e}
+      \strng{authorfullhashraw}{d2b858efdd160f70144d94cd0a344e0e}
+      \field{extraname}{1}
+      \field{sortinit}{E}
+      \field{sortinithash}{8da8a182d344d5b9047633dfc0cc9131}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \true{uniqueprimaryauthor}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{The Journal of Portfolio Management}
+      \field{number}{4}
+      \field{title}{The Glidepath Illusion: An International Perspective}
+      \field{volume}{40}
+      \field{year}{2014}
+      \field{pages}{52\bibrangedash 64}
+      \range{pages}{13}
+      \verb{doi}
+      \verb 10.3905/jpm.2014.40.4.052
+      \endverb
+    \endentry
+    \entry{estrada2015retirement}{article}{}{}
+      \name{author}{1}{}{%
+        {{un=0,uniquepart=base,hash=d2b858efdd160f70144d94cd0a344e0e}{%
+           family={Estrada},
+           familyi={E\bibinitperiod},
+           given={J.},
+           giveni={J\bibinitperiod},
+           givenun=0}}%
+      }
+      \strng{namehash}{d2b858efdd160f70144d94cd0a344e0e}
+      \strng{fullhash}{d2b858efdd160f70144d94cd0a344e0e}
+      \strng{fullhashraw}{d2b858efdd160f70144d94cd0a344e0e}
+      \strng{bibnamehash}{d2b858efdd160f70144d94cd0a344e0e}
+      \strng{authorbibnamehash}{d2b858efdd160f70144d94cd0a344e0e}
+      \strng{authornamehash}{d2b858efdd160f70144d94cd0a344e0e}
+      \strng{authorfullhash}{d2b858efdd160f70144d94cd0a344e0e}
+      \strng{authorfullhashraw}{d2b858efdd160f70144d94cd0a344e0e}
+      \field{extraname}{2}
+      \field{sortinit}{E}
+      \field{sortinithash}{8da8a182d344d5b9047633dfc0cc9131}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \true{uniqueprimaryauthor}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{The Journal of Investing}
+      \field{number}{2}
+      \field{title}{The Retirement Glidepath: An International Perspective}
+      \field{volume}{25}
+      \field{year}{2015}
+      \field{pages}{28\bibrangedash 36}
+      \range{pages}{9}
+      \verb{doi}
+      \verb 10.3905/joi.2016.25.2.028
+      \endverb
+    \endentry
+    \entry{fma2023kiwisaverDefault}{online}{}{}
+      \name{author}{1}{}{%
+        {{un=0,uniquepart=base,hash=08b75521487779898ccf763abc312dca}{%
+           family={{Financial Markets Authority}},
+           familyi={F\bibinitperiod}}}%
+      }
+      \strng{namehash}{08b75521487779898ccf763abc312dca}
+      \strng{fullhash}{08b75521487779898ccf763abc312dca}
+      \strng{fullhashraw}{08b75521487779898ccf763abc312dca}
+      \strng{bibnamehash}{08b75521487779898ccf763abc312dca}
+      \strng{authorbibnamehash}{08b75521487779898ccf763abc312dca}
+      \strng{authornamehash}{08b75521487779898ccf763abc312dca}
+      \strng{authorfullhash}{08b75521487779898ccf763abc312dca}
+      \strng{authorfullhashraw}{08b75521487779898ccf763abc312dca}
+      \field{extraname}{1}
+      \field{sortinit}{F}
+      \field{sortinithash}{2638baaa20439f1b5a8f80c6c08a13b4}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \true{uniqueprimaryauthor}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{day}{9}
+      \field{month}{8}
+      \field{title}{KiwiSaver default funds}
+      \field{urlday}{6}
+      \field{urlmonth}{12}
+      \field{urlyear}{2025}
+      \field{year}{2023}
+      \field{dateera}{ce}
+      \field{urldateera}{ce}
+      \verb{urlraw}
+      \verb https://www.fma.govt.nz/consumer/kiwisaver-and-superannuation/about-kiwisaver/kiwisaver-default-funds/
+      \endverb
+      \verb{url}
+      \verb https://www.fma.govt.nz/consumer/kiwisaver-and-superannuation/about-kiwisaver/kiwisaver-default-funds/
+      \endverb
+    \endentry
+    \entry{fma2024spotlightBalanced}{online}{}{}
+      \name{author}{1}{}{%
+        {{un=0,uniquepart=base,hash=08b75521487779898ccf763abc312dca}{%
+           family={{Financial Markets Authority}},
+           familyi={F\bibinitperiod}}}%
+      }
+      \strng{namehash}{08b75521487779898ccf763abc312dca}
+      \strng{fullhash}{08b75521487779898ccf763abc312dca}
+      \strng{fullhashraw}{08b75521487779898ccf763abc312dca}
+      \strng{bibnamehash}{08b75521487779898ccf763abc312dca}
+      \strng{authorbibnamehash}{08b75521487779898ccf763abc312dca}
+      \strng{authornamehash}{08b75521487779898ccf763abc312dca}
+      \strng{authorfullhash}{08b75521487779898ccf763abc312dca}
+      \strng{authorfullhashraw}{08b75521487779898ccf763abc312dca}
+      \field{extraname}{2}
+      \field{sortinit}{F}
+      \field{sortinithash}{2638baaa20439f1b5a8f80c6c08a13b4}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \true{uniqueprimaryauthor}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{day}{24}
+      \field{month}{6}
+      \field{title}{Spotlight on: Balanced Funds}
+      \field{urlday}{6}
+      \field{urlmonth}{12}
+      \field{urlyear}{2025}
+      \field{year}{2024}
+      \field{dateera}{ce}
+      \field{urldateera}{ce}
+      \verb{urlraw}
+      \verb https://www.fma.govt.nz/library/articles/spotlight-on-balanced-funds/
+      \endverb
+      \verb{url}
+      \verb https://www.fma.govt.nz/library/articles/spotlight-on-balanced-funds/
+      \endverb
+    \endentry
+    \entry{ghyselsRiskAndReturns}{article}{}{}
+      \name{author}{3}{}{%
+        {{un=0,uniquepart=base,hash=fe30f81765eb94de52128d1b6585cc7f}{%
+           family={Ghysels},
+           familyi={G\bibinitperiod},
+           given={Eric},
+           giveni={E\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=f453cf806ab92ceaec8a50dc7e02fdcc}{%
+           family={Santa-Clara},
+           familyi={S\bibinithyphendelim C\bibinitperiod},
+           given={Pedro},
+           giveni={P\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=fce03caedd153edb10b8a1e828897c1f}{%
+           family={Valkanov},
+           familyi={V\bibinitperiod},
+           given={Rossen},
+           giveni={R\bibinitperiod},
+           givenun=0}}%
+      }
+      \strng{namehash}{6460f47dd78cf3a8eaf1974023b095a9}
+      \strng{fullhash}{dd627e520d120dd8b3e319fb649dd3b3}
+      \strng{fullhashraw}{dd627e520d120dd8b3e319fb649dd3b3}
+      \strng{bibnamehash}{dd627e520d120dd8b3e319fb649dd3b3}
+      \strng{authorbibnamehash}{dd627e520d120dd8b3e319fb649dd3b3}
+      \strng{authornamehash}{6460f47dd78cf3a8eaf1974023b095a9}
+      \strng{authorfullhash}{dd627e520d120dd8b3e319fb649dd3b3}
+      \strng{authorfullhashraw}{dd627e520d120dd8b3e319fb649dd3b3}
+      \field{sortinit}{G}
+      \field{sortinithash}{32d67eca0634bf53703493fb1090a2e8}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \true{uniqueprimaryauthor}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Journal of Financial Economics}
+      \field{number}{3}
+      \field{title}{There is a risk-return trade-off after all}
+      \field{volume}{76}
+      \field{year}{2005}
+      \field{pages}{509}
+      \range{pages}{1}
+    \endentry
+    \entry{gilbert2025lifting}{online}{}{}
+      \name{author}{1}{}{%
+        {{un=0,uniquepart=base,hash=87b5b51e8a66a2e44295a6e9fcde3239}{%
+           family={Gilbert},
+           familyi={G\bibinitperiod},
+           given={Aaron},
+           giveni={A\bibinitperiod},
+           givenun=0}}%
+      }
+      \strng{namehash}{87b5b51e8a66a2e44295a6e9fcde3239}
+      \strng{fullhash}{87b5b51e8a66a2e44295a6e9fcde3239}
+      \strng{fullhashraw}{87b5b51e8a66a2e44295a6e9fcde3239}
+      \strng{bibnamehash}{87b5b51e8a66a2e44295a6e9fcde3239}
+      \strng{authorbibnamehash}{87b5b51e8a66a2e44295a6e9fcde3239}
+      \strng{authornamehash}{87b5b51e8a66a2e44295a6e9fcde3239}
+      \strng{authorfullhash}{87b5b51e8a66a2e44295a6e9fcde3239}
+      \strng{authorfullhashraw}{87b5b51e8a66a2e44295a6e9fcde3239}
+      \field{sortinit}{G}
+      \field{sortinithash}{32d67eca0634bf53703493fb1090a2e8}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \true{uniqueprimaryauthor}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{day}{27}
+      \field{month}{11}
+      \field{title}{Lifting Kiwisaver contributions to 12\% makes sense – when the whole scheme is fixed}
+      \field{urlday}{6}
+      \field{urlmonth}{12}
+      \field{urlyear}{2025}
+      \field{year}{2025}
+      \field{dateera}{ce}
+      \field{urldateera}{ce}
+      \verb{urlraw}
+      \verb https://www.nzherald.co.nz/nz/lifting-kiwisaver-contributions-to-12-makes-sense-when-the-whole-scheme-is-fixed/ZTPV3QXEYBBUVDCCTQTAW2CT3A/
+      \endverb
+      \verb{url}
+      \verb https://www.nzherald.co.nz/nz/lifting-kiwisaver-contributions-to-12-makes-sense-when-the-whole-scheme-is-fixed/ZTPV3QXEYBBUVDCCTQTAW2CT3A/
+      \endverb
+    \endentry
+    \entry{ibbotsonAssetAllocation}{article}{}{}
+      \name{author}{2}{}{%
+        {{un=0,uniquepart=base,hash=a0d7a3da3fc41f403d14e12f284dc223}{%
+           family={Ibbotson},
+           familyi={I\bibinitperiod},
+           given={Roger},
+           giveni={R\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=c2444041a423561db4636482f3618b8f}{%
+           family={Kaplan},
+           familyi={K\bibinitperiod},
+           given={Paul},
+           giveni={P\bibinitperiod},
+           givenun=0}}%
+      }
+      \strng{namehash}{b16a243647b8ac6aa9e675256f4d19cf}
+      \strng{fullhash}{b16a243647b8ac6aa9e675256f4d19cf}
+      \strng{fullhashraw}{b16a243647b8ac6aa9e675256f4d19cf}
+      \strng{bibnamehash}{b16a243647b8ac6aa9e675256f4d19cf}
+      \strng{authorbibnamehash}{b16a243647b8ac6aa9e675256f4d19cf}
+      \strng{authornamehash}{b16a243647b8ac6aa9e675256f4d19cf}
+      \strng{authorfullhash}{b16a243647b8ac6aa9e675256f4d19cf}
+      \strng{authorfullhashraw}{b16a243647b8ac6aa9e675256f4d19cf}
+      \field{sortinit}{I}
+      \field{sortinithash}{8d291c51ee89b6cd86bf5379f0b151d8}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \true{uniqueprimaryauthor}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{isbn}{9781118115060}
+      \field{journaltitle}{Yale School of Management, Yale School of Management Working Papers}
+      \field{month}{01}
+      \field{title}{Does Asset Allocation Policy Explain 40, 90, 100 Percent of Performance?}
+      \field{volume}{56}
+      \field{year}{2001}
+      \verb{doi}
+      \verb 10.2469/faj.v56.n1.2327
+      \endverb
+    \endentry
+    \entry{lundbladRiskAndReturns}{article}{}{}
+      \name{author}{1}{}{%
+        {{un=0,uniquepart=base,hash=75ddf1779c756ae91faf1951db977a03}{%
+           family={Lundblad},
+           familyi={L\bibinitperiod},
+           given={Christian},
+           giveni={C\bibinitperiod},
+           givenun=0}}%
+      }
+      \strng{namehash}{75ddf1779c756ae91faf1951db977a03}
+      \strng{fullhash}{75ddf1779c756ae91faf1951db977a03}
+      \strng{fullhashraw}{75ddf1779c756ae91faf1951db977a03}
+      \strng{bibnamehash}{75ddf1779c756ae91faf1951db977a03}
+      \strng{authorbibnamehash}{75ddf1779c756ae91faf1951db977a03}
+      \strng{authornamehash}{75ddf1779c756ae91faf1951db977a03}
+      \strng{authorfullhash}{75ddf1779c756ae91faf1951db977a03}
+      \strng{authorfullhashraw}{75ddf1779c756ae91faf1951db977a03}
+      \field{sortinit}{L}
+      \field{sortinithash}{7c47d417cecb1f4bd38d1825c427a61a}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \true{uniqueprimaryauthor}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Journal of Financial Economics}
+      \field{number}{1}
+      \field{title}{The risk return tradeoff in the long run: 1836--2003}
+      \field{volume}{85}
+      \field{year}{2007}
+      \field{pages}{123\bibrangedash 150}
+      \range{pages}{28}
+      \verb{doi}
+      \verb 10.1016/j.jfineco.2006.06.003
+      \endverb
+      \verb{urlraw}
+      \verb https://doi.org/10.1016/j.jfineco.2006.06.003
+      \endverb
+      \verb{url}
+      \verb https://doi.org/10.1016/j.jfineco.2006.06.003
+      \endverb
+    \endentry
+    \entry{national2025kiwisaver}{online}{}{}
+      \name{author}{1}{}{%
+        {{un=0,uniquepart=base,hash=929cbdec017757087b3a267ff12553e1}{%
+           family={Luxon},
+           familyi={L\bibinitperiod},
+           given={Christopher},
+           giveni={C\bibinitperiod},
+           givenun=0}}%
+      }
+      \strng{namehash}{929cbdec017757087b3a267ff12553e1}
+      \strng{fullhash}{929cbdec017757087b3a267ff12553e1}
+      \strng{fullhashraw}{929cbdec017757087b3a267ff12553e1}
+      \strng{bibnamehash}{929cbdec017757087b3a267ff12553e1}
+      \strng{authorbibnamehash}{929cbdec017757087b3a267ff12553e1}
+      \strng{authornamehash}{929cbdec017757087b3a267ff12553e1}
+      \strng{authorfullhash}{929cbdec017757087b3a267ff12553e1}
+      \strng{authorfullhashraw}{929cbdec017757087b3a267ff12553e1}
+      \field{sortinit}{L}
+      \field{sortinithash}{7c47d417cecb1f4bd38d1825c427a61a}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \true{uniqueprimaryauthor}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{day}{23}
+      \field{month}{11}
+      \field{title}{National to lift Kiwisaver Contributions}
+      \field{urlday}{6}
+      \field{urlmonth}{12}
+      \field{urlyear}{2025}
+      \field{year}{2025}
+      \field{dateera}{ce}
+      \field{urldateera}{ce}
+      \verb{urlraw}
+      \verb https://www.national.org.nz/news/20251123-hon-christopher-luxon-national-to-lift-kiwisaver-contributions
+      \endverb
+      \verb{url}
+      \verb https://www.national.org.nz/news/20251123-hon-christopher-luxon-national-to-lift-kiwisaver-contributions
+      \endverb
+    \endentry
+    \entry{Makinen2024}{article}{}{}
+      \name{author}{2}{}{%
+        {{un=0,uniquepart=base,hash=0b28b3e0e0ed96c24f7085619a4cac59}{%
+           family={Mäkinen},
+           familyi={M\bibinitperiod},
+           given={Raino\bibnamedelimb A.\bibnamedelimi E.},
+           giveni={R\bibinitperiod\bibinitdelim A\bibinitperiod\bibinitdelim E\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=33b2ab881ab693f2eb20b85d1ada859d}{%
+           family={Toivanen},
+           familyi={T\bibinitperiod},
+           given={Jari},
+           giveni={J\bibinitperiod},
+           givenun=0}}%
+      }
+      \strng{namehash}{6fd8abcc461845db376e34a32315568e}
+      \strng{fullhash}{6fd8abcc461845db376e34a32315568e}
+      \strng{fullhashraw}{6fd8abcc461845db376e34a32315568e}
+      \strng{bibnamehash}{6fd8abcc461845db376e34a32315568e}
+      \strng{authorbibnamehash}{6fd8abcc461845db376e34a32315568e}
+      \strng{authornamehash}{6fd8abcc461845db376e34a32315568e}
+      \strng{authorfullhash}{6fd8abcc461845db376e34a32315568e}
+      \strng{authorfullhashraw}{6fd8abcc461845db376e34a32315568e}
+      \field{sortinit}{M}
+      \field{sortinithash}{4625c616857f13d17ce56f7d4f97d451}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \true{uniqueprimaryauthor}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{abstract}{A multiperiod portfolio optimization is described with Monte Carlo sampled risky asset paths under realistic constraints on the investment policies. The proposed approach can be used with various asset and risk models. It is flexible as it does not require dynamic programming or any transformations. As examples, the variance and semivariance risks are considered leading to mean-variance and mean-semivariance formulations, respectively. A quasi-Newton method with an adjoint gradient computation can solve the resulting optimization problems efficiently. Numerical examples show efficient frontiers together with optimal asset allocations computed for mean-variance and mean-semivariance portfolios with two and five assets.}
+      \field{issn}{1945-497X}
+      \field{journaltitle}{SIAM Journal on Financial Mathematics}
+      \field{title}{Monte Carlo Expected Wealth and Risk Measure Trade-Off Portfolio Optimization}
+      \field{year}{2024}
+    \endentry
+    \entry{MandelbrotPrices}{article}{}{}
+      \name{author}{1}{}{%
+        {{un=0,uniquepart=base,hash=83ced72c407b4739f234545c111ae19f}{%
+           family={Mandelbrot},
+           familyi={M\bibinitperiod},
+           given={Benoit},
+           giveni={B\bibinitperiod},
+           givenun=0}}%
+      }
+      \list{publisher}{1}{%
+        {University of Chicago Press}%
+      }
+      \strng{namehash}{83ced72c407b4739f234545c111ae19f}
+      \strng{fullhash}{83ced72c407b4739f234545c111ae19f}
+      \strng{fullhashraw}{83ced72c407b4739f234545c111ae19f}
+      \strng{bibnamehash}{83ced72c407b4739f234545c111ae19f}
+      \strng{authorbibnamehash}{83ced72c407b4739f234545c111ae19f}
+      \strng{authornamehash}{83ced72c407b4739f234545c111ae19f}
+      \strng{authorfullhash}{83ced72c407b4739f234545c111ae19f}
+      \strng{authorfullhashraw}{83ced72c407b4739f234545c111ae19f}
+      \field{sortinit}{M}
+      \field{sortinithash}{4625c616857f13d17ce56f7d4f97d451}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \true{uniqueprimaryauthor}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{issn}{00219398, 15375374}
+      \field{journaltitle}{The Journal of Business}
+      \field{number}{4}
+      \field{title}{The Variation of Certain Speculative Prices}
+      \field{urlday}{6}
+      \field{urlmonth}{8}
+      \field{urlyear}{2025}
+      \field{volume}{36}
+      \field{year}{1963}
+      \field{urldateera}{ce}
+      \field{pages}{394\bibrangedash 419}
+      \range{pages}{26}
+      \verb{urlraw}
+      \verb http://www.jstor.org/stable/2350970
+      \endverb
+      \verb{url}
+      \verb http://www.jstor.org/stable/2350970
+      \endverb
+    \endentry
+    \entry{MPTMarkowitz}{article}{}{}
+      \name{author}{1}{}{%
+        {{un=0,uniquepart=base,hash=bdfa1c8585b5a4ae901315043a00f2f2}{%
+           family={Markowitz},
+           familyi={M\bibinitperiod},
+           given={Harry},
+           giveni={H\bibinitperiod},
+           givenun=0}}%
+      }
+      \list{publisher}{1}{%
+        {[American Finance Association, Wiley]}%
+      }
+      \strng{namehash}{bdfa1c8585b5a4ae901315043a00f2f2}
+      \strng{fullhash}{bdfa1c8585b5a4ae901315043a00f2f2}
+      \strng{fullhashraw}{bdfa1c8585b5a4ae901315043a00f2f2}
+      \strng{bibnamehash}{bdfa1c8585b5a4ae901315043a00f2f2}
+      \strng{authorbibnamehash}{bdfa1c8585b5a4ae901315043a00f2f2}
+      \strng{authornamehash}{bdfa1c8585b5a4ae901315043a00f2f2}
+      \strng{authorfullhash}{bdfa1c8585b5a4ae901315043a00f2f2}
+      \strng{authorfullhashraw}{bdfa1c8585b5a4ae901315043a00f2f2}
+      \field{sortinit}{M}
+      \field{sortinithash}{4625c616857f13d17ce56f7d4f97d451}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \true{uniqueprimaryauthor}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{issn}{00221082, 15406261}
+      \field{journaltitle}{The Journal of Finance}
+      \field{number}{1}
+      \field{title}{Portfolio Selection}
+      \field{urlday}{6}
+      \field{urlmonth}{8}
+      \field{urlyear}{2025}
+      \field{volume}{7}
+      \field{year}{1952}
+      \field{urldateera}{ce}
+      \field{pages}{77\bibrangedash 91}
+      \range{pages}{15}
+      \verb{urlraw}
+      \verb http://www.jstor.org/stable/2975974
+      \endverb
+      \verb{url}
+      \verb http://www.jstor.org/stable/2975974
+      \endverb
+    \endentry
+    \entry{nztreasury2019review}{online}{}{}
+      \name{author}{1}{}{%
+        {{un=0,uniquepart=base,hash=c4d6ab62c06fcc28b6accfa39bbf9ba2}{%
+           family={{Ministry of Business, Innovation and Employment and The Treasury}},
+           familyi={M\bibinitperiod}}}%
+      }
+      \strng{namehash}{c4d6ab62c06fcc28b6accfa39bbf9ba2}
+      \strng{fullhash}{c4d6ab62c06fcc28b6accfa39bbf9ba2}
+      \strng{fullhashraw}{c4d6ab62c06fcc28b6accfa39bbf9ba2}
+      \strng{bibnamehash}{c4d6ab62c06fcc28b6accfa39bbf9ba2}
+      \strng{authorbibnamehash}{c4d6ab62c06fcc28b6accfa39bbf9ba2}
+      \strng{authornamehash}{c4d6ab62c06fcc28b6accfa39bbf9ba2}
+      \strng{authorfullhash}{c4d6ab62c06fcc28b6accfa39bbf9ba2}
+      \strng{authorfullhashraw}{c4d6ab62c06fcc28b6accfa39bbf9ba2}
+      \field{sortinit}{M}
+      \field{sortinithash}{4625c616857f13d17ce56f7d4f97d451}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \true{uniqueprimaryauthor}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{day}{7}
+      \field{month}{8}
+      \field{note}{Consultation document}
+      \field{title}{Review of KiwiSaver default provider arrangements}
+      \field{urlday}{6}
+      \field{urlmonth}{12}
+      \field{urlyear}{2025}
+      \field{year}{2019}
+      \field{dateera}{ce}
+      \field{urldateera}{ce}
+      \verb{urlraw}
+      \verb https://www.treasury.govt.nz/publications/consultation/review-kiwisaver-default-provider-arrangements
+      \endverb
+      \verb{url}
+      \verb https://www.treasury.govt.nz/publications/consultation/review-kiwisaver-default-provider-arrangements
+      \endverb
+    \endentry
+    \entry{oecd2025pension}{report}{}{}
+      \name{author}{1}{}{%
+        {{un=0,uniquepart=base,hash=bdbed435a416a918aa494017fda4c7fb}{%
+           family={{OECD}},
+           familyi={O\bibinitperiod}}}%
+      }
+      \list{institution}{1}{%
+        {OECD Publishing}%
+      }
+      \list{location}{1}{%
+        {Paris}%
+      }
+      \strng{namehash}{bdbed435a416a918aa494017fda4c7fb}
+      \strng{fullhash}{bdbed435a416a918aa494017fda4c7fb}
+      \strng{fullhashraw}{bdbed435a416a918aa494017fda4c7fb}
+      \strng{bibnamehash}{bdbed435a416a918aa494017fda4c7fb}
+      \strng{authorbibnamehash}{bdbed435a416a918aa494017fda4c7fb}
+      \strng{authornamehash}{bdbed435a416a918aa494017fda4c7fb}
+      \strng{authorfullhash}{bdbed435a416a918aa494017fda4c7fb}
+      \strng{authorfullhashraw}{bdbed435a416a918aa494017fda4c7fb}
+      \field{sortinit}{O}
+      \field{sortinithash}{2cd7140a07aea5341f9e2771efe90aae}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \true{uniqueprimaryauthor}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{Pension Markets in Focus 2025}
+      \field{year}{2025}
+      \verb{doi}
+      \verb 10.1787/b095d0a0-en
+      \endverb
+      \verb{urlraw}
+      \verb https://doi.org/10.1787/b095d0a0-en
+      \endverb
+      \verb{url}
+      \verb https://doi.org/10.1787/b095d0a0-en
+      \endverb
+    \endentry
+    \entry{palmer2025watch}{online}{}{}
+      \name{author}{1}{}{%
+        {{un=0,uniquepart=base,hash=873b6c04f71e72af086f0e3061bca956}{%
+           family={Palmer},
+           familyi={P\bibinitperiod},
+           given={Russell},
+           giveni={R\bibinitperiod},
+           givenun=0}}%
+      }
+      \strng{namehash}{873b6c04f71e72af086f0e3061bca956}
+      \strng{fullhash}{873b6c04f71e72af086f0e3061bca956}
+      \strng{fullhashraw}{873b6c04f71e72af086f0e3061bca956}
+      \strng{bibnamehash}{873b6c04f71e72af086f0e3061bca956}
+      \strng{authorbibnamehash}{873b6c04f71e72af086f0e3061bca956}
+      \strng{authornamehash}{873b6c04f71e72af086f0e3061bca956}
+      \strng{authorfullhash}{873b6c04f71e72af086f0e3061bca956}
+      \strng{authorfullhashraw}{873b6c04f71e72af086f0e3061bca956}
+      \field{sortinit}{P}
+      \field{sortinithash}{ff3bcf24f47321b42cb156c2cc8a8422}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \true{uniqueprimaryauthor}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{day}{7}
+      \field{month}{9}
+      \field{title}{Watch: Peters promises compulsory 10\% KiwiSaver and tax cuts}
+      \field{urlday}{6}
+      \field{urlmonth}{12}
+      \field{urlyear}{2025}
+      \field{year}{2025}
+      \field{dateera}{ce}
+      \field{urldateera}{ce}
+      \verb{urlraw}
+      \verb https://www.rnz.co.nz/news/national/572352/watch-peters-promises-compulsory-10-percent-kiwisaver-and-tax-cuts
+      \endverb
+      \verb{url}
+      \verb https://www.rnz.co.nz/news/national/572352/watch-peters-promises-compulsory-10-percent-kiwisaver-and-tax-cuts
+      \endverb
+    \endentry
+    \entry{retirementnz2025snapshot}{online}{}{}
+      \name{author}{1}{}{%
+        {{un=0,uniquepart=base,hash=080955f3e4cdb899cdda66566d6ddf85}{%
+           family={{Retirement Commission Te Ara Ahunga Ora}},
+           familyi={R\bibinitperiod}}}%
+      }
+      \strng{namehash}{080955f3e4cdb899cdda66566d6ddf85}
+      \strng{fullhash}{080955f3e4cdb899cdda66566d6ddf85}
+      \strng{fullhashraw}{080955f3e4cdb899cdda66566d6ddf85}
+      \strng{bibnamehash}{080955f3e4cdb899cdda66566d6ddf85}
+      \strng{authorbibnamehash}{080955f3e4cdb899cdda66566d6ddf85}
+      \strng{authornamehash}{080955f3e4cdb899cdda66566d6ddf85}
+      \strng{authorfullhash}{080955f3e4cdb899cdda66566d6ddf85}
+      \strng{authorfullhashraw}{080955f3e4cdb899cdda66566d6ddf85}
+      \field{sortinit}{R}
+      \field{sortinithash}{5e1c39a9d46ffb6bebd8f801023a9486}
+      \field{labeldatesource}{nodate}
+      \true{uniqueprimaryauthor}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{note}{PDF pamphlet}
+      \field{title}{A Snapshot of the History of KiwiSaver}
+      \field{urlday}{6}
+      \field{urlmonth}{12}
+      \field{urlyear}{2025}
+      \field{urldateera}{ce}
+      \verb{urlraw}
+      \verb https://assets.retirement.govt.nz/public/Uploads/Retirement-Income-Policy-Review/TAAO-A-Snapshot-of-the-History-of-KiwiSaver.pdf
+      \endverb
+      \verb{url}
+      \verb https://assets.retirement.govt.nz/public/Uploads/Retirement-Income-Policy-Review/TAAO-A-Snapshot-of-the-History-of-KiwiSaver.pdf
+      \endverb
+      \warn{\item online entry 'retirementnz2025snapshot' (./bib.bib): Invalid format 'N.D.' of date field 'date' - ignoring}
+    \endentry
+    \entry{shiller2005life}{article}{}{}
+      \name{author}{1}{}{%
+        {{un=1,uniquepart=given,hash=cfac8cb46cd989bf8667b5d5a183e4c7}{%
+           family={Shiller},
+           familyi={S\bibinitperiod},
+           given={R.},
+           giveni={R\bibinitperiod},
+           givenun=1}}%
+      }
+      \strng{namehash}{cfac8cb46cd989bf8667b5d5a183e4c7}
+      \strng{fullhash}{cfac8cb46cd989bf8667b5d5a183e4c7}
+      \strng{fullhashraw}{cfac8cb46cd989bf8667b5d5a183e4c7}
+      \strng{bibnamehash}{cfac8cb46cd989bf8667b5d5a183e4c7}
+      \strng{authorbibnamehash}{cfac8cb46cd989bf8667b5d5a183e4c7}
+      \strng{authornamehash}{cfac8cb46cd989bf8667b5d5a183e4c7}
+      \strng{authorfullhash}{cfac8cb46cd989bf8667b5d5a183e4c7}
+      \strng{authorfullhashraw}{cfac8cb46cd989bf8667b5d5a183e4c7}
+      \field{sortinit}{S}
+      \field{sortinithash}{b164b07b29984b41daf1e85279fbc5ab}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{The Economists' Voice}
+      \field{number}{1}
+      \field{title}{Life-Cycle Portfolios as Government Policy}
+      \field{volume}{2}
+      \field{year}{2005}
+      \field{pages}{14\bibrangedash 14}
+      \range{pages}{1}
+      \verb{doi}
+      \verb 10.2202/1553-3832.1095
+      \endverb
+    \endentry
+    \entry{shiller2006lifecycleSocialSecurity}{article}{}{}
+      \name{author}{1}{}{%
+        {{un=1,uniquepart=given,hash=9d82a77d715bb25ddd61e8456f95a4f4}{%
+           family={Shiller},
+           familyi={S\bibinitperiod},
+           given={Robert\bibnamedelima J.},
+           giveni={R\bibinitperiod\bibinitdelim J\bibinitperiod},
+           givenun=1}}%
+      }
+      \strng{namehash}{9d82a77d715bb25ddd61e8456f95a4f4}
+      \strng{fullhash}{9d82a77d715bb25ddd61e8456f95a4f4}
+      \strng{fullhashraw}{9d82a77d715bb25ddd61e8456f95a4f4}
+      \strng{bibnamehash}{9d82a77d715bb25ddd61e8456f95a4f4}
+      \strng{authorbibnamehash}{9d82a77d715bb25ddd61e8456f95a4f4}
+      \strng{authornamehash}{9d82a77d715bb25ddd61e8456f95a4f4}
+      \strng{authorfullhash}{9d82a77d715bb25ddd61e8456f95a4f4}
+      \strng{authorfullhashraw}{9d82a77d715bb25ddd61e8456f95a4f4}
+      \field{sortinit}{S}
+      \field{sortinithash}{b164b07b29984b41daf1e85279fbc5ab}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{abstract}{The life-cycle portfolio proposal for personal accounts within a Social Security system would have the government undertake the dynamic portfolio allocation program for individuals. This paper evaluates, using U.S. historical data 1871–2004, several versions of conventional life-cycle portfolios. The results show disappointing performance relative to the rhetoric of the promoters of the proposal. Dynamic portfolio theory suggests that the optimal life-cycle portfolio may look very different from the conventional form. Moreover, behavioral finance suggests that the design of a life-cycle portfolio for Social Security should consider the attitudes and habits of individuals and as well as their diversity.}
+      \field{issn}{0161-8938}
+      \field{journaltitle}{Journal of Policy Modeling}
+      \field{number}{4}
+      \field{title}{Life-cycle personal accounts proposal for Social Security: An evaluation of President Bush's proposal}
+      \field{volume}{28}
+      \field{year}{2006}
+      \field{pages}{427\bibrangedash 444}
+      \range{pages}{18}
+      \verb{doi}
+      \verb https://doi.org/10.1016/j.jpolmod.2005.10.010
+      \endverb
+      \verb{urlraw}
+      \verb https://www.sciencedirect.com/science/article/pii/S0161893805001341
+      \endverb
+      \verb{url}
+      \verb https://www.sciencedirect.com/science/article/pii/S0161893805001341
+      \endverb
+      \keyw{Dynamic portfolio theory,Life-cycle portfolio,Social Security system}
+    \endentry
+    \entry{superlife_nodate}{misc}{}{}
+      \name{author}{1}{}{%
+        {{un=0,uniquepart=base,hash=7ce9280260cbe5ef47707c99622af8aa}{%
+           family={{SuperLife}},
+           familyi={S\bibinitperiod}}}%
+      }
+      \strng{namehash}{7ce9280260cbe5ef47707c99622af8aa}
+      \strng{fullhash}{7ce9280260cbe5ef47707c99622af8aa}
+      \strng{fullhashraw}{7ce9280260cbe5ef47707c99622af8aa}
+      \strng{bibnamehash}{7ce9280260cbe5ef47707c99622af8aa}
+      \strng{authorbibnamehash}{7ce9280260cbe5ef47707c99622af8aa}
+      \strng{authornamehash}{7ce9280260cbe5ef47707c99622af8aa}
+      \strng{authorfullhash}{7ce9280260cbe5ef47707c99622af8aa}
+      \strng{authorfullhashraw}{7ce9280260cbe5ef47707c99622af8aa}
+      \field{sortinit}{S}
+      \field{sortinithash}{b164b07b29984b41daf1e85279fbc5ab}
+      \field{labeldatesource}{nodate}
+      \true{uniqueprimaryauthor}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{howpublished}{\url{https://www.superlife.co.nz/investment/age-steps}}
+      \field{note}{Accessed: 2025-05-05}
+      \field{title}{Age Steps}
+    \endentry
+    \entry{nztreasury2025tirohanga}{report}{}{}
+      \name{author}{1}{}{%
+        {{un=0,uniquepart=base,hash=e8ce73d8575a25627f1eeba5cb945c0f}{%
+           family={{The Treasury}},
+           familyi={T\bibinitperiod}}}%
+      }
+      \list{institution}{1}{%
+        {The Treasury}%
+      }
+      \list{location}{1}{%
+        {New Zealand Government}%
+      }
+      \strng{namehash}{e8ce73d8575a25627f1eeba5cb945c0f}
+      \strng{fullhash}{e8ce73d8575a25627f1eeba5cb945c0f}
+      \strng{fullhashraw}{e8ce73d8575a25627f1eeba5cb945c0f}
+      \strng{bibnamehash}{e8ce73d8575a25627f1eeba5cb945c0f}
+      \strng{authorbibnamehash}{e8ce73d8575a25627f1eeba5cb945c0f}
+      \strng{authornamehash}{e8ce73d8575a25627f1eeba5cb945c0f}
+      \strng{authorfullhash}{e8ce73d8575a25627f1eeba5cb945c0f}
+      \strng{authorfullhashraw}{e8ce73d8575a25627f1eeba5cb945c0f}
+      \field{sortinit}{T}
+      \field{sortinithash}{9af77f0292593c26bde9a56e688eaee9}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \true{uniqueprimaryauthor}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{day}{24}
+      \field{month}{9}
+      \field{note}{Retrieved from \url{https://www.treasury.govt.nz/publications/ltfp/he-tirohanga-mokopuna-2025} on December 6, 2025}
+      \field{title}{He Tirohanga Mokopuna 2025: Statement on the long term fiscal position}
+      \field{urlday}{6}
+      \field{urlmonth}{12}
+      \field{urlyear}{2025}
+      \field{year}{2025}
+      \field{dateera}{ce}
+      \field{urldateera}{ce}
+      \verb{urlraw}
+      \verb https://www.treasury.govt.nz/publications/ltfp/he-tirohanga-mokopuna-2025
+      \endverb
+      \verb{url}
+      \verb https://www.treasury.govt.nz/publications/ltfp/he-tirohanga-mokopuna-2025
+      \endverb
+    \endentry
+  \enddatalist
+\endrefsection
+\endinput
+

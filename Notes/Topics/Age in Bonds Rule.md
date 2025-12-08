@@ -1,1 +1,1 @@
-A [[Life-cycle Asset Allocation]] method that linearly increases an investors exposure to bonds as a function of their age. 
+A [[Life-cycle Asset Allocation]] method that linearly increases an investors exposure to bonds as a function of their age. A type of [[Decreasing Equity Strategy]].
