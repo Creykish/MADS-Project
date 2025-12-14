@@ -34,9 +34,9 @@ Examined how [[Human Capital]] interacts with optimal [[Life-cycle Asset Allocat
 
 Finds:
 
--  Acounting for human capital is crucial to explaining investment, labor, and consumption behavior of rational economic agents.
+-  Accounting for human capital is crucial to explaining investment, labour, and consumption behaviour of rational economic agents.
 - Ignoring human capital constitutes an ‘omitted variable’ problem. 
-- Under ‘normal’ circumstances, an individual will tend to exhibit more conservative investment behavior as he nears retirement. 
-- At any given age in the life cycle, greater labor flexibility will induce greater risk taking in an individual’s financial investments 
-- Labor flexibility induces ‘stabilizing ’ labor supply behavior by individuals.
+- Under ‘normal’ circumstances, an individual will tend to exhibit more conservative investment behaviour as he nears retirement. 
+- At any given age in the life cycle, greater labour flexibility will induce greater risk taking in an individual’s financial investments 
+- Labor flexibility induces ‘stabilising ’ labor supply behavior by individuals.
 - At any given age in the life cycle, the riskier is an individual’s human capital, the lower will be his financial investment in risky assets.
