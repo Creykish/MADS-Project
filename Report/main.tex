@@ -80,25 +80,36 @@ Unlike the approach proposed by \textcite{merton1969lifetime}, ours is a discret
 Each step of the model takes the following form:
 
 \begin{equation}\label{wealth_update}
-W_{t+1} = W_t (1 + R_{t+1}) + \pi_{t+1}
+W_{t+1} = g_{t+1} W_t + \pi_{t+1}
 \end{equation}
 
-Where \(W_t\) is the wealth at time \(t\), \(R_{t+1}\) is the return on the portfolio between time \(t\) and \(t+1\), and \(\pi_{t+1}\) is the net contribution (or withdrawal if negative) made at time \(t+1\). This can represent regular contributions during the accumulation phase or withdrawals to cover spending needs during the decumulation phase. The model can be easily adapted to include varying contribution and withdrawal amounts over time, allowing for a more nuanced representation of investor behaviour, including simulating variable or stochastic spending patterns.
+Where \(W_t\) is the wealth at time \(t\), \(g_{t+1}\) is the growth factor on the portfolio between time \(t\) and \(t+1\), and \(\pi_{t+1}\) is the net contribution (or withdrawal if negative) made at time \(t+1\). This can represent regular contributions during the accumulation phase or withdrawals to cover spending needs during the decumulation phase. The model can be easily adapted to include varying contribution and withdrawal amounts over time, allowing for a more nuanced representation of investor behaviour, including simulating variable or stochastic spending patterns.
 
-The return \(R_{t+1}\) is determined by the asset allocation strategy being tested, which specifies the proportion of wealth invested in different asset classes. Specifically, we define asset allocation as a vector \(\mathbf{a}_t\) at time \(t\), where each element \(a_{i,t}\) represents the proportion of wealth invested in asset class \(i\). The portfolio return is then calculated as:
+The growth factor \(g_{t+1}\) is determined by the asset allocation strategy being tested, which specifies the proportion of wealth invested in different asset classes. Specifically, we define asset allocation as a vector \(\mathbf{a}_t\) at time \(t\), where each element \(a_{i,t}\) represents the proportion of wealth invested in asset class \(i\). The portfolio growth factor is then calculated as:
 
 \begin{equation}
-R_{t+1} = \mathbf{a}_t^\top \mathbf{r}_{t+1}
+g_{t+1} = 1 + \mathbf{a}_t^\top \mathbf{r}_{t+1}
 \end{equation}
 
-Where \(\mathbf{r}_{t+1}\) is a vector of returns for each asset class between time \(t\) and \(t+1\). 
+Where \(\mathbf{r}_{t+1}\) is a vector of returns for each asset class between time \(t\) and \(t+1\).
 
-In a Monte Carlo simulation, we generate a large number of possible return paths \(\{\mathbf{r}_{t}\}\) based on the chosen return model. For each path, we simulate the investor's wealth trajectory over time using the equations above. This means \ref{wealth_update} takes the matrix form:
+In a Monte Carlo simulation, we generate a large number of possible return paths. This means that for each time step, we have \(N\) different return vectors for our \(k\) asset classes. For each path, we simulate the investor's wealth trajectory over time using the equations above. This means that equation \ref{wealth_update} has the matrix form:
+
 \begin{equation}\label{wealth_update_matrix}
-\mathbf{w}_{t+1} = \mathbf{w}_t \circ (1 + \mathbf{R}_{t+1}) + \mathbf{\Pi}_{t+1}
+\mathbf{w}_{t+1} = \mathbf{w}_t \odot \mathbf{g}_{t+1} + \boldsymbol{\pi}_{t+1}
 \end{equation}
 
-Where \(\mathbf{w}_t\), \(\mathbf{R}_{t+1}\), and \(\mathbf{\Pi}_{t+1}\) are vectors of length \(N\) representing the wealth, portfolio returns, and contributions/withdrawals for each of the \(N\) simulated paths at time \(t\), and \(\circ\) denotes element-wise multiplication.
+Where \(\mathbf{w}_t\), \(\mathbf{g}_{t+1}\), and \(\boldsymbol{\pi}_{t+1}\) are vectors of length \(N\) representing the wealth, portfolio returns, and contributions or withdrawals for each of the \(N\) simulated paths at time \(t\), and \(\odot\) denotes element-wise (Hadamard) multiplication.
+
+The growth factors \(\mathbf{g}_{t+1}\) are determined by the asset allocation strategy and a \(N \times k\) matrix of returns \(\mathbf{R}_{t+1}\) for the \(k\) asset classes across the \(N\) simulated paths. The asset allocation strategy can be defined in various ways, the first of which is as a function of time (or age). In this case, we define the asset allocation at time \(t\) as \(\mathbf{a}_t = f(t; \boldsymbol{\theta})\), where \(f\) is a function parameterised by a set of parameters \(\boldsymbol{\theta}\).
+
+This yeilds the portfolio growth factors as:
+\begin{equation}
+\mathbf{g}_{t+1} = 1 + \mathbf{R}_{t
++1} \cdot f(t+1; \boldsymbol{\theta})
+\end{equation}
+
+
 
 In this form, the model can accommodate a wide range of asset allocation strategies based on the investor's age. This is similar to the approach that \textcite{anarkulova2025beyond} use, and our first objective will be to replicate their findings for the optimal glide-paths, and to examine how these findings change when we modify the risk measures and spending assumptions to better reflect real-world investor behaviour, particularly in the New Zealand context.
 
@@ -106,9 +117,28 @@ However, in this framework the hypothetical investor's asset allocation strategy
 
 The way that this control-matrix works is that it defines a grid over the time and wealth dimensions, with each cell in the grid corresponding to a specific asset allocation. During the simulation, the investor's current age and wealth level are used to determine which cell in the grid they fall into, and the corresponding asset allocation is applied. For allocations with more than two asset classes, the control matrix can be extended to a higher-dimensional tensor, with each additional dimension representing an additional asset class. \textcite{Makinen2024} use billinear interpolation to determine the asset allocation for wealth levels that fall between the defined grid points, ensuring a smooth transition between different allocation strategies.
 
+In this framework, the asset allocation at time \(t\) and wealth \(W_t\) is given by \(\mathbf{a}_t = C(t, W_t; \boldsymbol{\theta})\), where \(C\) is the control matrix parameterised by \(\boldsymbol{\theta}\). 
+This yeilds the portfolio growth factors as:
+\begin{equation}
+\mathbf{g}_{t+1} = 1 + \mathbf{R}_{t
++1} \cdot C(t+1, W_t; \boldsymbol{\theta})
+\end{equation}
 
+This approach allows for a more nuanced asset allocation strategy that can adapt to the investor's changing circumstances over time. For example, an investor who has accumulated significant wealth may be able to take on more risk, while an investor with lower wealth may need to adopt a more conservative approach. However, it also exponentially increases the number of parameters that need to be optimised, which can make the optimisation process more challenging.
 
+\subsubsection{Optimisation of Asset Allocation Strategies}
 
+An important aspect of this framework is the ability to optimise the asset allocation strategy based on a chosen risk measure. The goal is to find the set of parameters \(\boldsymbol{\theta}\) that minimises some measure of risk or increases some utility for the investor over their lifetime. The choice of risk measure is crucial, as it should reflect the real-world concerns of investors. 
+
+Critical to this is both the interpretability of the risk measure, as well as its computational tractability within the simulation framework. For example, commonly used risk measures such as variance or Value-at-Risk (VaR) may not be easily interpretable within the context of lifetime asset allocation. Such investors are often more concerned with outcomes like the probability of running out of money or failing to meet a specific spending goal, which cannot be directly expressed through these traditional risk measures.
+
+Additionally, whatever risk measure is chosen must be applied across the entire lifetime of the investor, rather than just at a single point in time. This means that the risk measure should account for the entire wealth trajectory of the investor, rather than just focusing on terminal wealth or short-term outcomes. The reason for this is that investors are concerned about their financial security throughout retirement, not just at the end of their life. And, in fact, the risk of running out of money earlier in retirement is proportionally more worrying than running out of money later in life, as one represents a significantly longer period of destitution than the other.
+
+The key challenge in optimising the asset allocation strategy is that the the parameter space can be very large, even for relatively simple strategies. For example, if we use are searching for an optimal age-based glide-path with 2 asset classes, with allocations in 10 percent increments across a 60 year period, this results in 11 possible allocations at each of 60 time steps, resulting in a total of \(11^{60}\) possible strategies. This is clearly an intractably large search space, and so we must use numerical optimisation techniques to find a good solution. 
+
+\textcite{merton1969lifetime} use a formulation where the investor maximises a utility function over their lifetime, based on the consumption at each time step. This approach has the advantage of being mathematically tractable, but it relies the investor consuming a fixed proportion of their wealth at each time step, which is not realistic for most retirees. \Textcite{anarkulova2025beyond} use a recursive approch where a grid-search is used to find the optimal allocation at each time step, working forwards in passes until convergence is reached. This approach will likely work for the age-based glide-path optimisation, but it is not clear how it would extend to the control-matrix approach, where the asset allocation depends on both time and wealth, as this increases the number of parameters by an order of magnitude again.
+
+In their paper, \textcite{Makinen2024} optimised their control-matrix asset allocation strategy 
 
 % \subsection{Investors' Views on Wealth, Risk and Retirement}
 
