@@ -1,10 +1,12 @@
 \documentclass[11pt]{article}
 \usepackage{graphicx}
-\usepackage[a4paper,margin=1in]{geometry}
+\usepackage[a4paper,margin=.5in]{geometry}
 \usepackage{amsmath}
 \usepackage{booktabs}
 \usepackage{array}
 \usepackage{multirow}
+\usepackage{pgfgantt}
+
 \usepackage[
 backend=biber,
 style=apa,
@@ -25,125 +27,134 @@ style=apa,
 
 This project operates at the intersection of quantitative finance, retirement planning, and public policy in the New Zealand context. The research addresses the critical question of how individuals should allocate their retirement savings across different asset classes throughout their lifetime—both during the accumulation phase (working years) and the decumulation phase (retirement).
 
-The domain presents several unique challenges. First, the mathematical complexity of lifetime allocation problems makes them difficult to solve analytically, particularly when incorporating realistic investor behavior such as fixed-dollar withdrawals rather than proportional spending. Second, New Zealand's retirement landscape differs significantly from the global context that dominates academic literature, which is often U.S.-centric. New Zealand Superannuation provides a universal pension regardless of means, and the KiwiSaver system operates differently from retirement vehicles in some other countries, allowing withdrawals for first homes. 
+The domain presents some unique challenges. First, the mathematical complexity of lifetime allocation problems makes them difficult to solve analytically, particularly when incorporating realistic investor behavior such as fixed-dollar withdrawals rather than proportional spending. Second, New Zealand's retirement landscape differs significantly from the global context that dominates academic literature, which is often U.S.-centric. Firstly, New Zealand Superannuation provides a universal pension regardless of means. In the UK, for example, retirees receive pensions through a combination of state pensions and occupational or personal pensions, with a means-tested pension credit available for low-income individuals \parencite{ukgov2025pensionCredit,ukgovNDpensionExplained}. In the US, Social Security benefits are linked to percentages of prior earnings, with higher earners receiving smaller percentages of their pre-retirement income \parencite{ssa2025beniftsPDF} (although the absolute dollar amounts are higher for higher earners). In Australia, the Age Pension is means-tested based on assets, income, and living arrangements \parencite{ausgov2025agePension}. All of these different policy settings influence retiree behavior and risk tolerance in ways that may not generalize to New Zealand. Moreover, KiwiSaver, New Zealand's workplace-based retirement savings scheme, has unique features such as government contributions and employer matching that affect accumulation dynamics. Australia has a similar system, but New Zealand's differs in that it has lower contribution rates and the ability for New Zealanders to withdraw funds for first-home purchases. In Australia, you can only withdraw up to 15,000 AUD for first-home purchases, whereas in New Zealand, you can withdraw your entire KiwiSaver balance (subject to certain conditions) \parencite{firstsuper2025kiwisaverVsSuper}.
 
-The significance of this research extends beyond individual welfare. The global asset-backed pension market was valued at 68.9 trillion USD in 2024 \parencite{oecd2025pension}. In New Zealand, demographic pressures on the retirement system are mounting, with Treasury projecting that spending on New Zealand Superannuation and healthcare could account for nearly half of all government expenditure by 2065 \parencite{nztreasury2025tirohanga}. There is broad consensus that New Zealanders are under-saving for retirement \parencite{national2025kiwisaver, gilbert2025lifting, palmer2025watch, dexter2025kiwisaver}. Lifetime asset allocation strategies that improve retirement outcomes could help alleviate some of these pressures by enhancing the efficiency of individual savings and reducing reliance on government support. However, there are significant tensions between industry practice (which predominantly recommends declining-risk strategies during decumulation) and academic research (which often finds constant or even increasing-risk strategies to be superior in decumulation) \parencite[e.g.][]{estrada2014glidepath, estrada2015retirement, anarkulova2025beyond}. The lack of consensus creates confusion for both individual investors and financial advisers, potentially leading to suboptimal retirement outcomes. This research aims to bridge the gap between theory and practice by developing a flexible simulation and optimization framework tailored to the New Zealand context, evaluating existing glide-path recommendations, and providing evidence-based guidance for investors and policymakers.
+The significance of this research extends beyond individual welfare. The global asset-backed pension market was valued at 68.9 trillion USD in 2024 \parencite{oecd2025pension}. In New Zealand, demographic pressures on the retirement system are mounting, with Treasury projecting that spending on New Zealand Superannuation and healthcare could account for nearly half of all government expenditure by 2065 \parencite{nztreasury2025tirohanga}. There is broad that New Zealanders are under-saving for retirement \parencite{national2025kiwisaver, gilbert2025lifting, palmer2025watch, dexter2025kiwisaver}. Lifetime asset allocation strategies that improve retirement outcomes could help alleviate some of these pressures by enhancing the efficiency of individual savings and reducing reliance on government support. However, there are significant tensions between industry practice (which predominantly recommends declining-risk strategies during decumulation) and academic research (which often finds constant or even increasing-risk strategies to be superior in decumulation) \parencite[e.g.][]{estrada2014glidepath, estrada2015retirement, anarkulova2025beyond}. The lack of consensus creates confusion for both individual investors and financial advisers, potentially leading to suboptimal retirement outcomes. This research aims to bridge the gap between theory and practice by developing a flexible simulation and optimization framework tailored to the New Zealand context, evaluating existing glide-path recommendations, and providing evidence-based guidance for investors and policymakers.
 
 This research is conducted in partnership with Consilium NZ LTD, which New Zealand-based financial services company with whom the author is currently employed as a Data Engineer. Consilium provides investment advisory services and retirement planning solutions to individual and institutional clients. The partnership provides access to proprietary market data and industry insights that will enhance the relevance and applicability of the research findings. However, the authors's academic independence is maintained, with the author retaining intellectual property rights and research autonomy. As such, no confidential or proprietary information from Consilium is used in this research.
 
+
 \section{Goal}
 
-The primary research goals, in order of priority, are:
+This research has four primary objectives, which are pursued in sequential order to build toward a comprehensive understanding of lifetime asset allocation in the New Zealand context.
 
-\textbf{1. Develop a flexible simulation and optimization framework} for lifetime asset allocation that can incorporate realistic spending patterns, multiple risk measures, and various asset return models. This framework should be computationally tractable while remaining flexible enough to test different assumptions about investor behavior and market dynamics.
+The first and most fundamental objective is to develop a flexible simulation and optimization framework for lifetime asset allocation that addresses key limitations in existing approaches. Current methods often rely on restrictive assumptions that limit their practical applicability. For instance, the foundational work of \textcite{merton1969lifetime} assumes continuous-time dynamics and fixed withdrawals of a proportion of current wealth, which do not reflect how most retirees actually spend. Similarly, many studies assume that asset returns are independent and identically distributed, an assumption that \textcite{anarkulova2025beyond} argue leads to misleading conclusions about the benefits of bonds in retirement portfolios. Our framework must therefore be capable of incorporating realistic spending patterns, including fixed-dollar withdrawals and time-varying consumption needs. It must also accommodate multiple risk measures that reflect the practical concerns of real-world investors, such as the probability of portfolio depletion at different ages, rather than relying solely on traditional metrics like variance or terminal wealth. Finally, the framework must remain agnostic to the source of asset returns, allowing us to test strategies using historical data, bootstrapped samples, or returns generated from various stochastic models.
 
-\textbf{2. Evaluate existing glide-path recommendations} in the New Zealand context, with particular attention to whether declining-risk strategies (the dominant paradigm in industry practice) are supported by evidence when using realistic assumptions about retiree spending patterns and concerns. Target-date funds in the United States predominantly follow declining-risk structures \parencite{dolvin2010asset}, and similar patterns exist in New Zealand products such as SuperLife's Age Steps \parencite{superlife_nodate}.
+The second objective is to evaluate existing glide-path recommendations within the New Zealand context, with particular attention to the declining-risk strategies that dominate industry practice. Target-date funds in the United States predominantly follow declining-risk structures \parencite{dolvin2010asset}, and similar patterns exist in New Zealand products such as SuperLife's Age Steps \parencite{superlife_nodate}. The intuitive appeal of these strategies is straightforward: older investors have less time to recover from losses and more immediate spending needs, making a gradual shift toward safer assets seem sensible. However, the academic literature does not strongly support this approach, particularly during the decumulation phase \parencite[e.g.][]{estrada2014glidepath, estrada2015retirement, anarkulova2025beyond,shiller2005life,merton1969lifetime}. By applying our simulation framework with realistic assumptions about New Zealand retirees, including appropriate spending patterns and risk concerns, we can assess whether the theoretical arguments against declining-risk strategies hold in practice. This must necessarily account for New Zealand policy settings, particularly the impacts of New Zealand Superannuation, KiwiSaver, and the Healthcare System. Understanding whether current industry recommendations are aligned with evidence-based best practices has significant implications for the more than 3 million New Zealanders enrolled in KiwiSaver \parencite{ird2025kiwisaverMemebershipStats}.
 
-\textbf{3. Extend optimization methods} to allow asset allocation strategies that respond to both age and wealth levels, building on work by \textcite{anarkulova2025beyond} and \textcite{Makinen2024}. This involves two sub-goals: (1). Replicating the findings of \textcite{anarkulova2025beyond} regarding age-based glide-paths under realistic spending assumptions, then (2). implementing the control-matrix approach of \textcite{Makinen2024} but addressing limitations in their terminal-wealth-only risk measure and fixed wealth bounds.
+The third objective involves extending existing optimization methods to allow asset allocation strategies that respond to both age and wealth levels, building on recent methodological advances. This objective comprises two distinct sub-goals. First, we will replicate the findings of \textcite{anarkulova2025beyond} regarding age-based glide-paths, but under spending assumptions that better reflect New Zealand retiree behavior rather than the fixed-percentage withdrawals they employ. This replication serves both to validate our framework against published results and to examine how their conclusions change under more realistic conditions. Second, we will implement the control-matrix approach proposed by \textcite{Makinen2024}, which allows asset allocation to vary with both time and wealth. However, their original formulation has important limitations that we must address. Their risk measure focuses exclusively on terminal wealth, which fails to capture the time-dependent nature of depletion risk that concerns real investors. Additionally, their use of fixed wealth bounds in the control matrix creates inefficiencies, with many parameters remaining undefined or under-utilized during early periods when the spread of simulated outcomes is narrow. By modifying their approach to incorporate a more appropriate risk measure and implementing adaptive wealth bounds, we aim to create a more powerful and flexible optimization framework. The optimization process on such a high-dimensional parameter space will be the key technical challenge of this objective. We will explore gradient-based optimization methods, leveraging automatic differentiation tools available in frameworks like PyTorch. 
 
-\textbf{4. Provide evidence-based recommendations} that can inform both individual investors and financial advisers in New Zealand, with potential implications for policy discussions around retirement savings adequacy and the appropriateness of default KiwiSaver allocations. We will also aim to evaluated Consilium's existing retirement products in light of our findings, such that they can be disseminated to clients where appropriate and beneficial. In particular, this will involve a critical assessment of what limitations exist in the research findings and how they should be interpreted or communicated ethically to avoid overconfidence in specific strategies.
+The fourth, overarching objective of this research is to provide evidence-based recommendations that can inform both individual investors and financial advisers in New Zealand. We will principally focus on actionable guidance that can be implemented by financial advisers working with Consilium, but the findings will also have potential implications for broader policy discussions. We will evaluate Consilium's existing retirement products and methodologies in light of our findings, identifying opportunities where evidence-based strategies could improve client outcomes. Importantly, this objective includes a critical assessment of the limitations inherent in our research findings and careful consideration of how results should be communicated ethically. Overconfidence in any particular strategy would be inappropriate given the inherent uncertainty in long-term market behavior and we must ensure that recommendations acknowledge both the strengths and limitations of the analysis in a way that can be clearly understood by advisers and their clients.
 
-If time constraints prevent achieving all goals, priority will be given to goals 1 and 2, which establish the foundational framework and provide actionable insights for the New Zealand context. Goal 3 represents an important methodological contribution but particulary goal 3.2 may be deferred if earlier phases take longer than anticipated, as it represents a novel extension that may require significant development and testing. Goal 4 will be integrated throughout the project, with preliminary recommendations developed as findings emerge, but the final synthesis may be condensed if necessary.
+If time constraints prevent achieving all objectives, priority will be given to the first two, which establish the foundational framework and provide actionable insights most directly relevant to the New Zealand context. The first objective is essential as it creates the analytical infrastructure upon which all subsequent work depends. The second objective has the most immediate practical relevance, as it directly addresses whether current industry practices are supported by evidence. The third objective represents an important methodological contribution, but particularly the second sub-goal involving the control-matrix extension may be deferred if earlier phases require more time than anticipated. This extension, while valuable, represents a novel contribution that may require significant development and testing to implement robustly. The fourth objective will be integrated throughout the project, with preliminary recommendations developed as findings emerge from each phase. However, the final synthesis and detailed evaluation of Consilium's products may be condensed if necessary to ensure that the core analytical work is completed to a high standard.
+
 
 \section{Data}
 
-The project will utilize multiple data sources:
+This research requires two primary categories of data: asset return data to drive the Monte Carlo simulations, and retirement spending data to inform realistic assumptions about retiree consumption patterns. The availability and quality of these data sources will significantly influence the robustness of our findings and their applicability to the New Zealand context.
 
 \subsection{Asset Return Data}
 
-\begin{itemize}
-    \item Historical return data for major asset classes relevant to New Zealand investors.
-    \item Source: Consilium has access to comprehensive market return databases (e.g., Morningstar, Dimensional, MSCI) covering New Zealand and international equities, bonds, and cash. These databases provide total return indices, including dividends and interest. We will also explore publicly available data from academic sources as well, as many of these are mentioned in the literature (e.g., \textcite{anarkulova2025beyond}).
-    \item Timeframe: Ideally 50+ years to capture multiple market cycles. This will then need to be bootstrapped to generate longer synthetic return paths for Monte Carlo simulation.
-    \item Format: Time series of returns for major asset classes (NZ equities, international equities, NZ bonds, international bonds, cash).
-\end{itemize}
+The simulation framework requires historical return data for the major asset classes accessible to New Zealand investors. Consilium maintains access to comprehensive market return databases, including those provided by Morningstar, Dimensional, and MSCI, which cover New Zealand and international equities, bonds, and cash equivalents. These databases provide total return indices that incorporate dividends and interest, ensuring that our simulations capture the complete return experience of investors rather than price appreciation alone. We will also explore publicly available data from academic sources, particularly those used in recent studies such as \textcite{anarkulova2025beyond}, to allow for direct comparison with published findings and to validate results across different data sources.
+
+The ideal dataset will span at least 50 years to capture multiple complete market cycles, including periods of both strong and weak performance, high and low inflation, and varying interest rate environments. The historical data will be formatted as time series of returns for each major asset class. These return series will then serve as the foundation for generating longer synthetic return paths through bootstrapping or other resampling techniques. The choice of resampling method is important, as simple random sampling assumes returns are independent and identically distributed, which may not capture important features of real market dynamics such as volatility clustering or mean reversion. We will therefore consider block-bootstrap methods similar to those employed by \textcite{anarkulova2025beyond}, which preserve some of the time-series properties of returns while still generating sufficient variation for Monte Carlo analysis.
 
 \subsection{Retirement Spending Data}
 
-\begin{itemize}
-    \item Consumption patterns for New Zealand retirees across different age groups.
-    \item Sources: This will be synthesize from academic literature on retirement spending, government statistics, and findings from professional bodies. The author has existing connections with Ian Parera, who has conducted research on retirement consumption in New Zealand in association with the Retirement Income Interest Group of the New Zealand Society of Actuaries which will provide by far the most relevant data to the New Zealand context. 
-    \item This data will inform realistic spending assumptions in the simulation model.
-\end{itemize}
+Understanding realistic consumption patterns for New Zealand retirees is essential for developing appropriate spending assumptions in our simulation model. The academic literature on retirement spending has documented several important patterns that differ from the simple constant-spending assumption used in many theoretical models. In particular, studies have found that spending tends to decline with age, though not uniformly across all categories, and that healthcare costs often increase in later years even as discretionary spending falls.
+
+For the New Zealand context, we will synthesize data from multiple sources. Government statistics from Statistics New Zealand provide aggregate consumption data across different age groups, though these are not specifically focused on retirees. Academic literature on retirement spending, including international studies, will inform our understanding of typical spending trajectories and how they vary with wealth levels and other factors. However, the most relevant data for our purposes will come from research conducted specifically on New Zealand retirees. The author has established connections with Ian Parera, who has conducted comprehensive research on retirement consumption in New Zealand in association with the Retirement Income Interest Group of the New Zealand Society of Actuaries. This research provides detailed insights into how New Zealand retirees actually spend their money throughout retirement, including the impact of New Zealand Superannuation on spending patterns and the extent to which retirees draw down their accumulated wealth.
+
+These spending data will be used to calibrate realistic withdrawal patterns in our simulation model, moving beyond the fixed-dollar or fixed-percentage assumptions that dominate much of the existing literature. By incorporating spending patterns that reflect actual retiree behavior in New Zealand, we can assess whether optimal asset allocation strategies differ meaningfully from those derived under more stylized assumptions. This is particularly important given that much of the international literature may not fully capture the unique features of the New Zealand retirement income system, including universal access to New Zealand Superannuation and the relatively high home ownership rates among older New Zealanders.
+
+It is important to note that this project does not use personal or confidential data of any kind. All market return data will be drawn from aggregated indices that are publicly available or accessible through standard financial data providers. Spending data will be synthesized exclusively from published academic research, government statistics, and industry reports. No individual-level retirement account data or personal financial information will be accessed or analyzed. This ensures that the research raises no privacy or confidentiality concerns while still providing insights that are relevant to real-world retirement planning decisions.
 
 \subsection{Data Challenges}
 
-\begin{itemize}
-    \item \textbf{Sample size limitations:} While long-term return data is available for major asset classes, the effective sample size for meaningful optimization may be limited given the enormous number of return paths required. \textcite{anarkulova2025beyond} highlight the importance of using bootstrapped returns rather than parametric models to better capture real-world dynamics. They also developed a method to generate around 1 million synthetic return paths from historical data, which we will seek study and potentially adapt.
-    \item \textbf{Structural changes:} Financial markets have evolved significantly over recent decades (e.g., reduction in interest rates, changing correlations between assets). Additionally, New Zealand's retirement system has undergone reforms (e.g., introduction of KiwiSaver in 2007) that may affect spending behavior. These structural changes complicate the use of historical data for future projections. We will need to carefully consider and justify our assumptions, as well as potentially conduct sensitivity analyses to assess the impact of different return assumptions.
-    \item \textbf{Generalizability:} Spending patterns from aggregate data may not reflect individual variation in retiree needs. We will try to ensure that our spending assumptions are grounded research concerning the median or typical retiree, but recognize that individual circumstances vary widely.
-\end{itemize}
+There are some important challenges which arise when using historical data to inform lifetime asset allocation strategies.
 
-The project does not use personal or confidential data. All market return data will be aggregated indices, and spending data will be drawn from published research or government statistics.
+The first concerns sample size limitations. While long-term return data is available for major asset classes, the effective sample size for meaningful optimization may be constrained by the enormous number of return paths required for robust Monte Carlo simulation. We need sufficiently long return histories to capture the full range of market behavior, including rare but important events like sustained bear markets or periods of high inflation, yet even several decades of monthly data provide only a limited number of independent observations once we account for serial correlation in returns. This limitation is particularly acute when attempting to optimize strategies that involve many parameters, as the risk of overfitting to historical data increases when the parameter space is large relative to the effective sample size. \textcite{anarkulova2025beyond} highlight the importance of using bootstrapped returns rather than parametric models to better capture real-world return dynamics. They also recognize the sample size problem and develop a block-bootstrapping method that generates approximately one million synthetic return paths from historical data while preserving important statistical properties. We will study this method in detail and see if we can adapt it for our purposes.
+
+The second challenge is that policy settings are subject to structural changes over time, which complicates the use of historical data for future projections. New Zealand's retirement system has also undergone significant reforms that may affect how our findings should be interpreted. The introduction of KiwiSaver in 2007 represents the most substantial change, creating a subsidized retirement savings vehicle that was not available to older cohorts of retirees. This may affect both the typical wealth levels of future retirees and their spending behavior, as KiwiSaver balances are held separately from other savings and may be treated differently from a behavioral perspective. Changes to New Zealand Superannuation, including adjustments to eligibility age and means testing (should they occur), would also fundamentally alter the optimization problem by changing the guaranteed income floor available to retirees. We may wish to consider how some of these structural changes could be modeled or accounted for in our analysis, but in the interest of scope and feasibility, we will primarily focus on current policy settings as the baseline for our analysis.
+
+The third challenge concerns the generalizability of spending patterns derived from aggregate data. Retirement spending is inherently heterogeneous, with individual consumption needs varying widely based on factors such as health status, housing situation, family circumstances, and lifestyle preferences. Some retirees have minimal discretionary spending and live primarily on New Zealand Superannuation, while others maintain much higher consumption levels supported by substantial accumulated wealth. Healthcare costs, in particular, exhibit enormous individual variation, with some retirees incurring minimal expenses while others face substantial ongoing costs. To limit the scope of the project, the main focus will be modeling spending patterns that reflect the median or typical New Zealand retiree, but we will also conduct sensitivity analyses to examine how optimal strategies vary with different spending profiles. We would like to explore scenarios for both individuals and couples, as well as low, medium, and high spenders, to assess the robustness of our findings across a range of plausible consumption needs.
+
+While we will do our best to address these data challenges, it is important to recognize that any conclusions drawn from historical data are inherently uncertain and based on assumptions that may not hold in the future. This is an inherent limitation, and not one that can be fully resolved. We will therefore be transparent about our assumptions and the limitations of our findings, and conduct sensitivity analyses to assess how robust our results are to different data inputs and modeling choices.
 
 \section{Planning}
 
-The project breaks into several interconnected workstreams:
+The project breaks into several overlapping workstreams/phases spanning from February through June 2026. Figure \ref{fig:gantt} presents the timeline as a Gantt chart, showing the approximate duration and dependencies between phases. The following sections describe each phase in detail, including key activities and deliverables.
 
-\subsection{Phase 1: Literature Review and Context (Completed by early February)}
 
-\begin{itemize}
-    \item Complete review of retiree risk perception and spending behavior literature
-    \item Identify unique aspects of New Zealand retirement landscape
-    \item Establish realistic assumptions about spending patterns and risk concerns
-    \item \textit{Deliverable:} Comprehensive literature review section for final report
-\end{itemize}
+\begin{figure}[h!]
+    \centering
+    \begin{ganttchart}[
+            hgrid,
+            vgrid,
+            x unit=2cm,
+            y unit title=0.6cm,
+            y unit chart=1cm, 
+            title height=1,
+            bar/.style={fill=gray!50},
+            bar height=0.6
+        ]{1}{5}
 
-\subsection{Phase 2: Framework Development (Completed by early March)}
+        % Title
+        \gantttitle{2026}{5} \\
+        % Months
+        \gantttitle{Feb}{1}
+        \gantttitle{Mar}{1}
+        \gantttitle{Apr}{1}
+        \gantttitle{May}{1}
+        \gantttitle{Jun}{1} \\
+        % Tasks
+        \ganttbar{Phase 1: Literature Review}{1}{1} \\
+        \ganttbar{Phase 2: Framework Development}{1}{2} \\
+        \ganttbar{Phase 3: Age-Based Glide-Path Optimization}{2}{3} \\
+        \ganttbar{Phase 4: Wealth-Responsive Optimization}{3}{4} \\
+        \ganttbar{Phase 5: Report Writing}{4}{5}
+    \end{ganttchart}
+    \caption{Project timeline showing the five main phases of work}
+    \label{fig:gantt}
+\end{figure}
 
-\begin{itemize}
-    \item Implement Monte Carlo simulation framework for wealth trajectories under lifetime allocation strategies
-    \item Develop methods for incorporating different asset return models (bootstrap, parametric)
-    \item Code realistic spending rules and withdrawal patterns
-    \item Implement multiple risk measures appropriate for lifetime allocation
-    \item \textit{Deliverable:} Working simulation framework with documented code
-\end{itemize}
 
-\subsection{Phase 3: Age-Based Glide-Path Optimization (Completed by late March)}
 
-\begin{itemize}
-    \item Replicate findings from \textcite{anarkulova2025beyond} regarding age-based glide-paths
-    \item Optimize age-based glide-paths using New Zealand-specific assumptions
-    \item Compare declining-risk, constant-risk, and increasing-risk strategies following the approach of \textcite{estrada2014glidepath, estrada2015retirement}
-    \item Sensitivity analysis across different risk measures and return models
-    \item \textit{Deliverable:} Optimized glide-paths and performance comparisons
-\end{itemize}
+\subsection{Phase 1: Literature Review}
 
-\subsection{Phase 4: Wealth-Responsive Optimization (Completed by late April)}
+The first phase, to be completed by early February, focuses on establishing the theoretical foundations for the modelling framework and identifying realistic assumptions for New Zealand retirees. There are two main areas of interest that require in-depth review. First, we need to understand the existing literature on lifetime asset allocation, particularly studies that have examined age-based glide-paths and wealth-responsive strategies. This includes foundational works such as \textcite{merton1969lifetime} and more recent contributions like \textcite{anarkulova2025beyond} and \textcite{Makinen2024}. We will critically assess the methodologies used in these studies, their assumptions about spending patterns and risk measures, and the extent to which their findings can be generalized to the New Zealand context. Then we will review the literature on retiree spending behavior and the goals and concerns of real-world retirees. Because the majority of this corpus is international in scope, we will pay special attention to studies conducted in countries with retirement systems similar to New Zealand's, particularly looking at how and why spending patterns differ between countries as a result of policy settings, cultural factors, and economic conditions. We will also closely examine research specifically focused on New Zealand retirees, to extract insights that can inform our assumptions about spending patterns and risk concerns. The insights from this phase will inform the realistic assumptions about spending patterns and risk concerns that we incorporate into later phases. The primary deliverable is a comprehensive literature review section that will form part of the final report, providing both the theoretical foundation for the research and justification for the specific modeling choices made in subsequent phases.
 
-\begin{itemize}
-    \item Extend framework to control-matrix approach (age and wealth dependent) following \textcite{Makinen2024}
-    \item Address limitations in Mäkinen et al. method (terminal-wealth-only risk, fixed bounds)
-    \item Implement gradient-based optimization with support from Philipp Wacker
-    \item \textit{Deliverable:} Extended optimization results (if time permits)
-\end{itemize}
 
-\subsection{Phase 5: Analysis and Writing (Draft by early May, final by June)}
+\subsection{Phase 2: Framework Development}
 
-\begin{itemize}
-    \item Synthesize findings and draw conclusions
-    \item Develop recommendations for New Zealand context
-    \item Complete final report writing
-    \item Prepare presentation materials
-\end{itemize}
+The second phase, to be completed by early March, involves building the core simulation and optimization infrastructure that will support all subsequent analysis. We will implement a Monte Carlo simulation framework capable of generating wealth trajectories under various lifetime allocation strategies, incorporating the realistic spending rules and withdrawal patterns identified in Phase 1. A critical design decision is ensuring the framework remains agnostic to the source of asset returns, allowing us to test strategies using bootstrapped historical data, parametrically generated returns, or other models. This flexibility is important because different return models may lead to different conclusions about optimal strategies, and we need to assess the robustness of our findings across these alternatives. We will also implement multiple risk measures appropriate for lifetime allocation problems, moving beyond traditional risk metrics like variance to include measures that capture the practical concerns of retirees, such as the probability of portfolio depletion at different ages or the magnitude of shortfalls relative to spending needs. The code will be thoroughly documented to ensure reproducibility and to facilitate potential future extensions by other researchers. The primary deliverable is a working simulation framework with complete documentation, which will serve as the engine for all optimization work in subsequent phases.
+
+
+\subsection{Phase 3: Age-Based Glide-Path Optimization}
+
+The third phase, to be completed by late March, applies the simulation framework to evaluate and optimize age-based glide-path strategies. We will begin by attempting to replicate the findings of \textcite{anarkulova2025beyond} regarding age-based glide-paths, using their methodology as closely as possible. This will also involve implementing their block-bootstrapping method for generating return paths, which we will also seek to adapt for further use in our framework. This replication serves multiple purposes: it validates our framework against published results, helps us understand the sensitivity of their conclusions to methodological choices, and provides a baseline for comparison when we introduce New Zealand-specific assumptions. We will then optimize age-based glide-paths using consumption models based on the New Zealand context and policy settings. This phase will also include a sensitivity analysis to assess how optimal strategies change with different risk measures, return models, and assumptions about spending behavior. We are particularly interested in whether the conclusions drawn from bootstrapped returns differ meaningfully from those based on parametric return models, as highlighted by \textcite{anarkulova2025beyond}. This is particularly relevant given that much of Consilium's existing advice is based on traditional assumptions modelled with IID asset returns. The primary deliverable is a set of optimized age-based glide-paths along with performance comparisons that can be translated into actionable recommendations for New Zealand retirees and their advisers.
+
+
+\subsection{Phase 4: Wealth-Responsive Optimization}
+
+The fourth phase, to be completed by late April if time permits, represents a more ambitious extension of the optimization framework. Building on the control-matrix approach of \textcite{Makinen2024}, we will develop methods for optimizing strategies that respond to both age and wealth levels rather than age alone. This extension is theoretically important because it allows strategies to adapt to an investor's actual financial position rather than assuming all investors of the same age should follow identical allocations. However, implementing this approach requires addressing several limitations in the original Mäkinen method. Their risk measure focuses exclusively on terminal wealth, which we will extend to capture time-dependent concerns about portfolio depletion. Their use of fixed wealth bounds in the control matrix also creates inefficiencies that we will address through adaptive bounds or alternative parameterization approaches. The optimization problem in this phase is substantially more complex than in Phase 3, as the parameter space expands significantly when allocation depends on both dimensions.
+
+Given the technical challenges involved, this phase is designated as optional in our planning. If earlier phases take longer than anticipated or if the optimization proves intractable within the available timeframe, we will focus instead on deepening the analysis from Phase 3. The deliverable, if completed, is a set of wealth-responsive allocation strategies along with performance evaluations that can be compared to the age-based glide-paths developed earlier. These will then be translated into more basic rules-of-thumb that can be communicated effectively to financial advisers and their clients.
+
+\subsection{Phase 5: Analysis and Writing}
+
+The final phase, spanning May and June, focuses on synthesizing findings and producing the final research outputs. This involves drawing together insights from all previous phases, identifying robust conclusions that hold across different modeling assumptions, and developing specific recommendations appropriate for the New Zealand context. The recommendations must acknowledge both the strengths and limitations of the analysis, including explicit discussion of the assumptions on which they rest and the circumstances under which they might not apply. We will complete the final report writing during this period, ensuring that all technical work is properly documented and that findings are presented in a manner accessible to both academic and practitioner audiences. Additionally, all code developed during the project will be cleaned up, documented, and published in a public GitHub repository to ensure transparency and reproducibility.
+
+The draft report will be completed by early May to allow time for feedback and revision, with the final version due in June. The primary deliverables are the complete final report, GitHub repo, and presentation materials suitable for sharing with Consilium's advisers and clients.
+
 
 \subsection{Contingency Planning}
 
-\begin{itemize}
-    \item If Phase 4 proves too complex, focus on deepening analysis in Phase 3 with more extensive sensitivity testing
-    \item If data access issues arise, fall back to publicly available international data with appropriate caveats
-    \item If optimization convergence is problematic, simplify strategy space (e.g., limit to 10\% allocation increments)
-\end{itemize}
+Some contingency measures have been identified to address potential challenges that may arise during the project. As we've mentioned, if Phase 4 proves too complex to complete within the available timeframe, we will redirect effort toward deepening the analysis in Phase 3 rather than rushing to produce incomplete or poorly validated results for the wealth-responsive optimization. This might include more extensive sensitivity testing, examination of additional risk measures, or analysis of how optimal strategies vary across different investor profiles. The core insights from age-based optimization are sufficiently valuable that a thorough treatment of Phase 3 alone would constitute a meaningful contribution.
+
+Additionally, if optimization convergence proves problematic, particularly in Phase 4 where the parameter space is large, we will simplify the strategy space to facilitate convergence. This might involve limiting allocations to 10 percent increments rather than allowing continuous variation, reducing the time granularity of the glide-path, or constraining the wealth dimension of the control matrix to fewer grid points. While this reduces the theoretical optimality of the solution, it ensures we obtain robust and interpretable results rather than solutions that are sensitive to numerical instabilities in the optimization procedure.
 
 \section{Resources}
-
-\subsection{Computing Resources}
-
-\begin{itemize}
-    \item GPU access for Monte Carlo simulations (1 million paths across multiple optimization iterations). Have access to a workstation with two NVIDIA RTX 3080Ti GPUs with 12GB VRAM each.
-    \item Python scientific computing stack (PyTorch for GPU acceleration)
-    \item \textit{Status:} Personal computing resources sufficient at this stage.
-\end{itemize}
 
 \subsection{Data Access}
 
