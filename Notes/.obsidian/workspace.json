@@ -37,10 +37,14 @@
             "id": "a63f9aafff8bfb4f",
             "type": "leaf",
             "state": {
-              "type": "graph",
-              "state": {},
-              "icon": "lucide-git-fork",
-              "title": "Graph view"
+              "type": "markdown",
+              "state": {
+                "file": "Fortnightly Updates/26-01-18.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "26-01-18"
             }
           }
         ],
@@ -191,6 +195,13 @@
   },
   "active": "a63f9aafff8bfb4f",
   "lastOpenFiles": [
+    "Pasted image 20260118163616.png",
+    "Pasted image 20260118161659.png",
+    "Papers/Makinen - Monte Carlo Optimisation.md",
+    "Fortnightly Updates/26-01-18.md",
+    "Fortnightly Updates",
+    "Papers/Merton - Lifetime Portfolio Selection under Uncertainty.md",
+    "Papers/Love - Trajectory of Wealth in Retirement (United States).md",
     "Papers/PDF Downloads/a_critical_assesment_lifetime.pdf",
     "Papers/PDF Downloads/Challenging Lifecycle Investing The Case for An All Equity Strategy.pdf",
     "Topics/100% Stock Portfolio.md",
@@ -201,8 +212,6 @@
     "Papers/Cocco - Consumption and Portfolio Choice over the Life Cycle.md",
     "Papers/Estrada - The Glidepath Illusion.md",
     "Papers/Life Cycle Wealth in Canada 1977.md",
-    "Papers/Love - Trajectory of Wealth in Retirement (United States).md",
-    "Papers/Merton - Lifetime Portfolio Selection under Uncertainty.md",
     "Papers/Mortality Risk and Bequests.md",
     "Papers/Nardi - Differential Mortality, Uncertain Medical Expenses, and the Saving of Elderly Singles.md",
     "Papers/Palumbo - Uncertain medical expenses and precautionary saving near the end of the life cycle.md",
@@ -219,13 +228,9 @@
     "Papers/Bequests and Life-Cycle Savings.md",
     "Papers/The Life Cycle Hypothesis of Saving.md",
     "Papers/Anarkulova - A Critical Assessment of Lifecycle Investment Advice.md",
-    "Papers/Asset Allocation Explains Fund Performance.md",
-    "Findings/Retirees Spend Less in Retirement than Predicted by Theory.md",
     "Papers/PDF Downloads/ssrn-4590406.pdf",
     "Papers/PDF Downloads/dolvin.pdf",
     "Papers/PDF Downloads/document.pdf",
-    "Papers/PDF Downloads/Kopczuk-LeaveLeaveDistribution-2007.pdf",
-    "Papers/PDF Downloads/bequeth.pdf",
-    "Papers/PDF Downloads/Does_Asset_Allocation_Policy_Explain_40_90_100_Per.pdf"
+    "Papers/PDF Downloads/Kopczuk-LeaveLeaveDistribution-2007.pdf"
   ]
 }
