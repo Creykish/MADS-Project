@@ -1,4 +1,4 @@
-\documentclass[12pt]{article}
+\documentclass[11pt]{article}
 \usepackage{graphicx} % Required for inserting images
 \usepackage[a4paper,margin=1.25cm,footskip=.5cm]{geometry}
 \usepackage{amsmath}
@@ -162,7 +162,7 @@ This approach allows for a more nuanced asset allocation strategy that can adapt
 
 However, we can reduce the search-space somewhat by using less granular grid points for the control matrix and interpolating between them to determine the asset allocation for time steps and wealth levels that fall between the defined grid points. This allows us to maintain a reasonable level of flexibility in the asset allocation strategy while keeping the number of parameters manageable. Moreover, it is unlikely that investors' asset allocation policy will be meaningfully different for small increments in time or wealth, so using a coarser grid with interpolation is unlikely to significantly reduce the optimality of the resulting strategy, while making the optimisation process more tractable. This idea of interpolating between grid points was first proposed by \textcite{Makinen2024}, who use bilinear interpolation to determine the asset allocation for wealth levels that fall between the defined wealth-grid points, however, we also propose that interpolation could be used for time steps that fall between the defined time-grid points as well, which would further reduce the number of parameters that need to be optimised.
 
-To understand how this works on a more practical level, consider figure \ref{control_matrix_example}, which shows a simple example of a control matrix for a two-asset portfolio with allocations defined at 25 percent increments across a 5 year period. Our control matrix has 6 time steps (0 to 5) and 5 wealth levels (0 to 4), so is a 6 by 5 matrix. Each cell in the matrix corresponds to a specific allocation to the risky asset, with the remainder allocated to the safe asset. For example, if an investor is at time step 2 and has a wealth level of 3, they would fall into the cell corresponding to an allocation of 50 percent to the risky asset and 50 percent to the safe asset. For timesteps or wealth levels that fall between the defined grid points, we can use interpolation to determine the appropriate asset allocation. For example, if an investor is at time step 2.5 and has a wealth level of 3.5, we could use bilinear interpolation to calculate the asset allocation based on the four surrounding grid points.
+To understand how this works on a more practical level, consider figure \ref{control_matrix_example}, which shows a simple example of a control matrix for a two-asset portfolio. Our control matrix has 6 time steps (0 to 5) and 5 wealth levels (0 to 4), so is a 6 by 5 matrix. Each cell in the matrix corresponds to a specific allocation to the risky asset, with the remainder allocated to the safe asset. For example, if an investor is at time step 2 and has a wealth level of 3, they would fall into the cell corresponding to an allocation of 50 percent to the risky asset and 50 percent to the safe asset. For timesteps or wealth levels that fall between the defined grid points, we can use interpolation method proposed by \textcite{Makinen2024} to determine the appropriate asset allocation. For example, if an investor is at time step 2.5 and has a wealth level of 3.5, we could use bilinear interpolation to calculate the asset allocation based on the four surrounding grid points.
 
 
 \begin{figure}[h!]
@@ -237,6 +237,12 @@ In their paper, \textcite{Makinen2024} optimised their control-matrix asset allo
 
 
 \printbibliography
+
+\pagebreak
+
+\appendix
+\section{Replication and Discussion of Control Matrix Optimisation as Proposed by \textcite{Makinen2024}}
+
 
 
 
