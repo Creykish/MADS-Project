@@ -4,7 +4,10 @@
 \usepackage{amsmath}
 \usepackage{booktabs}
 \usepackage{verbatim}
+\usepackage{xcolor}
 \usepackage{mdframed}
+\newmdenv[leftmargin=10pt,rightmargin=10pt,linewidth=1pt,linecolor=gray,backgroundcolor=gray!12]{asidebox}
+\newcommand{\asideboxtitle}[1]{\noindent\textbf{\large #1}\par\vspace{0.5em}}
 
 \usepackage[
 backend=biber,
@@ -65,14 +68,16 @@ In summary, while declining-risk strategies are widely recommended and implement
 The methods used to simulate asset returns also vary significantly between studies. Some researchers use historical return data, while others use bootstrapped or Monte Carlo simulated returns. The choice of return model can have a significant impact on the results, as different models may capture different aspects of market behaviour, such as volatility clustering or fat tails. For example, \textcite{anarkulova2025beyond} argue that many earlier studies that supported declining-risk strategies relied on the assumption of independent and identically distributed returns, which does not accurately reflect real-world market dynamics. Real-world asset returns often exhibit serial correlation and changing volatility over time, which can affect the performance of different asset allocation strategies. In particular, sharp downturns in the market are often followed by fairly rapid recoveries \Parencite{dimensional2023stock}, which can benefit investors who maintain higher equity exposure during these periods.
 
 
-\subsubsection{Implications for Consilium NZ LTD}
+\begin{asidebox}
+\asideboxtitle{Implications for Consilium NZ LTD}
 
 While Cosilium does not currently offer a glide-path product, nor do they explicitly recommend a declining-risk strategy, the findings from the existing literature have important implications for their business. It suggests that the current common-knowledge around lifetime asset allocation may be misguided, and that there is an opportunity for Consilium to differentiate themselves by offering more sophisticated and evidence-based asset allocation strategies. In particular, there may be an opportunity to challenge the assumptions of many of their advisors around need for declining-risk strategies. 
 
-Consilium has typically based much of its modelling of portfolio performance on IID return assumptions, which may not accurately reflect real-world market dynamics. By investigating asset allocation strategies that account for more realistic return dynamics, Consilium can provide more robust and effective advice to their clients. 
+Consilium has typically based much of its modelling of portfolio performance on IID return assumptions, which may not accurately reflect real-world market dynamics. By investigating asset allocation strategies that account for more realistic return dynamics, Consilium can provide more robust and effective advice to their clients.
+\end{asidebox} 
 
 
-\subsection{Methods for Simulating Lifetime Wealth Trajectories and Optimising Asset Allocation}
+\subsection{Methods for Simulating Lifetime Wealth Trajectories}
 
 A key component of studying lifetime asset allocation is the ability to simulate realistic wealth trajectories for individual investors. This involves modelling both the accumulation and decumulation phases, taking into account factors such as contributions, withdrawals, investment returns, and spending needs. Our approach builds on a Monte Carlo simulation framework, which allows us to generate a wide range of possible outcomes based on different asset allocation strategies and market conditions. Importantly, the smulation approach we propose is agnostic to the source of asset returns, meaning that we can use historical data, bootstrapped returns, or simulated returns from a variety of models. This flexibility allows us to test the robustness of different asset allocation strategies across a range of assumptions. Additionally, the framework also allows for the incorporation of deposits and withdrawals of different amounts at different times, which is a key feature of real-world investor behaviour.
 
@@ -110,13 +115,39 @@ This yeilds the portfolio growth factors as:
 +1} \cdot f(t+1; \boldsymbol{\theta})
 \end{equation}
 
-
-
 In this form, the model can accommodate a wide range of asset allocation strategies based on the investor's age. This is similar to the approach that \textcite{anarkulova2025beyond} use, and our first objective will be to replicate their findings for the optimal glide-paths, and to examine how these findings change when we modify the risk measures and spending assumptions to better reflect real-world investor behaviour, particularly in the New Zealand context.
 
-However, in this framework the hypothetical investor's asset allocation strategy is only responsive to time (i.e. age), and does not take into account the investor's current wealth level. In practice, an investor's risk tolerance and spending needs may vary significantly depending on their accumulated wealth at any given time. For example, an investor with a large portfolio may be able to tolerate more risk than an investor with a smaller portfolio, even if they are the same age. To address this limitation, we will attempt to extend the framework using a method similar to that proposed by \textcite{Makinen2024}, who introduce a control matrix that allows the asset allocation strategy to depend on both time and wealth. 
+\begin{asidebox}
+\asideboxtitle{Implications for Consilium and an Aside on Using Matrix Operations and Computational Efficiency}
 
-The way that this control-matrix works is that it defines a grid over the time and wealth dimensions, with each cell in the grid corresponding to a specific asset allocation. During the simulation, the investor's current age and wealth level are used to determine which cell in the grid they fall into, and the corresponding asset allocation is applied. For allocations with more than two asset classes, the control matrix can be extended to a higher-dimensional tensor, with each additional dimension representing an additional asset class. \textcite{Makinen2024} use billinear interpolation to determine the asset allocation for wealth levels that fall between the defined grid points, ensuring a smooth transition between different allocation strategies.
+The effort taken here to express the model in matrix form is not only  for academic rigor, but it also allows us to leverage vectorised operations through highly optimised linear algebra libraries (e.g. \texttt{numpy} \parencite{numpy}) which can significantly speed up the simulation process, especially when dealing with a large number of paths and time steps. A mistake made in previous work by Consilium when it has considered using this type of Monte-Carlo approach to simulating investor outcomes is that they have constructed very poor computational implementations that rely heavily on for-loops and other non-vectorised operations, which can be extremely slow and inefficient. By contrast, using matrix operations allows us to perform calculations on entire arrays of data at once, leading to many orders of magnitude improvement in speed. This work alone, if applied to Consilium's existing offerings would represent a significant improvement in the service it provides to its clients.
+
+The use of matrix operations will also make it easier when it comes to optimising the asset allocation strategy, as we can leverage automatic differentiation tools (e.g. \texttt{tensorflow} \parencite{tensorflow}, \texttt{pytorch} \parencite{pytorch}) to compute gradients of the risk measure with respect to the parameters of the asset allocation strategy.
+\end{asidebox} 
+
+
+\subsubsection{Wealth-Responsive Spending Policy}
+
+Rather than having a fixed spending pattern, we can also model the investor's spending as a function of their current wealth level. In some cases, retirees may have a fixed spending floor that they need to meet each year, regardless of the performance of their portfolio. In other cases, retirees may adjust their spending based on the performance of their portfolio, for example by reducing discretionary spending during periods of poor returns. To model this behaviour, we can define the net contribution (or withdrawal) at time \(t\) as a function of wealth: \(\pi_t = g(W_t; \boldsymbol{\phi})\), where \(g\) is a function parameterised by a set of parameters \(\boldsymbol{\phi}\). This allows us to simulate more realistic spending patterns that can vary over time and in response to changes in the investor's wealth. For example, we could model a spending policy that has a fixed floor and a variable discretionary component that adjusts based on the investor's current wealth level. This could be represented as:
+
+\begin{equation}
+\pi_t = - \max(S_{\text{floor}}, \alpha W_t)
+\end{equation}
+
+Where \(S_{\text{floor}}\) is the fixed spending floor, and \(\alpha\) is a parameter that determines how much of the investor's wealth is allocated to discretionary spending.
+
+Additionally, we can prevent the investor from withdrawing more than their current wealth by defining the net contribution as:
+\begin{equation}
+\pi_t = \max( - g_{t+1}W_t, - \max(S_{\text{floor}}, \alpha W_t))
+\end{equation}
+
+
+Equally, we could model a spending policy that has a random component, for example by adding a stochastic term to the spending function modelling rare, but significant, unexpected expenses that retirees may face, such as healthcare costs or home repairs.
+
+
+\subsubsection{Wealth-Responsive Allocation Policy}
+
+Like with the spending policy, we can also model the asset allocation strategy as a function of both time and wealth. In the age-based glide-path framework, the hypothetical investor's asset allocation strategy is only responsive to time (i.e. age), and does not take into account the investor's current wealth level. In practice, an investor's risk tolerance and spending needs may vary significantly depending on their accumulated wealth at any given time. For example, an investor with a large portfolio may be able to tolerate more risk than an investor with a smaller portfolio, even if they are the same age. To address this limitation, we will attempt to extend the framework using a method similar to that proposed by \textcite{Makinen2024}, who introduce a control matrix that allows the asset allocation strategy to depend on both time and wealth. 
 
 In this framework, the asset allocation at time \(t\) and wealth \(W_t\) is given by \(\mathbf{a}_t = C(t, W_t; \boldsymbol{\theta})\), where \(C\) is the control matrix parameterised by \(\boldsymbol{\theta}\). 
 This yeilds the portfolio growth factors as:
@@ -125,15 +156,54 @@ This yeilds the portfolio growth factors as:
 +1} \cdot C(t+1, W_t; \boldsymbol{\theta})
 \end{equation}
 
-This approach allows for a more nuanced asset allocation strategy that can adapt to the investor's changing circumstances over time. For example, an investor who has accumulated significant wealth may be able to take on more risk, while an investor with lower wealth may need to adopt a more conservative approach. However, it also exponentially increases the number of parameters that need to be optimised, which can make the optimisation process more challenging.
+The way that this control-matrix works is that it defines a grid over the time and wealth dimensions, with each cell in the grid corresponding to a specific asset allocation. During the simulation, the investor's current age and wealth level are used to determine which cell in the grid they fall into, and thus the corresponding allocation to the risky asset (the remainder of the portfolio is allocated to the safe asset).
 
-\subsubsection{Optimisation of Asset Allocation Strategies}
+This approach allows for a more nuanced asset allocation strategy that can adapt to the investor's changing circumstances over time. For example, an investor who has accumulated significant wealth may be able to take on more risk, while an investor with lower wealth may need to adopt a more conservative approach. However, it also exponentially increases the number of parameters that need to be optimised, which can make any optimisation process more challenging. 
 
-An important aspect of this framework is the ability to optimise the asset allocation strategy based on a chosen risk measure. The goal is to find the set of parameters \(\boldsymbol{\theta}\) that minimises some measure of risk or increases some utility for the investor over their lifetime. The choice of risk measure is crucial, as it should reflect the real-world concerns of investors. 
+However, we can reduce the search-space somewhat by using less granular grid points for the control matrix and interpolating between them to determine the asset allocation for time steps and wealth levels that fall between the defined grid points. This allows us to maintain a reasonable level of flexibility in the asset allocation strategy while keeping the number of parameters manageable. Moreover, it is unlikely that investors' asset allocation policy will be meaningfully different for small increments in time or wealth, so using a coarser grid with interpolation is unlikely to significantly reduce the optimality of the resulting strategy, while making the optimisation process more tractable. This idea of interpolating between grid points was first proposed by \textcite{Makinen2024}, who use bilinear interpolation to determine the asset allocation for wealth levels that fall between the defined wealth-grid points, however, we also propose that interpolation could be used for time steps that fall between the defined time-grid points as well, which would further reduce the number of parameters that need to be optimised.
 
-Critical to this is both the interpretability of the risk measure, as well as its computational tractability within the simulation framework. For example, commonly used risk measures such as variance or Value-at-Risk (VaR) may not be easily interpretable within the context of lifetime asset allocation. Such investors are often more concerned with outcomes like the probability of running out of money or failing to meet a specific spending goal, which cannot be directly expressed through these traditional risk measures.
+To understand how this works on a more practical level, consider figure \ref{control_matrix_example}, which shows a simple example of a control matrix for a two-asset portfolio with allocations defined at 25 percent increments across a 5 year period. Our control matrix has 6 time steps (0 to 5) and 5 wealth levels (0 to 4), so is a 6 by 5 matrix. Each cell in the matrix corresponds to a specific allocation to the risky asset, with the remainder allocated to the safe asset. For example, if an investor is at time step 2 and has a wealth level of 3, they would fall into the cell corresponding to an allocation of 50 percent to the risky asset and 50 percent to the safe asset. For timesteps or wealth levels that fall between the defined grid points, we can use interpolation to determine the appropriate asset allocation. For example, if an investor is at time step 2.5 and has a wealth level of 3.5, we could use bilinear interpolation to calculate the asset allocation based on the four surrounding grid points.
 
-Additionally, whatever risk measure is chosen must be applied across the entire lifetime of the investor, rather than just at a single point in time. This means that the risk measure should account for the entire wealth trajectory of the investor, rather than just focusing on terminal wealth or short-term outcomes. The reason for this is that investors are concerned about their financial security throughout retirement, not just at the end of their life. And, in fact, the risk of running out of money earlier in retirement is proportionally more worrying than running out of money later in life, as one represents a significantly longer period of destitution than the other.
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=0.8\textwidth]{../Figs/example_control_matrix_plot.png}
+    \caption{Illustrative example of a discrete control matrix (a) and bilinearly interpolated allocation surface (b).}
+    \label{control_matrix_example}
+\end{figure}
+
+For allocations with more than two asset classes, the control matrix can be extended to a higher-dimensional tensor, with each additional dimension representing an additional asset class. \textcite{Makinen2024} use bilinear interpolation to determine the asset allocation for wealth levels that fall between the defined grid points, ensuring a smooth transition between different allocation strategies.
+
+
+
+\subsection{Optimisation of Asset Allocation Strategies}
+
+
+\subsection{Lifecyle Risk Measures}
+
+An essential component of optimising asset allocation strategies is the choice of risk measure. The risk measure serves as the objective function that we seek to minimise (or maximise) when searching for the optimal strategy. The choice of risk measure can significantly influence the resulting optimal strategy, as different risk measures capture different aspects of risk and may lead to different trade-offs between return and risk.
+
+Our risk measure should be both interpretable and relevant to the concerns of real-world investors. It should be both easy to understand and directly related to the outcomes that investors care about. Additionally, depending on the optimistation method we choose, the risk measure may also need to be differentiable with respect to the parameters of the asset allocation strategy, which would allow us to use gradient-based optimisation techniques.
+
+Traditional portfolio optimisation, like that proposed by \textcite{MPTMarkowitz}, typically uses variance of asset returns as the risk measure. This idea is based on the assumption that investors are risk-averse and that they prefer portfolios with lower variance for a given level of expected return. However, when we consider lifetime asset allocation, this type of measure makes little sense as we are principally concerned with lifetime consumption and the risk of not being able to meet spending needs, rather than the variance of returns. 
+
+This idea does persist, a version of it makes an appearance in \Textcite{Makinen2024}, who demonstrates their method using variance and semi-variance of terminal wealth as the risk measure for optimising their control-matrix asset allocation strategy. This leads to some perplexing results, such as the optimal strategy being to risk-off above a certain wealth level, which is not something that would be expected to be optimal for a real-world investor, but does make sense when the optimiser is ``targeting'' a certain variance of terminal wealth.
+
+Additionally, our risk measure should also be applied accross the entire lifecycle of the investor, rather than just at the terminal wealth. 
+
+
+\subsubsection{What are the Concerns of Retirees?}
+
+It is clear that in order to construct a risk measure that is both interpretable and relevant to real-world investors, we need to have a good understanding of the concerns that typical New Zealand retirees have about their financial security in retirement. Unfortunately, there are is limited research on this topic in the New Zealand context, and so we will need to draw on research from other countries, particularly the United States, to inform our understanding of retirees' concerns.
+
+
+
+
+
+
+
+
+
 
 The key challenge in optimising the asset allocation strategy is that the the parameter space can be very large, even for relatively simple strategies. For example, if we use are searching for an optimal age-based glide-path with 2 asset classes, with allocations in 10 percent increments across a 60 year period, this results in 11 possible allocations at each of 60 time steps, resulting in a total of \(11^{60}\) possible strategies. This is clearly an intractably large search space, and so we must use numerical optimisation techniques to find a good solution. 
 
