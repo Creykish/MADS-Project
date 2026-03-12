@@ -245,7 +245,6 @@ In their paper, \textcite{Makinen2024} optimised their control-matrix asset allo
 
 Because this method is mathematically elegant and computationally efficient, we have attempted to replicate it here. The code for this replication can be found in the accompanying repository, and the results are shown in figure \ref{replication_control_matrix} for the mean-variance and mean-semi-variance cases.
 
-
 In line with the setup described by \textcite{Makinen2024}, the replication uses a Monte Carlo horizon of $T = 20$ years with time step $\Delta t = 0.25$, giving $N = 80$ time steps. The policy is represented on a time-wealth control grid with $M = 31$ wealth nodes, upper wealth bound $W_{\max}=30$, and bilinear interpolation between nodes. In the notebook, wealth is clipped to $[0, W_{\max}]$ before interpolation. Optimisation is performed with L-BFGS-B (a quasi-Newton method) with box constraints.
 
 For the one-risky-asset, no-leverage case used in figure \ref{replication_control_matrix}, the full parameterisation is summarised in Table \ref{tab:replication_one_asset_params}.
@@ -277,8 +276,8 @@ Additionally, we can see from the results that the control matrix has very littl
 
 \begin{figure}[h]
     \centering
-    \includegraphics[width=0.8\textwidth]{../Figs/makinen_replication.png}
-    \caption{Replication of the control matrix optimization method proposed by \textcite{Makinen2024} for the mean-variance case with one risky asset and no leverage.}
+    \includegraphics[width=\textwidth]{../Figs/makinen_replication.png}
+    \caption{Replication of the control matrix optimization method proposed by \textcite{Makinen2024} for one risky asset and no leverage. The left column shows the optimal control matrix for the mean-semi-variance case (top) and the mean-variance case (bottom). The right column shows the corresponding histograms of terminal wealth for each risk measure respectively.}
     \label{replication_control_matrix}
 \end{figure}
 
