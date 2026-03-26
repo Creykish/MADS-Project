@@ -204,7 +204,7 @@ Where \(S_{\text{floor}}\) is the fixed spending floor, and \(\alpha\) is a para
 
 Additionally, we can prevent the investor from withdrawing more than their current wealth by defining the net contribution as:
 \begin{equation}
-\pi_t = \max( - g_{t+1}W_t, - \max(S_{\text{floor}}, \alpha W_t))
+\pi_t = - \min( g_{t+1}W_t, \max(S_{\text{floor}}, \alpha W_t) )
 \end{equation}
 
 
