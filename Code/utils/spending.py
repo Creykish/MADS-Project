@@ -16,7 +16,6 @@ from .inflation import *
 class SpendingPolicy(ABC):
     """Base class for spending policies."""
     
-    @abstractmethod
     def calculate_wealth_delta(
         self,
         wealth: torch.Tensor,
@@ -38,12 +37,31 @@ class SpendingPolicy(ABC):
         torch.Tensor
             Spending amount
         """
+        income = self.income(wealth, time_step, **kwargs)
+        actual_spending = self.calculate_consumption(wealth, time_step, **kwargs)
+        return -actual_spending + income  # Negative because it's a reduction in wealth
+    
+    def calculate_consumption(self, wealth: torch.Tensor, time_step: int, **kwargs) -> torch.Tensor:
+        """
+        Calculate actual consumption for current period (after applying wealth constraints).
+        
+        Parameters
+        ----------
+        wealth : torch.Tensor
+            Current wealth
+        time_step : int
+            Current time step
+        Returns
+        -------
+        torch.Tensor
+            Actual consumption amount
+        """
         desired_spending = self.desired_spending(wealth, time_step, **kwargs)
         income = self.income(wealth, time_step, **kwargs)
-        change_in_wealth = income - desired_spending
-        return torch.maximum(change_in_wealth, -wealth)  # Can't spend more than you have (wealth can't go negative)
+        ammount_to_spend = wealth + income
+        actual_spending = torch.minimum(desired_spending, ammount_to_spend) # Can't spend more than wealth + income
+        return actual_spending
 
-    @abstractmethod
     def income(
         self,
         wealth: torch.Tensor,
@@ -64,8 +82,9 @@ class SpendingPolicy(ABC):
         torch.Tensor
             Income amount (e.g., pension)
         """
-        pass
+        return torch.zeros_like(wealth)  # Default is no income
 
+    @abstractmethod
     def desired_spending(
         self,
         wealth: torch.Tensor,
@@ -87,7 +106,7 @@ class SpendingPolicy(ABC):
         torch.Tensor
             Desired spending amount (can be more than wealth)
         """
-        pass
+        return torch.zeros_like(wealth)  # Default is no spending
 
 class PercentageOfWealth(SpendingPolicy):
     """Spend a fixed percentage of current wealth."""

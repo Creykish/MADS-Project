@@ -70,7 +70,10 @@ def simulate_wealth_trajectory(
         delta_wealth = spending_policy.calculate_wealth_delta(
             wealth_t, t, **kwargs
         )
-        consumption_history.append(delta_wealth)
+        consumption = spending_policy.calculate_consumption(
+            wealth_t, t, **kwargs
+        )
+        consumption_history.append(consumption)
         
         # Wealth after spending
         wealth_after_spending = wealth_t + delta_wealth
