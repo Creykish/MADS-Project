@@ -10,13 +10,14 @@ Different strategies for determining retirement spending:
 import torch
 from typing import Optional
 from abc import ABC, abstractmethod
+from .inflation import *
 
 
 class SpendingPolicy(ABC):
     """Base class for spending policies."""
     
     @abstractmethod
-    def calculate_spending(
+    def calculate_wealth_delta(
         self,
         wealth: torch.Tensor,
         time_step: int,
@@ -37,8 +38,56 @@ class SpendingPolicy(ABC):
         torch.Tensor
             Spending amount
         """
+        desired_spending = self.desired_spending(wealth, time_step, **kwargs)
+        income = self.income(wealth, time_step, **kwargs)
+        change_in_wealth = income - desired_spending
+        return torch.maximum(change_in_wealth, -wealth)  # Can't spend more than you have (wealth can't go negative)
+
+    @abstractmethod
+    def income(
+        self,
+        wealth: torch.Tensor,
+        time_step: int,
+        **kwargs
+    ) -> torch.Tensor:
+        """
+        Calculate income for current period (if applicable).
+        
+        Parameters
+        ----------
+        wealth : torch.Tensor
+            Current wealth
+        time_step : int
+            Current time step
+        Returns
+        -------
+        torch.Tensor
+            Income amount (e.g., pension)
+        """
         pass
 
+    def desired_spending(
+        self,
+        wealth: torch.Tensor,
+        time_step: int,
+        **kwargs
+    ) -> torch.Tensor:
+        """
+        Calculate desired spending before applying wealth constraints.
+        
+        Parameters
+        ----------
+        wealth : torch.Tensor
+            Current wealth
+        time_step : int
+            Current time step
+        
+        Returns
+        -------
+        torch.Tensor
+            Desired spending amount (can be more than wealth)
+        """
+        pass
 
 class PercentageOfWealth(SpendingPolicy):
     """Spend a fixed percentage of current wealth."""
@@ -52,15 +101,15 @@ class PercentageOfWealth(SpendingPolicy):
         """
         self.rate = rate
     
-    def calculate_spending(self, wealth: torch.Tensor, time_step: int, **kwargs) -> torch.Tensor:
+    def desired_spending(self, wealth: torch.Tensor, time_step: int, **kwargs) -> torch.Tensor:
         spending = wealth * self.rate
-        return torch.minimum(spending, wealth)  # Can't spend more than you have
+        return spending
 
 
 class PercentageOfInitialWealth(SpendingPolicy):
     """Spend a percentage of initial wealth, adjusted for inflation."""
     
-    def __init__(self, rate: float, initial_wealth: float, inflation: float = 0.03):
+    def __init__(self, rate: float, initial_wealth: float, inflation: Inflation = ConstantInflation(0.03)):
         """
         Parameters
         ----------
@@ -75,11 +124,11 @@ class PercentageOfInitialWealth(SpendingPolicy):
         self.initial_wealth = initial_wealth
         self.inflation = inflation
     
-    def calculate_spending(self, wealth: torch.Tensor, time_step: int, **kwargs) -> torch.Tensor:
+    def desired_spending(self, wealth: torch.Tensor, time_step: int, **kwargs) -> torch.Tensor:
         # Adjust initial wealth for inflation
-        adjusted_initial_wealth = self.initial_wealth * ((1 + self.inflation) ** time_step)
-        spending = adjusted_initial_wealth * self.rate
-        return torch.minimum(spending, wealth)  # Can't spend more than you have
+        adjusted_initial_wealth = self.initial_wealth * self.inflation.get_multiplier(time_step)
+        spending = torch.full_like(wealth, adjusted_initial_wealth * self.rate, device=wealth.device, dtype=wealth.dtype)
+        return spending
 
 
 class FloorCeilingSpending(SpendingPolicy):
@@ -89,7 +138,7 @@ class FloorCeilingSpending(SpendingPolicy):
         self,
         rate: float,
         floor_real: float,
-        inflation: float = 0.03,
+        inflation: Inflation = ConstantInflation(0.03),
         real_decline_rate: float = 0.0,
         ceiling_real: Optional[float] = None
     ):
@@ -100,8 +149,8 @@ class FloorCeilingSpending(SpendingPolicy):
             Target spending rate as % of wealth
         floor_real : float
             Minimum spending in real terms (year 0)
-        inflation : float
-            Annual inflation rate
+        inflation : Inflation
+            Inflation model
         real_decline_rate : float
             Annual decline in real spending needs
         ceiling_real : Optional[float]
@@ -113,28 +162,28 @@ class FloorCeilingSpending(SpendingPolicy):
         self.real_decline_rate = real_decline_rate
         self.ceiling_real = ceiling_real
     
-    def calculate_spending(self, wealth: torch.Tensor, time_step: int, **kwargs) -> torch.Tensor:
+    def desired_spending(self, wealth: torch.Tensor, time_step: int, **kwargs) -> torch.Tensor:
         # Adjust floor for real decline and inflation
         real_floor = self.floor_real * ((1 - self.real_decline_rate) ** time_step)
-        nominal_floor = real_floor * ((1 + self.inflation) ** time_step)
+        nominal_floor = real_floor * self.inflation.get_multiplier(time_step)
         
         # Percentage-based spending
         percentage_spending = wealth * self.rate
         
-        # Apply floor
+        # Apply floor (use tensor device and dtype from wealth)
         spending = torch.maximum(
-            torch.full_like(wealth, nominal_floor),
+            torch.full_like(wealth, nominal_floor, device=wealth.device, dtype=wealth.dtype),
             percentage_spending
         )
         
         # Apply ceiling if specified
         if self.ceiling_real is not None:
             real_ceiling = self.ceiling_real * ((1 - self.real_decline_rate) ** time_step)
-            nominal_ceiling = real_ceiling * ((1 + self.inflation) ** time_step)
-            spending = torch.minimum(spending, torch.full_like(wealth, nominal_ceiling))
-        
-        # Can't spend more than available
-        spending = torch.minimum(spending, wealth)
+            nominal_ceiling = real_ceiling * self.inflation.get_multiplier(time_step)
+            spending = torch.minimum(
+                spending, 
+                torch.full_like(wealth, nominal_ceiling, device=wealth.device, dtype=wealth.dtype)
+            )
         
         return spending
 
@@ -146,7 +195,7 @@ class PensionPlusPercentage(SpendingPolicy):
         self,
         pension_real: float,
         wealth_rate: float = 0.0,
-        inflation: float = 0.03,
+        inflation: Inflation = ConstantInflation(0.03),
         pension_start_age: int = 65,
         current_age_at_t0: int = 65
     ):
@@ -157,8 +206,8 @@ class PensionPlusPercentage(SpendingPolicy):
             Annual pension income in real terms
         wealth_rate : float
             Additional spending as % of wealth
-        inflation : float
-            Annual inflation rate
+        inflation : Inflation
+            Inflation model
         pension_start_age : int
             Age when pension starts
         current_age_at_t0 : int
@@ -170,22 +219,16 @@ class PensionPlusPercentage(SpendingPolicy):
         self.pension_start_age = pension_start_age
         self.current_age_at_t0 = current_age_at_t0
     
-    def calculate_spending(self, wealth: torch.Tensor, time_step: int, **kwargs) -> torch.Tensor:
-        current_age = self.current_age_at_t0 + time_step
-        
-        # Pension component (inflation-adjusted)
-        if current_age >= self.pension_start_age:
-            pension = self.pension_real * ((1 + self.inflation) ** time_step)
-        else:
-            pension = 0.0
-        
-        # Wealth-based component
-        wealth_spending = wealth * self.wealth_rate
-        
-        # Total spending
-        spending = wealth_spending + pension
-        
-        # Can't spend more than wealth + pension
-        spending = torch.minimum(spending, wealth + pension)
-        
-        return spending
+    def income(self, wealth: torch.Tensor, time_step: int, **kwargs) -> torch.Tensor:
+        age = self.current_age_at_t0 + time_step
+        pension = torch.where(
+            age >= self.pension_start_age,
+            self.pension_real * self.inflation.get_multiplier(time_step),
+            torch.tensor(0.0, device=wealth.device, dtype=wealth.dtype)
+        )
+        return pension
+    
+    def desired_spending(self, wealth: torch.Tensor, time_step: int, **kwargs) -> torch.Tensor:
+        pension = self.income(wealth, time_step, **kwargs)
+        percentage_spending = wealth * self.wealth_rate
+        return pension + percentage_spending

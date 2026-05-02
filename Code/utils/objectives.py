@@ -8,9 +8,85 @@ Provides various metrics for evaluating and optimizing retirement strategies:
 """
 
 import torch
+from abc import ABC, abstractmethod
+
+class Objective(ABC):
+    """Base class for optimization objectives."""
+    
+    @abstractmethod
+    def evaluate(self, wealth: torch.Tensor, consumption: torch.Tensor) -> torch.Tensor:
+        """
+        Evaluate the objective function.
+        
+        Parameters
+        ----------
+        wealth : torch.Tensor
+            Wealth trajectories (n_sims, n_timesteps + 1)
+        consumption : torch.Tensor
+            Consumption trajectories (n_sims, n_timesteps)
+        
+        Returns
+        -------
+        torch.Tensor
+            Scalar cost to minimize
+        """
+        pass
 
 
-def log_consumption_utility(consumption: torch.Tensor, epsilon: float = 1e-8) -> torch.Tensor:
+class LogConsumptionUtility(Objective):
+    """Negative log consumption utility (for maximization)."""
+    
+    def __init__(self, epsilon: float = 1e-8, scaling: float = 1.0):
+        self.epsilon = epsilon
+        self.scaling = scaling
+    
+    def evaluate(self, wealth: torch.Tensor, consumption: torch.Tensor) -> torch.Tensor:
+        consumption_safe = torch.maximum(consumption, torch.tensor(self.epsilon, device=consumption.device))
+        log_utility = torch.log(consumption_safe) * self.scaling
+        return -log_utility.mean()
+    
+
+class TerminalWealthObjective(Objective):
+    """Penalize low terminal wealth outcomes."""
+    
+    def __init__(self, target_percentile: float = 0.1, penalty_below_target: float = 1.0):
+        self.target_percentile = target_percentile
+        self.penalty_below_target = penalty_below_target
+    
+    def evaluate(self, wealth: torch.Tensor, consumption: torch.Tensor) -> torch.Tensor:
+        terminal = wealth[:, -1]
+        target = torch.quantile(terminal, self.target_percentile)
+        shortfall = torch.relu(target - terminal)
+        return self.penalty_below_target * shortfall.mean()
+    
+
+class SigmoidWealthPenalty(Objective):
+    """Penalty for wealth below zero using a sigmoid function."""
+    
+    def __init__(self, steepness: float = 0.00001):
+        self.steepness = steepness
+    
+    def evaluate(self, wealth: torch.Tensor, consumption: torch.Tensor) -> torch.Tensor:
+        penalty = -torch.sum(torch.sigmoid(self.steepness * (wealth)))/wealth.numel()
+        return penalty
+
+
+class CombinedObjective(Objective):
+    """Combine multiple objectives with weights."""
+    
+    def __init__(self, objectives: list[Objective], weights: list[float]):
+        assert len(objectives) == len(weights), "Objectives and weights must have the same length"
+        self.objectives = objectives
+        self.weights = weights
+    
+    def evaluate(self, wealth: torch.Tensor, consumption: torch.Tensor) -> torch.Tensor:
+        total_cost = 0.0
+        for obj, weight in zip(self.objectives, self.weights):
+            total_cost += weight * obj.evaluate(wealth, consumption)
+        return total_cost
+
+
+def log_consumption_utility(consumption: torch.Tensor, epsilon: float = 1e-8, scaling: float = 1.0) -> torch.Tensor:
     """
     Negative log consumption utility (for minimization).
     
@@ -36,7 +112,7 @@ def log_consumption_utility(consumption: torch.Tensor, epsilon: float = 1e-8) ->
     >>> cost.backward()
     """
     consumption_safe = torch.maximum(consumption, torch.tensor(epsilon, device=consumption.device))
-    log_utility = torch.log(consumption_safe)
+    log_utility = torch.log(consumption_safe) * scaling
     return -log_utility.mean()
 
 
@@ -132,52 +208,13 @@ def smoothness_penalty(
         raise ValueError(f"Unsupported parameter dimensionality: {parameters.ndim}")
 
 
-def shortfall_probability(
-    consumption: torch.Tensor,
-    threshold: float,
-    penalty_weight: float = 1.0
-) -> torch.Tensor:
-    """
-    Penalize probability of consumption falling below threshold.
-    
-    Parameters
-    ----------
-    consumption : torch.Tensor
-        Consumption values (n_sims, n_timesteps)
-    threshold : float
-        Minimum acceptable consumption
-    penalty_weight : float
-        Weight for penalty
-    
-    Returns
-    -------
-    torch.Tensor
-        Scalar penalty
-    """
-    shortfalls = (consumption < threshold).float()
-    prob = shortfalls.mean()
-    return penalty_weight * prob
-
-
-def bankruptcy_penalty(
+def sigmoid_wealth_penalty(
     wealth: torch.Tensor,
-    penalty_weight: float = 100.0
+    steepness: float = 0.00001
 ) -> torch.Tensor:
     """
-    Heavily penalize bankruptcy (wealth reaching zero).
-    
-    Parameters
-    ----------
-    wealth : torch.Tensor
-        Wealth trajectories (n_sims, n_timesteps + 1)
-    penalty_weight : float
-        Weight for bankruptcy penalty
-    
-    Returns
-    -------
-    torch.Tensor
-        Scalar penalty
+    Penalty for wealth below zero using a sigmoid function.
     """
-    bankruptcies = (wealth[:, -1] == 0).float()
-    bankruptcy_rate = bankruptcies.mean()
-    return penalty_weight * bankruptcy_rate
+    penalty = -torch.sum(torch.sigmoid(steepness * (wealth)))/wealth.numel()
+    return penalty
+

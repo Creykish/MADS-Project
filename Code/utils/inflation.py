@@ -1,3 +1,6 @@
+from abc import ABC, abstractmethod
+
+
 class Inflation(ABC):
     """Base class for inflation models."""
     

@@ -67,13 +67,13 @@ def simulate_wealth_trajectory(
     
     for t in range(n_timesteps):
         # Calculate spending
-        spending_t = spending_policy.calculate_spending(
+        delta_wealth = spending_policy.calculate_wealth_delta(
             wealth_t, t, **kwargs
         )
-        consumption_history.append(spending_t)
+        consumption_history.append(delta_wealth)
         
         # Wealth after spending
-        wealth_after_spending = wealth_t - spending_t
+        wealth_after_spending = wealth_t + delta_wealth
         
         # Get allocation
         time_indices = torch.full_like(wealth_after_spending, float(t))

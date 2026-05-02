@@ -89,11 +89,10 @@ from .simulation import simulate_wealth_trajectory
 
 # Objectives
 from .objectives import (
-    log_consumption_utility,
-    terminal_wealth_objective,
-    smoothness_penalty,
-    shortfall_probability,
-    bankruptcy_penalty,
+    Objective,
+    LogConsumptionUtility,
+    TerminalWealthObjective,
+    SigmoidWealthPenalty,
 )
 
 # Helpers
@@ -103,6 +102,7 @@ from .helpers import (
     calculate_statistics,
 )
 
+from .inflation import Inflation, ConstantInflation, VariableInflation
 # Package metadata
 __version__ = "0.1.0"
 __author__ = "Callum Davidson"

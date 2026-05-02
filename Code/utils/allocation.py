@@ -52,7 +52,7 @@ class ConstantAllocation(AllocationPolicy):
         self.allocation = allocation
     
     def get_allocation(self, time_idx: torch.Tensor, wealth: torch.Tensor, **kwargs) -> torch.Tensor:
-        return torch.full_like(wealth, self.allocation)
+        return torch.full_like(wealth, self.allocation, device=wealth.device, dtype=wealth.dtype)
 
 
 class TimeBasedPolicy(AllocationPolicy):
@@ -73,10 +73,15 @@ class TimeBasedPolicy(AllocationPolicy):
     
     def get_allocation(self, time_idx: torch.Tensor, wealth: torch.Tensor, **kwargs) -> torch.Tensor:
         """Linear interpolation between policy nodes."""
+        # Ensure policy_nodes is on same device as inputs
+        device = time_idx.device
+        if self.policy_nodes.device != device:
+            self.policy_nodes = self.policy_nodes.to(device)
+        
         # Node positions evenly spaced across timeline
         node_positions = torch.linspace(
             0, self.n_timesteps - 1, self.n_nodes,
-            device=self.policy_nodes.device
+            device=device
         )
         
         result = torch.zeros_like(time_idx)
@@ -98,8 +103,56 @@ class TimeBasedPolicy(AllocationPolicy):
         return result
 
 
+class WealthBasedPolicy(AllocationPolicy):
+    """Wealth-based allocation policy with linear interpolation between nodes."""
+    
+    def __init__(self, policy_nodes: torch.Tensor, max_wealth: float):
+        """
+        Parameters
+        ----------
+        policy_nodes : torch.Tensor
+            Allocation values at key wealth points
+        max_wealth : float
+            Maximum wealth bound for interpolation
+        """
+        self.policy_nodes = policy_nodes
+        self.max_wealth = max_wealth
+        self.n_nodes = len(policy_nodes)
+    
+    def get_allocation(self, time_idx: torch.Tensor, wealth: torch.Tensor, **kwargs) -> torch.Tensor:
+        """Linear interpolation between policy nodes based on wealth."""
+        # Ensure policy_nodes is on same device as inputs
+        device = wealth.device
+        if self.policy_nodes.device != device:
+            self.policy_nodes = self.policy_nodes.to(device)
+        
+        # Node positions evenly spaced across wealth range
+        node_positions = torch.linspace(
+            0, self.max_wealth, self.n_nodes,
+            device=device
+        )
+        
+        result = torch.zeros_like(wealth)
+        
+        for i, w in enumerate(wealth):
+            right_idx = torch.searchsorted(node_positions, w, right=True)
+            
+            if right_idx == 0:
+                result[i] = self.policy_nodes[0]
+            elif right_idx >= self.n_nodes:
+                result[i] = self.policy_nodes[-1]
+            else:
+                left_idx = right_idx - 1
+                left_pos = node_positions[left_idx]
+                right_pos = node_positions[right_idx]
+                weight = (w - left_pos) / (right_pos - left_pos)
+                result[i] = (1 - weight) * self.policy_nodes[left_idx] + weight * self.policy_nodes[right_idx]
+        
+        return result
+    
+
 class ControlMatrixPolicy(AllocationPolicy):
-    """2D control matrix policy (time × wealth) with bilinear interpolation."""
+    """2D control matrix policy (time x wealth) with bilinear interpolation."""
     
     def __init__(
         self,
@@ -124,6 +177,11 @@ class ControlMatrixPolicy(AllocationPolicy):
     
     def get_allocation(self, time_idx: torch.Tensor, wealth: torch.Tensor, **kwargs) -> torch.Tensor:
         """Bilinear interpolation over time and wealth dimensions."""
+        # Ensure control_matrix is on same device as inputs
+        device = time_idx.device
+        if self.control_matrix.device != device:
+            self.control_matrix = self.control_matrix.to(device)
+        
         # Map to grid coordinates
         time_grid_coord = time_idx * (self.n_time_nodes - 1) / (self.n_timesteps - 1)
         wealth_grid_coord = wealth * (self.n_wealth_nodes - 1) / self.max_wealth
