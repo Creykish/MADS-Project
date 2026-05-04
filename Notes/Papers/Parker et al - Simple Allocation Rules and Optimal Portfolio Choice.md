@@ -98,37 +98,66 @@ However, they optimize over neural network weights while I optimize directly ove
 - Neural nets more flexible (can capture complex nonlinearities)
 - Direct parameterization more interpretable (can examine policy directly)
 
-### Model Details Relevant to My Approach
+---
 
-**Labor Income Process:**
-- Permanent + transitory shocks
-- Left-skewed (negative tail risk)
-- Correlated with asset returns via business cycle
-- Gender-specific profiles calibrated to SSA data
+## Asset Return Generating Process (DETAILED)
 
-**Asset Returns:**
-- Stocks, long bonds, money market
-- Returns serially correlated (mean reversion)
-- Loading on dividend-price ratio (return predictability)
-- Correlation with labor income
+Three assets: short-term government bills (j=1), long-term corporate bonds (j=2), equities (j=3).
 
-**Retirement Accounts:**
-- Employer match (strong incentive to contribute)
-- Early withdrawal penalties
-- Required minimum distributions
+### State Variables for Returns
 
-**Housing:**
-- Rent vs own decision
-- Mortgage with LTV constraints
-- Refinancing costs
-- Transaction costs for moving
+**Two aggregate risk drivers:**
 
-**My Model Comparison:**
-Their model is more comprehensive (housing, taxes, two earners). Mine will likely:
-- Single-person or couple-equivalent (simpler)
-- No housing (separate decision, most NZ retirees own outright)
-- Focus on financial portfolio only
-- Include NZ-specific institutions (NZ Super, KiwiSaver)
+1. **Business cycle state** $e_t \in \{0,1\}$ — 0 = expansion, 1 = recession. Evolves via 2×2 Markov transition matrix $P_e$ (estimated from NBER recession dates 1915–2015).
+
+2. **Dividend-price ratio (log)** $v_t$ — AR(1) with recession-state-dependent intercept:
+$$v_t = \theta^v_0 + \theta^v_1 v_{t-1} + \theta^v_2 \Delta e_t^+ + \theta^v_3 \Delta e_t^- + \varepsilon^v_t$$
+where $\Delta e_t^+ = \max\{0, e_t - e_{t-1}\}$ (recession starts), $\Delta e_t^- = \max\{0, e_{t-1} - e_t\}$ (recession ends). This captures the well-documented fact that dividend yields spike in recessions and revert in recoveries — and that expected returns are high when yields are high (value signal).
+
+Dividend yield data: Jordà, Knoll, Kuvshinov, Schularick & Taylor (2019), US 1915–2015.
+
+### Log Return Process
+
+Log gross return on asset $j$ at time $t$:
+$$\ln R_{j,t} = \theta^j_0 + \theta^j_1 v_{t-1} + \theta^j_2 \Delta e_t^+ + \theta^j_3 \Delta e_t^- + \varepsilon^j_t$$
+
+- **Intercept shifts** at recession start/end $\to$ captures asymmetric cycle effects on returns
+- **Loading on $v_{t-1}$** $\to$ return predictability from dividend yield: when yields are high, expected returns are high (for equity especially)
+- **Transitory shock** $\varepsilon^j_t$ $\to$ asset-specific noise
+
+**Key feature:** $v_t$ and $e_t$ are correlated with each other *and* with the labor income process $\to$ this creates realistic co-movement between portfolio returns and wages (i.e., equity is a worse hedge when you need it most: in recessions your income also falls).
+
+### Parameters
+
+All $\theta$ parameters estimated from 1915–2015 US data:
+- Bills and long corporate bonds: from Jordà et al. (2019)
+- Equity: same source
+- Corporate bond index: Dow Jones Total Corporate Bond index
+
+Full parameter vectors listed in paper's online appendix (too long for Table I).
+
+### What This Captures
+
+| Feature | How modelled |
+|---|---|
+| Return predictability | $v_{t-1}$ loading in return equation |
+| Business cycle variation in returns | $\Delta e_t^+$, $\Delta e_t^-$ intercept shifts |
+| Correlation between assets | Common $v_t$, $e_t$ drivers |
+| Labor income–return correlation | Both load on $e_t$ |
+| Serial correlation in expected returns | AR(1) in $v_t$ |
+
+### Implications for Portfolio Choice
+
+The predictability in returns (via dividend yield $v_t$) means the optimal portfolio is **not** constant even for a given wealth level and age — it varies with valuations. This is why "state variables" like $v_t$ and $e_t$ appear in the state space $\Xi_t$.
+
+The authors find $v_t$ and $e_t$ are among the **top drivers of cross-household heterogeneity** in optimal equity shares — bigger effect than age alone in many cases. This is the justification for their claim that further customising TDFs to account for market conditions could add substantial welfare gains.
+
+### Comparison to Simpler Models
+
+Cocco, Gomes & Maenhout (2005): i.i.d. returns (no predictability). Wachter (2010): dividend yield predictability but no business cycle. This paper: both, plus correlation with labour income $\to$ more realistic but more state variables to track.
+
+**For my model:** I currently assume i.i.d. returns. Adding a simple AR(1) predictability channel (like CAPE ratio loading) would be a meaningful extension — and this paper gives the structural motivation for it.
+
 
 ### Key Results by Wealth Level
 

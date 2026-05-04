@@ -21,11 +21,11 @@ Same pattern in US, UK, Australia — not NZ-specific.
 
 ## Why Spending Falls
 
-1. Mobility declines → travel, recreation drop
+1. Mobility declines -> travel, recreation drop
 2. Home production substitutes for market spending (cook vs eat out)
 3. Work-related expenses gone
 4. SuperGold Card discounts
-5. Geographic shift (metro → provincial)
+5. Geographic shift (metro -> provincial)
 
 **Part of the decline is involuntary** (health/mobility constraints, not preference). This matters — can't assume retirees are fully optimising their consumption path.
 
@@ -51,11 +51,11 @@ Four rules for annual drawdown $D_t$ from a fund $W_t$. NZ Super $S_t$ (inflatio
 
 **6% Rule**
 $$ D_t = 0.06 \times W_0 $$
-Fixed nominal amount from starting balance. Front-loads spending — suits the empirical 2% real decline pattern well. Risk: fund may run out before death. Best fit for typical declining-spending retiree.
+Fixed nominal amount from starting balance. Front-loads spending, suits the empirical 2% real decline pattern well. Risk: fund may run out before death. Best fit for typical declining-spending retiree.
 
 **Inflated 4% Rule**
 $$ D_t = 0.04 \times W_0 \times (1+\pi)^t $$
-Fixed real amount (nominal grows with inflation $\pi$). Assumes constant real spending — inconsistent with empirical evidence. Fund lasts longer; leaves estate. More conservative.
+Fixed real amount (nominal grows with inflation $\pi$). Assumes constant real spending, inconsistent with empirical evidence. Fund lasts longer; leaves estate. More conservative.
 
 **Fixed Date Rule**
 $$ D_t = \frac{W_t}{T - t} $$

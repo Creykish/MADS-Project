@@ -40,7 +40,14 @@ Home ownership = huge for retirement.
 - Singles: $30,700/year
 - Couples: $65,100/year ($32,550 per capita)
 
-Couples have economies of scale but choose higher living standard.
+Interesting: couples spend more than twice as much as singles. 
+
+Reason given:
+
+> Even though mean total expenditure is similar between couples only and singles living with others, the latter tend to spend more on necessities and less on discretionary categories than the former. Singles living with others also spend less than couples living with children on all categories except groceries, rent, mortgage repayments on primary residence, communications, and other loan repayments. This suggests that singles living with others are more likely to rent or own their primary residence with a mortgage, while couples living with children are more likely to own outright. The largest differences in expenditures between single-based households and couple-
+based households are in transport and recreation and culture, both of which are discretionary categories.
+
+This is notable as [[Anarkulova et al - Beyond the Status Quo (Critical Assessment of Lifecycle Advice)]] use the square root of household size to adjust for economies of scale in consumption. If couples spend more than twice as much as singles, that suggests less economies of scale than the square root implies.
 
 ## Wellbeing ≠ Spending
 

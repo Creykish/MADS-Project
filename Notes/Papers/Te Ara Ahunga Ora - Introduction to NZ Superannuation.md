@@ -228,3 +228,77 @@ For my research, I should:
 [[Le and Richardson - Expenditure Patterns of NZ Retiree Households]]
 [[RIIG - Spending Patterns Through Retirement]]
 [[Precautionary Saving and Social Insurance]]
+
+---
+
+## 2026 Rates (VERIFIED — April 2026)
+
+Source: Work and Income NZ, *Benefit Rates from April 2026* [[winz2026benefitRates]]
+
+| Pension type | Fortnightly (after tax M) | Fortnightly (after tax S) | Fortnightly (before tax) | Annual (before tax) | Annual (after tax M, approx) |
+|---|---|---|---|---|---|
+| **Single, living alone** | $1,110.30 | $1,068.30 | $1,294.74 | $33,663 | $28,868 |
+| **Single, sharing** | $1,024.90 | $982.90 | $1,191.14 | $30,970 | $26,647 |
+| **Couple — both qualify (combined)** | $1,708.16 | $1,624.16 | $1,968.56 | $51,182 | $44,412 |
+| **Couple — both qualify (each)** | $854.08 | $812.08 | $984.28 | $25,591 | $22,206 |
+| One qualifies, partner included (combined) — grandparented Nov 2020 | $1,624.12 | $1,540.12 | $1,866.32 | $48,524 | $42,227 |
+
+**Tax codes:** 'M' = primary income (standard), 'S' = secondary income (higher withheld).
+
+**Annual figures** derived by multiplying fortnightly × 26.
+
+**Key numbers for modelling:**
+- Single living alone (after tax M): **$28,868/year** (~$555/week)
+- Couple combined (after tax M): **$44,412/year** (~$854/week)
+
+Note: Matthews 2025 guidelines use slightly different annual figures (~$27,013 single / ~$41,557 couple) — the difference reflects tax code assumptions and rounding in the Matthews methodology vs WINZ published rates. Use WINZ 2026 figures as the current authoritative source.
+
+---
+
+## MSD 2022 Policy Description — Key Settings
+
+Source: Ministry of Social Development, *Description of New Zealand's Current Retirement Income Policies* (2022 RRIP background paper) [[msd2022retirementPolicies]]
+
+### NZ Superannuation
+- **Eligibility:** Age 65+, NZ citizen or permanent resident, ordinarily resident in NZ
+- **Residency:** 10 years since age 20, of which 5 years since age 50 (increasing to 20 years for those born after July 1977)
+- **Not means-tested:** No income or asset test — universal entitlement
+- **Indexed:** Adjusted annually; legislation requires net (after-tax) rate to stay between 66–72.5% of the net average wage for a couple
+- **Tax:** Taxable income, but no abatement for other income
+
+### KiwiSaver (as at 2022)
+- Voluntary enrolment (auto-enrolled on starting new job; can opt out)
+- Employee minimum contribution: 3% of gross pay (can increase to 4%, 6%, 8%, 10%)
+- Employer minimum contribution: 3% of gross pay
+- Government: Member Tax Credit (MTC) up to $521/year if contribute ≥$1,043/year
+- **First home withdrawal:** Can withdraw all but $1,000 for first home purchase after 3 years
+- **Retirement withdrawal:** Full access from age 65 (or after 5 years in scheme, whichever later)
+- **Lock-in exceptions:** Significant financial hardship, serious illness, permanent emigration, first home
+
+### Residential Care Subsidy
+- Asset-tested: must have assets below ~$239,930 (couple; one partner in care) to receive subsidy
+- Home usually exempt if spouse/dependent still living there
+- Those receiving subsidy: most NZ Super diverted to care cost, retain ~$46.07/week personal allowance
+- Assessed by Work and Income after needs assessment
+
+### Accommodation Supplement
+- Means-tested cash payment to help with housing costs (rent, board, mortgage)
+- Available to 65+ as well as working-age
+- Maximum rates vary by region
+- Relevant for renters without NZ Super fully covering costs
+
+### SuperGold Card
+- Issued automatically to NZ Super recipients
+- Discounts on public transport, some retail, health services
+- Effectively a ~2–5% cost reduction on some spending categories — small but worth noting in spending analysis
+
+### Winter Energy Payment
+- Automatic payment to NZ Super recipients (and some others) during winter (May–August)
+- Single: $450 ($900 from 2021 onwards for those with qualifying dependants)
+- Couple: $700
+- Not means-tested
+
+### Summary: The NZ Retirement Income "Three Pillars"
+1. **NZ Super** — universal, non-means-tested public pension. Covers most basic spending for modest retirees
+2. **KiwiSaver** — voluntary DC scheme, maturing over time. Currently most current retirees have little balance
+3. **Private savings / housing equity** — for those wanting above-NZ-Super spending; main lever for discretionary lifestyle

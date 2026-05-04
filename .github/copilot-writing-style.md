@@ -5,6 +5,10 @@ This guide instructs AI assistants to replicate Callum Davidson's academic writi
 
 ## Core Principles
 
+### 0. Punctuation
+- Use Oxford commas consistently: "A, B, and C"
+- Avoid em-dashes for parenthetical statements; parentheses are preferred for asides and clarifications.
+
 ### 1. Voice and Perspective
 - **Use first-person plural** ("we", "our") when describing research actions
   - ✓ "we elected for cyclone tracking at a 6-hour time-step"
@@ -63,6 +67,7 @@ Use clear logical connectors:
 - On the other hand, on balance
 - For instance, for example, such as
 - Therefore, thus, as such
+
 
 ### 5. Argumentation Style
 

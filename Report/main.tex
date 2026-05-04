@@ -99,8 +99,59 @@ The New Zealand-specific literature on retirement concerns remains limited, so w
 KiwiSaver was introduced in 2007, so most current retirees have little or no accumulated balance. Currently, 40 percent of New Zealanders aged 65 rely entirely on New Zealand Superannuation, with a further 20 percent holding minimal additional savings \parencite{taao2022nzSuperReliance}. As the scheme matures and government policy encourages higher contribution rates \parencite{national2025kiwisaver}, future cohorts will retire with substantially larger balances. This demographic shift increases the need for robust guidance on asset allocation and withdrawal strategies during retirement.
 
 Given these trends, the Australian experience becomes increasingly relevant. Australia's retirement system combines a means-tested public pension with mandatory superannuation contributions of 12 percent of income \parencite{atoSuperGuaranteePercentage, swoboda2014superannuationChronology}. While institutional differences remain, the growing role of KiwiSaver makes the two systems more comparable than in the past. 
+\subsection{New Zealand Superannuation Policy Settings}
 
-\subsection{Spending By Age in New Zealand}
+New Zealand Superannuation (NZ Super) is a universal, non-means-tested public pension paid from age 65, funded from general taxation rather than a contributory insurance scheme. It forms the guaranteed income floor underpinning all retirement planning in New Zealand. Entitlement is not conditional on prior employment, investment, or KiwiSaver participation; a recipient's private wealth or income has no effect on the payment rate.
+
+\subsubsection*{Eligibility}
+
+The primary eligibility criteria are age and residency. A person becomes entitled upon turning 65, provided they have been both resident and present in New Zealand for a sufficient period since age 20. For those born on or before 30 June 1959, the requirement is 10 years total, of which 5 must have accrued since age 50. For those born on or after 1 July 1977, the total requirement is 20 years (with 5 since age 50), reflecting a graduated increase introduced by the Social Assistance (Residency Qualification) Legislation Act 2018. Special provisions apply to recognised refugees and to periods spent in the Cook Islands, Niue, and Tokelau \parencite[s.~8]{nzsuperAct2001}.
+
+\subsubsection*{Payment Rates}
+
+Rates are set in Schedule 1 of the New Zealand Superannuation and Retirement Income Act 2001 and adjusted each 1 April by Order in Council. The April 2026 rates (before deduction of tax under code M) are:
+
+\begin{table}[htbp]
+  \centering
+  \caption{NZ Super rates from 1 April 2026 (before tax). Source: \textcite{winz2026benefitRates, winz2026SuperRates}.}
+  \label{tab:nzSuperRates}
+  \begin{tabular}{lccc}
+    \toprule
+    Rate type & Per week & Per fortnight & Per year \\
+    \midrule
+    Single living alone   & \$647.37 & \$1{,}294.74 & \$33{,}663 \\
+    Single sharing        & \$595.57 & \$1{,}191.14 & \$30{,}970 \\
+    Couple (per person)   & \$492.14 & \$984.28  & \$25{,}591 \\
+    Couple (combined)     & \$984.28 & \$1{,}968.56 & \$51{,}182 \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+After deduction of standard tax (code M), the fortnightly after-tax rates are approximately \$1,110 for a single person living alone and \$1,708 combined for a couple, equivalent to roughly \$28,900 and \$44,400 per year respectively \parencite{winz2026benefitRates, winz2026SuperRates}. These figures differ slightly from those used in \textcite{matthews2025guidelines} (who report \$519 and \$799 per week for singles and couples respectively) due to differing tax rate assumptions; this study uses the WINZ statutory rates as the primary reference.
+
+\subsubsection*{Indexation and the Wage Floor}
+
+The Act mandates annual adjustment for CPI inflation (so the rate cannot decline in real terms) subject to a binding wage floor. The combined after-tax couple rate must remain between 66 and 72.5 percent of net average ordinary-time weekly earnings, as measured by the Quarterly Employment Survey \parencite[s.~16]{nzsuperAct2001}. In practice, wages have grown faster than CPI in recent decades, meaning the wage floor has been the binding constraint. The single living alone rate is fixed by statute at 65 percent of the couple combined rate (after tax), and the single sharing rate at 60 percent. This legislated floor is a key feature distinguishing NZ Super from defined-benefit pension schemes that index only to prices.
+
+\subsubsection*{Policy Adjustments and Reform Debate}
+
+Despite ongoing fiscal pressure from population ageing, NZ Super's core parameters have remained largely unchanged since 2001. The most significant recent amendment was the gradual increase in the residency qualifying period from 10 to 20 years for those born after 1 July 1977, phased in from 2018. The eligibility age of 65 has not changed; a proposal to raise it to 67 was advanced and subsequently abandoned. A 2022 government review (the Retirement Review Issues Paper, conducted by Te Ara Ahunga Ora) examined a range of possible adjustments including age, means-testing, and residency, without proposing binding changes \parencite{msd2022retirementPolicies}.
+
+\subsubsection*{Supplementary Benefits}
+
+Several additional transfers are available to eligible retirees:
+
+\begin{itemize}
+  \item \textbf{Winter Energy Payment:} a universal supplement paid automatically to NZ Super recipients from 1 May to 1 October each year. The 2026 rate is \$20.46 per week for single people and \$31.82 per week for couples and people with dependants \parencite{winz2026benefitRates}. No application or means test is required.
+  \item \textbf{Accommodation Supplement:} a means- and asset-tested housing cost subsidy available to renters, boarders, and mortgage holders across all age groups including retirees. The amount varies by accommodation costs and location zone, with higher rates in Auckland and Wellington. Eligible retirees with moderate housing costs may receive up to several hundred dollars per fortnight \parencite{winz2026benefitRates}.
+  \item \textbf{SuperGold Card:} a concession card issued automatically to NZ Super recipients, providing discounts on public transport (including free off-peak travel on most regional services), selected retail, and other services \parencite{msd2022retirementPolicies}.
+  \item \textbf{Residential Care Subsidy:} an asset-tested subsidy for long-term residential aged care (rest homes and dementia units). As at 2022, a single person is generally required to contribute their own assets up to a threshold of around \$240,000 before the subsidy takes effect, with the family home exempt for a defined period if a spouse, dependent, or carer remains in residence \parencite{msd2022retirementPolicies}.
+\end{itemize}
+
+Together, NZ Super plus the Winter Energy Payment provide a reliable inflation-linked income floor for all retirees. For the approximately 66 percent of retirees who own their home outright \parencite{le2023expenditure}, this floor is sufficient to cover No Frills expenditure needs in most provincial locations without any drawdown from private savings. For renters, the Accommodation Supplement partially offsets housing costs, though a residual gap typically remains. This structure motivates treating NZ Super as an exogenous, guaranteed cash flow in the simulation model, rather than as a component of the optimisable portfolio.
+
+\subsection{Patterns of Spending in Retirees - New Zealand and Abroad}
+\subsubsection{Spending By Age in New Zealand}
 
 The Stats NZ Household Economic Survey (HES) provides the most comprehensive data on New Zealand retirement spending patterns. Two recent reports are particularly relevant. \textcite{le2023expenditure} analyse expenditure patterns by age across New Zealand households, while \textcite{riig2024spending} focus specifically on spending through retirement and its implications for drawdown strategies.
 
@@ -118,43 +169,58 @@ Cross-country comparisons highlight the role of institutional context. \textcite
 
 Australian evidence also shows spending declines of 0.5--1\% per year in real terms \parencite{grattan2019savingsBehaviourOlderHouseholds}. Unlike New Zealand's cross-sectional HES data, the Grattan Institute analysis uses longitudinal data tracking individuals over time. The decline persists in both cross-sectional and longitudinal samples, suggesting it reflects genuine behavioural change rather than cohort effects. Importantly, the Grattan Institute finds that most Australian retirees are not financially constrained: fewer than half draw down wealth at all, and over 40\% accumulate wealth during retirement. Retirees also report feeling more financially secure than working-age households. As \textcite{riig2024spending} note, this indicates that spending reductions primarily reflect voluntary adjustment to changing lifestyle needs rather than binding constraints.
 
-\subsection{Bequests and Precautionary Savings}
+\subsubsection{Bequests and Precautionary Savings}
 
 An aspect of the ``retirement consumption puzzle'' that has also been studied is why many retirees do not draw down significantly on their wealth during retirement, and in some cases even accumulate more wealth during retirement. This is a well-established phenomenon, having been observed in multiple countries and datasets. 
 
 The limited wealth drawdown observed in many countries requires explanation. \textcite{hurd1987savings} proposed that retirees preserve wealth to leave bequests. However, survey evidence casts doubt on this explanation. \textcite{alonso-garcia2022saving} find that Australian and Dutch retirees rarely cite intentional bequest motives beyond provision for a surviving spouse. Instead, retirees prioritise financial independence and quality of life, suggesting that limited decumulation reflects precautionary saving for uncertain future costs.
 
-Precautionary motives are well-supported empirically. \textcite{denardi2010differential} show that exposure to uncertain health and long-term care costs explains much of the observed non-decumulation in the United States. Similarly, \textcite{banks2016lifeCycle} find that healthcare costs drive higher late-life spending among U.S. retirees relative to those in the U.K. with broader public coverage. New Zealand's system is mixed: most core medical services are publicly funded, but long-term care such as assisted living and memory care can involve substantial out-of-pocket costs \parencite{nzgov2026residentialCare}. \textcite{riig2024spending} conclude that precautionary motives in New Zealand are likely weaker than in the U.S. but
+Precautionary motives are well-supported empirically. \textcite{denardi2010differential} show that exposure to uncertain health and long-term care costs explains much of the observed non-decumulation in the United States. Similarly, \textcite{banks2016lifeCycle} find that healthcare costs drive higher late-life spending among U.S. retirees relative to those in the U.K. with broader public coverage. New Zealand's system is mixed: most core medical services are publicly funded, but long-term care such as assisted living and memory care can involve substantial out-of-pocket costs \parencite{nzgov2026residentialCare}. \textcite{riig2024spending} conclude that precautionary motives in New Zealand are likely weaker than in the United States but stronger than in countries such as France and Germany with more comprehensive public provision, placing New Zealand alongside the United Kingdom in a mixed-funding model. In aggregate, the evidence does not support widespread precautionary withholding of savings among New Zealand retirees; the observed pattern of limited drawdown is more likely to reflect a combination of voluntary lifestyle adjustment, genuine uncertainty about care costs, and the buffering role of NZ Super as a guaranteed income floor.
+
+
+\subsubsection{Spending by Household Composition and Wealth}
+
+Household composition and housing tenure are among the strongest predictors of retirement spending levels and subjective wellbeing in New Zealand. \textcite{le2023expenditure} find that single-person retired households spend around \$30,700 per year on average, compared with \$65,100 for couples. Notably, spending increases more than proportionately with household size: the average couple spends more than double the amount of a single-person household, implying weaker economies of scale (in New Zealand at least) than other studies, such as \parencite{anarkulova2025beyond}, have suggested in other contexts. \textcite{le2023expenditure} attribute the disproportionate gap primarily to differences in discretionary spending: couples devote substantially more to transport and recreation and culture, the two largest discretionary categories. Single-person households living alone are also more likely to be renters or to carry a mortgage, further constraining their discretionary budget, while couples are more likely to own outright.
+
+Homeownership status has a particularly pronounced effect on both spending and wellbeing. Among retired New Zealand households, approximately 66 percent own their home outright, 14 percent carry a mortgage, and 14 percent rent \parencite{le2023expenditure}. Outright owners report the highest subjective wellbeing of any tenure group and spend around \$55,800 per year, of which housing costs form a relatively small share. Renters spend considerably less in total, at around \$41,400 per year, but pay approximately \$13,100 of this in rent annually, leaving a significantly lower discretionary budget. Renters also report the lowest wellbeing among all tenure types, even after controlling for income. This suggests that the financial and psychological burden of ongoing housing costs in retirement is substantial and is not fully compensated by lower total spending. This well-being gap will have interesting consequences for asset allocation decisions, especially as it pertains to whole-life allocation and spending strategies. One of the peculiarities of the New Zealand KiwiSaver system is that it allows for the use of accumulated savings to be withdrawn for the purchase of a first home. Balancing the competing goals of homeownership and retirement savings is a unique challenge for New Zealand investors, and one that may have important implications for their lifetime asset allocation decisions. For instance, if utility gained from homeownership is sufficiently high, it may justify depleting the investors retirement savings while young to achieve homeownership, even if this results in a lower savings balance at retirement. Inversely, if buying a house depletes the investor's retirement savings to a degree that the excess burden of housing costs would have otherwise have been more than offset by the additional savings balance at retirement, it may be optimal to delay homeownership and instead prioritise retirement savings. 
+
+The importance of homeownership is expected to increase over time. \textcite{riig2024spending} note that home ownership among New Zealanders aged 65 and over is projected to fall from around 80 percent today to approximately 60 percent by 2048, as younger cohorts face higher barriers to entry in the housing market. This shift implies that expenditure benchmarks calibrated on the current cohort of retirees (who benefit from unusually high ownership rates) will understate spending requirements for future generations, particularly with respect to housing costs.
+
+\subsubsection{Expenditure Benchmarks for New Zealand Retirees}
+
+The most widely used empirical benchmarks for New Zealand retirement spending are the annual Retirement Expenditure Guidelines published by the NZ Fin-Ed Centre at Massey University \parencite{matthews2025guidelines}. These are derived from the Statistics New Zealand Household Economic Survey (HES) and reported at two tiers: a ``No Frills'' budget based on the second income quintile of retired HES households, reflecting a basic standard of living with few luxuries, and a ``Choices'' budget based on the fourth quintile, reflecting a more comfortable lifestyle with some discretionary spending. The 2025 figures, adjusted to 30 June 2025, are shown in Table~\ref{tab:retirementBudgets}.
+
+\begin{table}[htbp]
+  \centering
+  \caption{New Zealand Retirement Expenditure Guidelines, 2025. Weekly spending, with after-tax NZ Super rates for comparison. Source: \textcite{matthews2025guidelines}.}
+  \label{tab:retirementBudgets}
+  \begin{tabular}{lcccc}
+    \toprule
+    & \multicolumn{2}{c}{One-person household} & \multicolumn{2}{c}{Two-person household} \\
+    \cmidrule(lr){2-3} \cmidrule(lr){4-5}
+    Budget & Metro & Provincial & Metro & Provincial \\
+    \midrule
+    No Frills (\$/week) & 705 & 581 & 937 & 1{,}061 \\
+    Choices (\$/week)   & 791 & 772 & 1{,}780 & 1{,}243 \\
+    \midrule
+    NZ Super after tax (\$/week) & \multicolumn{2}{c}{519 (single)} & \multicolumn{2}{c}{799 (couple)} \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+For the No Frills provincial single-person household, NZ Super alone covers approximately 89 percent of spending, implying a required annual drawdown of only around \$3,200 from private savings. For the No Frills metro single, the gap is somewhat larger at around \$9,700 per year. Couples at the Choices tier, particularly in metro areas, face substantially higher gaps; the Choices metro couple budget of approximately \$92,600 per year implies a drawdown requirement of around \$51,000 annually above NZ Super. However, this upper estimate should be interpreted cautiously, since the fourth income quintile of HES retired households likely includes a material proportion of households still receiving employment or investment income, rather than pure retirees drawing down accumulated savings.
+
+A central limitation of these guidelines is that they are constructed from cross-sectional data and therefore implicitly treat retirement spending as fixed in real terms throughout retirement. The HES samples households of all retirement ages at a single point in time, which means the guidelines effectively average the higher spending of the more numerous newly retired with the lower spending of older cohorts, without capturing the within-person spending trajectory over time \parencite{riig2024spending}. If real spending declines by approximately 2 percent per year after age 65 (as both \textcite{riig2024spending} and \textcite{le2023expenditure} find) then the guidelines will overstate the savings balance required at age 65 for any given income target.
+
+\textcite{riig2024spending} quantify this directly. Using a replacement-rate methodology, they calculate that reaching a total income target of \$56,000 per year in real terms for a single retiree, on top of NZ Super, over a retirement from age 65 to 90, requires a savings balance of \$605,000 under a constant-real-spending assumption. If instead nominal income is assumed to remain flat (equivalent to a 2 percent real decline when inflation is also 2 percent), the required balance falls to \$375,000, a reduction of 40 percent. An intermediate assumption of a 1 percent real annual decline yields a balance of \$480,000. These calculations assume a 3.5 percent net investment return.
+
+For the purposes of this study, we treat the expenditure guidelines as an empirical anchor for age-65 spending levels. We calibrate initial retirement spending to the No Frills and Choices benchmarks as the lower and upper bounds for a representative retiree, and model real consumption as declining at approximately 2 percent per year thereafter. NZ Super is treated as a guaranteed, inflation-linked income floor from age 65. Under this calibration, the required drawdown from financial assets diminishes progressively as retirement spending falls toward, and in some cases below, the level already covered by NZ Super. This pattern has material implications for both the required savings balance at retirement and the optimal asset allocation strategy during decumulation.
 
 
 
 
 
-
-
-
-
-
-\subsection{Spending by Household Composition and Wealth}
-
-Whether a retiree lives alone or with a partner is an important determinant of spending patterns, as is homeownership status. We review this evidence in the next draft iteration once the remaining New Zealand-specific references for this subsection are finalised.
-
-
-
-
-
-
-\section{Modelling Perceptions of Risk and Utility}
-
-Traditional portfolio optimisation (arguably beginning with \textcite{MPTMarkowitz}) typically treats return variance as the risk measure. This follows from the assumption that investors are risk-averse and prefer lower variance for a given expected return. However, for lifetime allocation problems, variance can be difficult to interpret and communicate. In particular, return variance does not directly capture the event investors often care most about: failing to meet spending needs in retirement. Rather, risk of ruin emerges from the interaction between return volatility and withdrawal requirements. For these reasons, variance-based optimisation may yield recommendations that are difficult to interpret and potentially misaligned with investor priorities.
-
-This approach persists in the recent literature. For example, \textcite{Makinen2024} demonstrate their method using variance and semi-variance of terminal wealth as optimisation objectives for a control-matrix policy. While likely intended as a proof of concept, this objective choice can generate counterintuitive outcomes: the optimiser may truncate the upper tail of terminal wealth in ways that appear misaligned with practical investor concerns. A detailed discussion and replication are provided in the appendix.
-
-Ultimately, whatever risk measure we choose should make sense from a behavioural perspective and, ideally, should be understandable to investors. As discussed in the preceding section, risk perceptions are closely tied to spending needs and concerns about meeting those needs over time. We therefore use that evidence to motivate a risk measure that is interpretable, communicable, and relevant to typical New Zealand retirees.
-
-An essential component of optimising asset allocation strategies is the choice of risk measure, which serves as the objective function to be minimised (or maximised). This choice can materially influence the resulting strategy, because different measures capture different dimensions of risk and therefore imply different return-risk trade-offs.
-
-Our risk measure should be interpretable and directly relevant to outcomes that real-world investors care about. Depending on the optimisation method, it may also need to be differentiable with respect to policy parameters, so that gradient-based methods can be used efficiently.
+\section{Modelling of Risk and Utility}
 
 
 \section{Methods for Simulating Lifetime Wealth Trajectories}

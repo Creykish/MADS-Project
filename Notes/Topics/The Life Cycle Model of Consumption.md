@@ -1,6 +1,23 @@
-The life-cycle model of consumption, originally proposed Modigliani and Brumberg
-(1954) and Ando and Modigliani (1963) [[The Life Cycle Hypothesis of Saving]]
+The life-cycle model of consumption, originally proposed by Modigliani & Brumberg (1954) and Ando & Modigliani (1963) [[The Life Cycle Hypothesis of Saving]], predicts that households accumulate wealth during working life and smoothly decumulate during retirement, dividing lifetime resources evenly across expected remaining years to maintain a constant marginal utility of consumption.
 
-One implication of the simple life-cycle hypothesis is that a retired household should divide its lifetime wealth by the number of years it expects to live and spend that amount each year. The pptimal [[Life Cycle Wealth Trajectory]] can then be expressed as a function of the consumer's resources and the expected rate of return on their capital.
+The simple implication: spend $W / E[T]$ each year, where $W$ is wealth and $E[T]$ is expected remaining life. Under CRRA utility and constant returns, this generalises to a fixed withdrawal rate.
 
-Empirical research, however, finds saving behaviour that is inconsistent with this simple life-cycle implication.
+**The empirical problem:** Actual retiree behaviour departs systematically from this prediction:
+- Wealth declines much more slowly than life expectancy shortens (Love, Palumbo & Smith)
+- Many retirees accumulate wealth during retirement
+- The richest retirees run down assets most slowly — opposite of what standard models predict
+
+**Proposed explanations:**
+- [[Precautionary Saving]] for uncertain [[Medical Expenses]] and longevity risk
+- [[Bequeathment]] motives
+- Biased mortality beliefs ([[Mortality Risk and Bequests]])
+- Consumption floor effects from public programmes ([[Pensions & Social Security]])
+
+See [[Retirees Spend Less in Retirement than Predicted by Theory]] for the empirical finding, and [[Retirement Consumption Decline]] for what actually happens to spending.
+
+**Related papers:**
+[[The Life Cycle Hypothesis of Saving]]
+[[Palumbo - Uncertain medical expenses and precautionary saving near the end of the life cycle]]
+[[De Nardi French Jones - Savings After Retirement Survey]]
+[[Love - Trajectory of Wealth in Retirement (United States)]]
+[[Retirement Saving Preferences in Australia and Netherlands]]
