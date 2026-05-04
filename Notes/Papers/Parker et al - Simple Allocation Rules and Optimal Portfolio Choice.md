@@ -299,3 +299,8 @@ For my NZ-focused research, I should:
 ## Methodological Links
 
 This paper's use of deep RL connects to [[Makinen - Monte Carlo Optimisation]]'s use of Monte Carlo + quasi-Newton methods. Both avoid traditional dynamic programming, enabling more realistic models.
+
+## Findings
+[[TDFs Are Too Conservative in Retirement]]
+[[Optimal Allocation Depends on Wealth and Cycle State]]
+[[Declining-risk Strategies are sub-optimal]]

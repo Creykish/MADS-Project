@@ -103,3 +103,8 @@ $dW = [(r + \pi(\mu-r))W - C]dt + \pi \sigma W dZ$
 [[Cocco - Consumption and Portfolio Choice over the Life Cycle]] - numerical with labor income
 [[Makinen - Monte Carlo Optimisation]] - my computational method
 [[Parker et al - Simple Allocation Rules and Optimal Portfolio Choice]] - modern treatment
+
+## Topics
+[[Life-cycle Asset Allocation]]
+[[Asset Allocation]]
+[[Human Capital]]

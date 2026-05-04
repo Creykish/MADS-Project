@@ -82,3 +82,7 @@ Robust to:
 [[Anderson French Lam - Asset Run-Down at End of Life Cycle]] - slow asset decline
 [[De Nardi French Jones - Differential Mortality and Medical Expenses]] - actual differential mortality
 [[Love - Trajectory of Wealth in Retirement]] - wealth rises in retirement
+
+## Findings
+[[Mortality Belief Errors Cause Systematic Financial Mistakes]]
+[[Retirees Spend Less in Retirement than Predicted by Theory]]

@@ -25,9 +25,12 @@ author = {Zvi Bodie and Robert C. Merton and William F. Samuelson},
 
 abstract = {This paper examines the effect of the labor-leisure choice on portfolio and consumption decisions over an individual's life cycle. The model incorporates the fact that individuals may have considerable flexibility in varying their work effort (including their choice of when to retire). Given this flexibility, the individual simultaneously determines optimal levels of current consumption, labor effort, and an optimal financial investment strategy at each point in his life cycle. We show that labor and investment choices are intimately related. The ability to vary labor supply ex post induces the individual to assume greater risks in his investment portfolio ex ante.}
 
-}
-```
+## Summary
 
+Examines how labor supply flexibility (ability to work more/less, retire early/late) affects optimal portfolio choice across the life cycle. Finds that flexibility to vary work effort ex post induces greater financial investment risk-taking ex ante. [[Human Capital]] and investment choices are intimately related.
+
+## Findings
+[[Human Capital Justifies Decreasing Equity with Age]]
 ## Summary
 
 Examined how [[Human Capital]] interacts with optimal [[Life-cycle Asset Allocation]]. 

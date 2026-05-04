@@ -100,3 +100,6 @@ This paper = my methodological template.
 [[Parker et al - Simple Allocation Rules and Optimal Portfolio Choice]] - deep RL version
 [[Cocco - Consumption and Portfolio Choice over the Life Cycle]] - traditional DP approach  
 [[Merton - Lifetime Portfolio Selection under Uncertainty]] - analytical continuous-time solution
+
+## Findings
+[[Optimal Allocation Depends on Wealth and Cycle State]]

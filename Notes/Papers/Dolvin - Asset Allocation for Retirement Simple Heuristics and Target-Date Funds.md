@@ -23,4 +23,7 @@ Examines common [[Life-cycle Asset Allocation]] strategies. Finds most implement
 
 Finds these strategies sub-optimal compared to a [[100% Stock Portfolio]]. 
 
+## Findings
 [[Declining-risk Strategies are sub-optimal]]
+[[All-equity Portfolios Outperform Glidepaths at Long Horizons]]
+[[TDFs Are Too Conservative in Retirement]]

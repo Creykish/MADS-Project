@@ -15,7 +15,8 @@ abstract = {The life-cycle portfolio proposal for personal accounts within a Soc
 }
 
 ## Summary
-President Bush proposed a l[[Life-cycle Asset Allocation]] for US social security. Shiller analyses this. Finds proposed scheme, which is similar to an [[Age in Bonds Rule]], would likely have worse outcomes than other options, including an [[100% Stock Portfolio]]
+President Bush proposed a [[Life-cycle Asset Allocation]] for US social security. Shiller analyses this. Finds proposed scheme, which is similar to an [[Age in Bonds Rule]], would likely have worse outcomes than other options, including an [[100% Stock Portfolio]]
 
-
+## Findings
 [[Declining-risk Strategies are sub-optimal]]
+[[All-equity Portfolios Outperform Glidepaths at Long Horizons]]

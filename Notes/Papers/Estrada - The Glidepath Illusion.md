@@ -23,6 +23,8 @@ doi = {10.3905/jpm.2014.40.4.052}
 
 ## Summary
 
-Studied various [[Life-cycle Asset Allocation]] strategies using historical data. Found [[Increasing Equity Strategy]] outperformed [[Decreasing Equity Strategy]]. 
+Studied various [[Life-cycle Asset Allocation]] strategies using historical data. Found [[Increasing Equity Strategy]] outperformed [[Decreasing Equity Strategy]] in all 19 countries tested.
 
+## Findings
 [[Declining-risk Strategies are sub-optimal]]
+[[All-equity Portfolios Outperform Glidepaths at Long Horizons]]

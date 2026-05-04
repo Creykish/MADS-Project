@@ -8,3 +8,6 @@ Lundblad, C. (2007). The risk return tradeoff in the long run: 1836–2003. _Jou
 ## Summary
 
 Using the nearly two century history of U.S. equity market returns from the author estimates a positive and statistically significant risk return tradeoff ([[Risk Return Tradeoff of Assets]]).
+
+## Findings
+[[All-equity Portfolios Outperform Glidepaths at Long Horizons]]

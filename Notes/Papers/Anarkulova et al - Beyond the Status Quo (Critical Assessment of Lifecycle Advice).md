@@ -168,3 +168,9 @@ $$ \max E\left[\sum_{t=0}^{T} \beta^t u(C_t) + B(W_T)\right] $$
 [[Merton - Lifetime Portfolio Selection under Uncertainty]] - theoretical foundation
 [[Cocco - Consumption and Portfolio Choice over the Life Cycle]] - traditional model with bonds
 [[Anderson French Lam - Asset Run-Down at End of Life Cycle]] - slow asset depletion puzzle
+
+## Findings
+[[All-equity Portfolios Outperform Glidepaths at Long Horizons]]
+[[Declining-risk Strategies are sub-optimal]]
+[[TDFs Are Too Conservative in Retirement]]
+[[NZ Super Acts as Implicit Bond Justifying Higher Equity]]
