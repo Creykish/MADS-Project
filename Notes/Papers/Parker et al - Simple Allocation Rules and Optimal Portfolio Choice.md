@@ -39,6 +39,8 @@ I'm using a similar problem structure (Monte Carlo-based optimization with reali
 
 **But:** TDFs are too conservative in retirement, holding only 30-40% stocks vs optimal 60%.
 
+Post-retirement, the optimal strategy a relatively fixed equity share (not really declining or increasing with age).
+
 ### Main Finding #2: Huge Heterogeneity in Optimal Portfolios
 
 While average optimal portfolios match TDFs, the **90th percentile** holds nearly 100% stocks at all ages, while **10th percentile** holds <20% during retirement.
@@ -272,23 +274,21 @@ When expected stock returns are high (low valuations, high dividend yields):
    - Most people can't time markets well
    - But systematic rules (e.g., rebalance to target based on P/E ratios) might help
 
-### Critical Takeaways for My Paper
 
-1. **Simple age-based rules aren't terrible** - They capture average optimal behavior pretty well, validating decades of research
-   
-2. **But heterogeneity matters** - Wealth level, return expectations, and individual circumstances create wide dispersion in optimal allocations
-   
-3. **TDFs too conservative in retirement** - Holding 60% vs 30% stocks in retirement is important for long-term outcomes
-   
-4. **Machine learning methods validated** - Deep RL can solve problems traditional methods can't, similar in spirit to my Monte Carlo approach
-   
-5. **Welfare costs are moderate** - 2-3% consumption loss from simple rules is meaningful but shows rules aren't disastrously bad
 
-For my NZ-focused research, I should:
-- Solve for optimal allocation conditional on wealth level (not just age)
-- Compare to NZ-equivalent of TDFs (conservative balanced funds?)
-- Quantify value of customization in NZ context
-- Show if/why NZ retirees can hold more stocks than US models suggest
+**Simple age-based rules aren't terrible** - They capture average optimal behavior pretty well, validating decades of research
+   
+**But heterogeneity matters** - Wealth level, return expectations, and individual circumstances create wide dispersion in optimal allocations
+
+**TDFs too conservative in retirement** - Holding 60% vs 30% stocks in retirement is important for long-term outcomes
+   
+**Machine learning methods validated** - Deep RL can solve problems traditional methods can't, similar in spirit to my Monte Carlo approach
+   
+**Welfare costs are moderate** - 2-3% consumption loss from simple rules is meaningful but shows rules aren't disastrously bad
+
+**Portfolio Choice with Lower Wealth Accumulation** More equities during accumulation - hail mary like my optimisations?
+
+**U-ish shaped optimal equity share** - rising during accumulation, then declining around retirement, then rising slightly but mainly flat during retirement.
 
 ## Related Papers
 

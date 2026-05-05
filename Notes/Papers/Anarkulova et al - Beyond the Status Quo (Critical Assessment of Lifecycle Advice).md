@@ -21,7 +21,9 @@ Found [[100% Stock Portfolio]] to be most effective with block-bootstrapped data
 **Optimal portfolio throughout life:**
 - 33% domestic stocks, 67% international stocks
 - **0% bonds, 0% bills**
-- Constant (no age-based changes)
+- (nearly) all-equity is optimal in every tested scenario
+- truly optimal includes a brief tactical bond allocation at exact retirement date (27% bonds at 65), quickly reverting to 100% equity after.
+
 - Only exception: 27% bills at exact age 65 (tactical for rigid 4% rule)
 
 **Welfare cost of traditional advice:**

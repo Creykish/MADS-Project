@@ -26,7 +26,9 @@ Dolvin (2010): most TDFs approximate 120-minus-age and end at 30-40% equity at r
 
 **[[Declining-risk Strategies are sub-optimal]]:**
 
-1. **[[Estrada - The Glidepath Illusion]] (2014):** Studied 19 countries with historical data. [[Increasing Equity Strategy]] outperforms decreasing in 19/19 countries on terminal wealth. The "glidepath illusion" = investors think declining risk is safer, but it produces worse outcomes.
+1. **[[Estrada - The Glidepath Illusion]] (2014) — accumulation period:** 19 countries, DMS data, 71 overlapping 40-year careers. Contrarian (rising equity) beats lifecycle in 19/19 countries. 100% equity gives 2x the terminal wealth of average lifecycle. The "glidepath illusion" = declining risk looks prudent but delivers less wealth AND worse downside protection.
+
+1b. **[[Estrada - The Retirement Glidepath]] (2015) — retirement period:** Same dataset, 81 rolling 30-year retirement periods. **Reversal**: declining equity *is* better during drawdown. DE failure rates 4.9-8.6% vs RE mirrors 8.6-21.0% (US). Combined with 2014: [[Optimal Glidepath is Inverted U-Shaped Across Full Life Cycle]].
 
 2. **[[Anarkulova et al - Beyond the Status Quo (Critical Assessment of Lifecycle Advice)]] (2025):** With [[Block Bootstrap Returns]], bonds are worse diversifiers at long horizons than short ones. The variance ratio for bonds at 30 years = 2.30 (rising risk). For stocks = 0.75 (mean reversion). 60/40 requires **94% more savings** than 100% equity to match utility.
 
@@ -52,3 +54,4 @@ Dolvin (2010): most TDFs approximate 120-minus-age and end at 30-40% equity at r
 [[Target Date Funds]]
 [[Human Capital]]
 [[Declining-risk Strategies are sub-optimal]]
+[[Optimal Glidepath is Inverted U-Shaped Across Full Life Cycle]]

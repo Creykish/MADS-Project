@@ -15,7 +15,7 @@ A [[Life-cycle Asset Allocation]] strategy that allocates 100% of financial asse
 **[[Declining-risk Strategies are sub-optimal]] evidence:**
 - [[Estrada - The Glidepath Illusion]] (2014): 100% equity outperforms glidepaths in 19 countries
 - [[Dolvin - Asset Allocation for Retirement Simple Heuristics and Target-Date Funds]] (2010): bootstrapped simulations confirm 100% stocks beats [[Age in Bonds Rule]] variants
-- [[Shiller - Life-cycle personal accounts proposal for Social Security]] (2006): 100% stocks beats the proposed Social Security lifecycle scheme
+- [[Shiller - Life-cycle personal accounts proposal for Social Security]] (2006): 100% equity **stochastically dominates** baseline lifecycle (85->15%) at every percentile; median $157k vs $15k; loss prob 2% vs 32%; result survives international return adjustment (4.8% stocks instead of 6.8%)
 
 ## Optimal Composition (Anarkulova 2025)
 

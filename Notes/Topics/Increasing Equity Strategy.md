@@ -10,11 +10,15 @@ Alternatively: in early retirement, bond-heavy allocation helps avoid sequence-o
 
 ## Empirical Evidence
 
-**[[Estrada - The Glidepath Illusion]] (2014):**
-- Tested [[Life-cycle Asset Allocation]] strategies across 19 countries with historical data
-- Increasing equity outperformed decreasing equity in all 19 countries
-- The "illusion" is that declining risk looks prudent but produces inferior outcomes
-- Difference in terminal wealth is large: increasing equity -> significantly more wealth at death
+**[[Estrada - The Glidepath Illusion]] (2014) — accumulation:**
+- 19 countries, DMS data, contrarian (rising equity) beats lifecycle in 19/19 countries
+- Mean terminal wealth gap: +24% to +44% for contrarian over lifecycle (US)
+- Downside protection similar or better -> higher SD is all upside variance
+- 100% equity throughout gives 2x average lifecycle mean terminal wealth
+
+**Note — [[Estrada - The Retirement Glidepath]] (2015) — retirement:**
+- During *drawdown*, the result **reverses**: declining equity beats rising equity
+- Suggests [[Optimal Glidepath is Inverted U-Shaped Across Full Life Cycle]], not a simple rising strategy
 
 **[[Anarkulova et al - Beyond the Status Quo (Critical Assessment of Lifecycle Advice)]] (2025):**
 - [[Block Bootstrap Returns]] show stocks mean-revert at 30-year horizon (variance ratio = 0.75)
