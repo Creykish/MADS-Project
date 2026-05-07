@@ -25,44 +25,32 @@
             "id": "fc9ff1cbe3f5ac9a",
             "type": "leaf",
             "state": {
-              "type": "pdf",
-              "state": {
-                "file": "Papers/PDF Downloads/ssrn-4590406.pdf"
-              },
-              "icon": "lucide-file-text",
-              "title": "ssrn-4590406"
-            }
-          },
-          {
-            "id": "a63f9aafff8bfb4f",
-            "type": "leaf",
-            "state": {
               "type": "markdown",
               "state": {
-                "file": "Fortnightly Updates/26-01-18.md",
+                "file": "Findings/Retirees Spend Less in Retirement than Predicted by Theory.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "26-01-18"
+              "title": "Retirees Spend Less in Retirement than Predicted by Theory"
             }
           },
           {
-            "id": "405b5603325e7fa4",
+            "id": "1499df1becddc6fd",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Fortnightly Updates/26-01-18.md",
+                "file": "Papers/Modigliani - Life Cycle, Individual Thrift and the Wealth of Nations.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "26-01-18"
+              "title": "Modigliani - Life Cycle, Individual Thrift and the Wealth of Nations"
             }
           }
         ],
-        "currentTab": 3
+        "currentTab": 2
       }
     ],
     "direction": "vertical"
@@ -207,12 +195,34 @@
       "bases:Create new base": false
     }
   },
-  "active": "405b5603325e7fa4",
+  "active": "1499df1becddc6fd",
   "lastOpenFiles": [
+    "Papers/Modigliani - Utility Analysis and the Consumption Function.md",
+    "Papers/_extracts/Franco Modigliani Collected Papers.md",
+    "Papers/PDF Downloads/FRANCO MODIGLIANI COLLECTED PAPERS.pdf",
+    "Papers/PDF Downloads/FRANCO MODIGLIANI COLLECTED PAPERS.pdf.crdownload",
+    "Papers/Palumbo - Uncertain medical expenses and precautionary saving near the end of the life cycle.md",
+    "Papers/Mortality Risk and Bequests.md",
+    "Papers/Modigliani - Life Cycle, Individual Thrift and the Wealth of Nations.md",
+    "Papers/Merton & Bodie - Labor supply flexibility and portfolio choice in a life cycle model.md",
+    "Papers/Bengen - Determining Withdrawal Rates Using Historical Data.md",
+    "Topics/Increasing Equity Strategy.md",
+    "Findings/NZ Super Acts as Implicit Bond Justifying Higher Equity.md",
+    "Findings/Modigliani on Lifecycle Saving - Key Findings.md",
+    "Findings/NZ Super Covers Most Retiree Spending Needs.md",
+    "Topics/The Life Cycle Model of Consumption.md",
+    "Papers/De Nardi French Jones - Savings After Retirement Survey.md",
+    "Findings/Retirees Spend Less in Retirement than Predicted by Theory.md",
+    "Findings/Human Capital Justifies Decreasing Equity with Age.md",
+    "Papers/PDF Downloads/ssrn-4590406.pdf",
+    "Hubbard, Skinner & Zeldes - Precautionary Saving and Social Insurance.md",
+    "Papers/Estrada - The Glidepath Illusion.md",
+    "Findings/Optimal Glidepath is Inverted U-Shaped Across Full Life Cycle.md",
+    "Fortnightly Updates/26-01-18.md",
+    "Papers/_extracts/Palumbo, M. G. (1999).md",
     "Pasted image 20260118163616.png",
     "Pasted image 20260118161659.png",
     "Papers/Makinen - Monte Carlo Optimisation.md",
-    "Fortnightly Updates/26-01-18.md",
     "Fortnightly Updates",
     "Papers/Merton - Lifetime Portfolio Selection under Uncertainty.md",
     "Papers/Love - Trajectory of Wealth in Retirement (United States).md",
@@ -221,30 +231,9 @@
     "Topics/100% Stock Portfolio.md",
     "Papers/Retirement Saving Preferences in Australia and Netherlands.md",
     "Papers/Risk-Return Trade Off Long Run.md",
-    "Papers/Savings and Desired Bequests.md",
-    "Papers/Merton & Bodie - Labor supply flexibility and portfolio choice in a life cycle model.md",
-    "Papers/Cocco - Consumption and Portfolio Choice over the Life Cycle.md",
-    "Papers/Estrada - The Glidepath Illusion.md",
-    "Papers/Life Cycle Wealth in Canada 1977.md",
-    "Papers/Mortality Risk and Bequests.md",
-    "Papers/Nardi - Differential Mortality, Uncertain Medical Expenses, and the Saving of Elderly Singles.md",
-    "Papers/Palumbo - Uncertain medical expenses and precautionary saving near the end of the life cycle.md",
-    "Papers/Precautionary Saving and Social Insurance.md",
-    "Papers/The Distribution of Bequest Motives.md",
-    "Papers/Shiller - Life-cycle personal accounts proposal for Social Security.md",
-    "Papers/Dolvin - Asset Allocation for Retirement Simple Heuristics and Target-Date Funds.md",
-    "Findings/Declining-risk Strategies are sub-optimal.md",
-    "Findings/Greater Aversion Destitution Risk than Underspending.md",
     "Papers/PDF Downloads/metronandbodiehumancp.pdf",
-    "Topics/Human Capital.md",
     "Topics/Human Capital",
     "Papers/PDF Downloads/lifetime_portfolio_selection.pdf",
-    "Papers/Bequests and Life-Cycle Savings.md",
-    "Papers/The Life Cycle Hypothesis of Saving.md",
-    "Papers/Anarkulova - A Critical Assessment of Lifecycle Investment Advice.md",
-    "Papers/PDF Downloads/ssrn-4590406.pdf",
-    "Papers/PDF Downloads/dolvin.pdf",
-    "Papers/PDF Downloads/document.pdf",
-    "Papers/PDF Downloads/Kopczuk-LeaveLeaveDistribution-2007.pdf"
+    "Papers/PDF Downloads/dolvin.pdf"
   ]
 }
