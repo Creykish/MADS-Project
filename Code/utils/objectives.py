@@ -46,6 +46,88 @@ class LogConsumptionUtility(Objective):
         return -log_utility.mean()
     
 
+class CRRAUtility(Objective):
+    """
+    CRRA (Constant Relative Risk Aversion) utility objective.
+    
+    Utility function: U(C) = (x^(1-γ) - 1) / (1-γ) where x = C / C_floor
+    
+    Consumption is measured as multiples of the consumption floor, and
+    utility is zero when C = C_floor.
+    
+    Parameters
+    ----------
+    gamma : float
+        Coefficient of relative risk aversion (γ)
+        - γ = 1: log utility (use LogConsumptionUtility instead)
+        - γ > 1: more risk averse
+        - γ < 1: less risk averse
+        Typical range: 1-10, literature often uses 2-5
+    consumption_floor : float
+        Minimum consumption level (subsistence). Utility is zero at this level.
+        Consumption is measured as multiples of this floor.
+    epsilon : float
+        Small constant to avoid invalid operations on consumption at/below floor
+    scaling : float
+        Scaling factor for the utility values
+    
+    Notes
+    -----
+    From Merton (1969): With CRRA utility and lognormal returns, 
+    optimal allocation is constant and independent of wealth.
+    See: Merton - Lifetime Portfolio Selection under Uncertainty
+    
+    The consumption floor formulation is common in life-cycle models where
+    there is a minimum subsistence level (e.g., from social insurance).
+    """
+    
+    def __init__(self, gamma: float = 2.0, consumption_floor: float = 0.0, 
+                 epsilon: float = 1e-8, scaling: float = 1.0, normalize: bool = False):
+        if gamma < 0:
+            raise ValueError(f"gamma must be non-negative, got {gamma}")
+        if abs(gamma - 1.0) < 1e-6:
+            raise ValueError("gamma = 1 is undefined for CRRA. Use LogConsumptionUtility instead.")
+        if consumption_floor < 0:
+            raise ValueError(f"consumption_floor must be non-negative, got {consumption_floor}")
+        
+        self.gamma = gamma
+        self.consumption_floor = consumption_floor
+        self.epsilon = epsilon
+        self.scaling = scaling
+        self.normalize = normalize
+    
+    def evaluate(self, wealth: torch.Tensor, consumption: torch.Tensor) -> torch.Tensor:
+        """
+        Evaluate negative CRRA utility (for minimization).
+        
+        Returns
+        -------
+        torch.Tensor
+            Scalar cost (negative mean CRRA utility)
+        """
+        # Ensure consumption is above floor
+        consumption_safe = torch.maximum(
+            consumption, 
+            torch.tensor(self.consumption_floor + self.epsilon, device=consumption.device)
+        )
+        
+        if self.consumption_floor > 0:
+            # Consumption as multiples of floor: x = C / C_floor
+            # Shifted CRRA: U(x) = (x^(1-γ) - 1) / (1-γ), where U(1) = 0
+            x = consumption_safe / self.consumption_floor
+            utility = ((x ** (1 - self.gamma)) - 1.0) / (1 - self.gamma)
+        else:
+            # No floor: standard CRRA
+            utility = (consumption_safe ** (1 - self.gamma)) / (1 - self.gamma)
+        
+        if self.normalize and self.gamma > 1:
+            utility = utility * (self.gamma - 1)  # Normalize so limit is 1 as consumption → ∞
+
+        utility = utility * self.scaling
+        
+        return -utility.mean()
+
+
 class TerminalWealthObjective(Objective):
     """Penalize low terminal wealth outcomes."""
     

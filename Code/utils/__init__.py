@@ -77,12 +77,7 @@ from .allocation import (
 )
 
 # Spending policies
-from .spending import (
-    SpendingPolicy,
-    PercentageOfWealth,
-    FloorCeilingSpending,
-    PensionPlusPercentage,
-)
+from .spending import *
 
 # Simulation
 from .simulation import simulate_wealth_trajectory
@@ -93,6 +88,7 @@ from .objectives import (
     LogConsumptionUtility,
     TerminalWealthObjective,
     SigmoidWealthPenalty,
+    CRRAUtility,
 )
 
 # Helpers
