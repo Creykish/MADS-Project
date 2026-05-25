@@ -25,9 +25,10 @@ def simulate_wealth_trajectory(
     ----------
     returns : torch.Tensor
         Simulated returns, shape (n_sims, n_timesteps, n_assets)
-        For 2 assets: [:, :, 0] = bonds, [:, :, 1] = stocks
     allocation_policy : AllocationPolicy
-        Policy determining allocation to risky assets
+        Policy determining allocation across all assets.
+        Returns full allocation tensor of shape (n_sims, n_assets) where
+        allocations sum to 1.0 across assets for each simulation.
     spending_policy : SpendingPolicy
         Policy determining consumption/spending
     initial_wealth : float
@@ -44,11 +45,19 @@ def simulate_wealth_trajectory(
     
     Examples
     --------
+    >>> # 2-asset example (bonds, stocks)
     >>> returns = torch.tensor(return_data)  # shape: (1000, 40, 2)
-    >>> allocation = ConstantAllocation(0.6)
+    >>> allocation = ConstantAllocation(0.6)  # Returns [0.4, 0.6] per sim
     >>> spending = FloorCeilingSpending(rate=0.04, floor_real=30000)
     >>> wealth, consumption = simulate_wealth_trajectory(
     ...     returns, allocation, spending, initial_wealth=500000
+    ... )
+    >>> 
+    >>> # 3-asset example (bonds, stocks, real estate)
+    >>> returns_3asset = torch.tensor(return_data_3)  # shape: (1000, 40, 3)
+    >>> # Policy returns e.g. [0.3, 0.5, 0.2] per sim
+    >>> wealth, consumption = simulate_wealth_trajectory(
+    ...     returns_3asset, allocation, spending, initial_wealth=500000
     ... )
     """
     n_sims = returns.shape[0]
@@ -78,24 +87,17 @@ def simulate_wealth_trajectory(
         # Wealth after spending
         wealth_after_spending = wealth_t + delta_wealth
         
-        # Get allocation
-        time_indices = torch.full_like(wealth_after_spending, float(t))
-        risky_allocation = allocation_policy.get_allocation(
-            time_indices, wealth_after_spending, **kwargs
-        )
-        safe_allocation = 1 - risky_allocation
-        
-        # Apply returns (assuming 2 assets: safe and risky)
-        safe_return = returns[:, t, 0]
-        risky_return = returns[:, t, 1]
-        
-        portfolio_return = (
-            safe_allocation * (1 + safe_return) +
-            risky_allocation * (1 + risky_return)
-        )
+        # Get allocation(s) from policy
+        allocations = allocation_policy.get_allocation(
+            t=t, wealth=wealth_after_spending, **kwargs
+        )  # Shape: (n_sims, n_assets)
+
+        # Apply returns across all assets
+        returns_t = returns[:, t, :]  # Shape: (n_sims, n_assets)
+        asset_growth = (allocations * (1 + returns_t)).sum(dim=-1) # Shape: (n_sims,)
         
         # Update wealth
-        next_wealth = wealth_after_spending * portfolio_return
+        next_wealth = wealth_after_spending * asset_growth
         next_wealth = torch.maximum(next_wealth, torch.zeros_like(next_wealth))
         
         wealth_history.append(next_wealth)
