@@ -98,7 +98,6 @@ from .helpers import (
     calculate_statistics,
 )
 
-from .inflation import Inflation, ConstantInflation, VariableInflation
 # Package metadata
 __version__ = "0.1.0"
 __author__ = "Callum Davidson"

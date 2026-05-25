@@ -30,28 +30,37 @@ class ReturnGenerator(ABC):
 class CholeskyBootstrapReturns(ReturnGenerator):
     """Generate returns using Cholesky decomposition of covariance matrix."""
     
-    def __init__(self, mean_returns: pd.Series, cov_matrix: pd.DataFrame):
+    def __init__(self, mean_returns: np.ndarray, cov_matrix: np.ndarray, inflation_idx: None | int = None):
         """
         Parameters
         ----------
-        mean_returns : pd.Series
+        mean_returns : np.ndarray
             Expected returns for each asset
-        cov_matrix : pd.DataFrame
+        cov_matrix : np.ndarray
             Covariance matrix of returns
         """
         self.mean_returns = mean_returns
         self.cov_matrix = cov_matrix
         self.n_assets = len(mean_returns)
+        self.inflation_idx = inflation_idx
     
     def generate(self, n_simulations: int, n_timesteps: int) -> np.ndarray:
         """Generate returns via Cholesky decomposition."""
         rng = np.random.default_rng()
         returns = rng.multivariate_normal(
-            self.mean_returns.values.flatten(),
-            self.cov_matrix.values,
+            self.mean_returns.flatten(),
+            self.cov_matrix,
             size=(n_simulations, n_timesteps)
         )
-        return returns
+        inflation_factor = None
+        if self.inflation_idx is not None:
+            inflation = returns[:, :, self.inflation_idx]
+            # drop inflation from returns
+            returns = np.delete(returns, self.inflation_idx, axis=2)
+            # cumulative product to get inflation factor
+            inflation_factor = np.cumprod(1 + inflation, axis=1)
+
+        return returns, inflation_factor
 
 
 class BlockBootstrapReturns(ReturnGenerator):
