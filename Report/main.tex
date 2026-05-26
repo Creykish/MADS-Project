@@ -49,7 +49,7 @@ A well performing allocation strategy is one that maximises the investor's expec
 
 Broadly speaking, the investor's lifecycle can be divided into two phases: accumulation and decumulation. During the accumulation phase, the investor is typically working and saving, building up their wealth over time. When they transition to retirement, they enter the decumulation phase, where they draw down on their accumulated wealth to fund their spending needs. This report will focus primarily on the decumulation phase, but the accumulation phase is also relevant for understanding the optimal trajectory of risk over the lifecycle, and so we will spend some time discussing the literature on both phases, especially as it relates to the shape of the optimal glidepath (the trajectory of risk over time). 
 
-While \textcite{merton1969lifetime} deals specifically with fixed spending needs in decumulation, \textcite{modigliani1954lifecycle} develops a more general lifecycle model that incorporates both phases and the transition between them. The Life Cycle Hypothesis (LCH) posits that rational households smooth consumption over a finite lifetime by saving during their earning years and drawing down wealth in retirement, with the trajectory of wealth following a characteristic hump shape that peaks around the point of retirement. This model, expanded several times by Modigliani and others \parencite[see][]{modigliani1985life} provides a enduring theoretical framework for understanding the lifecycle of saving and spending, which is a topic this report will return to in the context of understanding the optimal trajectory of spending and risk over the lifecycle.
+While \textcite{merton1969lifetime} deals specifically with fixed spending needs in decumulation, \textcite{modigliani1954utility} develops a more general lifecycle model that incorporates both phases and the transition between them. The Life Cycle Hypothesis (LCH) posits that rational households smooth consumption over a finite lifetime by saving during their earning years and drawing down wealth in retirement, with the trajectory of wealth following a characteristic hump shape that peaks around the point of retirement. This model, expanded several times by Modigliani and others \parencite[see][]{modigliani1985life} provides a enduring theoretical framework for understanding the lifecycle of saving and spending, which is a topic this report will return to in the context of understanding the optimal trajectory of spending and risk over the lifecycle.
 
 With respect to asset allocation across the lifecycle, \textcite{BODIE1992427} adds in the concept of human capital, which represents the present value of future labor income. When human capital is bond-like, younger households can rationally hold more equity in financial wealth and reduce equity with age (insofar as they continue to be employed). This gives the main theoretical foundation for the intuitive idea that younger investors should hold a higher proportion of their portfolio in risky, high-return assets, and then gradually reduce this proportion as they approach retirement age. This informs the intuitive principles for conventional wisdom around investing over the lifecycle. That is, in essence, that younger investors should take more risk because they have more time to recover from potential losses, while older investors should take less risk to preserve their accumulated wealth as they approach retirement and begin drawing down on their assets. Based in a understanding of these principles, a large number of intuitively appealing, easy-to-communicate age-based rules have emerged that have become the industry standard for retirement investing. These include the various age-in-bonds rules (e.g. the 120-minus-age rule), and target-date funds which are investment products that automatically adjust the asset allocation over time according to a predetermined schedule. Collectively, these types of strategies where asset allocation is a deterministic function of age are often (and hereafter) referred to as ``glidepaths''. A great deal of work has been committed to studying the optimal shape of these glidepaths, both in terms of their theoretical properties and their empirical performance. They have been developed into a myriad of financial products and are widely recommended by financial advisers and retirement planning tools. A local example is the SuperLife Age Steps strategy, which automatically adjusts the allocation to Growth and Income assets based on the investor's age, with the proportion of Growth assets declining as the investor gets older (see Figure \ref{superlifeAllocation}).
 
@@ -106,11 +106,11 @@ However, there is considerable scepticism toward conventional declining-equity s
 
 The DE position is further weakened by evidence that even dynamic DE management adds little or no value over a well-chosen static allocation. \textcite{blanchett2007dynamic} tests 43 glide paths (11 static allocations and 4 types of declining-equity dynamics (linear, stair-step, concave, and convex)) bootstrapped from 80 years of monthly return data, across 1,071 scenarios defined by distribution period (20--40 years) and real withdrawal rate (3--8\%). Rising-equity paths are not tested; the comparison is strictly static versus DE. Static allocations have the lowest failure probability in all but one of the 1,071 scenarios. The best static portfolio by raw failure probability is 100\% equity; using his ``Success to Variability Ratio'' (probability of success divided by portfolio standard deviation), the best risk-adjusted portfolio is a 60/40 stocks-bonds allocation. 
 
-An important contextual observation from \textcite{blanchett2007dynamic} is that the choice of glidepath matters little when withdrawal rates are moderate and horizons are short. At a 4\% withdrawal rate over a 20-year period, the range of failure probabilities across all 43 strategies is only 1.56 percentage points. The same metric reaches 62.45 percentage points at a 6\% withdrawal rate over 40 years. The glidepath debate is therefore most consequential for aggressive scenarios, and the literature's disagreements should be interpreted in that light.
+An important observation from \textcite{blanchett2007dynamic} is that the choice of glidepath matters little when withdrawal rates are moderate and horizons are short. At a 4\% withdrawal rate over a 20-year period, the range of failure probabilities across all 43 strategies is only 1.56 percentage points. The same metric reaches 62.45 percentage points at a 6\% withdrawal rate over 40 years. According to their findings, the glidepath debate is therefore most consequential for aggressive scenarios, and the literature's disagreements should be interpreted in that light.
 
 The tension between these results is not easily resolved, but it is clear that the choice of return-generation methodology is a key driver. Additionally, the choice of risk measure (failure probability, expected shortfall, risk-adjusted success ratio, expected utility) and the specification of the spending rule (fixed real withdrawal, flexible spending, etc.) also matter. \textcite{pfau2014rising} use Monte Carlo with independently and identically distributed (IID) lognormal returns, in which bad returns are equally likely at any point and carry no autocorrelation.
 
-Historical rolling periods (Estrada, Bengen) preserve the actual structure of return sequences. They argue that because recessions cluster, valuations mean-revert, and bad periods tend to be followed by recoveries, IID assumptions overstate the risks of sequence-of-returns risk as stocks are more likely to recover from an early dip than the IID model suggests. This approach does, however, limit the sample size to the number of non-overlapping historical periods, which is a particular problem for long-horizon retirement planning where the number of 30- or 40-year periods in the historical record is very small. \textcite{anarkulova2025beyond} use a block bootstrap approach, in which 6--12 month blocks of returns are sampled from the historical record and concatenated to create synthetic return paths. This preserves some of the time-series dynamics of returns, including mean reversion and volatility clustering, while generating a much larger sample of data. However, even in this approach it is unclear how "novel" return paths are, particularly given the small number of downturns even in a long historical record. This means that the optimisation could be overfitting to a small number of historical downturns with the particular time-series dynamics that they exhibit. \textcite{parker2024simple} use a Monte Carlo approach with autocorrelated return dynamics, which might arguably be more realistic than IID assumptions, but still relies on a parametric model of return dynamics that may not capture all relevant features of the data. Interestingly, they find some support for the typical DE trajectory during the accumulation phase (typically recommended by TDFs), but not during the retirement phase, where they find a flat trajectory is optimal. 
+Historical rolling periods (Estrada, Bengen) preserve the actual structure of return sequences. They argue that because recessions cluster, valuations mean-revert, and bad periods tend to be followed by recoveries, IID assumptions overstate the risks of sequence-of-returns risk as stocks are more likely to recover from an early dip than the IID model suggests. This approach does, however, limit the sample size to the number of non-overlapping historical periods, which is a particular problem for long-horizon retirement planning where the number of 30- or 40-year periods in the historical record is very small. \textcite{anarkulova2025beyond} use a block bootstrap approach, in which blocks of returns of a random length (with an average of 12 months) sampled from the historical record and concatenated to create synthetic return paths. This preserves some of the time-series dynamics of returns, including mean reversion and volatility clustering, while generating a much larger sample of data. However, even in this approach it is unclear how "novel" return paths are, particularly given the small number of downturns even in a long historical record. This means that the optimisation could be overfitting to a small number of historical downturns with the particular time-series dynamics that they exhibit. \textcite{parker2024simple} use a Monte Carlo approach with autocorrelated return dynamics, which might arguably be more realistic than IID assumptions, but still relies on a parametric model of return dynamics that may not capture all relevant features of the data. Interestingly, they find some support for the typical DE trajectory during the accumulation phase (typically recommended by TDFs), but not during the retirement phase, where they find a flat trajectory is optimal. 
 
 The choice of objective function also matters. Pfau and Kitces specifically target failure risk minimisation; Estrada targets both failure risk and terminal wealth jointly and finds DE dominates on both. Blanchett introduces the risk-adjusted Success to Variability ratio and finds it tilts the optimal allocation toward moderate equity, regardless of glidepath shape. Studies optimising expected utility with explicit risk aversion parameters (e.g.\ \textcite{parker2024simple}) tend to find approximately constant, high equity allocations consistent with neither the U-shape nor the inverted-U, but broadly aligned with Blanchett's static recommendation.
 
@@ -316,17 +316,51 @@ The effort taken to express the model in matrix form is not only for mathematica
 Refactoring the GPS tool to use matrix operations would be a significant improvement in its computational efficiency and flexibility. It would allow Consilium to support more complex strategies and larger simulations, which could significantly enhance the tool's value for financial advisors and their clients. 
 \end{asidebox}
 
-\subsubsection{Modelling Contributions and Withdrawals}
+\subsection{Modelling Contributions and Withdrawals}
 
-The flow of wealth into and out of the portfolio is critical not only for the evolution of system, but also for the evaluation of outcomes. During retirement, when our investors is dissaving to fund consumption, how much the investor is withdrawing and is able to withdraw is a key determinant of welfare. Modelling contributions and withdrawals in a realistic way is therefore essential for simulating realistic wealth trajectories and evaluating the performance of different asset allocation strategies. There have been many approaches to modelling and planning withdrawals in the literature and financial advice space. Perhaps the most widely known is the ``4\% rule'' popularised by \textcite{bengen1994withdrawal}, which suggests that a retiree can safely withdraw 4\% of their initial retirement savings balance in the first year of retirement, and then adjust that amount for inflation in subsequent years, without running out of money over a 30-year retirement period. 
+The flow of wealth into and out of the portfolio is critical not only for the evolution of system, but also for the evaluation of outcomes. During retirement, when our investors is dissaving to fund consumption, how much the investor is withdrawing and is able to withdraw is a key determinant of welfare. Modelling contributions and withdrawals in a realistic way is therefore essential for simulating realistic wealth trajectories and evaluating the performance of different asset allocation strategies. There have been many approaches to modelling and planning withdrawals in the literature and financial advice space. 
 
-In their report, \textcite{riig2024spending} propose several alternative withdrawal rules tailored to the New Zealand context, each reflecting different assumptions about spending trajectories through retirement. We briefly describe these rules here in terms of the consumption at time \(t\), denoted \(c_t\).
+Our framework consists of essentially three components: the withdrawal rule, which specifies how much the investor desires to withdraw in each period; the consumption floor, which specifies the minimum amount the investor must withdraw to meet essential needs; and the income, which specifies the guaranteed income from sources such as NZ Super. The withdrawal rule is the most commonly discussed component in the literature, and there are many different rules that have been proposed. However, on its own it is not sufficient to model the withdrawal behaviour of a representative retiree, as it does not account for the fact that retirees have minimum spending needs that must be met regardless of market returns, and that these needs are not captured by any of the simple rules. The income is also important, as it provides a guaranteed source of income that can help to meet essential needs and reduce the risk of depleting wealth too quickly.
+
+Net inflows, \(\pi_t\), are modelled by equation \ref{net_inflows} as the difference between the income, \(y_t\), and realised consumption, \(\hat{c}_t\). 
+
+\begin{equation}\label{net_inflows}
+  \pi_t = y_t - \hat{c}_t
+\end{equation}
+
+Note that we will constrain \(\pi_{t+1} \ge -W_{t} \) such that the investor cannot withdraw more than their current wealth balance (go into debt). This is a realistic constraint, as it is not possible for a retiree to withdraw more than their current wealth balance. In practice, retirees may have access to credit or other sources of funds that could allow them to temporarily withdraw more than their current wealth balance, but this is not a sustainable strategy and would likely lead to financial distress in the long run. By imposing this constraint, we ensure that our simulations reflect the realistic limitations faced by retirees in managing their withdrawals.
+
+
+\subsubsection{Inflation}
+
+Central to any model of consumption is the treatment of inflation. In the context of retirement planning, inflation is a critical factor that erodes the purchasing power of money over time and therefore has a significant impact on the real value of withdrawals and the sustainability of retirement savings. Inflated dollar amounts can also be a significant source of confusion, as retirees and planners may have different perceptions of what constitutes a reasonable withdrawal amount depending on whether they are thinking in ``real'' (inflation-adjusted) or ``nominal'' (actual dollar) terms. Real consumption refers to the purchasing power of the retiree's spending, while nominal consumption refers to the actual dollar amount spent. The two are related by the inflation rate, which erodes the purchasing power of money over time. 
+
+
+In our framework, we denote the rate of inflation at time \(t\) as \(\iota_t\), and the cumulative inflation factor from time 0 to time \(t\) as \(s_t = \prod_{i=1}^{t} (1 + \iota_i)\). Real dollar amounts can be converted to nominal dollars by multiplying some initial real amount by the cumulative inflation factor. At \(t=0\) (the point of retirement), real and nominal dollar amounts are the same, but as time progresses, the real value of a given nominal amount will decline if there is positive inflation. For example, if a retiree desires to maintain a constant real consumption level of \$50,000 per year, and cumulative inflation over the first three years of retirement is 10\%, then the nominal withdrawal amounts in year three would need to be \$55,000 to maintain the same real purchasing power. 
+
+While there are technically many different types of inflation which will affect different parts of a retiree's overall consumption bundle differently, for the purposes of this analysis we will treat inflation as a single aggregate factor (linked to the consumer price index) that affects the overall purchasing power of the retiree's withdrawals. This is a simplification, but it is a common approach in the literature and is sufficient for our purposes here.
+
+\begin{asidebox}
+\asideboxtitle{Implications for Consilium: Inflation}
+
+Another major weakness of the GPS tool is that it only accounts for inflation in a very limited way. The tool allows the user to specify an assumed inflation rate, but this is a constant rate that is applied uniformly across all time periods and does not account for the stochastic nature of inflation or its potential correlation with asset returns. This means that the GPS tool cannot capture the impact of unexpected inflation shocks on the real value of withdrawals or the sustainability of retirement savings, which is a critical aspect of retirement planning.
+
+There are very good reasons to be wary of this approach. As we have seen over the 2020-2024 period, inflation can be highly volatile. Additionally, as noted by \textcite{anarkulova2025beyond}, inflation can be correlated with asset returns, particularly due to the fact that inflation is often addressed by central banks increasing interest rates, which can have a negative impact on asset returns. Monetary policy has a complex relationship with both fixed income and equity returns. For example, rising interest rates can lead to lower bond prices and higher yields, which can reduce the value of fixed income investments. Rising interest rates can also lead to lower equity prices, as they increase the cost of borrowing for companies and reduce the present value of future cash flows. By not accounting for the stochastic nature of inflation and its potential correlation with asset returns, the GPS tool may provide an overly optimistic view of the sustainability of retirement savings and the real value of withdrawals, particularly in periods of high or volatile inflation. 
+
+\end{asidebox}
+
+
+\subsubsection{Modelling Withdrawal Rules}
+
+Withdrawal rules are probably the most widely discussed component of retirement planning in the financial advice space, and there are many different rules that have been proposed. Perhaps the most widely known is the ``4\% rule'' popularised by \textcite{bengen1994withdrawal}, which suggests that a retiree can safely withdraw 4\% of their initial retirement savings balance in the first year of retirement, and then adjust that amount for inflation in subsequent years, without running out of money over a 30-year retirement period. 
+
+In their report, \textcite{riig2024spending} propose several alternative withdrawal rules tailored to the New Zealand context, each reflecting different assumptions about spending trajectories through retirement. We briefly describe these rules here in terms of the desired consumption at time \(t\), denoted \(c^*_t\). Each of these rules is designed to be simple enough for retirees to implement without sophisticated planning tools, and each implicitly or explicitly responds to the empirical observation that real spending declines through retirement. \textcite{riig2024spending} note that the 6\% rule is consistent with the observed 2\% annual real decline when general inflation is also 2\%, as it holds nominal spending approximately constant (after the asset returns are accounted for). 
 
 \paragraph{The 6\% Rule:}\mbox{}\\
 
 This rule specifies a fixed nominal withdrawal amount equal to 6\% of the initial retirement balance:
-\begin{equation}
-c_t = 0.06 \times w_0
+\begin{equation}\label{six_percent_rule}
+c^*_t = 0.06 \times w_0
 \end{equation}
 
 This rule front-loads spending and is well-aligned with the empirical finding that real spending declines by approximately 2\% per year after age 65. When general inflation is also 2\%, holding nominal spending constant produces the observed real decline. However, because withdrawals are fixed in nominal terms while returns are stochastic, there is a risk that the fund will be depleted before death.
@@ -334,16 +368,16 @@ This rule front-loads spending and is well-aligned with the empirical finding th
 \paragraph{The Inflated 4\% Rule:}\mbox{}\\
 
 This is a variant of Bengen's original formulation, where the initial 4\% withdrawal is adjusted annually for inflation:
-\begin{equation}
-c_t = 0.04 \times w_0 \times s_t
+\begin{equation}\label{inflated_four_percent_rule}
+c^*_t = 0.04 \times w_0 \times s_t
 \end{equation}
 where \(s_t\) is the cumulative inflation factor at time \(t\) since retirement. This rule maintains constant real spending, which is inconsistent with the empirical evidence of declining consumption but is more conservative than the 6\% rule. It is more likely to preserve wealth through retirement and may be appropriate for retirees with lower risk tolerance or longer expected lifespans.
 
 \paragraph{The Fixed Date Rule:}\mbox{}\\
 
 This rule divides the current wealth balance by the number of years remaining until a specified terminal age \(T\), at which point the retiree is assumed to rely solely on NZ Super:
-\begin{equation}
-c_t = \frac{w_t}{T - t}
+\begin{equation}\label{fixed_date_rule}
+c^*_t = \frac{w_t}{T - t}
 \end{equation}
 
 This rule produces withdrawals that vary from year to year as wealth fluctuates with market returns. It maximises spending over the chosen horizon but does not account for longevity risk beyond the terminal age. The approach is simple to implement but may produce significant year-to-year volatility in consumption.
@@ -351,67 +385,180 @@ This rule produces withdrawals that vary from year to year as wealth fluctuates 
 \paragraph{The Life Expectancy Rule:}\mbox{}\\
 
 This rule divides current wealth by the actuarial life expectancy at the retiree's current age \(t\):
-\begin{equation}
-c_t = \frac{w_t}{e_t}
+\begin{equation}\label{life_expectancy_rule}
+c^*_t = \frac{w_t}{e_t}
 \end{equation}
 where \(e_t\) is the remaining life expectancy at age \(t\). This approach is dynamically efficient in the sense that, in expectation, it exhausts the fund exactly at death. Because life expectancy declines with age, the denominator shrinks over time, which tends to stabilise the withdrawal rate even as wealth declines. This is perhaps the most economically rational of the simple heuristics, as it balances current consumption against future needs in a way that accounts for mortality risk.
 
-\paragraph{Required Minimum Distribution (RMD) Consumption:}\mbox{}\\
 
-Each of these rules is designed to be simple enough for retirees to implement without sophisticated planning tools, and each implicitly or explicitly responds to the empirical observation that real spending declines through retirement. \textcite{riig2024spending} note that the 6\% rule is consistent with the observed 2\% annual real decline when general inflation is also 2\%, as it holds nominal spending approximately constant (after the asset returns are accounted for). 
+\subsubsection{Consumption Floors and Minimum Desired Consumption}
 
-However, none of these simple heuristics on its own is suitable for modelling the withdrawal behaviour (i.e. \(\pi_t\)) of a representative retiree in our simulation framework. Most obviously, retirees have minimum spending needs that must be met regardless of market returns, and these needs are not captured by any of the rules above. For example, if a retiree has a minimum real spending requirement of \$30,000 per year to cover essential expenses, then the 6\% rule would fail to meet this requirement if the initial retirement balance is less than \$500,000. Similarly, the Fixed Date Rule and Life Expectancy Rule could produce withdrawals that are too low to meet essential needs in years when wealth is depleted by poor market returns. 
+While the withdrawal rules described above provide a useful starting point for modelling retirement spending, they do not account for the fact that retirees have minimum spending needs that must be met regardless of market returns. For example, if a retiree has a minimum real spending requirement of \$30,000 per year to cover essential expenses, then the 6\% rule would fail to meet this requirement if the initial retirement balance is less than \$500,000. Similarly, the Fixed Date Rule and Life Expectancy Rule could produce withdrawals that are too low to meet essential needs in years when wealth is depleted by poor market returns. 
 
-To model this more realistically, we specify a minimum real spending requirement or floor, \(\underline{c}_t\), that must be met in each period. The withdrawal in each period is then the maximum of the amount specified by the chosen rule and the minimum spending requirement:
+To model this more realistically, we specify a minimum real spending requirement or floor, \(\underline{c}_t\), that must be met in each period. This gives us the minimum desired consumption at time \(t\), denoted \(c_t\), as the maximum of the desired consumption from the withdrawal rule, \(c^*_t\), and the consumption floor, \(\underline{c}_t\), as shown in equation \ref{consumption_floor}:
 
-\begin{equation}
-c_t = \max\left(\text{Rule}(w_t, t), \underline{c}_t\right)
+\begin{equation}\label{consumption_floor}
+c_t = \max\left(c^*_t, \underline{c}_t\right)
 \end{equation}
 
-Bacause this is set in the New Zealand context, our investors will also receive NZ Super, which provides a guaranteed, inflation-linked income floor from age 65. The income recieve from NZ Super is calculated as:
-\begin{equation}
-v_t = v_0 \times s_t
-\end{equation}
-Where \(v_0\) is the initial NZ Super payment at age 65, and \(s_t\) is the cumulative inflation factor at time \(t\) since retirement. 
+This consumption floor is designed such that it can be variable over time, or even with respect to other state variables such as wealth or health status. For example, the floor could be set to reflect the empirical expenditure benchmarks for New Zealand retirees, which vary by household composition and housing tenure. The floor could also be adjusted for inflation or other factors that affect the cost of living over time. Random shocks to the floor could also be introduced to reflect unexpected expenses, such as health shocks or changes in housing costs. Based on emprical evidence, \textcite{riig2024spending} suggest that the spending guidelines from \textcite{matthews2025guidelines} could decline in real terms by approximately 2\% per year after age 65. This can be modelled as in equation \ref{riig_consumption_floor} as follows:
 
-Additionally, we do not allow for our investors go into debt to meet their spending needs. If the desired withdrawal exceeds the current wealth balance, the investor simply withdraws all remaining wealth and then relies on NZ Super for the remainder of their income needs. This that the total consumption at time is the minimum of the amount desired by the investor and the amount that can be funded by the current wealth balance plus NZ Super:
-\begin{equation}
-  \hat{c}_t = \min\left(c_t, w_t+v_t\right)
+\begin{equation}\label{riig_consumption_floor}
+  \underline{c}_t = \underline{c}_0 \times (1 - 0.02)^{t} \times s_t
 \end{equation}
 
-Net contributions to the portfolio are then given by:
-\begin{equation}
-  \pi_t = -\hat{c}_t + v_t
+Where \(\underline{c}_0\) is the initial real consumption floor at age 65, and \(s_t\) is the cumulative inflation factor at time \(t\) since retirement. 
+
+
+\subsubsection{Income}
+
+While certain types of assets pay dividends or interest that can be considered as income, we treat these as part of the portfolio returns rather than as a separate income stream. Income within our framework refers to exogenous sources of income that are not derived from the portfolio. Within a New Zealand retirement context, the most important source of exogenous income is NZ Super, which provides a guaranteed, inflation-linked income floor from age 65. We denote income at time \(t\) as \(y_t\). 
+
+NZ Super provides a guaranteed, inflation-linked income floor from age 65. The income recieve from NZ Super is calculated within our framework as follows in equation \ref{nz_super_income}:
+\begin{equation}\label{nz_super_income}
+y_t = y_0 \times s_t
 \end{equation}
+
+Where \(y_0\) is the initial NZ Super payment at for the household at age 65 (see table \ref{tab:nzSuperRates}), and \(s_t\) is the cumulative inflation factor at time \(t\) since retirement. 
 
 \begin{asidebox}
-\asideboxtitle{Implications for Consilium: Modelling Withdrawals in GPS}
+  \asideboxtitle{Extensions to the Framework: Modelling Other Sources of Income and the Whole Life Cycle}
 
-The GPS tool currently models withdrawals using a simple fixed dollar amount that can be adjusted for inflation. This is a particularly inflexible approach that does not allow for the kind of dynamic withdrawal strategies described above. Since the GPS is a whole-life planning tool which models both the accumulation and decumulation phases, there is substantial heterogeneity in distrubution of wealth at retirement across simulated paths in many scenarios. This means that a fixed withdrawal amount may be too high for some paths, leading to early depletion of the fund, and too low for other paths, leading to underconsumption relative to the retiree's needs. Modelling withdrawals in a more dynamic way, such as implmementing the rules above, would allow the GPS to better capture the trade-offs that retirees face in balancing current consumption against future needs, and would also allow for a more realistic representation of the risks associated with different asset allocation strategies.
+  While our current framework focuses on retirement and the decumulation phase, it can be easily extended to model the whole life cycle, including the accumulation phase and other sources of income. For example, we could model labour income during the accumulation phase, which would allow us to simulate the entire life cycle of wealth accumulation and decumulation. We could also model other sources of income during retirement, such as part-time work, rental income from property, or annuity payments. This would provide a more comprehensive view of the retiree's financial situation and allow us to evaluate how different asset allocation strategies interact with these various sources of income throughout the life cycle.
 
-These are relatively simple rules to implement, and could be added as options in the GPS tool without requiring a fundamental overhaul of the underlying simulation framework. Implementing these rules would enhance the tool's ability to support more realistic retirement planning scenarios and provide more nuanced advice to clients about the risks and trade-offs associated with different withdrawal strategies.
+  In a whole-life cycle model, a good model of labour income is critical, as it is the primary source of wealth accumulation for most individuals and one that is also highly heterogeneous across individuals and simulation paths. Modelling labour income, and particularly shocks to labour income such as unemployment or disability, would allow us to capture the risks that individuals face during the accumulation phase and how these risks interact with their retirement savings and asset allocation decisions. This income, and the shocks to it, would also have correlations with other economic variables, such as asset returns and inflation. This model is well outside the scope of the work presented here, but it is a natural extension of the framework we have developed and would be a valuable area for future research.
 \end{asidebox}
 
 
-\subsubsection{Modelling Asset Allocation Policies}
+\subsubsection{Realised Consumption}
 
-The asset allocation policy is the key decision variable in our analysis, and the one that we seek to optimise. Our policy function specifies the allocation to each asset class at each time \(t\) for each simulation path, and is denoted by the operator \(\mathcal{A}\). New Zealand investors cannot leverage or short-sell, so we restrict our attention to policies that only allow for long positions in the available asset classes. Because short-selling and leverage are not allowed, we can reduce the dimensionality of the problem by treating one of the asset classes as the ``safe'' asset, with the allocation to this asset class determined residually as one minus the sum of the allocations to the other asset classes. For example, if we have two asset classes (a risky asset and a safe asset), we can represent the allocation to the risky asset as \(a_t\) and the allocation to the safe asset as \(1 - a_t\). This reduces the number of decision variables in our optimisation problem and simplifies the search for optimal policies.
+Because our retirees are forbidden from withdrawing more than their current wealth balance, it is possible that the desired minimum consumption, \(c_t\), exceeds the available resources. In such cases, the actual consumption is limited by the wealth balance and any exogenous income, such as NZ Super. The realised consumption at time \(t\), denoted \(\hat{c}_t\), is therefore given by the minimum of the desired consumption and the total available resources, as shown in equation \ref{realised_consumption}:
+
+\begin{equation}\label{realised_consumption}
+\hat{c}_t = \min\left(c_t, w_t + y_t\right)
+\end{equation}
+
+Net contributions to the portfolio are then given by:
+
+\begin{equation}\label{net_inflows_pi}
+  \pi_t = -\hat{c}_t + y_t
+\end{equation}
+
+This realised consumption is one of the most important outputs of our simulation, as it reflects the actual spending that the retiree is able to achieve given their wealth trajectory and the withdrawal rules. It is also a critical input for evaluating the performance of different asset allocation strategies, as it directly affects the retiree's welfare and the sustainability of their retirement savings. By modelling realised consumption in this way, we can capture the trade-offs that retirees face in balancing current consumption against future needs, and we can also evaluate how different asset allocation strategies perform under different withdrawal rules and income scenarios.
+
+\begin{asidebox}
+  \asideboxtitle{Implications for Consilium: Modelling Consumption and Income}
+
+  The GPS currently only outputs the investor's wealth trajectory over time, and does not model or output the actual consumption that the retiree is able to achieve given their wealth trajectory and any exogenous income. This is a significant limitation, as it means that the GPS cannot directly evaluate the welfare implications of different asset allocation strategies, since welfare is ultimately determined by the retiree's consumption rather than their wealth. 
+
+  This weakness is in part due to the limited and inflexible way that the GPS models withdrawals, which does not allow for the kind of dynamic withdrawal strategies described above, and also does not account for the fact that retirees have minimum spending needs that must be met regardless of market returns. While it has a fairly faithful implementation of the NZ Super rules, it does not integrate this income into the overall model of consumption and wealth evolution in a way that allows for the kind of dynamic interactions described above.
+\end{asidebox}
+
+
+
+\subsection{Asset Allocation Policies}
+
+The asset allocation policy is the key decision variable in our analysis, and the one that we seek to optimise. Here, a ``policy'' refers to a function or set of rules that determine the allocation vector \(\mathbf{a}_t\) at each time \(t\). The policy can be as simple as a fixed allocation that does not change over time, or it can be a complex, dynamic strategy that adjusts allocations based on the investor's current wealth, age, or other state variables. We express the policy as a function that maps from the current state of the system (for example, time, wealth, or other state variables) and a set of policy settings to the asset allocation vector \(\mathbf{a}_t\). We denote this policy function as \(\mathcal{A}\), which takes as input the current state and ``policy settings'', denoted \(\theta\), and outputs the allocation vector \(\mathbf{a}_t\) for each time \(t\) and simulation path. The specific form of the policy function will depend on the particular class of policies we are testing, but the key point is that the goal of finding an optimal asset allocation strategy can be framed as an optimisation problem over the policy parameters \(\theta\), where we seek to find the set of parameters that maximises our chosen risk measure of the resulting wealth trajectories.
+
+Our approach borrows heavily from the control-matrix approach of \textcite{Makinen2024}, which provides a flexible and interpretable way to represent a wide range of asset allocation policies, including those that depend on path-specific state variables such as wealth or age. Another notable example of a flexible policy representation is the use of neural networks, as proposed by \textcite{parker2024simple}, which can capture complex, non-linear relationships between state variables and asset allocations. However, while neural networks offer a high degree of flexibility, the policy settings they produce are not easily interpretable. Because a optimal solution is likely to be linked to the return-generation process we use, we want to be able to understand the structure of the optimal policy and how it responds to different state variables. The control-matrix approach allows us to do this, as the policy settings are directly interpretable as allocations for different combinations of the various state variables fed into the it. 
+
+In the control-matrix approach, the policy settings \(\theta\) take the form of a matrix or tensor where each dimension corresponds to a different state variable that the policy can depend on. It is worth spending some time discussing how we see the control-matrix approach fitting into the broader landscape of asset allocation policy representations in the literature, as our interpretation of this approach will also inform how we implement and interpret the results of our optimisation. The dimesions of the control matrix correspond to different state variables that the policy can depend on. In \textcite{Makinen2024}, the control matrix has two dimensions: time and wealth. This allows for policies that can adjust allocations based on both the investor's current age (or time since retirement) and their current wealth level. This is an extension of the more traditional age-based glidepath, which only allows for dependence on time, which is in turn an extension of a fixed allocation strategy, which does not allow for any dependence on state variables.
+
+To show you what we mean by this, consider the following example. A fixed allocation strategy can be represented as a policy function that does not depend on any state variables, and simply returns the same allocation vector \(\mathbf{a}\) at each time \(t\) and for each simulation path. In this world, the policy function can be represented as a constant function:
+
+\begin{equation}\label{fixed_allocation_policy}
+  \mathcal{A}(\theta) = \mathbf{a} \quad \text{for all } t \text{ and all paths}
+\end{equation}
+
+In a two-asset portfolio, \(\theta\) would simply be the allocation to the risky asset, with the allocation to the safe asset determined residually, e.g. \(\mathcal{A}(\theta) = (a, 1 - a)\). For a portfolio with N asset classes, \(\theta\) would be a vector of length \(N-1\) representing the allocations to \(N-1\) of the asset classes, with the allocation to the remaining asset class determined residually as one minus the sum of the other allocations. We denote this tranformation as 
+
+\begin{equation}\label{phi_transformation}
+  \varphi(\boldsymbol{\theta}) = \boldsymbol{a} = \begin{pmatrix} \theta_1 \\ \theta_2 \\ \vdots \\ \theta_{N-1} \\ 1 - \sum_{i=1}^{N-1} \theta_i \end{pmatrix}
+\end{equation}
+
+Note that we constrain our asset allocation policies to only allow for long positions in the available asset classes, which is a realistic assumption for KiwiSaver investors, as they are not allowed to short-sell or use leverage. This means that the allocation vector \(\mathbf{a}_t\) must satisfy the following constraints:
 
 This means that the allocation vector \(\mathbf{a}_t\) must satisfy the following constraints:
-\begin{equation}
+\begin{equation}\label{allocation_constraints}
 \sum_{j=1}^{k} a_{j,t} <= 1 \quad \text{and} \quad a_{j,t} \geq 0 \quad \text{for all } j
 \end{equation}
 
-As we've aleady noted, most of the literature on optimal asset allocation in retirement focuses on age-based glidepaths, which is a policy operator that specifies the allocation to each asset class as a function of the investor's age (or equivalently, time since retirement (\(t\))). In this case, the asset allocation at time \(t\) is given by:
-\begin{equation}
-\mathbf{a}_t = f(t; \boldsymbol{\theta})
+By extension, our policy settings \(\theta\) must also satisfy these constraints.
+
+Traditional glidepath strategies vary asset allocations with age (or equivalently, time since retirement). In this case, the policy function can be represented as a function of time:
+
+\begin{equation}\label{time_based_policy}
+  \mathcal{A}(\theta, t) = \boldsymbol{a}_t
 \end{equation}
 
-Where \(f\) is a function parameterised by a set of parameters \(\boldsymbol{\theta}\). For example, a simple linear glidepath that starts with an equity allocation of 80\% at retirement and declines to 20\% at age 90 can be represented by a linear function with two parameters: the initial allocation and the final allocation. More complex functional forms, such as piecewise linear or spline functions, can also be used to capture more nuanced glidepath shapes. The key point is that by parameterising the asset allocation policy in this way, we can use optimisation techniques to search for the set of parameters \(\boldsymbol{\theta}\) that maximises our chosen risk measure, which we will discuss in the next section.
+Where \(\boldsymbol{a}_t\) is the allocation vector at time \(t\), which is determined by the policy settings \(\theta\). In a very simple case, \(\theta\) could be a \(T \times (k-1)\) matrix where each row corresponds to a time period and each column corresponds to an asset class (except for the safe asset, which is determined residually). This is essentially the form of the policy function used in \textcite{anarkulova2025beyond}, where discrete asset allocations are specified for each time period, and the optimal policy is found by searching over the space of possible allocations at each time period. In this case, \(\mathcal{A}\) becomes:
 
-We also wish to explore a more flexible class of policies that allow for path-dependence, where the allocation can depend on the investor's current wealth \(w_t\) in addition to time. This allows for the possibility that the optimal asset allocation strategy may involve adjusting the allocation based on the investor's current financial situation, which is a more realistic assumption than a purely age-based glidepath. Our formulation of a wealth-time dependent policy follows the control-matrix approach of \textcite{Makinen2024}, where the allocation at time \(t\) is determined by a matrix of parameters that specify the allocation for different, discrete combinations of time and wealth levels. Continuous allocations are then obtained by interpolating between the discrete points with bilinear interpolation. This approach allows for a high degree of flexibility in the shape of the asset allocation policy, while still being tractable for optimisation. We like this approach because the control-matrix structure is relatively easy to understand and interpret, and the use of interpolation allows for smooth policies without requiring a large number of parameters. This is particularly important when we consider that the optimisation problem can become quite complex as the number of parameters increases, so having a parsimonious parameterisation is beneficial for both computational efficiency and interpretability.
+\begin{equation}\label{discrete_time_allocation}
+  \mathbf{a}_t = \mathcal{A}(\theta, t) = \varphi(\theta_t)
+\end{equation}
 
-To illustrate this more concretely, consider Figure \ref{control_matrix_example}, which shows a simple control matrix for a two-asset portfolio. The matrix has six time steps (0 to 5) and five wealth levels (0 to 4), giving a 6 by 5 grid. Each cell corresponds to a risky-asset allocation (with the remainder allocated to the safe asset). For instance, if an investor is at time step 2 with wealth level 3, the policy returns the allocation in that cell. For time or wealth values between grid points, we use the interpolation method proposed by \textcite{Makinen2024}. For example, at time 2.5 and wealth 3.5, bilinear interpolation uses the four neighbouring grid points to determine allocation.
+
+A key insight from \textcite{Makinen2024} is that you can reduce the parameter space of the policy function (and by extension, extend the policy function to continuous state variables) by using interpolation to determine the asset allocation for time periods that fall between the defined grid points. For example, if we have discrete allocations defined at time periods 0, 5, and 10, we can use linear interpolation to determine the allocation at time period 3 by interpolating between the allocations at time periods 0 and 5. This allows us to have a more parsimonious parameterisation of the policy function, while still allowing for a high degree of flexibility in the shape of the asset allocation strategy over time.
+
+Formally, suppose we have policy settings \(\theta\) defined at a discrete set of time nodes \(\{t_0, t_1, \ldots, t_M\}\), where \(\theta\) is now a matrix of dimension \(M \times (k-1)\) with each row \(\theta_i\) specifying the risky asset allocations at node \(t_i\). For any time \(t\) such that \(t_i \leq t < t_{i+1}\), the interpolated allocation is given by:
+
+\begin{equation}\label{interpolated_allocation}Z
+  \mathbf{a}_t = \mathcal{A}(\theta, t) = \varphi\left((1-\alpha)\theta_i + \alpha\theta_{i+1}\right)
+\end{equation}
+
+where the interpolation weight \(\alpha\) is computed as:
+
+\begin{equation}\label{interpolation_weight}
+  \alpha = \frac{t - t_i}{t_{i+1} - t_i}
+\end{equation}
+
+This linear interpolation ensures that the policy varies smoothly between node points while requiring only \(M \times (k-1)\) parameters rather than \(T \times (k-1)\) if allocations were specified independently at every time period. The transformation \(\varphi\) is then applied to the interpolated risky allocations to obtain the full allocation vector including the safe asset.
+
+
+Our policy function specifies the allocation to each asset class at each time \(t\) for each simulation path, and is denoted by the operator \(\mathcal{A}\). New Zealand investors cannot leverage or short-sell, so we restrict our attention to policies that only allow for long positions in the available asset classes. Because short-selling and leverage are not allowed, we can reduce the dimensionality of the problem by treating one of the asset classes as the ``safe'' asset, with the allocation to this asset class determined residually as one minus the sum of the allocations to the other asset classes. For example, if we have two asset classes (a risky asset and a safe asset), we can represent the allocation to the risky asset as \(a_t\) and the allocation to the safe asset as \(1 - a_t\). This reduces the number of decision variables in our optimisation problem and simplifies the search for optimal policies.
+
+This is our interpretation of a glidepath strategy, which is a policy that specifies the asset allocation as a function of time. A linear glidepath can be represented by \(\theta\) with two nodes (or rows), one at the point of retirement (\(t=0\)) and one at the terminal age (\(t=T\)), with the allocations at these nodes representing the initial and final allocations, respectively. More complex glidepaths can be represented by adding more nodes and allowing for non-linear interpolation between them. Adding more nodes allows for more complex shapes. By varying the number of nodes, we can also determine the sensitivity of the optimal policy to the granularity of the time dimension, which can provide insights into how important it is to have a finely-tuned glidepath versus a more simple one.
+
+Figure \ref{fig:time_interpolation_example} illustrates this interpolation process for a three-asset portfolio (stocks, bonds, and cash) with three time nodes at \(t = 0, 15, 30\). Panel (a) shows the policy settings matrix \(\theta\), where each row specifies the allocations to stocks and bonds at a discrete time node, with the cash allocation computed residually via \(\varphi\). Panel (b) shows the resulting continuous allocation surface obtained by linear interpolation, with the vertical dashed lines marking the discrete nodes where \(\theta\) is defined.
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=0.95\textwidth]{../Figs/time_interpolation_example.png}
+    \caption{Linear interpolation for a time-based allocation policy with three assets and three time nodes.}
+    \label{fig:time_interpolation_example}
+\end{figure}
+
+This approach also allows us to constuct a wealth-responsive glidepath, which (rather than being a function of time) is a function of the investor's current wealth level. In this case, the policy function can be represented as a function of wealth:
+
+\begin{equation}\label{wealth_based_policy}
+  \mathcal{A}(\theta, w_t) = \boldsymbol{a}_t
+\end{equation}
+
+And, similar to above, \(\theta\) is a matrix of parameters that specify the allocations at discrete wealth levels or nodes (\(\{w_0, w_1, \ldots, w_M\}\)), with interpolation used to determine the allocation for wealth levels that fall between the defined grid points. 
+
+The final form of the policy function that we will consider is one that allows for dependence on both time and wealth, which we can represent:
+
+\begin{equation}\label{wealth_time_based_policy}
+  \mathcal{A}(\theta, t, w_t) = \boldsymbol{a}_t
+\end{equation}
+
+This directly corresponds to the control-matrix approach of \textcite{Makinen2024}, where the policy settings \(\theta\) are now a three-dimensional tensor of dimension \(M_t \times M_w \times (k-1)\), defined on a discrete grid of time nodes \(\{t_0, t_1, \ldots, t_{M_t}\}\) and wealth nodes \(\{w_0, w_1, \ldots, w_{M_w}\}\). Each element \(\theta_{i,j}\) specifies the risky asset allocations when time is at node \(t_i\) and wealth is at node \(w_j\).
+
+For any time \(t\) and wealth \(w\) such that \(t_i \leq t < t_{i+1}\) and \(w_j \leq w < w_{j+1}\), the interpolated allocation is given by bilinear interpolation:
+
+\begin{equation}\label{bilinear_interpolation}
+  \mathbf{a}_t = \mathcal{A}(\theta, t, w) = \varphi\left((1-\alpha_t)(1-\alpha_w)\theta_{i,j} + (1-\alpha_t)\alpha_w\theta_{i,j+1} + \alpha_t(1-\alpha_w)\theta_{i+1,j} + \alpha_t\alpha_w\theta_{i+1,j+1}\right)
+\end{equation}
+
+where the interpolation weights are computed as:
+
+\begin{equation}\label{bilinear_weights}
+  \alpha_t = \frac{t - t_i}{t_{i+1} - t_i}, \quad \alpha_w = \frac{w - w_j}{w_{j+1} - w_j}
+\end{equation}
+
+This bilinear interpolation ensures that the policy varies smoothly across both time and wealth dimensions while requiring only \(M_t \times M_w \times (k-1)\) parameters. The transformation \(\varphi\) is then applied to the interpolated risky allocations to obtain the full allocation vector including the safe asset. 
+
+To illustrate this more concretely, consider Figure \ref{control_matrix_example}, which shows a simple control matrix for a two-asset portfolio. The matrix has six time steps (0 to 5) and five wealth levels (0 to 4), giving a 6 by 5 grid. Each cell corresponds to a risky-asset allocation (with the remainder allocated to the safe asset). For instance, if an investor is at time step 2 with wealth level 3, the policy returns the allocation in that cell. For time or wealth values between grid points, we use bilinear interpolation to determine the allocation, which allows for a smooth transition between different allocation strategies across the state space. For example, if an investor is at time step 2.5 with wealth level 3.5, we would interpolate between the four surrounding cells to determine the appropriate allocation.
 
 
 \begin{figure}[h!]
@@ -421,9 +568,7 @@ To illustrate this more concretely, consider Figure \ref{control_matrix_example}
     \label{control_matrix_example}
 \end{figure}
 
-For allocations with more than two asset classes, the control matrix can be extended to a higher-dimensional tensor, with each additional dimension representing an additional asset class. \textcite{Makinen2024} use bilinear interpolation to determine the asset allocation for wealth levels that fall between the defined grid points, ensuring a smooth transition between different allocation strategies.
-
-\textcite{parker2024simple} use a neural network to create a highly flexible policy function that intergrates a wide range of state variables, including time, wealth, and various macroeconomic indicators. This approach allows for a very rich class of policies, but it also introduces challenges in terms of interpretability and the risk of overfitting, particularly given the synthetic nature of the asset return data used in the simulations. We think that this is a promising direction for future research, but for the purposes of this thesis we will focus on just the age-based and wealth-time dependent policies described above, as they represent the two most readily available information that an investor would have when making asset allocation decisions.
+The key insight is that the dimensions of \(\theta\) correspond to the different state variables that the policy can depend on. Here we have extended it to two dimensions, time and wealth, which allows for policies that can adjust allocations based on both the investor's current age (or time since retirement) and their current wealth level. It is also possible to extend this approach to allow for dependence on additional state variables, such as health status or macroeconomic indicators, by adding additional dimensions to the control matrix. These can be both discrete and continuous, and the use of interpolation allows us to have a parsimonious parameterisation of the policy function while still allowing for a high degree of flexibility in the shape of the asset allocation strategy across different state variables. Compared to a neural network approach (as in \textcite{parker2024simple}), the control-matrix approach allows for a more interpretable policy representation, as the parameters directly correspond to allocations at specific points in the state space, and the interpolation provides a clear mechanism for how the policy varies across different states. However, it is probably less flexible and will have a higher number of parameters than a neural network at higher dimensions, which is a trade-off that we are willing to make for the sake of interpretability in this analysis.
 
 
 \subsection{Methods for Simulating and Bootstrapping Asset Returns}
