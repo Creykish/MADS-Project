@@ -53,6 +53,15 @@
   url     = {https://digitalcommons.butler.edu/cob_papers/17}
 }
 
+@article{duchi2008efficient,
+  author  = {Duchi, John and Shalev-Shwartz, Shai and Singer, Yoram and Chandra, Tushar},
+  title   = {Efficient Projections onto the $\ell_1$-Ball for Learning in High Dimensions},
+  journal = {Proceedings of the 25th International Conference on Machine Learning},
+  year    = {2008},
+  pages   = {272--279},
+  doi     = {10.1145/1390156.1390191}
+}
+
 @article{jorda2017macrofinancial,
   author  = {Jordà, Òscar and Schularick, Moritz and Taylor, Alan M.},
   title   = {Macrofinancial History and the New Business Cycle Facts},
@@ -63,6 +72,14 @@
   pages   = {213--263},
   doi     = {10.1086/690241},
   url     = {https://www.macrohistory.net/database/}
+}
+
+@article{adam,
+  author  = {Kingma, Diederik P. and Ba, Jimmy},
+  title   = {Adam: A Method for Stochastic Optimization},
+  journal = {arXiv preprint arXiv:1412.6980},
+  year    = {2014},
+  url     = {https://arxiv.org/abs/1412.6980}
 }
 
 @article{estrada2014glidepath,
@@ -85,6 +102,17 @@
   number  = {2},
   pages   = {28--36},
   doi     = {10.3905/joi.2016.25.2.028}
+}
+
+@article{fama1993common,
+  author  = {Fama, Eugene F. and French, Kenneth R.},
+  title   = {Common Risk Factors in the Returns on Stocks and Bonds},
+  journal = {Journal of Financial Economics},
+  year    = {1993},
+  volume  = {33},
+  number  = {1},
+  pages   = {3--56},
+  doi     = {10.1016/0304-405X(93)90023-5}
 }
 
 @article{shiller2005life,
@@ -535,16 +563,6 @@
   url       = {https://doi.org/10.1038/s41586-020-2649-2}
 }
 
-@misc{pytorch,
-  title         = {PyTorch: An Imperative Style, High-Performance Deep Learning Library},
-  author        = {Adam Paszke and Sam Gross and Francisco Massa and Adam Lerer and James Bradbury and Gregory Chanan and Trevor Killeen and Zeming Lin and Natalia Gimelshein and Luca Antiga and Alban Desmaison and Andreas Köpf and Edward Yang and Zach DeVito and Martin Raison and Alykhan Tejani and Sasank Chilamkurthy and Benoit Steiner and Lu Fang and Junjie Bai and Soumith Chintala},
-  year          = {2019},
-  eprint        = {1912.01703},
-  archiveprefix = {arXiv},
-  primaryclass  = {cs.LG},
-  url           = {https://arxiv.org/abs/1912.01703}
-}
-
 @misc{tensorflow,
   title  = { {TensorFlow}: Large-Scale Machine Learning on Heterogeneous Systems},
   url    = {https://www.tensorflow.org/},
@@ -899,4 +917,36 @@
   url     = {https://www.fma.govt.nz/assets/RIS/Regulatory-Impact-Statement-guidance-on-risk-Indicators-and-descriptions-of-managed-funds.pdf},
   urldate = {2026-05-04},
   note    = {PDF document}
+}
+
+
+@inbook{pytorch,
+  author    = {Paszke, Adam and Gross, Sam and Massa, Francisco and Lerer, Adam and Bradbury, James and Chanan, Gregory and Killeen, Trevor and Lin, Zeming and Gimelshein, Natalia and Antiga, Luca and Desmaison, Alban and K\"{o}pf, Andreas and Yang, Edward and DeVito, Zach and Raison, Martin and Tejani, Alykhan and Chilamkurthy, Sasank and Steiner, Benoit and Fang, Lu and Bai, Junjie and Chintala, Soumith},
+  title     = {PyTorch: an imperative style, high-performance deep learning library},
+  year      = {2019},
+  publisher = {Curran Associates Inc.},
+  address   = {Red Hook, NY, USA},
+  abstract  = {Deep learning frameworks have often focused on either usability or speed, but not both. PyTorch is a machine learning library that shows that these two goals are in fact compatible: it provides an imperative and Pythonic programming style that supports code as a model, makes debugging easy and is consistent with other popular scientific computing libraries, while remaining efficient and supporting hardware accelerators such as GPUs.In this paper, we detail the principles that drove the implementation of PyTorch and how they are reflected in its architecture. We emphasize that every aspect of PyTorch is a regular Python program under the full control of its user. We also explain how the careful and pragmatic implementation of the key components of its runtime enables them to work together to achieve compelling performance. We demonstrate the efficiency of individual subsystems, as well as the overall speed of PyTorch on several common benchmarks.},
+  booktitle = {Proceedings of the 33rd International Conference on Neural Information Processing Systems},
+  articleno = {721},
+  numpages  = {12}
+}
+
+@online{data__worldbankMktCap,
+  title   = {Market capitalization of listed domestic companies (current {US}\$)},
+  author  = {{World Federation of Exchanges}},
+  year    = {2024},
+  url     = {https://data.worldbank.org/indicator/CM.MKT.LCAP.CD?end=2024&start=1975},
+  urldate = {2026-05-26},
+  note    = {World Federation of Exchanges database. License: CC BY-4.0}
+}
+
+@online{data__gfdMktCap,
+  title        = {Stock Market Capitalization over the Past 250 Years: The Dominance of the Anglo Countries},
+  author       = {Taylor, Bryan},
+  date         = {2023-06-12},
+  url          = {https://finaeon.com/the-dominance-of-the-anglo-countries/},
+  urldate      = {2026-05-26},
+  organization = {Finaeon},
+  note         = {Insights Article}
 }

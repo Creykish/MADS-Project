@@ -2,6 +2,10 @@
 \usepackage{graphicx} % Required for inserting images
 \usepackage[a4paper,margin=1.25cm,footskip=.5cm]{geometry}
 \usepackage{amsmath}
+\DeclareMathOperator*{\argmin}{arg\,min}
+\DeclareMathOperator*{\argmax}{arg\,max}
+\usepackage{amssymb}
+
 \usepackage{booktabs}
 \usepackage{verbatim}
 \usepackage{xcolor}
@@ -33,17 +37,14 @@ Although this research is conducted in partnership with Consilium, the views exp
 
 We thank Consilium for their support and collaboration in this research project, and for the feedback that has helped shape the direction and focus of this work.
 
+
 \tableofcontents
 
 \section{Introduction}
 
-Lifetime asset allocation is one of the highest-impact financial decisions households make. 
+Lifetime asset allocation is one of the highest-impact financial decisions households make. In general, sources of higher asset returns are associated with higher risks (e.g., \parencite{lundbladRiskAndReturns, campbellRiskAndReturns, ghyselsRiskAndReturns}). This makes the task of selecting an optimal allocation strategy a complex balancing act: weighing the investor's need for growth to fund future spending against their tolerance for volatility and potential losses. The problem is further complicated by the fact that very few of these factors are known in advance. Future returns, future spending needs, and even the investor's own risk tolerance can all evolve over time in response to changing circumstances. This makes the problem of lifetime asset allocation one of making the best possible decisions in the face of deep uncertainty about the future. The answer to this tricky puzzle matters at both household and fiscal levels. The global asset-backed pension market is large \parencite{oecd2025pension}, and in New Zealand retirement outcomes directly interact with public finances through New Zealand Superannuation. Treasury projections indicate substantial long-run pressure from population ageing \parencite{nztreasury2025tirohanga}, while policy and industry commentary increasingly emphasises higher private saving and better KiwiSaver decisions \parencite{national2025kiwisaver, gilbert2025lifting, palmer2025watch, dexter2025kiwisaver}. Better, more efficient, and less risky guidance in this area therefore has private welfare value and public-finance relevance, and this research aims to contribute to both.
 
-In general, sources of higher asset returns are associated with higher risks (e.g., \parencite{lundbladRiskAndReturns, campbellRiskAndReturns, ghyselsRiskAndReturns}). This makes the task of selecting an optimal allocation strategy a complex balancing act, weighing the investor's need for growth to fund future spending against their tolerance for volatility and potential losses. The problem is further complicated by the fact that very few of these factors are known in advance: future returns, future spending needs, and even the investor's own risk tolerance can all evolve over time in response to changing circumstances. 
-
-Put simply, the problem of lifetime asset allocation is one of making the best possible decisions in the face of deep uncertainty about the future. The answer to this problem matters at both household and fiscal levels. The global asset-backed pension market is large \parencite{oecd2025pension}, and in New Zealand retirement outcomes directly interact with public finances through New Zealand Superannuation. Treasury projections indicate substantial long-run pressure from population ageing \parencite{nztreasury2025tirohanga}, while policy and industry commentary increasingly emphasises higher private saving and better KiwiSaver decisions \parencite{national2025kiwisaver, gilbert2025lifting, palmer2025watch, dexter2025kiwisaver}. Better allocation policy therefore has private welfare value and public-finance relevance.
-
-Although many investors spend considerable energy selecting particular securities or funds, \textcite{ibbotsonAssetAllocation} find that roughly 90\% of the variation in fund returns is explained by the allocation to major asset classes such as equities, bonds, and cash. As a result, allocation to these broad asset classes is the primary driver of a portfolio's long-term behaviour. This is even more true for typical retirement portfolios (and especially products like KiwiSaver) which are usually held in managed funds. In New Zealand, KiwiSaver Schemes typically do not allow the investor to exercise granular control over security selection, but rather give them a choice between a small number of pre-defined strategies allocating to different amounts of ``Growth'' and ``Income'' asset classes \parencite{fma2015riskIndicators}. So called ``Growth'' assets typically comprise a mix of domestic and international equities, while ``Income'' assets are a mix of domestic and international bonds and cash. In this context, the key decision for most investors is not which specific stocks or bonds to hold, but rather how much of their portfolio to allocate to Growth versus Income assets, and therefore how much risk to take on.
+Although some investors and advisors spend considerable energy selecting particular securities or funds, \textcite{ibbotsonAssetAllocation} find that roughly 90\% of the variation in fund returns is explained by the allocation to major asset classes such as equities, bonds, and cash. As a result, allocation to these broad asset classes is the primary driver of a portfolio's long-term behaviour. This is even more true for typical retirement portfolios (and especially products like KiwiSaver) which are usually held in managed funds, where the investor has little say in the granularity selection of specific securities. KiwiSaver Schemes (with the exception of Consilium's own KiwiWrap and Sharsies as time of writing) typically do not allow the investor to exercise any control over security selection, but instead give them a choice between a small number of pre-defined strategies allocating to different amounts of ``Growth'' and ``Income'' asset classes \parencite{fma2015riskIndicators}. So called ``Growth'' assets typically comprise a mix of domestic and international equities, while ``Income'' assets are a mix of domestic and international bonds and cash. In this context, the key decision for most investors is not which specific stocks or bonds to hold, but rather how much of their portfolio to allocate to Growth versus Income assets, and therefore how much risk to take on.
 
 A well performing allocation strategy is one that maximises the investor's expected welfare, which is a function both of the expected return and the protection against adverse outcomes. Where the investor's needs are fixed, \textcite{merton1969lifetime} shows that the optimal risky-asset share is constant through time. There are many simplifying assumptions in this result, but probably the most significant for lifecycle investing is that the investor's spending needs are fixed and known in advance. In reality, this is not true as diferential longevity risk, health shocks, and changing preferences all mean that spending needs are uncertain and evolve over time.
 
@@ -117,26 +118,55 @@ The choice of objective function also matters. Pfau and Kitces specifically targ
 Finally, the specification of the investor's spending and income needs is a critical driver of optimal policy. In discussing the paper by \textcite{anarkulova2025beyond}, \textcite{felix2025controversial} argues that the real risk to investors is not the risk of portfolio failure per se, but the risk of being unable to adjust spending in response to market conditions. For our purposes, investor spending should be grounded in realistic benchmarks of actual spending patterns in retirement, which are not necessarily well captured by a fixed real withdrawal rule. 
 
 
+\subsection{Consilium's Position}
+
+Consilium does not have an official position on the optimal glidepath shape nor does it currently offer any specific guidance or products that implement a particular glidepath strategy. Consilium's approach to retirement planning is focused on providing tools and insights that help financial advisers and their clients make informed decisions about asset allocation and withdrawal strategies during retirement. However, an adviser using Consilium's official products and recommendations could construct a glidepath strategy themselves by combining the recommendations from two different areas of Consilium's offering: the Model Portfolios and the Goal-Positioning Software (GPS). For this reason, much of the analysis in this report will be contextualised with reference to these two areas of Consilium's offerings. 
+
+``Model Portfolios'' are predesigned asset allocation strategies for different risk profiles following Consilium's proprietary asset allocation methodology, which is based primarily on the Fama-French three-factor model \parencite{fama1993common}. There are 42 model portfolios across five families of strategies: Classic, SRI, Synergy Classic, Synergy SRI, and Synergy PIE. These portfolios are designed to cater to a range of investor preferences and risk tolerances, with varying allocations to Growth and Income assets. A glidepath approach could be constructed from these portfolios by tatically switching between them at different ages, but currently there is no official recommendation or guidance on how to do this, and the portfolios themselves are not explicitly designed to be used in this way. The availability of portfolios across risk levels by family is shown in Table \ref{tab:portfolio_availability}.
+
+
+\begin{table}[h!]
+  \centering
+  \caption{Availability of portfolio models across risk levels by family}
+  \label{tab:portfolio_availability}
+  \begin{tabular}{lccccc}
+  \toprule
+  \textbf{Risk Level} & \textbf{Synergy} & \textbf{Synergy} & \textbf{Synergy} & \textbf{SRI} & \textbf{Classic} \\
+  \textbf{(Growth/Income)} & \textbf{PIE} & \textbf{Classic} & \textbf{SRI} & \textbf{} & \textbf{} \\
+  \midrule
+    20/80 & -- & x & x & x & x \\
+    30/70 & x & x & x & x & x \\
+    40/60 & x & x & x & x & x \\
+    50/50 & x & x & x & x & x \\
+    60/40 & x & x & x & x & x \\
+    70/30 & -- & x & x & x & x \\
+    80/20 & x & x & x & x & x \\
+    90/10 & -- & x & x & x & x \\
+    98/02 & x & x & x & x & x \\
+      \bottomrule
+  \end{tabular}
+\end{table}
+
+The Goal-Positioning Software (GPS) is a tool that helps advisers and their clients set and track progress toward financial goals, including retirement. It provides personalised projections of future wealth and income based on the client's current and expected contributions, asset allocation (to one of the model portfolios), and other factors. The GPS allows users to simulate different scenarios and see how changes in their savings rate, asset allocation, or other assumptions might affect their ability to meet their retirement goals. Central to the GPS is a Monte Carlo simulation engine that generates a large number of potential future return paths based on the historical performance of the model portfolios, and uses these simulations to estimate the probability of achieving the client's retirement goals under different scenarios. The GPS does not currently have any specific features or recommendations related to glidepath strategies, but it does allow the user to change their allocation at any point in time, which could be used to implement a glidepath strategy if the user chooses to do so.
+
+The GPS is beset by the same modelling choices that drive disagreement in the literature, and so it is important to understand how these choices affect the recommendations it produces. For example, the GPS uses a Monte Carlo simulation engine with IID asset returns generated through Brownian Motion, which may lead to different conclusions about optimal glidepath shape compared to a block bootstrap approach that preserves time-series dynamics. Additionally, the performance of the GPS is lacking, and it is currently unable to compute more than around 1,000 simulated return paths in a reasonable time frame, which limits the robustness of its recommendations. This is an area where improvements could be made and while it is not the focus of this research, we will note any areas of our approach that could be implemented in the GPS to improve its performance and robustness.
+
+
 \subsection{Problem Statement and Research Questions}
 
 The review above reveals that the literature has not converged on a single answer to even the most basic question of optimal retirement allocation, and that disagreements are substantially driven by modelling choices rather than fundamental differences in the underlying economic problem. The choice of return-generation methodology (IID Monte Carlo, historical rolling periods, or block bootstrap), the choice of risk or objective measure (failure probability, terminal wealth, expected utility), and the specification of the spending rule (fixed real withdrawal vs.\ flexible spending) each independently shift the apparent optimal policy. A secondary but practically important question is whether the glidepath shape matters at all compared with the more fundamental question of whether bonds should be held in retirement portfolios at the levels currently recommended.
 
-This thesis addresses the following core problems in the New Zealand context: \textit{(i) What lifetime allocation policy is most appropriate for New Zealand retirees under realistic return dynamics and spending paths? (ii) How sensitive are these recommendations to the modelling choices that drive disagreement in the literature? (iii) Can allowing allocation policy to respond to both age and wealth improve outcomes beyond what age-only policies achieve?}
-
-Concretely, we ask:
+Concretely, we wish to answer the following questions:
 \begin{enumerate}
-  \item Are conventional age-based declining-risk glidepaths optimal under standard assumptions, and does that result survive under NZ-calibrated return dynamics and spending paths that decline in real terms with age?
-  \item How sensitive are ``optimal'' recommendations to modelling assumptions---methodological (return-generation process, IID vs.\ block bootstrap, risk measure, spending rule) and substantive (household composition, housing tenure, real spending trajectory, longevity horizon, NZ Super as a guaranteed income floor)?
-  \item Does allowing allocation policy to depend on both age and wealth improve outcomes relative to age-only glidepaths, and if so, under what conditions?
+  \item Are conventional age-based declining-risk glidepaths optimal under standard assumptions? And does that result survive under NZ-calibrated return dynamics and spending paths that decline in real terms with age?
+  \item How sensitive are ``optimal'' recommendations to modelling assumptions (return-generation process, IID vs.\ block bootstrap, risk measure, spending rule)?
+  \item What state time-varying policies (e.g., wealth-responsive) outperform fixed asset allocation strategies, and how do they perform under different modelling assumptions?
+  \item What, if any, robust policy recommendations can be made for the New Zealand context, given the institutional setting of NZ Superannuation and the growing role of KiwiSaver?
 \end{enumerate}
 
-\subsection{Our Approach and Specification}
+\subsubsection{Our Approach and Specification}
 
-We make three contributions. First, we synthesise the lifecycle allocation literature with explicit attention to where theory, empirical evidence, and industry implementation diverge---and where that divergence is attributable to modelling choices rather than genuine empirical disagreement. Second, we calibrate retirement spending to New Zealand institutions: we use empirically grounded spending trajectories that decline in real terms after retirement rather than a fixed real withdrawal rule, and we treat NZ Super as a guaranteed income floor that materially reduces the required drawdown from financial assets. Third, building on \textcite{Makinen2024}, we implement a flexible Monte Carlo optimisation framework that can evaluate both age-based glidepaths and wealth-responsive policies across alternative return processes and risk measures.
-
-The framework is intentionally modular: allocation policy class, spending rule, risk objective, and return model can each be varied independently. This is necessary because, as the preceding review makes clear, the disagreement in the literature is not about a single parameter but about the structure of the model itself. Our goal is therefore not to produce one universal glidepath recommendation; it is to provide a defensible, testable method for identifying which modelling choices drive conclusions, and to characterise the policy-relevant strategies that are robust across plausible specifications in the New Zealand setting.
-
-
+We make three contributions relevant to the New Zealand context and Consilium's position on this topic. First, we review the New Zealand-specific literature on retirement and retirement policy, and outline the needs and behaviour of New Zealand retirees. Second, we develop a method for generating lifetime wealth and spending paths for a representative New Zealand retiree, calibrated to the institutional context of New Zealand Superannuation and KiwiSaver. We aim to improve on the current model used by Consilium in the GPS and other areas. Third, we will develop an optimistation framework to create dynamic asset allocation strategies and compare their performance under different modelling assumptions.
 
 
 \section{Retirement in New Zealand}
@@ -308,8 +338,6 @@ Note that the system of equations above is agnostic to the return-generation pro
 
 \begin{asidebox}
 \asideboxtitle{Implications for Consilium: Matrix Operations and Computational Efficiency}
-
-Consilium has used a similar, discrete-time, Monte Carlo simulation framework in its proprietary ``Goal Planning Software'' (GPS) tool for some time. However, this tool has severe limitations in terms of its flexibility and computational efficiency. The GPS tool is built on a non-vectorised implementation that relies heavily on for-loops to evolve wealth trajectories across simulated paths. This approach is computationally inefficient, particularly as the number of paths and time periods increases, which limits the tool's ability to support more complex strategies or larger simulations.
 
 The effort taken to express the model in matrix form is not only for mathematical clarity; it also allows us to leverage vectorised operations through highly optimised linear algebra libraries (for example, \texttt{numpy} \parencite{numpy}) to vectorise the the calculations across the matrices longest dimension (the path dimension). This means that we can compute the wealth evolution across all paths virtually simultaneously using efficient matrix operations, rather than iterating through each path sequentially with for-loops. This vectorised approach can take advantage of modern CPU architectures and optimised libraries to perform computations much faster than a non-vectorised implementation, which can substantially accelerate simulation when path counts and horizon lengths are large. Compared to the GPS, which takes upwards to 30 seconds to simulate less than 1000 paths over a 30-year horizon, our matrix-based implementation can simulate 100,000 paths over a 50-year horizon in under a second on a standard laptop. This dramatic improvement in computational efficiency enables us here to explore a much wider range of strategies with much more vigour than would be possible with the GPS tool, and also opens the door to more complex strategies that may require more computational resources, such as those that involve path-dependent allocations or more sophisticated risk measures.
 
@@ -571,15 +599,81 @@ To illustrate this more concretely, consider Figure \ref{control_matrix_example}
 The key insight is that the dimensions of \(\theta\) correspond to the different state variables that the policy can depend on. Here we have extended it to two dimensions, time and wealth, which allows for policies that can adjust allocations based on both the investor's current age (or time since retirement) and their current wealth level. It is also possible to extend this approach to allow for dependence on additional state variables, such as health status or macroeconomic indicators, by adding additional dimensions to the control matrix. These can be both discrete and continuous, and the use of interpolation allows us to have a parsimonious parameterisation of the policy function while still allowing for a high degree of flexibility in the shape of the asset allocation strategy across different state variables. Compared to a neural network approach (as in \textcite{parker2024simple}), the control-matrix approach allows for a more interpretable policy representation, as the parameters directly correspond to allocations at specific points in the state space, and the interpolation provides a clear mechanism for how the policy varies across different states. However, it is probably less flexible and will have a higher number of parameters than a neural network at higher dimensions, which is a trade-off that we are willing to make for the sake of interpretability in this analysis.
 
 
-\subsection{Methods for Simulating and Bootstrapping Asset Returns}
+\subsubsection{Optimisation of Asset Allocation Policies}
+
+
+The optimisation of \(\theta\) is the core of our analysis, as it allows us to find the asset allocation strategy that maximises our chosen risk measure of the resulting wealth trajectories. \textcite{Makinen2024} use an adjoint method to compute the gradient of the risk measure with respect to the policy parameters, which allows for efficient optimisation even in high-dimensional parameter spaces. This is a powerful and efficient approach, but it is also quite complex to implement and limits the potential range of cost functions that can be used as the risk measure to those that only depend on the terminal wealth distribution. For this reason, we have implemented a more straightforward approach that relies on automatic differentiation using the PyTorch Python library \parencite{pytorch}. This allows us to compute the gradient of the risk measure with respect to the policy parameters without having to derive and implement the adjoint equations, and it also allows us to use a wider range of risk measures that can depend on the entire wealth trajectory rather than just the terminal wealth distribution. The trade-off is that this approach is likely to be less computationally efficient than the adjoint method, particularly as the dimensionality of the policy parameter space increases, but we believe that the increased flexibility in terms of risk measures and ease of implementation makes it a worthwhile trade-off for our analysis.
+
+The construction of our simulation framework has been carefully designed to be fully differentiable (using PyTorch's automatic differentiation capabilities) so that we can compute the gradient of our chosen risk measure with respect to the policy parameters \(\theta\) and use this gradient to perform optimisation using a gradient-based algorithm such as stochastic gradient descent or Adam \parencite{adam}. This allows us to efficiently search for the optimal policy parameters that maximise our chosen risk measure, even in high-dimensional parameter spaces.
+
+To constrain the policy parameters \(\theta\) to satisfy the allocation constraints from Equation \ref{allocation_constraints} (i.e., that the allocations must be non-negative and sum to at most one), we project the parameters onto the feasible set after each gradient update using the simplex projection algorithm of \textcite{duchi2008efficient}. This algorithm solves the Euclidean projection problem:
+
+\begin{equation}\label{simplex_projection_problem}
+\text{proj}_{\Theta}(\mathbf{x}) = \argmin_{\mathbf{y} \in \Theta} \|\mathbf{y} - \mathbf{x}\|^2
+\end{equation}
+
+where \(\Theta = \{\mathbf{y} \in \mathbb{R}^{k-1} : y_j \geq 0, \sum_j y_j \leq 1\}\) is the feasible set for risky asset allocations. The algorithm works by first sorting the elements of \(\mathbf{x}\) in descending order to obtain \(x_{(1)} \geq x_{(2)} \geq \cdots \geq x_{(k-1)}\), then finding a threshold \(\lambda\) such that the projection is given by:
+
+\begin{equation}\label{simplex_projection_formula}
+y_j = \max(0, x_j - \lambda)
+\end{equation}
+
+The threshold \(\lambda\) is chosen such that \(\sum_j y_j = 1 - \epsilon\) for some small \(\epsilon > 0\). Here we use \(\epsilon = 10^{-8}\) to ensure the sum is strictly less than one, which is advantegeous as as the allocation to the safe asset is determined residually as \(1 - \sum_j y_j\). \(\lambda\) is then found by identifying the largest index \(k^*\) such that:
+
+\begin{equation}\label{threshold_condition}
+x_{(k^*)} - \frac{1}{k^*}\left(\sum_{j=1}^{k^*} x_{(j)} - (1-\epsilon)\right) > 0
+\end{equation}
+
+and then setting:
+
+\begin{equation}\label{threshold_value}
+\lambda = \frac{1}{k^*}\left(\sum_{j=1}^{k^*} x_{(j)} - (1-\epsilon)\right)
+\end{equation}
+
+This projection ensures that after each gradient step, the policy parameters remain feasible (non-negative and summing to at most one) while staying as close as possible to the unconstrained gradient update in Euclidean distance. The algorithm runs in \(\mathcal{O}(n \log n)\) time due to the sorting step, where \(n\) is the number of risky assets. For our typical applications with 2--3 risky asset classes, this overhead is negligible.
+
+An important property of this projection is that it preserves the optimality conditions for constrained optimisation. If the unconstrained optimum lies outside the feasible set, the projected gradient descent algorithm with this projection is guaranteed to converge to a local minimum on the constraint boundary under standard regularity conditions, provided the step size is not too large. This means that we can use this projection in our gradient-based optimisation without worrying about violating the allocation constraints, while still ensuring that we are effectively searching for the optimal policy parameters within the feasible set.
+
+
+\section{Methods and Data for Simulating and Bootstrapping Asset Returns}
 
 Central to our analysis is the ability to simulate a large number of realistic asset return trajectories. As previously noted, there are two broad approaches to simulating returns: synthetic return generation using a parametric model, and bootstrapping from historical returns. The advantage of synthetic return generation is that it allows us to explore a wider range of possible return dynamics and also to create a larger number of return trajectories than would be possible with historical data alone. The disadvantage is that it relies on strong assumptions about the return-generating process, which may not or may not be an accurate representation of reality. For example, the easiests and therefore most commonly used model is the geometric Brownian motion (GBM) model, which assumes that returns are normally distributed and independent over time. In reality, asset returns exhibit features such as volatility clustering, fat tails, and serial correlation, which are not captured by the time-independent GBM model. Time series models such as GARCH can capture some of these features, but they also introduce additional complexity and make their own set of assumptions that may not hold in practice. Bootstrapping from historical returns, on the other hand, allows us to capture the empirical distribution of returns without making strong parametric assumptions. However, it is limited by the length and quality of the historical data. Underpinning both approaches is the assumption that the future will be similar to the past: in the case of synthetic return generation, this is because the model parameters are typically estimated or evaluated against historical data, and in the case of bootstrapping, this is because we are directly resampling from historical returns. This assumption may not hold if there are structural changes in the economy or financial markets that lead to different return dynamics in the future. This limitation is inherent to this type of research, and it forms the underlying uncertainty in any conclusions we draw from our simulations. 
 
-Consilium has historically used a simple geometric Brownian motion (GBM) model to generate synthetic returns for its analysis. Because the company already has established expectations of long-run returns and volatilities for different asset classes in its internal models, the GBM model is a convenient way to generate return trajectories that are consistent with these expectations. However, as noted above, the GBM model has significant limitations. For this reason, we have also implemented a bootstrapping approach that resembles the block bootstrap method proposed by \textcite{anarkulova2025beyond}, which allows us to capture the empirical distribution of returns, including features such as volatility clustering and fat tails, without making strong parametric assumptions.
+We will aim to generate a large number of return trajectories using both approaches, and we will evaluate the performance of different asset allocation strategies under both sets of return simulations. We will use three asset classes in our analysis: short-term bills (cash), fixed income (bonds), and equities. These asset classes are chosen because they represent the main building blocks of a typical retirement portfolio.
 
-\subsubsection{Block Bootstrap Methodology}
 
-Our implementation follows the stationary block bootstrap framework of \textcite{politis1994stationary}, adapted to the multi-asset context as in \textcite{anarkulova2025beyond}. The key insight of the block bootstrap is that by resampling contiguous blocks of historical returns rather than individual observations, we preserve the short-run time-series dependencies present in asset returns while still generating a large number of distinct synthetic paths.
+\subsection{Geometric Brownian Motion (GBM) Model for Synthetic Return Generation}
+
+
+Consilium has historically used a simple geometric Brownian motion (GBM) model to generate synthetic returns for its analysis. Because the company already has established expectations of long-run returns and volatilities for different asset classes in its internal models, the GBM model is a convenient way to generate return trajectories that are consistent with these expectations.
+
+Consilium's GBM model does not simulate the returns of the underlying assets directly, but rather simulates the returns of the portfolio. The key inputs to the GBM model are the expected return and covariance matrix of the portfolios. Expected returns are derived from the expected returns obtained from the factor-analysis of the underlying assets. Covariances are obtained from back-filled historical monthly portfolio returns going back to 1995. The GBM model then generates return trajectories for the portfolio based on these inputs, which are used to evaluate the performance of different asset allocation strategies. This approach allows Consilium to generate a large number of return trajectories that are consistent with its internal expectations, but it does not capture the empirical distribution of returns or the time-series dependencies that are present in historical data.
+
+For the purposes of our analysis, we will use the GBM model to generate synthetic return trajectories for the three asset classes (bills, bonds, equities) based on the expected returns and covariance matrix derived from historical data. This means that our GBM simulations will not be fully consistent with the return-generating process used in Consilium's internal models (which operate the level of the portfolio). But this method does allow us to vary the allocation continuously across the three asset classes, which is important for our optimisation of asset allocation policies.
+
+However, we will seek to retain as much parity as possible with Consilium's approach. To do this, the expected returns and covariance matrix for the asset classes that we use as inputs to our GBM model will be derived from the same historical data and asset allocations that Consilium uses in its internal models. Some comprimises will have to be made, for example Consilium varies the allocation to domestic and international equities across the different risk profiles, while we will use a single aggregate equity return series. However, overall, we are satisfied that our GBM simulations will be broadly consistent with the return-generating process used in Consilium's GPS model.
+
+\subsubsection{}
+
+
+
+
+\subsection{Block Bootstrap Methodology}
+
+Our implementation follows the method propose in \textcite{anarkulova2025beyond}, adapted for our specific asset classes and data. The core dataset for our block bootstrap simulations is the Jordà-Schularick-Taylor (JST) Macrohistory Database \parencite{jorda2017macrofinancial}, a comprehensive panel of annual macroeconomic and financial data covering 18 advanced economies from 1870 to the present. The database was developed to provide researchers with long-run time series that span multiple financial cycles, wars, and regime changes, making it particularly valuable for studying asset return dynamics over extremely long horizons.
+
+At each iteration of the bootstrap, we designate a particular country as the ``home'' country, and we construct the return series for our three asset classes (bills, bonds, equities) using using a combination of the home country's return series and a weighted average of the return series from the other countries in the database. We prohibit using the USA or UK as the home country, as these countries have historically much larger equity markets than the other countries in the database, and using them as the home country. \textcite{anarkulova2025beyond} use a market-capitalisation-weighted average of the other countries' return series to construct the international equity return series. Unfortunately, the JST database does not include a market-capitalisation-weighted aggregate equity return series.
+
+
+
+
+
+The key insight of the block bootstrap is that by resampling contiguous blocks of historical returns rather than individual observations, we preserve the short-run time-series dependencies present in asset returns while still generating a large number of distinct synthetic paths.
+
+
+
+
+
 
 The procedure works as follows. We begin with historical return data for three asset classes: short-term government bills (cash), intermediate-term government bonds, and international equities. For each simulated path of length \(T\), we construct a return sequence by concatenating randomly selected blocks from the historical record. The block length \(\ell\) is itself a random variable drawn from a geometric distribution with mean \(\bar{\ell}\), which ensures that the resulting bootstrap series is stationary. Specifically, at each step we draw a block starting position uniformly from the historical data, then draw a block length \(\ell \sim \text{Geometric}(1/\bar{\ell})\), and append the next \(\ell\) observations to the simulated path. This process continues until we have accumulated \(T\) periods of returns.
 
@@ -607,6 +701,7 @@ For our analysis, we use three asset classes that represent the feasible investm
 
 We also aim to preserve the cross-sectional correlation of these assets against other key macroeconomic variables, in particular inflation. To do this, we include the domestic inflation rate as an additional variable in the historical data matrix, and block bootstrap it alongside the asset returns. 
 
+
 \subsubsection{Data for Block Bootstrapping}
 
 The core dataset for macro-financial variables is the Jordà-Schularick-Taylor (JST) Macrohistory Database \parencite{jorda2017macrofinancial}, a comprehensive panel of annual macroeconomic and financial data covering 18 advanced economies from 1870 to the present. The database was developed to provide researchers with long-run time series that span multiple financial cycles, wars, and regime changes, making it particularly valuable for studying asset return dynamics over horizons relevant to retirement planning.
@@ -616,6 +711,14 @@ The JST database includes total returns (capital gains plus reinvested dividends
 For our analysis, we extract annual data for the 18 countries in the JST database (Australia, Belgium, Canada, Denmark, Finland, France, Germany, Italy, Japan, Netherlands, Norway, Portugal, Spain, Sweden, Switzerland, United Kingdom, and United States) covering the period 1950--2020.
 
 The JST dataset does not include market capitalisation weights for the equity indices, which are necessary to construct a global equity return series. To address this, we supplement the JST data with market capitalisation data from the World Bank's World Development Indicators (WDI) database 
+
+
+\subsection{Tax and Fees}
+
+
+
+
+
 
 \section{Optimal Lifetime Asset Allocation Strategies for New Zealand Retirees}
 
@@ -672,13 +775,128 @@ The replication results are broadly consistent with those reported by \textcite{
 
 Additionally, the control matrix has limited effective resolution in early periods: many simulated paths map to only a few low-wealth nodes because initial wealth is far below the fixed upper wealth bound. This reduces the optimiser's ability to distinguish trajectories precisely when policy differences likely matter most due to compounding. It also creates many redundant parameters at wealth levels that are never reached (upper-left region in Figure \ref{replication_control_matrix}). For this reason, we propose calibrating the control-matrix upper bound to the simulated wealth distribution so that resolution is concentrated where paths actually lie.
 
-\begin{figure}[h]
+\begin{figure}[h!]
     \centering
     \includegraphics[width=\textwidth]{../Figs/makinen_replication.png}
     \caption{Replication of the control matrix optimization method proposed by \textcite{Makinen2024} for one risky asset and no leverage. The left column shows the optimal control matrix for the mean-semi-variance case (top) and the mean-variance case (bottom). The right column shows the corresponding histograms of terminal wealth for each risk measure respectively.}
     \label{replication_control_matrix}
 \end{figure}
 
+\newpage
+
+
+\section{Data Construction: Market Capitalization Weights}
+\label{appendix:market_cap_data}
+
+The booststrap method for simulating returns relies on constructing a market-capitalisation-weighted aggregate return series for international securities. To do this, we need to construct a time series of market capitalization weights for the countries in the JST database. This is necessary because the JST database does not include market capitalization weights for the equity indices, which are needed to construct a global equity return series as a weighted average of the individual country return series. The market capitalization weights are defined as the ratio of a country's total market capitalization to the total market capitalization.
+
+To construct the market capitalization weights, we combine data from the World Bank's World Development Indicators (WDI) database and historical estimates from Global Financial Data (GFD). The WDI provides market capitalization data for listed domestic companies in current US dollars, which we use for the recent period (1975--2024). For the historical period (1870--1975), we rely on estimates from GFD as presented in a chart in \textcite{data__gfdMktCap}. However, we do not have direct access to the GFD database, so we extract approximate values from the published chart using a image processing method that counts pixels of different colors corresponding to each country. This method is subject to measurement error and should be interpreted with caution, but it provides a rough estimate of the historical market capitalization weights for the countries in the JST database.
+
+
+\subsection{Data Sources}
+
+We combine two primary data sources to construct a complete time series of market capitalization weights from 1870 to 2024:
+
+\begin{enumerate}
+    \item \textbf{World Bank Market Capitalization Data} \parencite{data__worldbankMktCap}: The World Bank provides market capitalization of listed domestic companies (in current US\$) from the World Federation of Exchanges database. This dataset covers 1975--2024 with good coverage for most developed economies. The data is publicly available under a CC BY-4.0 license and represents the most authoritative source of the two used in our analysis for market capitalization figures.
+    
+    \item \textbf{Global Financial Data (GFD) Historical Estimates} \parencite{data__gfdMktCap}: The GFD database provides historical estimates of a number of macro-financial variables, including market capitalization weights for major economies. This is the dataset leveraged by \textcite{anarkulova2025beyond} to construct their international equity return series. However, we do not have direct access to the GFD database, so we rely on a published chart from Finaeon's website that displays market capitalization weights a number of countries from 1782 to 2022. We extract approximate values from this chart using an image processing method that counts pixels of different colors corresponding to each country. This method is subject to measurement error and should be interpreted with caution, but it provides a rough estimate of the historical market capitalization weights for the countries in the JST database.
+\end{enumerate} 
+
+\subsection{World Bank Data Processing}
+
+The World Bank data processing is straightforward and follows standard data cleaning procedures:
+
+\begin{enumerate}
+    \item Load the raw CSV file containing market capitalization values in current US\$ for all countries
+    \item Filter to include only the JST countries
+    \item For each year, calculate the total market capitalization across all JST countries
+    \item Compute each country's weight as its market cap divided by the total
+    \item Apply a 2\% minimum weight floor to ensure diversification
+    \item Re-normalize weights to sum to 1.0 after applying the floor
+\end{enumerate}
+
+Quality checks confirm that the processed data have complete coverage for all JST countries from 1988--2024, with yearly weights summing to 1.0 within numerical precision.
+
+\subsection{GFD Historical Data Extraction}
+
+\subsubsection{Methodological Limitations}
+
+The extraction of historical market capitalization weights from the GFD database presents significant methodological challenges. Without direct access to the underlying GFD database, we must rely on a published chart from \textcite{data__gfdMktCap} that displays market cap percentages as a stacked area graph. This introduces several sources of uncertainty and measurement error:
+
+\begin{enumerate}
+    \item \textbf{Pixel-based extraction}: We extract percentages by analyzing the pixel colors in the chart image. Each country is represented by a distinct color, and we count pixels of each color at each year's x-coordinate position. This approach is fundamentally limited by:
+    \begin{itemize}
+        \item Chart resolution and image quality
+        \item Interpolation between discrete x-axis positions
+        \item Anti-aliasing and edge effects at color boundaries
+        \item Potential color bleeding or compression artifacts
+    \end{itemize}
+    
+    \item \textbf{Limited country coverage}: The original chart displays only five countries (USA, UK, Germany, France, and Japan), with all other countries aggregated into an ``Other'' category. To construct weights for all JST countries, we must distribute this ``Other'' mass evenly across the remaining 13 countries. This is a strong and likely unrealistic assumption, as it ignores the actual variation in market capitalizations among these countries.
+    
+    \item \textbf{Temporal smoothing}: The pixel-counting method produces noisy estimates. We apply a 3-year centered rolling average to reduce this noise, which may over-smooth genuine historical variation.
+    
+    \item \textbf{No validation against source data}: Because we do not have access to the original GFD database, we cannot validate our extracted values against the true underlying data. The accuracy of our historical estimates is therefore unknown, but what data we have extracted roughly aligns with the World Bank data in the overlapping period (see Figure \ref{fig:combined_market_cap}).
+\end{enumerate}
+
+\subsubsection{Extraction Procedure}
+
+Despite these limitations, the extraction procedure follows a systematic approach:
+
+\begin{enumerate}
+    \item Crop the chart image to isolate the plotting area
+    \item Map pixel x-coordinates to years using the known chart range (1782--2022)
+    \item For each year, identify pixels corresponding to each country color
+    \item Calculate the vertical percentage occupied by each color
+    \item Apply a centered 3-year rolling average to smooth pixel-counting noise
+    \item Create a complete country-year grid for all JST countries (1870--2021)
+    \item Distribute the ``Other'' category mass evenly across the 13 non-displayed countries
+    \item Apply forward-fill for missing values and verify that weights sum to 1.0
+\end{enumerate}
+
+Quality checks identify that the extracted GFD data show reasonable aggregate patterns (e.g., U.S. dominance in the mid-20th century, rising Japanese share in the 1980s), but individual country estimates, particularly for the ``Other'' countries, should be interpreted with considerable caution.
+
+\subsection{Data Combination and Final Dataset}
+
+The final dataset prioritizes the more reliable World Bank data where available and fills historical gaps with the GFD estimates:
+
+\begin{enumerate}
+    \item For years 1988--2024: Use World Bank data exclusively
+    \item For years 1870--1987: Use extracted GFD data
+    \item Verify that the transition between sources is smooth (no discontinuous jumps)
+    \item Confirm that all country-year combinations are present
+    \item Validate that yearly weights sum to 1.0 across all years
+\end{enumerate}
+
+Figure \ref{fig:combined_market_cap} displays the three datasets side-by-side: GFD extracted estimates (panel a), World Bank data (panel b), and the combined final dataset (panel c). The overlap period (1988--1989) shows reasonable consistency between the two sources, with the World Bank data exhibiting slightly lower concentration in the largest markets, likely due to more comprehensive coverage.
+
+
+\subsection{Limitations and Implications for Analysis}
+
+Users of this dataset should be aware of several important caveats:
+
+\begin{enumerate}
+    \item \textbf{Historical precision}: The pre-1988 market cap weights are approximate and should not be interpreted as precise measurements. They are sufficient for characterizing broad historical trends but are unsuitable for applications requiring exact country-level weights.
+    
+    \item \textbf{Distribution assumptions}: The even distribution of the ``Other'' category across 13 countries is a strong simplifying assumption. In reality, countries like Australia, Canada, and Switzerland likely had substantially different market capitalizations than smaller European economies.
+    
+    \item \textbf{Survivorship and composition bias}: The GFD and World Bank datasets may differ in their treatment of market entries, exits, and index composition. These methodological differences are absorbed into our combined series but are not explicitly documented.
+    
+    \item \textbf{Alternative approaches}: Ideally, historical market cap weights would be constructed from direct access to the GFD database or from alternative sources such as the Dimson-Marsh-Staunton Global Returns Database. However, these sources were not available for this study.
+\end{enumerate}
+
+Despite these limitations, we believe the combined dataset provides a reasonable approximation of historical market capitalization weights for the JST countries and is suitable for the portfolio construction and simulation exercises undertaken in this research. The primary analyses focus on aggregate portfolio behavior rather than individual country dynamics, which reduces the impact of country-level measurement error. Nevertheless, readers should interpret historical results (particularly those prior to 1988) with appropriate caution regarding the data quality constraints described above.
+
+All data processing code, quality checks, and intermediate outputs are available in the project repository to facilitate transparency and replication.
+
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=\textwidth]{../Figs/combined_market_cap_weights.png}
+    \caption{Market capitalization weights for JST countries from three sources. Panel (a) shows estimates extracted from the GFD historical chart (1870--2021), panel (b) shows World Bank data (1988--2024), and panel (c) shows the combined dataset using World Bank data where available and GFD estimates for earlier periods. Colors are consistent across panels to facilitate comparison.}
+    \label{fig:combined_market_cap}
+\end{figure}
 
 
 \end{document}
