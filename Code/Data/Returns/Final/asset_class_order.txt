@@ -1,0 +1,4 @@
+Equities
+Bonds
+Bills
+CPI

@@ -144,4 +144,4 @@ build/
 latexbuild/
 out/
 
-# Keep README, source .tex and important files tracked explicitly if needed
+*.npy
