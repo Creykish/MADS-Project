@@ -22,7 +22,7 @@ style=apa,
 \usepackage{caption}
 \captionsetup[figure]{font=small,width=0.85\textwidth}
 
-\title{Lifetime Asset Allocation in New Zealand: \\A Simulation and Optimization Approach}
+\title{Asset Allocation Through Retirement in New Zealand: \\A Simulation and Optimization Approach}
 \author{Callum Davidson}
 
 \begin{document}
@@ -58,11 +58,10 @@ Although widely recommended, the optimal shape of the glidepath is a subject of 
 
 
 \begin{figure}
-    \label{superlifeAllocation}
     \centering
     \includegraphics[width=\textwidth]{../Figs/age-steps.png}
     \caption{SuperLife's Age Steps target strategy as per their Statement of Investment Policy and Objectives (SIPO), showing the allocation to different funds (a) and the resulting allocation to different asset classes (b). Source: \textcite{superlife2026sipo}.}
-    
+    \label{superlifeAllocation}
 \end{figure}
 
 \subsection{The Glidepath in Academia}
@@ -91,31 +90,27 @@ The reasons for this disagreement are complex, but a key fault line in the liter
 
 The standard industry recommendation is that investors decrease their risk exposure as they age, continuing to reduce risk even after retirement. This approach appears in investment textbooks \parencite[e.g][]{bodie2023investments, bengen1996asset} and is widely recommended by financial advisers and retirement planning tools \parencite{choi2022popular}. A review of U.S target date funds (TDFs) by \textcite{dolvin2010asset} find that most follow some form of declining-risk structure, often resembling a 120-minus-age equity rule. For a domestic example, take the SuperLife Age Steps allocation profile shown in Figure \ref{superlifeAllocation}. At one point a declining-risk glidepath was considered as part of potential reforms to the United States Social Security system under the George W. Bush administration \parencite[see][]{shiller2005life, shiller2006lifecycleSocialSecurity}.
 
-However, declining-risk glidepaths have been challenged by a substantial body of academic work, and the post-retirement period in particular is a site of active and unresolved disagreement in the literature. Responding to the aforementioned Bush-era proposal, \textcite{shiller2005life} and \textcite{shiller2006lifecycleSocialSecurity} find that declining-risk glidepaths often fail to outperform a 100\% equity strategy.\textcite{estrada2014glidepath} and \textcite{estrada2015retirement} find that declining-risk strategies tend to underperform constant-risk alternatives or even contrarian rising-risk strategies across a wide range of countries and historical periods.
+However, declining-risk glidepaths have been challenged by a substantial body of academic work, and the post-retirement period in particular is a site of active and unresolved disagreement in the literature. Responding to the aforementioned Bush-era proposal, \textcite{shiller2005life} and \textcite{shiller2006lifecycleSocialSecurity} find that declining-risk glidepaths often fail to outperform a 100\% equity strategy. Further work by \textcite{estrada2014glidepath, estrada2015retirement} finds that declining-risk strategies tend to underperform constant-risk alternatives or even contrarian rising-risk strategies across a wide range of countries and historical periods.
 
-Studies generating return scenarios using Monte Carlo simulation with IID returns tend to find support for U-shaped glidepaths. This means a declining-risk strategy during the accumulation phase, equity exposure low around the point of retirement, and then rising equity during the retirement phase. The rationale is that starting conservatively limits the damage from a bad early period (which is particularly harmful at the point of retirement when the portfolio is largest), while systematically accumulating equities at depressed prices through a downturn allows the portfolio to capture the eventual recovery when growth is most needed. The proposed risk mechanism that this avoids is a sequence-of-returns argument, that is the risk of a series of bad returns early in retirement that depletes the portfolio when it is largest and most vulnerable. In this line of thinking, the accumulation phase is more supportive of a DE strategy, because the sequence risk mechanism is less relevant when the portfolio is still growing and not yet being drawn down. Here the investor can afford to be more aggressive early on, capturing the higher expected returns of equities when they have the longest time to compound, and then gradually reduce risk as they approach retirement and peak wealth. This is the conventional lifecycle logic that underpins most age-based glidepaths. Propoents of a U-shaped glidepath argue that the same logic applies in reverse during retirement: starting conservatively at the point of retirement limits the damage from a bad early period, while systematically accumulating equities at depressed prices through a downturn allows the portfolio to capture the eventual recovery when growth is most needed.
+On the other hand, studies generating return scenarios using Monte Carlo simulation with IID returns tend to find support for U-shaped glidepaths. This means a declining-risk strategy during the accumulation phase with reduced equity exposure around the point of retirement, and then rising again during the retirement/decumulation phase. The rationale is that retiring with a conservative asset allocation limits the damage from a bad market crash. The proposed risk mechanism that this avoids is a sequence-of-returns argument: the risk that an unlucky a series of bad returns early in retirement depletes the portfolio when it at its largest (in dollar terms). In this line of thinking, you reduce exposure to risk during accumulation, starting at a point of high equity exposure when the investor is young because the sequence risk mechanism is less relevant when the portfolio is still growing and the investor is saving. Proponents of a U-shaped glidepath further argue that the same logic applies in reverse during retirement: starting conservatively at the point of retirement limits the damage from a bad early period, while systematically accumulating equities at depressed prices through a downturn allows the portfolio to capture the eventual recovery when growth is most needed.
 
-\textcite{pfau2014rising} make the case for rising equity during retirement using Monte Carlo (MC) simulation. Across 10,000 simulated retirements with lognormal IID returns, 121 glide path combinations (varying start and end equity from 0\% to 100\%), and both 4\% and 5\% withdrawal rates, they find that rising equity during retirement reduces both the probability and magnitude of portfolio failure. The optimal starting allocation is 20--40\% equity, rising to 60--80\% by end of retirement. A 30\%$\to$60\% rising path beats a static 60/40 on failure rate \textit{and} failure magnitude. This holds across three capital market assumption sets. They argue that retirement outcomes are almost entirely determined by the first 15 years. A RE strategy during retirement starts conservative, limiting the damage from a bad early period (and at peak asset accumulation), and then systematically accumulates equities at depressed prices through the downturn. 
+\textcite{pfau2014rising} make the case for rising equity during retirement using Monte Carlo simulation. Across 10,000 simulated retirements with lognormal IID returns, 121 glide path combinations (varying start and end equity exposure from 0\% to 100\%), they find that rising equity during retirement reduces both the probability and magnitude of portfolio failure. The optimal starting allocation is 20--40\% equity, rising to 60--80\% by end of retirement. In their analysis, a 30--60\% rising path beats a static 60/40 on failure rate and failure magnitude. They report that this holds across three capital market assumption sets and argue that retirement outcomes are almost entirely determined by the first 15 years. They argue that a RE strategy during retirement limits the damage from a bad early period and then systematically accumulates equities at depressed prices through the downturn. 
 
-\textcite{anarkulova2025beyond} use a block-bootstrap methodology applied to a dataset of monthly real returns across 39 developed countries from 1890 to 2023, drawing on over 31,800 country-months of data and preserving the time-series and cross-sectional structure of historical returns. Under block bootstrap, the optimal allocation is approximately 100\% static equity throughout the lifecycle. The sole exception is a brief tactical allocation to bills at the point of retirement, which does resemble a kind of aggressive U-shaped glidepath, but they argue that this is a special case, driven by the rigidity of a fixed real 4\% withdrawal rule \parencite[based on][]{bengen1994withdrawal} and when spending flexibility is restored, this exception disappears and the all-equity result holds at every age. They also argue that the conventional preference for bonds is substantially overstated by return-generation decisions in the literature. They compare optimal glidepaths under IID return sampling and block bootstrap, and find that the optimal bond allocation is higher under IID assumptions. They argue that this is because the long-horizon properties of bonds are much less favourable than their short-horizon statistics suggest. At 30-year horizons, bond variance \textit{increases} relative to the one-year level (variance ratio 2.30), whereas equity variance \textit{decreases} (variance ratio 0.75). Bonds also carry a correlation of $-0.78$ against inflation, which they argue destroys real purchasing power in precisely the environments most harmful to retirees. 
+\textcite{anarkulova2025beyond} use a block-bootstrap methodology applied to a dataset of monthly real returns across 39 developed countries from 1890 to 2023, drawing on over 31,800 country-months of data and preserving the time-series and cross-sectional structure of historical returns. Under block bootstrap, the optimal allocation is approximately 100\% static equity throughout the lifecycle. The sole exception is a brief tactical allocation to bills at the point of retirement, which does resemble a kind of aggressive U-shaped glidepath, but they argue that this is a special case, driven by the rigidity of a fixed real 4\% withdrawal rule \parencite[based on][]{bengen1994withdrawal} and when spending flexibility is restored, this exception disappears and the all-equity result holds at every age. They also argue that the conventional preference for bonds is substantially overstated by return-generation decisions in the literature. They compare optimal glidepaths under IID return sampling and block bootstrap, and find that the optimal bond allocation is higher under IID assumptions. They argue that this is because the long-horizon properties of bonds are much less favourable than their short-horizon statistics suggest. At 30-year horizons, bond variance \textit{increases} relative to the one-year level (variance ratio 2.30), whereas equity variance \textit{decreases} (variance ratio 0.75). Bonds also carry a correlation of $-0.78$ against inflation, which they argue destroys real purchasing power in precisely the environments most harmful to retirees. In essence, \textcite{anarkulova2025beyond} argue that IID assumptions overstate the risks of sequence-of-return risk. In reality, timeseries effects mean the sequence is actually autocorrelated and mean-reverting. In this environment, the higher expected returns of equities are more reliably captured over long horizons and the risks of bonds are more pronounced. 
 
-In essence, \textcite{anarkulova2025beyond} argue that IID assumptions overstate the risks of sequence-of-return risk. In reality, timeseries effects mean the sequence is actually autocorrelated and mean-reverting. In this environment, the higher expected returns of equities are more reliably captured over long horizons and the risks of bonds are more pronounced. 
+Adding more complexity to the debate, \textcite{parker2024simple} use a deep reinforcement learning (DRL) approach to solve a comprehensive lifecycle model that incorporates both accumulation and decumulation phases, with spending needs that evolve over time in response to shocks to health, longevity, and preferences. They use Monte Carlo simulated returns with autocorrelated timeseries dynamics, and find that the optimal equity allocation at retirement is approximately 60\%, and that TDFs (which land at 30--40\% equity) are too conservative; the welfare cost of following a TDF rather than the optimal policy is 1.7--2.8\% of lifetime consumption. However, they otherwise find that a declining trajectory of equity allocation accross the lifecycle is broadly optimal, and that the optimal trajectory post-retirement is approximately flat (not declining or rising).
 
-Using deep reinforcement learning to solve a comprehensive lifecycle model against Monte Carlo simulated returns (with autocorrelated return dynamics), \textcite{parker2024simple} find the optimal equity allocation at retirement is approximately 60\%, and that TDFs (which land at 30--40\% equity) are too conservative; the welfare cost of following a TDF rather than the optimal policy is 1.7--2.8\% of lifetime consumption. However, they otherwise find that a declining trajectory of equity allocation proposed by many TDFs (declining equity during accumulation) is broadly optimal, and that the optimal trajectory post-retirement is approximately flat (not declining or rising). 
+And while it may appear that the DE structure is broadly supported during the accumulation phase, work by \textcite{estrada2014glidepath} using historical rolling periods across 19 countries finds that DE strategies have higher failure rates than contrarian RE mirrors in every specification. This means that in their analysis of the accumulation phase, a more optimal strategy is to start with a lower equity share when the portfolio is small and then increase it as the portfolio grows, which is the opposite of the conventional wisdom. They argue that a DE strategy lowers the expected return of the portfolio precisely when the portfolio is at its largest: lifecycle funds are aggressive when the portfolio is small (early career) and conservative when it is large (near retirement), which is backwards. The companion paper, \textcite{estrada2015retirement}, applies the same dataset and methods to the retirement drawdown period, testing 81 rolling 30-year retirement windows starting from 1900 with a 4\% real withdrawal rule. The key finding reverses the accumulation result: DE strategies have lower failure rates \textit{and} higher terminal wealth than rising-equity mirrors in every specification. In the United States, DE failure rates range from 4.9 to 8.6\%, while the corresponding RE mirrors fail at rates of 8.6 to 21.0\%. Across all 19 countries, DE fails at 31--32\% versus RE at 39--49\%. Combined with their accumulation findings, Estrada's recommendation for a full-lifecycle glidepath shape is an \textit{inverted U}: equity should increase during working life, peak at the point of retirement, and then decline through the drawdown period.
 
-However, there is considerable scepticism toward conventional declining-equity strategies during both the accumulation and deccumulation phases. The argument is essentially that a DE strategy lowers the expected return of the portfolio precisely when the portfolio is at its largest: lifecycle funds are aggressive when the portfolio is small (early career) and conservative when it is large (near retirement), which is backwards. \textcite{estrada2014glidepath} establishes this for the accumulation period. The companion paper, \textcite{estrada2015retirement}, applies the same DMS dataset to the retirement drawdown period, testing 81 rolling 30-year retirement windows starting from 1900 with a 4\% real withdrawal rule. The key finding reverses the accumulation result: DE strategies have lower failure rates \textit{and} higher terminal wealth than rising-equity mirrors in every specification. In the United States, DE failure rates range from 4.9 to 8.6\%, while the corresponding RE mirrors fail at rates of 8.6 to 21.0\%. Across all 19 countries, DE fails at 31--32\% versus RE at 39--49\%. The mechanism is a sequence-of-returns argument specific to the drawdown context. A retiree's portfolio is largest at the point of retirement; DE starts equity-heavy at this point, capturing equity gains while the portfolio is large and compounding on a large base. As the portfolio shrinks through withdrawals, the gradual shift to bonds provides capital preservation. RE strategies invert this: equity exposure builds only after withdrawals have already depleted the portfolio, so the eventual equity gains arrive too late and on too small a base to matter. Combined with the 2014 accumulation findings, Estrada's recommended full-lifecycle shape is an \textit{inverted U}: equity should increase during working life, peak at the point of retirement, and then decline through the drawdown period.
+At this point, it is clear that the literature is deeply divided on the optimal glidepath shape, and that these disagreements are driven by methodological choices rather than fundamental empirical disagreement. The choice of return-generation methodology (historical rolling periods, Monte Carlo with IID returns, block bootstrap) appear to have a significant impact on the results and conclusions drawn about the optimal glidepath shape. The choice of risk measure (failure probability, expected shortfall, risk-adjusted success ratio, expected utility) and the specification of the spending rule (fixed real withdrawal, flexible spending, etc.) also matter. However, the takeaway from this literature is that there is almost no consensus on the optimal glidepath shape. This calls into question the value of the glidepath concept itself, and whether dynamic allocation strategies that adjust risk exposure soley on the basis of age or time in retirement are actually optimal and can effectively manage the hetrogeneous asset return paths that the cohorts of investors in these studies face. In reality, the glidepath debate may be a red herring, and the choice of overall risk level (i.e. the equity share) may be more important than the shape of the trajectory. \textcite{blanchett2007dynamic} tests 43 glide paths (11 static allocations and 4 types of declining-equity dynamics (linear, stair-step, concave, and convex)) bootstrapped from 80 years of monthly return data, across 1,071 scenarios defined by distribution period (20--40 years) and real withdrawal rate (3--8\%). Rising-equity paths are not tested; the comparison is strictly static versus DE. Static allocations have the lowest failure probability in all but one of the 1,071 scenarios. The best static portfolio by raw failure probability is 100\% equity; using his ``Success to Variability Ratio'' (probability of success divided by portfolio standard deviation), the best risk-adjusted portfolio is a 60/40 stocks-bonds allocation. 
 
-The DE position is further weakened by evidence that even dynamic DE management adds little or no value over a well-chosen static allocation. \textcite{blanchett2007dynamic} tests 43 glide paths (11 static allocations and 4 types of declining-equity dynamics (linear, stair-step, concave, and convex)) bootstrapped from 80 years of monthly return data, across 1,071 scenarios defined by distribution period (20--40 years) and real withdrawal rate (3--8\%). Rising-equity paths are not tested; the comparison is strictly static versus DE. Static allocations have the lowest failure probability in all but one of the 1,071 scenarios. The best static portfolio by raw failure probability is 100\% equity; using his ``Success to Variability Ratio'' (probability of success divided by portfolio standard deviation), the best risk-adjusted portfolio is a 60/40 stocks-bonds allocation. 
+An important observation from \textcite{blanchett2007dynamic} is that the choice of glidepath matters little when withdrawal rates are moderate and horizons are short. At a 4\% withdrawal rate over a 20-year period, the range of failure probabilities across all 43 strategies is only 1.56 percentage points. The same metric reaches 62.45 percentage points at a 6\% withdrawal rate over 40 years. According to their findings, the glidepath debate is therefore most consequential for aggressive scenarios, and the literature's disagreements should be interpreted in that light. \textcite{anarkulova2025beyond} and \textcite{estrada2014glidepath, estrada2015retirement} also make the case for a 100\% equity static allocation, arguing that the risks of sequence-of-returns risk are overstated in the literature and that the long-run properties of equities are more favourable than bonds.
 
-An important observation from \textcite{blanchett2007dynamic} is that the choice of glidepath matters little when withdrawal rates are moderate and horizons are short. At a 4\% withdrawal rate over a 20-year period, the range of failure probabilities across all 43 strategies is only 1.56 percentage points. The same metric reaches 62.45 percentage points at a 6\% withdrawal rate over 40 years. According to their findings, the glidepath debate is therefore most consequential for aggressive scenarios, and the literature's disagreements should be interpreted in that light.
+The tension between these results is not easily resolved, but it is clear that the choice of return-generation methodology is a key driver of disagreement. Historical rolling periods (Estrada, Bengen) preserve the actual structure of return sequences. Proponents of this technique argue that because recessions cluster, valuations mean-revert, and bad periods tend to be followed by recoveries, IID assumptions overstate the risks of sequence-of-returns risk as stocks are more likely to recover from an early dip than the IID model suggests. This approach does, however, limit the sample size to the number of non-overlapping historical periods, which is a particular problem for long-horizon retirement planning where the number of 30- or 40-year periods in the historical record is very small. \textcite{anarkulova2025beyond} use a block bootstrap approach, in which blocks of returns of a random length (with an average of 12 months) sampled from the historical record and concatenated to create synthetic return paths. This preserves some of the time-series dynamics of returns, including mean reversion and volatility clustering, while generating a much larger sample of data. However, even in this approach and with the exceptionally long historical record afforded to them through the GFD dataset, the number of unique return paths is still limited by the historical record and compounded by data quality issues, particularly for the early part of the record. A result of this may be that equity returns become overstated due to survivorship bias (companies that went bankrupt or were delisted may be missing from the data). \textcite{parker2024simple} use a Monte Carlo approach with autocorrelated return dynamics, which might arguably be more realistic than IID assumptions, but still relies on a parametric model of return dynamics that may not capture all relevant features of the data. We also have methodological concerns with using a neural network to create asset allocation policies in response to the same state variables used to generate the return paths, which may lead to over-fitting and type of model-data leakage that overstates the performance of the resulting policies. We also find it difficult to interpret the resulting policies and understand the mechanisms driving their performance, which limits the insights that can be drawn from this approach.
 
-The tension between these results is not easily resolved, but it is clear that the choice of return-generation methodology is a key driver. Additionally, the choice of risk measure (failure probability, expected shortfall, risk-adjusted success ratio, expected utility) and the specification of the spending rule (fixed real withdrawal, flexible spending, etc.) also matter. \textcite{pfau2014rising} use Monte Carlo with independently and identically distributed (IID) lognormal returns, in which bad returns are equally likely at any point and carry no autocorrelation.
+The choice of objective function or performance metric also could influence the diagreement. \textcite{pfau2014rising} specifically target failure risk minimisation; \textcite{estrada2014glidepath,estrada2015retirement} targets both failure risk and terminal wealth jointly and finds DE dominates on both. \textcite{blanchett2007dynamic} introduces the risk-adjusted Success to Variability ratio and finds it tilts the optimal allocation toward moderate equity, regardless of glidepath shape. Studies optimising expected utility with explicit risk aversion parameters (e.g.\ \textcite{parker2024simple}) tend to find approximately constant, high equity allocations consistent with neither the U-shape nor the inverted-U, but broadly aligned with Blanchett's static recommendation.
 
-Historical rolling periods (Estrada, Bengen) preserve the actual structure of return sequences. They argue that because recessions cluster, valuations mean-revert, and bad periods tend to be followed by recoveries, IID assumptions overstate the risks of sequence-of-returns risk as stocks are more likely to recover from an early dip than the IID model suggests. This approach does, however, limit the sample size to the number of non-overlapping historical periods, which is a particular problem for long-horizon retirement planning where the number of 30- or 40-year periods in the historical record is very small. \textcite{anarkulova2025beyond} use a block bootstrap approach, in which blocks of returns of a random length (with an average of 12 months) sampled from the historical record and concatenated to create synthetic return paths. This preserves some of the time-series dynamics of returns, including mean reversion and volatility clustering, while generating a much larger sample of data. However, even in this approach it is unclear how "novel" return paths are, particularly given the small number of downturns even in a long historical record. This means that the optimisation could be overfitting to a small number of historical downturns with the particular time-series dynamics that they exhibit. \textcite{parker2024simple} use a Monte Carlo approach with autocorrelated return dynamics, which might arguably be more realistic than IID assumptions, but still relies on a parametric model of return dynamics that may not capture all relevant features of the data. Interestingly, they find some support for the typical DE trajectory during the accumulation phase (typically recommended by TDFs), but not during the retirement phase, where they find a flat trajectory is optimal. 
-
-The choice of objective function also matters. Pfau and Kitces specifically target failure risk minimisation; Estrada targets both failure risk and terminal wealth jointly and finds DE dominates on both. Blanchett introduces the risk-adjusted Success to Variability ratio and finds it tilts the optimal allocation toward moderate equity, regardless of glidepath shape. Studies optimising expected utility with explicit risk aversion parameters (e.g.\ \textcite{parker2024simple}) tend to find approximately constant, high equity allocations consistent with neither the U-shape nor the inverted-U, but broadly aligned with Blanchett's static recommendation.
-
-Finally, the specification of the investor's spending and income needs is a critical driver of optimal policy. In discussing the paper by \textcite{anarkulova2025beyond}, \textcite{felix2025controversial} argues that the real risk to investors is not the risk of portfolio failure per se, but the risk of being unable to adjust spending in response to market conditions. For our purposes, investor spending should be grounded in realistic benchmarks of actual spending patterns in retirement, which are not necessarily well captured by a fixed real withdrawal rule. 
+Finally, the specification of the investor's spending and income needs is a critical driver of optimal policy. In discussing the paper by \textcite{anarkulova2025beyond}, \textcite{felix2025controversial} argues that the real risk to investors is not the risk of portfolio failure per se, but the risk of being unable to adjust spending in response to market conditions. 
 
 
 \subsection{Consilium's Position}
@@ -508,10 +503,15 @@ Note that we constrain our asset allocation policies to only allow for long posi
 
 This means that the allocation vector \(\mathbf{a}_t\) must satisfy the following constraints:
 \begin{equation}\label{allocation_constraints}
-\sum_{j=1}^{k} a_{j,t} <= 1 \quad \text{and} \quad a_{j,t} \geq 0 \quad \text{for all } j
+\sum_{j=1}^{k} a_{j,t} = 1 \quad \text{and} \quad a_{j,t} \geq 0 \quad \text{for all } j
 \end{equation}
 
-By extension, our policy settings \(\theta\) must also satisfy these constraints.
+By extension, our policy settings \(\theta\) must satisfy the following constraints to ensure that the resulting allocations are valid:
+
+\begin{equation}\label{theta_constraints}
+  \sum_{i=1}^{N-1} \theta_i \leq 1 \quad \text{and} \quad \theta_i \geq 0 \quad \text{for all } i
+\end{equation}
+
 
 Traditional glidepath strategies vary asset allocations with age (or equivalently, time since retirement). In this case, the policy function can be represented as a function of time:
 
@@ -606,38 +606,12 @@ The optimisation of \(\theta\) is the core of our analysis, as it allows us to f
 
 The construction of our simulation framework has been carefully designed to be fully differentiable (using PyTorch's automatic differentiation capabilities) so that we can compute the gradient of our chosen risk measure with respect to the policy parameters \(\theta\) and use this gradient to perform optimisation using a gradient-based algorithm such as stochastic gradient descent or Adam \parencite{adam}. This allows us to efficiently search for the optimal policy parameters that maximise our chosen risk measure, even in high-dimensional parameter spaces.
 
-To constrain the policy parameters \(\theta\) to satisfy the allocation constraints from Equation \ref{allocation_constraints} (i.e., that the allocations must be non-negative and sum to at most one), we project the parameters onto the feasible set after each gradient update using the simplex projection algorithm of \textcite{duchi2008efficient}. This algorithm solves the Euclidean projection problem:
-
-\begin{equation}\label{simplex_projection_problem}
-\text{proj}_{\Theta}(\mathbf{x}) = \argmin_{\mathbf{y} \in \Theta} \|\mathbf{y} - \mathbf{x}\|^2
-\end{equation}
-
-where \(\Theta = \{\mathbf{y} \in \mathbb{R}^{k-1} : y_j \geq 0, \sum_j y_j \leq 1\}\) is the feasible set for risky asset allocations. The algorithm works by first sorting the elements of \(\mathbf{x}\) in descending order to obtain \(x_{(1)} \geq x_{(2)} \geq \cdots \geq x_{(k-1)}\), then finding a threshold \(\lambda\) such that the projection is given by:
-
-\begin{equation}\label{simplex_projection_formula}
-y_j = \max(0, x_j - \lambda)
-\end{equation}
-
-The threshold \(\lambda\) is chosen such that \(\sum_j y_j = 1 - \epsilon\) for some small \(\epsilon > 0\). Here we use \(\epsilon = 10^{-8}\) to ensure the sum is strictly less than one, which is advantegeous as as the allocation to the safe asset is determined residually as \(1 - \sum_j y_j\). \(\lambda\) is then found by identifying the largest index \(k^*\) such that:
-
-\begin{equation}\label{threshold_condition}
-x_{(k^*)} - \frac{1}{k^*}\left(\sum_{j=1}^{k^*} x_{(j)} - (1-\epsilon)\right) > 0
-\end{equation}
-
-and then setting:
-
-\begin{equation}\label{threshold_value}
-\lambda = \frac{1}{k^*}\left(\sum_{j=1}^{k^*} x_{(j)} - (1-\epsilon)\right)
-\end{equation}
-
-This projection ensures that after each gradient step, the policy parameters remain feasible (non-negative and summing to at most one) while staying as close as possible to the unconstrained gradient update in Euclidean distance. The algorithm runs in \(\mathcal{O}(n \log n)\) time due to the sorting step, where \(n\) is the number of risky assets. For our typical applications with 2--3 risky asset classes, this overhead is negligible.
-
-An important property of this projection is that it preserves the optimality conditions for constrained optimisation. If the unconstrained optimum lies outside the feasible set, the projected gradient descent algorithm with this projection is guaranteed to converge to a local minimum on the constraint boundary under standard regularity conditions, provided the step size is not too large. This means that we can use this projection in our gradient-based optimisation without worrying about violating the allocation constraints, while still ensuring that we are effectively searching for the optimal policy parameters within the feasible set.
+To constrain the policy parameters \(\theta\) to satisfy the allocation constraints from Equation \ref{allocation_constraints} (i.e., that the allocations must be non-negative and sum to at most one), we project the parameters onto the feasible set after each gradient update using the simplex projection algorithm of \textcite{duchi2008efficient}. This efficient \(\mathcal{O}(n \log n)\) algorithm finds the Euclidean projection onto the constraint set, ensuring that policy parameters remain feasible while staying as close as possible to the unconstrained gradient update. The projection preserves the optimality conditions for constrained optimisation, guaranteeing convergence to a local optimum on the constraint boundary under standard regularity conditions. A detailed description of the algorithm is provided in Appendix \ref{appendix:simplex_projection}.
 
 
 \section{Methods and Data for Simulating and Bootstrapping Asset Returns}
 
-Central to our analysis is the ability to simulate a large number of realistic asset return trajectories. As previously noted, there are two broad approaches to simulating returns: synthetic return generation using a parametric model, and bootstrapping from historical returns. The advantage of synthetic return generation is that it allows us to explore a wider range of possible return dynamics and also to create a larger number of return trajectories than would be possible with historical data alone. The disadvantage is that it relies on strong assumptions about the return-generating process, which may not or may not be an accurate representation of reality. For example, the easiests and therefore most commonly used model is the geometric Brownian motion (GBM) model, which assumes that returns are normally distributed and independent over time. In reality, asset returns exhibit features such as volatility clustering, fat tails, and serial correlation, which are not captured by the time-independent GBM model. Time series models such as GARCH can capture some of these features, but they also introduce additional complexity and make their own set of assumptions that may not hold in practice. Bootstrapping from historical returns, on the other hand, allows us to capture the empirical distribution of returns without making strong parametric assumptions. However, it is limited by the length and quality of the historical data. Underpinning both approaches is the assumption that the future will be similar to the past: in the case of synthetic return generation, this is because the model parameters are typically estimated or evaluated against historical data, and in the case of bootstrapping, this is because we are directly resampling from historical returns. This assumption may not hold if there are structural changes in the economy or financial markets that lead to different return dynamics in the future. This limitation is inherent to this type of research, and it forms the underlying uncertainty in any conclusions we draw from our simulations. 
+Central to our analysis is the ability to simulate a large number of realistic asset return trajectories. As previously noted, there are two broad approaches to simulating returns: synthetic return generation using a parametric model, and bootstrapping from historical returns. The advantage of synthetic return generation is that it allows us to explore a wider range of possible return dynamics and also to create a larger number of return trajectories than would be possible with historical data alone. The disadvantage is that it relies on strong assumptions about the return-generating process, which may not or may not be an accurate representation of reality. For example, the easiests and therefore most commonly used model is the geometric Brownian motion (GBM) model, which assumes that returns are normally distributed and independent over time. In reality, asset returns exhibit features such as volatility clustering, fat tails, and serial correlation, which are not captured by the time-independent GBM model. Time series models such as GARCH can capture some of these features, but they also introduce additional complexity and make their own set of assumptions that may not hold in practice. Bootstrapping from historical returns, on the other hand, allows us to capture the empirical distribution of returns without making strong parametric assumptions. However, it is limited by the length and quality of the historical data. Underpinning both approaches is the assumption that the future will be similar to the past; in the case of synthetic return generation, this is because the model parameters are typically estimated, informed, or evaluated against historical data; in the case of bootstrapping from directly resampling from historical returns. This assumption may not hold if there are structural changes in the economy or financial markets that lead to different return dynamics in the future. This limitation is inherent to this type of research, and it forms the underlying uncertainty in any conclusions we draw from our simulations. 
 
 We will aim to generate a large number of return trajectories using both approaches, and we will evaluate the performance of different asset allocation strategies under both sets of return simulations. We will use three asset classes in our analysis: short-term bills (cash), fixed income (bonds), and equities. These asset classes are chosen because they represent the main building blocks of a typical retirement portfolio.
 
@@ -647,86 +621,126 @@ We will aim to generate a large number of return trajectories using both approac
 
 Consilium has historically used a simple geometric Brownian motion (GBM) model to generate synthetic returns for its analysis. Because the company already has established expectations of long-run returns and volatilities for different asset classes in its internal models, the GBM model is a convenient way to generate return trajectories that are consistent with these expectations.
 
-Consilium's GBM model does not simulate the returns of the underlying assets directly, but rather simulates the returns of the portfolio. The key inputs to the GBM model are the expected return and covariance matrix of the portfolios. Expected returns are derived from the expected returns obtained from the factor-analysis of the underlying assets. Covariances are obtained from back-filled historical monthly portfolio returns going back to 1995. The GBM model then generates return trajectories for the portfolio based on these inputs, which are used to evaluate the performance of different asset allocation strategies. This approach allows Consilium to generate a large number of return trajectories that are consistent with its internal expectations, but it does not capture the empirical distribution of returns or the time-series dependencies that are present in historical data.
+Consilium's GBM model does not simulate the returns of the underlying assets directly, but rather simulates the returns of the portfolio as a whole. The key inputs to the GBM model are the expected return and covariance matrix of the portfolios. Expected returns of the portfolio are derived from the expected returns obtained from the factor-analysis of the underlying assets. Covariances are obtained from back-filled historical monthly portfolio returns going back to 1995.
 
-For the purposes of our analysis, we will use the GBM model to generate synthetic return trajectories for the three asset classes (bills, bonds, equities) based on the expected returns and covariance matrix derived from historical data. This means that our GBM simulations will not be fully consistent with the return-generating process used in Consilium's internal models (which operate the level of the portfolio). But this method does allow us to vary the allocation continuously across the three asset classes, which is important for our optimisation of asset allocation policies.
+Our approach differs from Consilium's typical implementation of the GBM model in that we will simulate the returns of the underlying asset classes (bills, bonds, equities) rather than simulating the returns of the portfolio directly. This allows us to generate return trajectories for each asset class, which can then be combined according to different asset allocation policies to produce portfolio return trajectories. This is important for our analysis because we want to continuously vary the asset allocation across the three asset classes, which is not possible if we only simulate portfolio returns directly. By simulating the underlying asset class returns, we can evaluate how different asset allocation strategies perform under a wide range of return dynamics for each asset class. The disadvantage of this approach is that the underlying composition of the asset classes cannot vary across different risk levels. For instance, Consilium's internal models vary the allocation to domestic and international equities and bonds across the different risk profiles, while our approach will use a single aggregate return series for equities and bonds. We will base our aggregate return series for each asset class on Consilium's Classic 70/30 model portfolio allocation, which represents a fairly even split between the allocations in Consilium's more and less risky model portfolios, which will mean that the asset class return dynamics we simulate will be broadly, but not perfectly, consistent with the underlying return-generating process used in Consilium's internal models.
 
-However, we will seek to retain as much parity as possible with Consilium's approach. To do this, the expected returns and covariance matrix for the asset classes that we use as inputs to our GBM model will be derived from the same historical data and asset allocations that Consilium uses in its internal models. Some comprimises will have to be made, for example Consilium varies the allocation to domestic and international equities across the different risk profiles, while we will use a single aggregate equity return series. However, overall, we are satisfied that our GBM simulations will be broadly consistent with the return-generating process used in Consilium's GPS model.
+We derive the expected returns and covariance matrix following the same approach as Consilium, using the factor-analysis of the underlying assets to obtain expected returns for each asset class, and using back-filled historical monthly returns to estimate the covariance matrix. We will then use these inputs to simulate return trajectories for each asset class using the GBM model. Consilium has traditionally treated CPI inflation as an exogenous variable that is not part of the return-generating process, but we will include it as an additional asset class in our simulations, which allows us to capture the correlation between inflation and asset returns and to evaluate how different asset allocation strategies perform under different inflation scenarios.
 
-\subsubsection{}
+The expected gross returns and covariance matrix for the three asset classes and CPI inflation are shown in Table \ref{tab:gbm_parameters}. These parameters are based on Consilium's internal models and are consistent with the return dynamics that we will simulate using the GBM model.
+
+\begin{table}[h!]
+\centering
+\caption{GBM input parameters for gross returns and covariance matrix.}
+\label{tab:gbm_parameters}
+\begin{tabular}{lcccc}
+\toprule
+ & Equities & Bonds & Cash & CPI \\
+\midrule
+Gross return & 9.31\% & 4.26\% & 1.85\% & 2.50\% \\
+\bottomrule
+\end{tabular}
+
+\vspace{0.75em}
+
+\small
+\begin{tabular}{lcccc}
+\toprule
+ & Cash & Bonds & Equities & CPI \\
+\midrule
+Cash & 0.00074818 & 0.00107890 & -0.00011636 & 0.00001394 \\
+Bonds & 0.00107890 & 0.00327030 & -0.00015073 & -0.00025973 \\
+Equities & -0.00011636 & -0.00015073 & 0.01928772 & -0.00051254 \\
+CPI & 0.00001394 & -0.00025973 & -0.00051254 & 0.00025696 \\
+\bottomrule
+\end{tabular}
+\normalsize
+\end{table}
+
 
 
 
 
 \subsection{Block Bootstrap Methodology}
 
-Our implementation follows the method propose in \textcite{anarkulova2025beyond}, adapted for our specific asset classes and data. The core dataset for our block bootstrap simulations is the Jordà-Schularick-Taylor (JST) Macrohistory Database \parencite{jorda2017macrofinancial}, a comprehensive panel of annual macroeconomic and financial data covering 18 advanced economies from 1870 to the present. The database was developed to provide researchers with long-run time series that span multiple financial cycles, wars, and regime changes, making it particularly valuable for studying asset return dynamics over extremely long horizons.
+Our block bootstrap implementation follows \textcite{anarkulova2025beyond}, adapted for a different dataset and asset allocation structure. The key advantage of the block bootstrap is that by resampling contiguous blocks of historical returns rather than individual observations, we preserve the short-run time-series dependencies and cross-sectional correlations present in asset returns while generating a large and diverse set of synthetic paths for Monte Carlo simulation.
 
-At each iteration of the bootstrap, we designate a particular country as the ``home'' country, and we construct the return series for our three asset classes (bills, bonds, equities) using using a combination of the home country's return series and a weighted average of the return series from the other countries in the database. We prohibit using the USA or UK as the home country, as these countries have historically much larger equity markets than the other countries in the database, and using them as the home country. \textcite{anarkulova2025beyond} use a market-capitalisation-weighted average of the other countries' return series to construct the international equity return series. Unfortunately, the JST database does not include a market-capitalisation-weighted aggregate equity return series.
+\subsubsection{Data Sources and Asset Class Construction}
 
+We construct return series for four variables---Equities, Bonds, Bills, and CPI inflation---using annual data from the Jordà-Schularick-Taylor (JST) Macrohistory Database \parencite{jorda2017macrofinancial}, which provides total returns and macroeconomic variables for 18 advanced economies from 1870 to the present. This long-run panel data allows us to capture return dynamics across multiple business cycles, market regimes, wars, and financial crises.
 
+At each bootstrap iteration, we randomly designate one country as the ``domestic'' or ``home'' country, representing the New Zealand investor's perspective. Each asset class is then constructed as a weighted combination of domestic and international returns, reflecting realistic portfolio allocations for a small open economy. Specifically, each asset class $k$ is characterized by two parameters: home bias $\omega^{(k)}$ specifying the allocation to the domestic market, and the hedging ratio $\eta^{(k)}$ specifying what fraction of the foreign exposure is currency-hedged. The asset class return combines domestic returns, currency-hedged international returns, and unhedged international returns according to these weights. We calibrate these parameters based on Consilium's typical 70/30 model portfolio allocations as shown in Table \ref{tab:asset_class_params}. 
 
+\begin{table}[h!]
+\centering
+\begin{tabular}{lcc}
+\toprule
+\textbf{Asset Class} & \textbf{Home Bias} ($\omega$) & \textbf{Hedging Ratio} ($\eta$) \\
+\midrule
+Equities & 0.20 & 0.50 \\
+Bonds & 0.33 & 1.00 \\
+Bills & 1.00 & 1.00 \\
+CPI & 1.00 & 0.00 \\
+\bottomrule
+\end{tabular}
+\caption{Asset class construction parameters reflecting realistic portfolio composition for New Zealand retail investors.}
+\label{tab:asset_class_params}
+\end{table}
 
+International equity returns are constructed as market-capitalization-weighted aggregates across eligible foreign countries, based on weights from the World Bank's World Development Indicators \parencite{data__worldbankMktCap} supplemented with historical estimates from Global Financial Data \parencite[sourced from][]{data__gfdMktCap}. International bond returns use weights based on GDP and government debt-to-GDP ratios from the JST database. Currency conversions are performed via USD as the intermediary currency, and hedged returns eliminate currency risk while unhedged returns include both asset and currency components. Detailed descriptions of the eligibility criteria, weight construction, currency conversion methodology, and asset class formulas are provided in Appendices \ref{appendix:block_bootstrap_investable_universes}--\ref{appendix:asset_class_returns}.
 
-The key insight of the block bootstrap is that by resampling contiguous blocks of historical returns rather than individual observations, we preserve the short-run time-series dependencies present in asset returns while still generating a large number of distinct synthetic paths.
+\subsubsection{Sampling Procedure}
 
+To generate bootstrapped return paths, we resample contiguous blocks of years from the historical data, where each block corresponds to a continuous period within a single country's history. The JST database has gaps due to wars, data quality issues, and currency crises, so we first identify all continuous periods and prevent sampling across discontinuities. 
 
+For each simulated path of length $T = 40$ years, we repeatedly draw random blocks until we accumulate the required number of observations. Each block starts at a randomly selected position within a continuous country period, and has a length drawn from a Poisson distribution with mean $\lambda = 10$ years. Blocks are truncated at period boundaries to prevent artificial transitions between countries. We pre-generate approximately 50,000 paths of 40 years each by partitioning a large batch of 2 million block draws into non-overlapping segments.
 
+This procedure ensures that each bootstrap path preserves the empirical autocorrelation structure within blocks (capturing business cycle dynamics and mean reversion), the cross-sectional correlation among asset classes and inflation, and the time-varying composition of the global investment opportunity set. The detailed sampling algorithm, period identification procedure, and implementation notes are provided in Appendix \ref{appendix:block_bootstrap_sampling_procedure}.
 
-
-
-The procedure works as follows. We begin with historical return data for three asset classes: short-term government bills (cash), intermediate-term government bonds, and international equities. For each simulated path of length \(T\), we construct a return sequence by concatenating randomly selected blocks from the historical record. The block length \(\ell\) is itself a random variable drawn from a geometric distribution with mean \(\bar{\ell}\), which ensures that the resulting bootstrap series is stationary. Specifically, at each step we draw a block starting position uniformly from the historical data, then draw a block length \(\ell \sim \text{Geometric}(1/\bar{\ell})\), and append the next \(\ell\) observations to the simulated path. This process continues until we have accumulated \(T\) periods of returns.
-
-Formally, let \(\mathbf{R}^{\text{hist}}\) denote the \(T_{\text{hist}} \times k\) matrix of historical returns, where \(T_{\text{hist}}\) is the number of historical periods and \(k = 3\) is the number of asset classes (bills, bonds, equities). To generate a single simulated path of length \(T\), we repeat the following until the path is complete:
-
-\begin{enumerate}
-    \item Draw a starting index \(t_0 \sim \text{Uniform}\{1, 2, \ldots, T_{\text{hist}} - \bar{\ell}\}\)
-    \item Draw a block length \(\ell \sim \text{Geometric}(1/\bar{\ell})\)
-    \item Append returns \(\mathbf{R}^{\text{hist}}_{t_0}, \mathbf{R}^{\text{hist}}_{t_0+1}, \ldots, \mathbf{R}^{\text{hist}}_{t_0+\ell-1}\) to the simulated path
-\end{enumerate}
-
-In the case that the block extends beyond the end of the historical data, we simply cut off the block at the end of the data and start a new block from a randomly selected starting index, effectively creating two blocks that are concatenated together.
-
-The choice of mean block length \(\bar{\ell}\) involves a trade-off. Longer blocks preserve more of the time-series structure, including medium-run dynamics such as business cycle effects and mean reversion, but reduce the diversity of simulated paths by limiting the number of distinct resampling configurations. Shorter blocks increase diversity but may fail to capture persistent features of return dynamics. \textcite{anarkulova2025beyond} use a mean block length of 120 months (10 years) for their analysis of US equity and bond returns, arguing that this preserves economically relevant persistence while generating sufficient path diversity for robust optimisation. Following their approach, we calibrate our mean block length to approximately 10 years of annual data, giving \(\bar{\ell} = 10\). 
-
-An important feature of the block bootstrap is that it naturally preserves the cross-sectional correlation structure among asset classes. Because we resample entire rows of the historical return matrix (i.e., contemporaneous returns across all assets), the bootstrap paths retain the empirical co-movement of bills, bonds, and equities. This is critical for retirement portfolio analysis, as the diversification benefits of holding multiple asset classes depend directly on their correlation structure during different market regimes.
-
-For our analysis, we use three asset classes that represent the feasible investment universe for a typical New Zealand retail investor:
-
-\begin{itemize}
-    \item \textbf{Domestic Cash (Bills):} Short-term government securities with minimal default risk and low volatility.
-    \item \textbf{Domestic Bonds:} Intermediate-term government bonds that provide a higher expected return than cash but with greater volatility and some interest rate risk.
-    \item \textbf{International Equities:} A diversified portfolio of global equity markets, providing exposure to long-run economic growth with substantial short-run volatility. Following \textcite{anarkulova2025beyond}, we construct this series as a market-capitalisation-weighted aggregate of developed-market equity indices.
-\end{itemize}
-
-We also aim to preserve the cross-sectional correlation of these assets against other key macroeconomic variables, in particular inflation. To do this, we include the domestic inflation rate as an additional variable in the historical data matrix, and block bootstrap it alongside the asset returns. 
-
-
-\subsubsection{Data for Block Bootstrapping}
-
-The core dataset for macro-financial variables is the Jordà-Schularick-Taylor (JST) Macrohistory Database \parencite{jorda2017macrofinancial}, a comprehensive panel of annual macroeconomic and financial data covering 18 advanced economies from 1870 to the present. The database was developed to provide researchers with long-run time series that span multiple financial cycles, wars, and regime changes, making it particularly valuable for studying asset return dynamics over horizons relevant to retirement planning.
-
-The JST database includes total returns (capital gains plus reinvested dividends) for equities, bonds, and bills, alongside inflation (CPI), exchange rates, GDP, credit aggregates, and house prices. Importantly, the asset return series are constructed consistently across countries using a common methodology, which facilitates international comparison and aggregation. For equity returns, the database draws on a combination of national stock market indices; for bonds, it uses long-term government securities; and for bills, it uses short-term government debt or comparable money-market instruments. All series are reported in nominal local currency terms, with separate CPI series provided to compute real returns.
-
-For our analysis, we extract annual data for the 18 countries in the JST database (Australia, Belgium, Canada, Denmark, Finland, France, Germany, Italy, Japan, Netherlands, Norway, Portugal, Spain, Sweden, Switzerland, United Kingdom, and United States) covering the period 1950--2020.
-
-The JST dataset does not include market capitalisation weights for the equity indices, which are necessary to construct a global equity return series. To address this, we supplement the JST data with market capitalisation data from the World Bank's World Development Indicators (WDI) database 
+We consider two historical periods for our bootstrapping: the full sample from 1870 to the present, which captures a wide range of economic regimes and return dynamics; and a more recent sample from 1950 to the present, which may be more relevant for contemporary investors but is shorter and less diverse. By comparing results across these two samples, we can assess the sensitivity of our conclusions to different historical contexts and the potential impact of structural changes in the economy and financial markets over time.
 
 
 \subsection{Tax and Fees}
 
+The treatment of taxes and fees is an important consideration in retirement planning, as they can have a significant impact on the net returns that investors receive and therefore on the optimal asset allocation strategy. Retirees do not typically access securities directly, but rather invest through a retirement savings vehicle. Even after the age of 65, when they can withdraw from their KiwiSaver, most retirees will continue to invest through their KiwiSaver or some other type of managed fund, which means that they will be subject to the fees charged by these funds. The tax treatment of these assets is an incredibly complex topic, and it is beyond the scope of this report to provide a comprehensive analysis of it. 
+
+For example, dividends paid from assets held in foreign markets are subject to both foreign and domestic taxes, and the interaction between these taxes can be complex. In some cases, investors may be able to claim a foreign tax credit for the taxes paid on foreign dividends, which can reduce their overall tax burden. Further complicating this are the various tax rules around FIF and PIE investment vehicles that are commonly used by New Zealand investors to access international markets. Making a full analysis of the tax implications of different asset allocation strategies would require a detailed understanding of both the domestic and international tax rules, data about distributions and tax rates for different asset classes, and a careful modelling of how these taxes would apply to the returns generated by different asset allocation strategies. This is not something that either of our models or datasets have the capability to do. For this reason, we have chosen to use a simplified approach to taxes and fees in our analysis, which is to apply a flat fee and tax rate to the returns generated by our simulations, estimated from Consilium's internal models. While, in reality, the effective tax and fee rates that investors face will vary across asset classes and over time, this simplified approach allows us to capture the general impact of taxes and fees on net returns without having to model the complex interactions between different tax rules and asset class characteristics.
+
+We use a flat fee rate to approximate the fees and taxes that investors would face on their returns. This fee rate is estimated from Consilium's Classic 70/30 model portfolio, and includes estimates for fund management fees, taxes on dividends and interest, foreign tax credits, domestic costs, rebalancing costs, and other relevant fees tied to brokerage. The fee rate is applied to the returns generated by our simulations to obtain net returns, which are then used in our optimisation of asset allocation strategies. This approach is crude and will understate tax in good years and overstate it in bad years, but it allows us to capture the general impact of taxes and fees on net returns without having to model the complex interactions between different tax rules and asset class characteristics. These rates are shown in Table \ref{tab:fee_rates}. 
+
+\begin{table}[h!]
+\centering
+\begin{tabular}{lcc}
+\toprule
+\textbf{Asset Class} & \textbf{Estimated Tax and Fee Rate} \\
+\midrule
+Equities & 1.44\% per year \\
+Bonds & 1.41\% per year \\
+Bills & 0.61\% per year \\
+\bottomrule
+\end{tabular}
+\caption{Estimated flat tax and fee rates applied to simulated returns for each asset class.}
+\label{tab:fee_rates}
+\end{table}
 
 
 
 
 
-\section{Optimal Lifetime Asset Allocation Strategies for New Zealand Retirees}
+\section{Optimal Retirement Asset Allocation Strategies for New Zealand Retirees}
 
 Having established the simulation and optimisation framework, we now apply it to evaluate candidate lifetime allocation policies in the New Zealand retirement context.
 
-\subsection{Optimal Age-Based Glide-Paths}
 
-\subsection{Optimal Wealth-Responsive Allocation Strategies}
+\subsection{Asset Allocation in Zero Dimensions: Fixed Allocation Strategies}
+
+
+\subsection{Asset Allocation in One Dimension: Time-Based Glide-Paths}
+
+\subsection{Asset Allocation in One Dimension: Wealth-Based Glide-Paths}
+
+\subsection{Asset Allocation in Two Dimensions: Time and Wealth-Based Control Matrix}
+
 
 \section{Discussion and Implications}
 
@@ -740,6 +754,56 @@ Having established the simulation and optimisation framework, we now apply it to
 \pagebreak
 
 \appendix
+\section{Simplex Projection Algorithm for Constrained Optimisation}
+\label{appendix:simplex_projection}
+
+To enforce the allocation constraints in Equation \ref{allocation_constraints} during gradient-based optimisation, we use the simplex projection algorithm of \textcite{duchi2008efficient}. This algorithm solves the Euclidean projection problem:
+
+\begin{equation}\label{simplex_projection_problem_appendix}
+\text{proj}_{\Theta}(\mathbf{x}) = \argmin_{\mathbf{y} \in \Theta} \|\mathbf{y} - \mathbf{x}\|^2
+\end{equation}
+
+where \(\Theta = \{\mathbf{y} \in \mathbb{R}^{k-1} : y_j \geq 0, \sum_j y_j \leq 1\}\) is the feasible set for risky asset allocations (with the safe asset allocation determined residually).
+
+\subsection{Algorithm}
+
+The algorithm proceeds as follows:
+
+\begin{enumerate}
+    \item Sort the elements of \(\mathbf{x}\) in descending order to obtain \(x_{(1)} \geq x_{(2)} \geq \cdots \geq x_{(k-1)}\).
+    
+    \item Find the threshold \(\lambda\) such that the projection is given by:
+    \begin{equation}\label{simplex_projection_formula_appendix}
+    y_j = \max(0, x_j - \lambda)
+    \end{equation}
+    
+    \item The threshold \(\lambda\) is chosen such that \(\sum_j y_j = 1 - \epsilon\) for some small \(\epsilon > 0\). We use \(\epsilon = 10^{-8}\) to ensure the sum is strictly less than one, which ensures the safe asset receives a non-negative residual allocation: \(1 - \sum_j y_j \geq 0\).
+    
+    \item To find \(\lambda\), identify the largest index \(k^*\) such that:
+    \begin{equation}\label{threshold_condition_appendix}
+    x_{(k^*)} - \frac{1}{k^*}\left(\sum_{j=1}^{k^*} x_{(j)} - (1-\epsilon)\right) > 0
+    \end{equation}
+    
+    \item Then set:
+    \begin{equation}\label{threshold_value_appendix}
+    \lambda = \frac{1}{k^*}\left(\sum_{j=1}^{k^*} x_{(j)} - (1-\epsilon)\right)
+    \end{equation}
+\end{enumerate}
+
+\subsection{Properties and Computational Complexity}
+
+This projection has several desirable properties for our optimisation problem:
+
+\begin{itemize}
+    \item \textbf{Feasibility:} After each gradient step, the policy parameters remain feasible (non-negative and summing to at most one) while staying as close as possible to the unconstrained gradient update in Euclidean distance.
+    
+    \item \textbf{Optimality preservation:} The projection preserves the optimality conditions for constrained optimisation. If the unconstrained optimum lies outside the feasible set, the projected gradient descent algorithm is guaranteed to converge to a local minimum on the constraint boundary under standard regularity conditions, provided the step size is appropriately chosen.
+    
+    \item \textbf{Computational efficiency:} The algorithm runs in \(\mathcal{O}(n \log n)\) time due to the sorting step, where \(n\) is the number of risky assets. For our typical applications with 2--3 risky asset classes, this overhead is negligible.
+\end{itemize}
+
+This approach allows us to perform unconstrained gradient-based optimisation while ensuring that all iterates remain within the feasible allocation space, which is critical for the economic interpretability and practical implementation of the resulting policies.
+
 \section{Replication and Discussion of Control Matrix Optimisation as Proposed by \textcite{Makinen2024}}
 
 \textcite{Makinen2024} formulate their Monte Carlo optimisation in a way that is similar to the framework described in the main text. As in our setup, they use a control matrix that allows asset allocation to respond jointly to age and wealth. Their objective function is based on terminal wealth moments, specifically variance or semi-variance. They then compute gradients of this objective with respect to control-matrix parameters using adjoint methods, which enables efficient gradient-based optimisation (in their case, a quasi-Newton method with BFGS updates).
@@ -782,28 +846,68 @@ Additionally, the control matrix has limited effective resolution in early perio
     \label{replication_control_matrix}
 \end{figure}
 
-\newpage
+\clearpage
 
 
-\section{Data Construction: Market Capitalization Weights}
-\label{appendix:market_cap_data}
+\section{Block-Bootstrapping: Investable Universes}
+\label{appendix:block_bootstrap_investable_universes}
 
-The booststrap method for simulating returns relies on constructing a market-capitalisation-weighted aggregate return series for international securities. To do this, we need to construct a time series of market capitalization weights for the countries in the JST database. This is necessary because the JST database does not include market capitalization weights for the equity indices, which are needed to construct a global equity return series as a weighted average of the individual country return series. The market capitalization weights are defined as the ratio of a country's total market capitalization to the total market capitalization.
+To implement the block bootstrap methodology for New Zealand retirees, we must first construct appropriate investable universes from the JST database. A critical insight from \textcite{anarkulova2025beyond} is that the bootstrap procedure should reflect the investment opportunity set available to the domestic investor, which differs from simply using aggregate global indices. Specifically, at each bootstrap iteration, we designate one country as the ``home'' or ``domestic'' country, representing the investor's perspective, and construct return series for three asset classes relative to that country's viewpoint: domestic short-term government bills (cash), domestic intermediate-term government bonds, and international equities.
 
-To construct the market capitalization weights, we combine data from the World Bank's World Development Indicators (WDI) database and historical estimates from Global Financial Data (GFD). The WDI provides market capitalization data for listed domestic companies in current US dollars, which we use for the recent period (1975--2024). For the historical period (1870--1975), we rely on estimates from GFD as presented in a chart in \textcite{data__gfdMktCap}. However, we do not have direct access to the GFD database, so we extract approximate values from the published chart using a image processing method that counts pixels of different colors corresponding to each country. This method is subject to measurement error and should be interpreted with caution, but it provides a rough estimate of the historical market capitalization weights for the countries in the JST database.
+This approach requires us to define, for each year in the historical data, which countries can serve as domestic markets and which can serve as sources of foreign returns. These definitions are not uniform across time, as data availability and quality vary significantly across countries and periods. The following sections describe how we construct these investable universes and define the corresponding asset classes.
 
+\subsection{Data Quality Requirements and Eligibility Criteria}
 
-\subsection{Data Sources}
-
-We combine two primary data sources to construct a complete time series of market capitalization weights from 1870 to 2024:
+For a country to be eligible as a domestic market in a given year, we require complete and reliable data for all key return series needed to construct a domestic investor's portfolio. Specifically, a country can serve as ``domestic'' only if the following conditions are met:
 
 \begin{enumerate}
-    \item \textbf{World Bank Market Capitalization Data} \parencite{data__worldbankMktCap}: The World Bank provides market capitalization of listed domestic companies (in current US\$) from the World Federation of Exchanges database. This dataset covers 1975--2024 with good coverage for most developed economies. The data is publicly available under a CC BY-4.0 license and represents the most authoritative source of the two used in our analysis for market capitalization figures.
+    \item \textbf{Complete asset return data:} The country must have non-missing values for equity total returns (\texttt{eq\_tr}), bond total returns (\texttt{bond\_tr}), and short-term bill rates (\texttt{bill\_rate}) in that year.
     
-    \item \textbf{Global Financial Data (GFD) Historical Estimates} \parencite{data__gfdMktCap}: The GFD database provides historical estimates of a number of macro-financial variables, including market capitalization weights for major economies. This is the dataset leveraged by \textcite{anarkulova2025beyond} to construct their international equity return series. However, we do not have direct access to the GFD database, so we rely on a published chart from Finaeon's website that displays market capitalization weights a number of countries from 1782 to 2022. We extract approximate values from this chart using an image processing method that counts pixels of different colors corresponding to each country. This method is subject to measurement error and should be interpreted with caution, but it provides a rough estimate of the historical market capitalization weights for the countries in the JST database.
-\end{enumerate} 
+    \item \textbf{Inflation data:} The country must have a valid inflation rate (computed from CPI) to allow for real return calculations.
+    
+    \item \textbf{Exchange rate data:} The country must have a valid exchange rate against the US dollar (\texttt{xrusd}) and its percentage change (\texttt{xrusd\_return}), which is necessary for converting foreign returns to the domestic investor's currency (and vice versa).
+    
+    \item \textbf{Market size constraint:} The country's equity market capitalization must not exceed 20\% of the total market capitalization across all JST countries in that year. This threshold prevents the United States and United Kingdom being selected as domestic markets, as their inclusion would significantly reduce the diversity of bootstrap samples and make the simulated paths less representative of smaller developed economies like New Zealand.
+\end{enumerate}
 
-\subsection{World Bank Data Processing}
+For a country to be eligible as a source of foreign returns (either equity or bonds), we require non-missing asset return data (equity total returns \texttt{eq\_tr} for the foreign equity universe, or bond total returns \texttt{bond\_tr} for the foreign bond universe), valid exchange rate data (\texttt{xrusd\_return}), and three-year rolling cumulative exchange rate depreciation not exceeding 50\%.
+
+The 50\% cumulative depreciation threshold over a three-year rolling window serves to exclude protracted currency-crisis episodes that, while historically occurred, create irregularities in the return distribution that are not representative of normal market dynamics. Currency crises often unfold over multiple years rather than single-year shocks, so a multi-year filter is more effective at identifying and excluding crisis periods. It is unlikely that a typical investor would maintain exposure to a foreign market experiencing such extreme sustained currency depreciation, so excluding these episodes makes the simulated return paths more realistic for retirement planning purposes. However, we choose to retain these episodes in the domestic return series when they occur in the home country, as they are part of the historical experience that a domestic investor would have faced and cannot be avoided through diversification.
+
+Figure \ref{fig:country_availability} displays the time periods during which each JST country satisfies the eligibility criteria for domestic, foreign equity, and foreign bond status. Panel (a) shows that most countries have continuous domestic eligibility from the mid-20th century onward. There are some gaps in eligibility for certain countries, the USA, Japan and the UK get excluded at times due to the market-cap constraint, and some countries have shorter data histories that limit their eligibility in earlier years. Germany loses foreign equity eligibility during the hyperinflation episode in the early 1920s, and many other gaps are present due to wars, regime changes, or data quality issues.
+
+\subsection{Construction of Investable Universes}
+
+Given the eligibility criteria defined above, we construct two investable ``universes'' that define the valid constituents for the international equity and bond return series in the block bootstrap simulations:
+
+\begin{enumerate}
+    \item \textbf{Equities universe:} For each year $t$, this universe consists of all ordered pairs $(i, j)$ where country $i$ is eligible as domestic and country $j$ is eligible as foreign equity in year $t$, subject to the constraint that $i \neq j$ (i.e., a country cannot be both the domestic and foreign market in the same bootstrap draw). This universe defines the feasible combinations for constructing the international equity return series from the perspective of domestic country $i$.
+    
+    \item \textbf{Bonds universe:} Analogously, for each year $t$, this universe consists of all ordered pairs $(i, j)$ where country $i$ is eligible as domestic and country $j$ is eligible as foreign bonds in year $t$, with $i \neq j$. This universe defines the feasible combinations for constructing the international bond return series.
+\end{enumerate}
+
+At each iteration of the block bootstrap, we randomly select a domestic country $i$ from those eligible in the starting year of the block, then construct foreign equity and bond return series as weighted averages of the returns from all countries $j$ in the corresponding universe for that domestic country and year. This approach ensures that the simulated return paths reflect the diversification opportunities and correlation structure available to the domestic investor, while also preserving the time-varying composition of the global investment opportunity set.
+
+
+\begin{figure}
+  \centering
+  \includegraphics[width=\textwidth]{../Figs/country_availability.png}
+  \caption{Eligibility of JST countries as domestic markets (a), foreign equity sources (b), and foreign bond sources (c) over time.}
+  \label{fig:country_availability}
+\end{figure}
+
+\clearpage
+
+\section{Block-Bootstrapping: Equity Market Weights}
+\label{appendix:eq_market_weights}
+
+
+Following \textcite{anarkulova2025beyond}, our implementation of the block bootstrap method for simulating returns relies on constructing a market-capitalisation-weighted aggregate return series for international securities. To do this, we need to construct a timeseries of market capitalization weights for the countries in the JST database. This is necessary because the JST database does not include equity market capitalization weights. 
+
+
+We define equity market capitalization weights as the ratio of a country's total market capitalization to the total market capitalization of the country cohort. To construct the baseline capitalization weights, we combine data from the World Bank's World Development Indicators (WDI) database and historical estimates from Global Financial Data (GFD). The World Bank provides market capitalization of listed domestic companies (in inflation-adjusted US Dollars) from the World Federation of Exchanges database \parencite{data__worldbankMktCap}. This dataset covers 1975--2024 with good coverage for most developed economies. The data is publicly available under a CC BY-4.0 license and represents the most authoritative source of the two used in our analysis for market capitalization figures. However, the WDI dataset does not cover the historical period of interest for our analysis (1870--1975), so we supplement it with estimates from GFD, which provides long-run historical estimates of market capitalization weights for major economies.
+
+The GFD database provides historical estimates of a number of macro-financial variables, including market capitalization weights for major economies. This is the dataset leveraged by \textcite{anarkulova2025beyond} to construct their international equity return series. However, we do not have direct access to the GFD database, so we rely on a published chart from Finaeon's website \parencite[sourced from][]{data__gfdMktCap} that displays market capitalization weights a number of countries from 1782 to 2022. We extract approximate values from this chart using an image processing method that counts pixels of different colors corresponding to each country. This method is subject to measurement error and should be interpreted with caution, but it provides a rough estimate of the historical market capitalization weights for the countries in the JST database.
 
 The World Bank data processing is straightforward and follows standard data cleaning procedures:
 
@@ -816,33 +920,7 @@ The World Bank data processing is straightforward and follows standard data clea
     \item Re-normalize weights to sum to 1.0 after applying the floor
 \end{enumerate}
 
-Quality checks confirm that the processed data have complete coverage for all JST countries from 1988--2024, with yearly weights summing to 1.0 within numerical precision.
-
-\subsection{GFD Historical Data Extraction}
-
-\subsubsection{Methodological Limitations}
-
-The extraction of historical market capitalization weights from the GFD database presents significant methodological challenges. Without direct access to the underlying GFD database, we must rely on a published chart from \textcite{data__gfdMktCap} that displays market cap percentages as a stacked area graph. This introduces several sources of uncertainty and measurement error:
-
-\begin{enumerate}
-    \item \textbf{Pixel-based extraction}: We extract percentages by analyzing the pixel colors in the chart image. Each country is represented by a distinct color, and we count pixels of each color at each year's x-coordinate position. This approach is fundamentally limited by:
-    \begin{itemize}
-        \item Chart resolution and image quality
-        \item Interpolation between discrete x-axis positions
-        \item Anti-aliasing and edge effects at color boundaries
-        \item Potential color bleeding or compression artifacts
-    \end{itemize}
-    
-    \item \textbf{Limited country coverage}: The original chart displays only five countries (USA, UK, Germany, France, and Japan), with all other countries aggregated into an ``Other'' category. To construct weights for all JST countries, we must distribute this ``Other'' mass evenly across the remaining 13 countries. This is a strong and likely unrealistic assumption, as it ignores the actual variation in market capitalizations among these countries.
-    
-    \item \textbf{Temporal smoothing}: The pixel-counting method produces noisy estimates. We apply a 3-year centered rolling average to reduce this noise, which may over-smooth genuine historical variation.
-    
-    \item \textbf{No validation against source data}: Because we do not have access to the original GFD database, we cannot validate our extracted values against the true underlying data. The accuracy of our historical estimates is therefore unknown, but what data we have extracted roughly aligns with the World Bank data in the overlapping period (see Figure \ref{fig:combined_market_cap}).
-\end{enumerate}
-
-\subsubsection{Extraction Procedure}
-
-Despite these limitations, the extraction procedure follows a systematic approach:
+The extraction of historical market capitalization weights from the GFD database presents significant methodological challenges. Without direct access to the underlying GFD database, we must rely on a published chart from \textcite{data__gfdMktCap} that displays market cap percentages as a stacked area graph. The extraction procedure involves the following steps:
 
 \begin{enumerate}
     \item Crop the chart image to isolate the plotting area
@@ -850,48 +928,24 @@ Despite these limitations, the extraction procedure follows a systematic approac
     \item For each year, identify pixels corresponding to each country color
     \item Calculate the vertical percentage occupied by each color
     \item Apply a centered 3-year rolling average to smooth pixel-counting noise
-    \item Create a complete country-year grid for all JST countries (1870--2021)
-    \item Distribute the ``Other'' category mass evenly across the 13 non-displayed countries
-    \item Apply forward-fill for missing values and verify that weights sum to 1.0
+    \item Distribute the unclassified ``Other'' percentage evenly across all the JST countries.
+    \item Apply forward-fill for missing values
 \end{enumerate}
 
-Quality checks identify that the extracted GFD data show reasonable aggregate patterns (e.g., U.S. dominance in the mid-20th century, rising Japanese share in the 1980s), but individual country estimates, particularly for the ``Other'' countries, should be interpreted with considerable caution.
+This introduces several sources of uncertainty and measurement error. Because we extract percentages by analyzing the pixel colors in the chart image, each country is represented by a distinct color, and we count pixels of each color at each year's x-coordinate position. This approach is fundamentally limited by the chart resolution and image quality, interpolation between discrete x-axis positions, anti-aliasing and edge effects at color boundaries, and potential color bleeding or compression artifacts. For these reasons, the pixel-counting method produces noisy estimates. To mitigate this, we apply a 3-year centered rolling average to reduce this noise, but which may over-smooth genuine historical variation.
 
-\subsection{Data Combination and Final Dataset}
+Furthermore, the original chart displays only five countries relevant to the JST data (USA, UK, Germany, France, and Japan), with all other countries aggregated into an ``Other'' category. To construct weights for all JST countries, we must distribute this unclassified mass evenly across the remaining 13 countries. This is a strong and likely unrealistic assumption, as it ignores the actual variation in market capitalizations among these countries. Finally, because we do not have access to the original GFD database, we cannot validate our extracted values against the true underlying data. The accuracy of our historical estimates is therefore unknown, but what data we have extracted roughly aligns with the World Bank data in the overlapping period (see Figure \ref{fig:combined_market_cap}). The extracted GFD data shows reasonable aggregate patterns (e.g., U.S. dominance in the mid-20th century, rising Japanese share in the 1980s), but individual country estimates, particularly for the ``Other'' countries, should be interpreted with considerable caution. However, because the share of the ``Other'' category is relatively small in the later period and the goal is to capture broad historical trends rather than precise country-level weights, we consider this approach acceptable for our purposes.
 
-The final dataset prioritizes the more reliable World Bank data where available and fills historical gaps with the GFD estimates:
+The final, combined dataset of weights prioritizes the more reliable World Bank data where available and fills historical gaps with the GFD estimates. Figure \ref{fig:combined_market_cap} displays the three datasets side-by-side: GFD extracted estimates (panel a), World Bank data (panel b), and the combined final dataset (panel c). The overlap period (1988--1989) shows reasonable consistency between the two sources.
 
-\begin{enumerate}
-    \item For years 1988--2024: Use World Bank data exclusively
-    \item For years 1870--1987: Use extracted GFD data
-    \item Verify that the transition between sources is smooth (no discontinuous jumps)
-    \item Confirm that all country-year combinations are present
-    \item Validate that yearly weights sum to 1.0 across all years
-\end{enumerate}
-
-Figure \ref{fig:combined_market_cap} displays the three datasets side-by-side: GFD extracted estimates (panel a), World Bank data (panel b), and the combined final dataset (panel c). The overlap period (1988--1989) shows reasonable consistency between the two sources, with the World Bank data exhibiting slightly lower concentration in the largest markets, likely due to more comprehensive coverage.
-
-
-\subsection{Limitations and Implications for Analysis}
-
-Users of this dataset should be aware of several important caveats:
-
-\begin{enumerate}
-    \item \textbf{Historical precision}: The pre-1988 market cap weights are approximate and should not be interpreted as precise measurements. They are sufficient for characterizing broad historical trends but are unsuitable for applications requiring exact country-level weights.
-    
-    \item \textbf{Distribution assumptions}: The even distribution of the ``Other'' category across 13 countries is a strong simplifying assumption. In reality, countries like Australia, Canada, and Switzerland likely had substantially different market capitalizations than smaller European economies.
-    
-    \item \textbf{Survivorship and composition bias}: The GFD and World Bank datasets may differ in their treatment of market entries, exits, and index composition. These methodological differences are absorbed into our combined series but are not explicitly documented.
-    
-    \item \textbf{Alternative approaches}: Ideally, historical market cap weights would be constructed from direct access to the GFD database or from alternative sources such as the Dimson-Marsh-Staunton Global Returns Database. However, these sources were not available for this study.
-\end{enumerate}
+Users of this dataset should be aware of several important caveats. The market cap weights extracted from the GFD data are approximate and should not be interpreted as precise measurements. They are sufficient for characterizing broad historical trends but are unsuitable for applications requiring exact country-level weights. The even redistribution of the unclassified percentage across all JST countries is a strong simplifying assumption. In reality, countries like Australia, Canada, and Switzerland likely had substantially different market capitalizations than smaller European economies. The GFD and World Bank datasets may differ in their treatment of market entries, exits, and index composition. These methodological differences are absorbed into our combined series but are not explicitly documented. Ideally, historical market cap weights would be constructed from direct access to the GFD database or from alternative sources such as the Dimson-Marsh-Staunton Global Returns Database. However, these sources were not available for this study.
 
 Despite these limitations, we believe the combined dataset provides a reasonable approximation of historical market capitalization weights for the JST countries and is suitable for the portfolio construction and simulation exercises undertaken in this research. The primary analyses focus on aggregate portfolio behavior rather than individual country dynamics, which reduces the impact of country-level measurement error. Nevertheless, readers should interpret historical results (particularly those prior to 1988) with appropriate caution regarding the data quality constraints described above.
 
 All data processing code, quality checks, and intermediate outputs are available in the project repository to facilitate transparency and replication.
 
 
-\begin{figure}[h!]
+\begin{figure}[h]
     \centering
     \includegraphics[width=\textwidth]{../Figs/combined_market_cap_weights.png}
     \caption{Market capitalization weights for JST countries from three sources. Panel (a) shows estimates extracted from the GFD historical chart (1870--2021), panel (b) shows World Bank data (1988--2024), and panel (c) shows the combined dataset using World Bank data where available and GFD estimates for earlier periods. Colors are consistent across panels to facilitate comparison.}
@@ -899,38 +953,169 @@ All data processing code, quality checks, and intermediate outputs are available
 \end{figure}
 
 
-\section{Data Construction: Bootstrap Return Series}
+\clearpage
 
-\begin{table}[ht!]
+\section{Block Bootstrapping: Debt Market Weights}
+\label{appendix:bond_market_weights}
+
+Unlike \textcite{anarkulova2025beyond}, investors in our analysis have access to a domestic and international bond market. To construct the return series for the international bond component, we need to determine the appropriate weights for the bonds of the different countries in the JST database. Fortunately, the JST database includes a GDP and debt-to-GDP ratio for each country, which allows us to estimate the total market capitalization of each country's bond market. We then compute the weights for the international bond component as the ratio of each country's bond market capitalization (converted to USD using exchange rates from the JST database) to the total bond market capitalization across all countries. This method is a simplification, as it assumes that the bond market capitalization is directly proportional to GDP and debt levels, which may not hold in practice due to differences in financial development, government borrowing needs, and investor preferences. However, it provides a reasonable approximation for our purposes given the data constraints. The resulting bond market capitalization weights are shown in Figure \ref{fig:bond_market_cap_weights}.
+
+
+\begin{figure}[h!]
     \centering
-    \caption{
-      The ranges in which we have sufficient data to use the JST data to construct return series for the three asset classes (domestic, foreign equity, foreign bonds) for each of the 16 countries in the JST database.
-    }
-    \label{tab:data_availability}
-    \begin{tabular}{lccc}
-    \toprule
-    Country Code & Domestic Availability & Foreign Equity Availability & Foreign Bond Availability \\
-    \midrule
-    AUS & 1900--1944, 1948--2020 & 1871--2020 & 1900--2020 \\
-    BEL & 1871--1913, 1920--2020 & 1871--2020 & 1871--1913, 1920--2020 \\
-    CHE & 1900--1914, 1916--2020 & 1900--2020 & 1900--1914, 1916--2020 \\
-    DEU & 1871--1922, 1924--1943, 1950--2020 & 1871--1944, 1947--2020 & 1871--1943, 1949--2020 \\
-    DNK & 1875--1914, 1916--2020 & 1873--2020 & 1871--1914, 1916--2020 \\
-    ESP & 1900--1935, 1941--2017, 2019--2020 & 1900--2020 & 1900--1936, 1941--2020 \\
-    FIN & 1896--2020 & 1896--2020 & 1871--2020 \\
-    FRA & 1871--1914, 1922--2020 & 1871--2020 & 1871--2020 \\
-    GBR & 1947--2020 & 1871--2020 & 1871--2020 \\
-    ITA & 1871--1871, 1885--1914, 1922--2020 & 1871--2020 & 1871--2020 \\
-    JPN & 1886--1945, 1948--1985, 1996--2020 & 1886--1945, 1948--2020 & 1881--2020 \\
-    NLD & 1900--2020 & 1900--2020 & 1871--2020 \\
-    NOR & 1881--2020 & 1881--2020 & 1871--2020 \\
-    PRT & 1880--2020 & 1871--2020 & 1871--2020 \\
-    SWE & 1871--2020 & 1871--2020 & 1871--2020 \\
-    USA & 1872--1898 & 1872--2020 & 1871--2020 \\
-    \bottomrule
-    \end{tabular}
+    \includegraphics[width=\textwidth]{../Figs/bond_weights.png}
+    \caption{Estimated bond market capitalization weights for JST countries. We compute these weights using GDP and debt-to-GDP ratios from the JST database, converting to USD using the provided exchange rates.}
+    \label{fig:bond_market_cap_weights}
+\end{figure}
 
-\end{table}
+
+\clearpage
+
+
+\section{Block Bootstrapping: Asset Class Returns}
+\label{appendix:asset_class_returns}
+
+
+To construct the return series for the three asset classes (Cash, Bonds, Equities) and the inflation rate for each country, we use the following variables from the JST database:
+
+\begin{enumerate}
+  \item \texttt{bill\_rate}: This variable represents the short-term government bill rate for each country. We use this as the return series for the Cash asset class.
+  \item \texttt{bond\_tr}: This variable represents the total return on government bonds for each country (in its local currency). It is calculated by JST as $r_t = \frac{p_t + c_t}{p_{t-1}} - 1$, where $p_t$ is the price of the bond at time $t$ and $c_t$ is the coupon payment received at time $t$. We use this as the return series for the Bonds asset class.
+  \item \texttt{eq\_tr}: This variable represents the total return on equities for each country (in its local currency). It is calculated by JST as $r_t = \frac{p_t + d_t}{p_{t-1}} - 1$, where $p_t$ is the price of the equity index at time $t$ and $d_t$ is the dividend payment received at time $t$. We use this as the return series for the Equities asset class.
+  \item \texttt{cpi}: This variable represents the annual inflation rate for each country, calculated as the percentage change in the Consumer Price Index (CPI) from one year to the next. We use this variable to compute real returns for each asset class by adjusting the nominal returns for inflation.
+  \item \texttt{xrusd}: This variable represents the exchange rate of the country's currency against the US dollar.
+\end{enumerate}
+
+These asset class returns are not totally analogous to the asset classes used in the Consilium model portfolios. Bonds in the JST database are government bonds, whereas the Consilium portfolios include a mix of government and corporate bonds. However, given the data constraints and the focus on capturing broad return dynamics rather than precise asset class replication, we consider the JST bond returns to be a reasonable proxy for the fixed-income component of the portfolios. Similarly, the equity returns in the JST database are based on national stock market indices, which may differ from the global equity exposure in the Consilium portfolios. Additionally, Consilium's international equity exposure includes emerging markets, which are not represented in the JST database. While at some points countries in the JST database may have had emerging market characteristics, we acknowledge that our international equity return series may not fully capture the risk-return profile of a global equity portfolio with emerging market exposure. However, the JST equity returns still provide valuable insights into the historical performance of equities across different countries and time periods, which is relevant for our analysis of retirement portfolio strategies.
+
+
+\subsection{Foreign Return Construction and Currency Considerations}
+\label{appendix:asset_class_returns:currency_considerations}
+
+While Cash will comprise entirely of domestic bills, the Bonds and Equities asset classes will be constructed as weighted averages of the returns from eligible foreign countries, with both currency hedged and unhedged components (for equities). All returns in the JST database are reported in nominal local currency terms. To construct return series from the perspective of a domestic investor in country $i$, we must account for exchange rate movements when investing in foreign assets.
+
+We introduce the following notation to clarify the currency conversions:
+\begin{itemize}
+    \item $r^{j}_{j,t}$: Total return on an asset in country $j$ at time $t$, denominated in country $j$'s local currency (as reported in the JST database)
+    \item $x_{j,t}$: Exchange rate return for country $j$'s currency relative to USD at time $t$
+    \item $r^{\text{USD}}_{j,t}$: Total return on an asset in country $j$, converted to USD
+    \item $r^{i}_{j,t}$: Total return on an asset in country $j$, from the perspective of an investor in country $i$ (denominated in country $i$'s currency)
+\end{itemize}
+
+The exchange rate variable \texttt{xrusd} in the JST database represents the exchange rate from USD to local currency. We compute the exchange rate return for country $j$ as the percentage change in this exchange rate:
+
+\begin{equation}\label{eq:exchange_rate_return}
+  x_{j,t} = \frac{\texttt{xrusd}_{j,t}}{\texttt{xrusd}_{j,t-1}} - 1
+\end{equation}
+
+This represents the return (or loss) from holding USD relative to country $j$'s local currency. A positive $x_{j,t}$ indicates depreciation of country $j$'s currency against the USD (this is what we use in Appendix \ref{appendix:block_bootstrap_investable_universes} to exclude extreme depreciation episodes), while a negative $x_{j,t}$ indicates appreciation.
+
+To convert a foreign asset's local currency return to USD terms, we account for both the asset return and the exchange rate movement. The total return in USD for an asset in country $j$ is:
+
+\begin{equation}\label{eq:foreign_return_usd}
+  r^{\text{USD}}_{j,t} = (1 + r^{j}_{j,t})(1 + x_{j,t})^{-1} - 1
+\end{equation}
+
+This formulation shows that if country $j$'s currency depreciates against the USD (positive $x_{j,t}$), the USD-denominated return will be lower than the local currency return, as the investor experiences a currency loss when converting back to USD.
+
+From the perspective of a domestic investor in country $i$, we must further convert the USD return to country $i$'s local currency. The unhedged return on a foreign asset in country $j$ from country $i$'s perspective is:
+
+\begin{equation}\label{eq:foreign_return_domestic}
+  r^{i}_{j,t} = (1 + r^{\text{USD}}_{j,t})(1 + x_{i,t})^{-1} - 1 = \frac{(1 + r^{j}_{j,t})}{(1 + x_{j,t})(1 + x_{i,t})} - 1
+\end{equation}
+
+This expression captures the complete currency conversion chain: starting with country $j$'s local currency, converting to USD, and then converting to country $i$'s local currency. The investor experiences both the asset return and the net exchange rate movement between the two currencies.
+
+For the currency-hedged return, we assume perfect hedging that eliminates all currency risk. In this case, the investor receives only the local currency return, expressed in their domestic currency terms:
+
+\begin{equation}\label{eq:hedged_return}
+  r^{i,\text{hedged}}_{j,t} = r^{j}_{j,t}
+\end{equation}
+
+In practice, currency-hedged returns would also include the cost of hedging (typically related to the interest rate differential between countries). For simplicity, and given data constraints, we assume this cost is negligible and that hedging is perfectly efficient in removing currency risk. This assumption is reasonable for developed markets with liquid forward currency markets, which characterizes most of the countries in the JST database during the period of our analysis.
+
+\subsection{Foreign Return Weighting and Aggregation}
+
+To construct the international component of each asset class, we aggregate returns from all eligible foreign countries using market-capitalization-based weights. For equities, we use the equity market capitalization weights described in Appendix \ref{appendix:eq_market_weights}; for bonds, we use the government debt weights from Appendix \ref{appendix:bond_market_weights}.
+
+Because the eligible universe varies across time (as countries gain or lose eligibility) and across domestic perspectives (due to the constraint that $i \neq j$), we must renormalize the weights at each time step for each domestic country. For a domestic investor in country $i$ investing in asset class $k$ at time $t$, let $\mathcal{F}^{(k)}_{i,t}$ denote the set of countries eligible as foreign sources for that asset class. The renormalized weight for foreign country $j$ is then:
+
+\begin{equation}\label{eq:renormalized_weights}
+  w^{(k)}_{i,j,t} = \frac{w_{j,t}}{\sum_{\ell \in \mathcal{F}^{(k)}_{i,t}} w_{\ell,t}}
+\end{equation}
+
+Where $w_{j,t}$ is the baseline market capitalization weight for country $j$ at time $t$ (before filtering for eligibility), and the denominator sums over all countries $\ell$ that are eligible foreign sources for domestic country $i$ and asset class $k$ at time $t$. This renormalization ensures that the weights sum to exactly 1.0 across the eligible universe.
+
+The aggregated international return for asset class $k$ from the perspective of a domestic investor in country $i$ is then the weighted average:
+
+\begin{equation}\label{eq:aggregated_foreign_return}
+  r^{i,\text{intl}}_{k,t} = \sum_{j \in \mathcal{F}^{(k)}_{i,t}} w^{(k)}_{i,j,t} \cdot r^{i}_{j,t}
+\end{equation}
+
+Where $r^{i}_{j,t}$ is the return on asset class $k$ in country $j$, converted to country $i$'s currency as described in equations \ref{eq:foreign_return_usd} and \ref{eq:foreign_return_domestic}. This aggregation preserves the empirical correlation structure among foreign markets while reflecting the time-varying composition of the global investment opportunity set.
+
+ 
+\subsection{Constructing Asset Class Returns}
+
+In our block-bootstrapping framework, each asset class $k$ is characterized by two parameters: a Home Bias $\omega^{(k)} \in [0,1]$ and a Hedging Ratio $\eta^{(k)} \in [0,1]$. The home bias determines the allocation between domestic and foreign markets within that asset class, while the hedging ratio determines what fraction of the foreign exposure is currency-hedged versus unhedged. These parameters allow us to construct asset class returns that reflect realistic portfolio compositions for New Zealand investors.
+
+The hedged international return is computed analogously to the unhedged return in equation \ref{eq:aggregated_foreign_return}, but using local currency returns without currency conversion:
+
+\begin{equation}\label{eq:aggregated_foreign_return_hedged}
+  r^{i,\text{hedged}}_{k,t} = \sum_{j \in \mathcal{F}^{(k)}_{i,t}} w^{(k)}_{i,j,t} \cdot r^{j}_{j,t}
+\end{equation}
+
+Where $r^{j}_{j,t}$ is the asset return in country $j$'s local currency (i.e., the same return that appears in equation \ref{eq:hedged_return}). This represents the return from a perfectly currency-hedged foreign investment.
+
+The final return for asset class $k$ from the perspective of a domestic investor in country $i$ at time $t$ combines domestic, hedged foreign, and unhedged foreign components:
+
+\begin{equation}\label{eq:final_asset_return}
+  r^{i}_{k,t} = \omega^{(k)} \cdot r^{i,\text{home}}_{k,t} + (1 - \omega^{(k)}) \cdot \left[ \eta^{(k)} \cdot r^{i,\text{hedged}}_{k,t} + (1 - \eta^{(k)}) \cdot r^{i,\text{intl}}_{k,t} \right]  
+\end{equation}
+
+Where $r^{i,\text{home}}_{k,t}$ is the return on asset class $k$ in the domestic country $i$ (e.g., \texttt{bill\_rate} for Cash, \texttt{bond\_tr} for Bonds, \texttt{eq\_tr} for Equities), $r^{i,\text{hedged}}_{k,t}$ is the currency-hedged international return from equation \ref{eq:aggregated_foreign_return_hedged}, and $r^{i,\text{intl}}_{k,t}$ is the unhedged international return from equation \ref{eq:aggregated_foreign_return} which includes currency effects. For the purposes of block bootstrapping, we treat CPI inflation as an asset class in its own right with a 100\% home bias and no foreign component. 
+
+
+\clearpage
+\section{Block Bootstrapping: Sampling Procedure}
+\label{appendix:block_bootstrap_sampling_procedure}
+
+Having constructed the asset class returns for each eligible domestic country and year in Appendix \ref{appendix:asset_class_returns}, we now describe the procedure for generating bootstrapped return paths. Our implementation follows in the spirit of \textcite{anarkulova2025beyond} but includes some adjustments. The key idea is to sample blocks of consecutive years from the historical data, where each block corresponds to a continuous period of data for a single country. By concatenating these blocks, we create synthetic return paths that preserve the short and medium-term autocorrelation structure of returns while also capturing the cross-sectional correlation across countries and asset classes.
+
+The first step is to identify continuous time periods within each country's history. As shown in Figure \ref{fig:country_availability}, many countries have gaps in their eligibility due to wars, data quality issues, or currency crises. We cannot simply sample random year ranges, as this would risk drawing blocks that span discontinuities where no data exists.
+
+We identify continuous periods by sorting the domestic mask by country and year, then flagging years where the gap from the previous year exceeds one. A cumulative sum of these flags creates period groups within each country. For each continuous period $p$, we record the country identifier ($\text{iso}_p$), start year ($y_p^{\text{start}}$), end year ($y_p^{\text{end}}$), and period length ($L_p = y_p^{\text{end}} - y_p^{\text{start}} + 1$).
+
+We then create a global index that maps each year of data to a single sequential index $s \in \{1, 2, \ldots, S\}$, where $S = \sum_p L_p$ is the total number of country-year observations across all periods. Each period $p$ occupies indices from $s_p^{\text{start}}$ to $s_p^{\text{end}}$ in this global sequence.
+
+To generate a single bootstrap path of length $T = 40$ years, we repeatedly draw random blocks and concatenate them until we have accumulated the required number of observations. For each block $b$, we:
+
+\begin{enumerate}
+    \item Draw a random starting index $s_b \sim \text{Uniform}\{1, 2, \ldots, S\}$ from the global index
+    \item Draw a block length $\ell_b \sim \text{Poisson}(\lambda = 10)$ where the Poisson parameter $\lambda = 10$ sets the mean block length to 10 years
+    \item Identify which period $p$ contains index $s_b$
+    \item Compute the actual block end as $s_b^{\text{end}} = \min(s_b + \ell_b - 1, s_p^{\text{end}})$ to prevent the block from extending beyond the period boundary
+    \item Extract the corresponding years from period $p$: if $s_b$ corresponds to year $y$ within period $p$, then the block spans years $y, y+1, \ldots, y + (s_b^{\text{end}} - s_b)$
+\end{enumerate}
+
+This process ensures that each block respects the continuous history of a single country, preventing artificial discontinuities in the bootstrapped series.
+
+Our implementation uses a Poisson distribution for block lengths, whereas \textcite{anarkulova2025beyond} use a geometric distribution. Both choices target a mean block length of approximately 10 years, but they differ in their theoretical properties and practical implications. The practical impact on our analysis is minimal. Both distributions preserve the medium-run autocorrelation structure that is the primary motivation for block bootstrapping. We chose the Poisson distribution primarily for computational convenience: it is straightforward to implement and produces non-negative integer block lengths directly without requiring rejection sampling or other adjustments. This pragmatic choice does not materially affect the properties of the bootstrap procedure or the substantive conclusions of our analysis.
+
+Blocks are concatenated sequentially until we reach $T$ years. If a block would cause the total to exceed $T$, we truncate it. The result is a sequence of $(i_t, y_t)$ pairs for $t = 1, \ldots, T$, where $i_t$ is the domestic country and $y_t$ is the year for observation $t$ in the bootstrapped path.
+
+For each $(i_t, y_t)$ pair, we retrieve the corresponding asset class returns from the processed data created in Appendix \ref{appendix:asset_class_returns}. This gives us a $T \times 4$ matrix of returns for the path, with columns for Equities, Bonds, Bills, and CPI (in that order).
+
+To generate a large number of paths efficiently, we pre-generate $N$ block draws, where $N = 2{,}000{,}000$ in our implementation. We then partition this sequence into non-overlapping segments of length $T$ to create approximately $N/T \approx 450{,}000$ independent paths. Each path represents a plausible 40-year sequence of annual returns that preserves the short-run autocorrelation and cross-sectional correlation structure of the historical data.
+
+The final output is a three-dimensional array of shape $(N_{\text{paths}} \times T \times 4)$ where:
+\begin{itemize}
+    \item Dimension 1 indexes the path (simulation)
+    \item Dimension 2 indexes the year within the path
+    \item Dimension 3 indexes the asset class (Equities, Bonds, Bills, CPI)
+\end{itemize}
+
+This array is saved to disk for use in the Monte Carlo simulations described in the main analysis.
 
 
 \end{document}

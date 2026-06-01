@@ -33,10 +33,49 @@ class ConsumptionFloor(ABC):
             return torch.zeros_like(wealth[:, time_step])
         if time_step < self.t_0:
             return torch.zeros_like(wealth[:, time_step])
-        return self.calculate_floor(wealth, time_step, **kwargs)
+        return self._calculate_floor(wealth, time_step, **kwargs)
+
+    def calculate_tensor(
+        self, wealth: torch.Tensor, cumulative_inflation: torch.Tensor, **kwargs
+    ) -> torch.Tensor:
+        """
+        Calculate consumption floor for all time steps at once.
+
+        Parameters
+        ----------
+        wealth : torch.Tensor
+            Wealth history, shape (n_sims, n_timesteps + 1)
+        cumulative_inflation : torch.Tensor
+            Cumulative inflation, shape (n_sims, n_timesteps)
+        **kwargs : dict
+            Additional context
+
+        Returns
+        -------
+        torch.Tensor
+            Consumption floor for all time steps, shape (n_sims, n_timesteps)
+        """
+        n_sims, n_timesteps = cumulative_inflation.shape
+        floor_values = self._calculate_floor_tensor(
+            wealth, cumulative_inflation, **kwargs
+        )
+        
+        # Apply t_0 and t_end masking
+        if self.t_0 > 0 or self.t_end is not None:
+            time_indices = torch.arange(n_timesteps, device=wealth.device)
+            mask = torch.ones((n_sims, n_timesteps), dtype=torch.bool, device=wealth.device)
+            
+            if self.t_0 > 0:
+                mask = mask & (time_indices >= self.t_0)
+            if self.t_end is not None:
+                mask = mask & (time_indices <= self.t_end)
+            
+            floor_values = floor_values * mask
+        
+        return floor_values
 
     @abstractmethod
-    def calculate_floor(
+    def _calculate_floor(
         self, wealth: torch.Tensor, time_step: int, **kwargs
     ) -> torch.Tensor:
         """
@@ -58,14 +97,43 @@ class ConsumptionFloor(ABC):
         """
         pass
 
+    @abstractmethod
+    def _calculate_floor_tensor(
+        self, wealth: torch.Tensor, cumulative_inflation: torch.Tensor, **kwargs
+    ) -> torch.Tensor:
+        """
+        Calculate consumption floor for all time steps at once.
+
+        Parameters
+        ----------
+        wealth : torch.Tensor
+            Wealth history, shape (n_sims, n_timesteps + 1)
+        cumulative_inflation : torch.Tensor
+            Cumulative inflation, shape (n_sims, n_timesteps)
+        **kwargs : dict
+            Additional context
+
+        Returns
+        -------
+        torch.Tensor
+            Consumption floor for all time steps, shape (n_sims, n_timesteps)
+        """
+        pass
+
 
 class NoConsumptionFloor(ConsumptionFloor):
     """No consumption floor. Default."""
 
-    def calculate_floor(
+    def _calculate_floor(
         self, wealth: torch.Tensor, time_step: int, **kwargs
     ) -> torch.Tensor:
         return torch.zeros_like(wealth[:, time_step])
+
+    def _calculate_floor_tensor(
+        self, wealth: torch.Tensor, cumulative_inflation: torch.Tensor, **kwargs
+    ) -> torch.Tensor:
+        n_sims, n_timesteps = cumulative_inflation.shape
+        return torch.zeros((n_sims, n_timesteps), dtype=wealth.dtype, device=wealth.device)
 
 
 class FixedRealFloor(ConsumptionFloor):
@@ -95,7 +163,7 @@ class FixedRealFloor(ConsumptionFloor):
         self.init_floor = init_floor
         self.adjust_init_floor_for_inflation = adjust_init_floor_for_inflation
 
-    def calculate_floor(
+    def _calculate_floor(
         self,
         wealth: torch.Tensor,
         time_step: int,
@@ -109,6 +177,35 @@ class FixedRealFloor(ConsumptionFloor):
         else:
             nominal_init_floor = self.init_floor
         floor = nominal_init_floor * get_inflation_since(self.t_0, time_step, cumulative_inflation)
+        return floor
+
+    def _calculate_floor_tensor(
+        self,
+        wealth: torch.Tensor,
+        cumulative_inflation: torch.Tensor,
+        **kwargs,
+    ) -> torch.Tensor:
+        n_sims, n_timesteps = cumulative_inflation.shape
+        
+        # Get initial floor with optional inflation adjustment
+        if self.adjust_init_floor_for_inflation:
+            # Inflation from t=0 to t=t_0
+            inflation_to_t0 = cumulative_inflation[:, self.t_0] / cumulative_inflation[:, 0]
+            nominal_init_floor = self.init_floor * inflation_to_t0  # Shape: (n_sims,)
+        else:
+            nominal_init_floor = self.init_floor
+        
+        # Get inflation from t_0 to each timestep
+        # For each timestep t: inflation_multiplier = cumulative_inflation[:, t] / cumulative_inflation[:, t_0]
+        inflation_at_t0 = cumulative_inflation[:, self.t_0:self.t_0+1]  # (n_sims, 1)
+        inflation_multiplier = cumulative_inflation / inflation_at_t0  # (n_sims, n_timesteps)
+        
+        # Broadcast nominal_init_floor to (n_sims, n_timesteps)
+        if isinstance(nominal_init_floor, torch.Tensor):
+            floor = nominal_init_floor.unsqueeze(1) * inflation_multiplier
+        else:
+            floor = nominal_init_floor * inflation_multiplier
+        
         return floor
 
 
@@ -150,16 +247,36 @@ class DecliningRealFloor(FixedRealFloor):
         )
         self.decline_rate = decline_rate
     
-    def calculate_floor(
+    def _calculate_floor(
         self,
         wealth: torch.Tensor,
         time_step: int,
         cumulative_inflation: torch.Tensor,
         **kwargs,
     ) -> torch.Tensor:
-        floor = super().calculate_floor(wealth, time_step, cumulative_inflation)
+        floor = super()._calculate_floor(wealth, time_step, cumulative_inflation)
         elapsed = time_step - self.t_0
         declining_floor = floor * ((1 - self.decline_rate) ** elapsed)
+        return declining_floor
+
+    def _calculate_floor_tensor(
+        self,
+        wealth: torch.Tensor,
+        cumulative_inflation: torch.Tensor,
+        **kwargs,
+    ) -> torch.Tensor:
+        # Get base floor from parent (inflation-adjusted)
+        floor = super()._calculate_floor_tensor(wealth, cumulative_inflation, **kwargs)
+        
+        # Apply declining pattern
+        n_sims, n_timesteps = cumulative_inflation.shape
+        time_indices = torch.arange(n_timesteps, device=wealth.device)
+        elapsed = time_indices - self.t_0
+        decline_factor = (1 - self.decline_rate) ** elapsed  # Shape: (n_timesteps,)
+        
+        # Broadcast: (n_sims, n_timesteps) * (n_timesteps,)
+        declining_floor = floor * decline_factor.unsqueeze(0)
+        
         return declining_floor
 
 
@@ -188,7 +305,7 @@ class CompositeFloor(ConsumptionFloor):
         self.t_0 = t_0
         self.t_end = t_end
 
-    def calculate_floor(
+    def _calculate_floor(
         self,
         wealth: torch.Tensor,
         time_step: int,
@@ -199,3 +316,16 @@ class CompositeFloor(ConsumptionFloor):
             [floor.calculate(wealth, time_step, cumulative_inflation=cumulative_inflation, **kwargs) for floor in self.floors]
         )
         return torch.max(floor_values, dim=0).values  # Take maximum of all floors
+
+    def _calculate_floor_tensor(
+        self,
+        wealth: torch.Tensor,
+        cumulative_inflation: torch.Tensor,
+        **kwargs,
+    ) -> torch.Tensor:
+        # Stack all floor tensors: (n_floors, n_sims, n_timesteps)
+        floor_values = torch.stack(
+            [floor.calculate_tensor(wealth, cumulative_inflation, **kwargs) for floor in self.floors]
+        )
+        # Take maximum across floors dimension
+        return torch.max(floor_values, dim=0).values  # Shape: (n_sims, n_timesteps)

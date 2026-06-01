@@ -29,6 +29,9 @@ def project_onto_simplex(x: torch.Tensor, epsilon: float = 1e-8) -> torch.Tensor
     Enforces: x >= 0 and sum(x) <= 1.0
     Uses simplex projection to find the closest feasible point.
     
+    This is a VECTORIZED, DIFFERENTIABLE implementation suitable for use
+    during gradient-based optimization.
+    
     Parameters
     ----------
     x : torch.Tensor
@@ -40,47 +43,71 @@ def project_onto_simplex(x: torch.Tensor, epsilon: float = 1e-8) -> torch.Tensor
     Returns
     -------
     torch.Tensor
-        Projected allocations satisfying constraints.
+        Projected allocations satisfying constraints. Maintains gradient flow.
         
     Notes
     -----
-    This implements Euclidean projection onto the simplex:
+    This implements Euclidean projection onto the inequality-constrained simplex:
         argmin ||y - x||^2  s.t.  y >= 0, sum(y) <= 1
         
-    Algorithm from Duchi et al. (2008) "Efficient Projections onto the L1-Ball"
-    adapted for the <= 1 constraint rather than == 1.
+    The projection only modifies x when:
+    1. Any element is negative (clips to 0), OR
+    2. The sum exceeds 1 (projects to sum = 1 - epsilon)
+    
+    If x already satisfies the constraints (all non-negative and sum <= 1),
+    it is returned unchanged.
+    
+    For optimization, use this AFTER optimizer.step():
+        optimizer.step()
+        with torch.no_grad():
+            policy.data = project_onto_simplex(policy.data)
     """
     original_shape = x.shape
     x_flat = x.reshape(-1, x.shape[-1])  # Flatten to (batch, n_assets-1)
     
-    projected = torch.zeros_like(x_flat)
+    # Step 1: Clip negative values to 0
+    x_clipped = torch.clamp(x_flat, min=0.0)
     
-    for i in range(x_flat.shape[0]):
-        xi = x_flat[i]
-        
-        # If already feasible, return as-is
-        if (xi >= 0).all() and xi.sum() <= 1.0:
-            projected[i] = xi
-            continue
+    # Step 2: Check which batch elements need sum projection
+    sums = x_clipped.sum(dim=-1)
+    needs_projection = sums > 1.0
+    
+    # Initialize result with clipped values
+    projected = x_clipped.clone()
+    
+    # Step 3: For elements that exceed sum = 1, apply simplex projection
+    if needs_projection.any():
+        # Get the subset that needs projection
+        x_to_project = x_clipped[needs_projection]
         
         # Sort in descending order
-        sorted_x, _ = torch.sort(xi, descending=True)
+        sorted_x, _ = torch.sort(x_to_project, dim=-1, descending=True)
+        cumsum = torch.cumsum(sorted_x, dim=-1)
         
-        # Find the threshold
-        cumsum = torch.cumsum(sorted_x, dim=0)
-        k_array = torch.arange(1, len(sorted_x) + 1, device=x.device, dtype=x.dtype)
+        # Create index array
+        k_array = torch.arange(1, x_to_project.shape[-1] + 1, device=x.device, dtype=x.dtype).unsqueeze(0)
         
-        # For sum <= 1 constraint, target is 1 - epsilon
+        # Target sum for projection
         target = 1.0 - epsilon
-        condition = sorted_x - (cumsum - target) / k_array > 0
         
-        if condition.any():
-            k = torch.where(condition)[0][-1] + 1
-            threshold = (cumsum[k-1] - target) / k
-            projected[i] = torch.clamp(xi - threshold, min=0.0)
-        else:
-            # If all negative, project to zero
-            projected[i] = torch.zeros_like(xi)
+        # Find threshold (Duchi et al. algorithm)
+        thresholds = (cumsum - target) / k_array
+        condition = sorted_x > thresholds
+        
+        # Find the last k where condition is true
+        k_indices = torch.zeros(x_to_project.shape[0], dtype=torch.long, device=x.device)
+        for i in range(x_to_project.shape[-1]):
+            k_indices = torch.where(condition[:, i], i + 1, k_indices)
+        
+        # Get the threshold for each element
+        batch_indices = torch.arange(x_to_project.shape[0], device=x.device)
+        theta = thresholds[batch_indices, k_indices - 1]
+        
+        # Project: max(x - theta, 0)
+        x_projected = torch.clamp(x_to_project - theta.unsqueeze(-1), min=0.0)
+        
+        # Update the result
+        projected[needs_projection] = x_projected
     
     return projected.reshape(original_shape)
 
@@ -90,7 +117,7 @@ def project_simple(x: torch.Tensor, epsilon: float = 1e-8) -> torch.Tensor:
     Simple projection onto constraint set (fast approximation).
     
     Enforces: x >= 0 and sum(x) <= 1.0
-    Uses simple clipping and rescaling.
+    Uses simple clipping and rescaling. Fully differentiable.
     
     Parameters
     ----------
@@ -110,13 +137,19 @@ def project_simple(x: torch.Tensor, epsilon: float = 1e-8) -> torch.Tensor:
     Steps:
     1. Clip negative values to 0
     2. If sum > 1, scale down: x = x / sum(x) * (1 - epsilon)
+    3. If sum <= 1, return clipped values as-is
     
     Good for optimization where exact projection is less critical.
+    
+    For optimization, use this AFTER optimizer.step():
+        optimizer.step()
+        with torch.no_grad():
+            policy.data = project_simple(policy.data)
     """
-    # Clip negative values
+    # Step 1: Clip negative values
     x_proj = torch.clamp(x, min=0.0)
     
-    # Scale down if sum exceeds 1
+    # Step 2: Scale down ONLY if sum exceeds 1
     sums = x_proj.sum(dim=-1, keepdim=True)
     scale = torch.where(
         sums > 1.0,

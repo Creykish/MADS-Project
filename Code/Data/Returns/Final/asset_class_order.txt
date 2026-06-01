@@ -1,4 +1,4 @@
-Equities
-Bonds
 Bills
+Bonds
+Equities
 CPI

@@ -15,14 +15,15 @@ class ReturnGenerator(ABC):
     """Base class for return generators."""
     
     @abstractmethod
-    def generate(self, n_simulations: int, n_timesteps: int) -> np.ndarray:
+    def generate(self, n_simulations: int, n_timesteps: int) -> tuple[np.ndarray, np.ndarray]:
         """
         Generate return scenarios.
         
         Returns
         -------
-        np.ndarray
-            Shape (n_simulations, n_timesteps, n_assets)
+        tuple[np.ndarray, None | np.ndarray]
+            - Simulated returns: shape (n_simulations, n_timesteps, n_assets)
+            - Inflation factor: shape (n_simulations, n_timesteps)
         """
         pass
 
@@ -30,7 +31,7 @@ class ReturnGenerator(ABC):
 class CholeskyBootstrapReturns(ReturnGenerator):
     """Generate returns using Cholesky decomposition of covariance matrix."""
     
-    def __init__(self, mean_returns: np.ndarray, cov_matrix: np.ndarray, inflation_idx: None | int = None):
+    def __init__(self, mean_returns: np.ndarray, cov_matrix: np.ndarray, inflation_idx: int = -1):
         """
         Parameters
         ----------
@@ -44,7 +45,15 @@ class CholeskyBootstrapReturns(ReturnGenerator):
         self.n_assets = len(mean_returns)
         self.inflation_idx = inflation_idx
     
-    def generate(self, n_simulations: int, n_timesteps: int) -> np.ndarray:
+    def export_config(self) -> dict:
+        """Export configuration for reproducibility."""
+        return {
+            "type": "cholesky",
+            "mean_returns": self.mean_returns.tolist(),
+            "cov_matrix": self.cov_matrix.tolist(),
+        }
+    
+    def generate(self, n_simulations: int, n_timesteps: int) -> tuple[np.ndarray, np.ndarray]:
         """Generate returns via Cholesky decomposition."""
         rng = np.random.default_rng()
         returns = rng.multivariate_normal(
@@ -52,49 +61,81 @@ class CholeskyBootstrapReturns(ReturnGenerator):
             self.cov_matrix,
             size=(n_simulations, n_timesteps)
         )
-        inflation_factor = None
-        if self.inflation_idx is not None:
-            inflation = returns[:, :, self.inflation_idx]
-            # drop inflation from returns
-            returns = np.delete(returns, self.inflation_idx, axis=2)
-            # cumulative product to get inflation factor
-            inflation_factor = np.cumprod(1 + inflation, axis=1)
+
+        inflation = returns[:, :, self.inflation_idx]
+        # drop inflation from returns
+        returns = np.delete(returns, self.inflation_idx, axis=2)
+        # cumulative product to get inflation factor
+        inflation_factor = np.cumprod(1 + inflation, axis=1)
 
         return returns, inflation_factor
 
 
-class BlockBootstrapReturns(ReturnGenerator):
-    """Generate returns using block bootstrap of historical data."""
+class BlockBootstrapReturnsLoader(ReturnGenerator):
+    """Generate returns using block bootstrap from historical data."""
     
-    def __init__(self, historical_returns: pd.DataFrame, block_size: int = 12):
+    def __init__(self, path_to_data: str):
         """
         Parameters
         ----------
-        historical_returns : pd.DataFrame
-            Historical return data
-        block_size : int
-            Size of blocks to sample (e.g., 12 for 1-year blocks)
+        path_to_data : str
+            Path to historical returns data (CSV or similar)
         """
-        self.historical_returns = historical_returns
-        self.block_size = block_size
-        self.n_assets = historical_returns.shape[1]
+        self.path_to_data = path_to_data
+        self.data = np.load(path_to_data)  # shape (n_scenarios, n_timesteps, n_assets+1)
+        self.n_assets = self.data.shape[2] - 1  # assuming last column is inflation
+        self.data_n_timesteps = self.data.shape[1]  # number of time steps in historical data
+        self.data_n_sims = self.data.shape[0]  # number of historical scenarios available
+
+    def export_config(self) -> dict:
+        """Export configuration for reproducibility."""
+        return {
+            "type": "block_bootstrap",
+            "path_to_data": str(self.path_to_data),
+            "n_assets": self.n_assets,
+            "data_shape": (self.data_n_sims, self.data_n_timesteps, self.n_assets + 1),
+        }
     
-    def generate(self, n_simulations: int, n_timesteps: int) -> np.ndarray:
+    def generate(self, n_simulations: int, n_timesteps: int) -> tuple[np.ndarray, np.ndarray]:
         """Generate returns via block bootstrap."""
-        n_blocks_needed = int(np.ceil(n_timesteps / self.block_size))
-        historical_data = self.historical_returns.values
-        n_historical = len(historical_data)
+        if n_timesteps > self.data_n_timesteps:
+            raise ValueError("Requested timesteps exceed historical data length.")
+        if n_simulations > self.data_n_sims:
+            raise ValueError("Requested simulations exceed historical data scenarios.")
         
-        returns = np.zeros((n_simulations, n_timesteps, self.n_assets))
+        # Randomly sample blocks of historical data
+        rng = np.random.default_rng()
+        indices = rng.choice(self.data_n_sims, size=n_simulations, replace=True)
+        sampled_data = self.data[indices, :n_timesteps, :]
+        returns = sampled_data[:, :, :-1]  # all but last column
+        inflation = sampled_data[:, :, -1]  # last column is inflation
+        # cumulative product to get inflation factor
+        inflation_factor = np.cumprod(1 + inflation, axis=1)
+        return returns, inflation_factor
+    
+
+def create_generator_from_config(config: dict) -> ReturnGenerator:
+    """
+    Factory method to reconstruct a return generator from exported config.
+    
+    Parameters
+    ----------
+    config : dict
+        Configuration dictionary from export_config()
         
-        for sim in range(n_simulations):
-            simulated = []
-            for _ in range(n_blocks_needed):
-                start_idx = np.random.randint(0, n_historical - self.block_size)
-                block = historical_data[start_idx:start_idx + self.block_size]
-                simulated.append(block)
-            
-            simulated = np.vstack(simulated)[:n_timesteps]
-            returns[sim] = simulated
-        
-        return returns
+    Returns
+    -------
+    ReturnGenerator
+        Reconstructed generator instance
+    """
+    gen_type = config.get("type")
+    
+    if gen_type == "cholesky":
+        return CholeskyBootstrapReturns(
+            mean_returns=np.array(config["mean_returns"]),
+            cov_matrix=np.array(config["cov_matrix"]),
+        )
+    elif gen_type == "block_bootstrap":
+        return BlockBootstrapReturnsLoader(config["path_to_data"])
+    else:
+        raise ValueError(f"Unknown generator type: {gen_type}")

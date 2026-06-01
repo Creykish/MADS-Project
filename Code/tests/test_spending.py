@@ -13,7 +13,13 @@ All tests verify thesis equations and NZ institutional details.
 
 import pytest
 import torch
-from Code.utils.spending import (
+import sys
+from pathlib import Path
+
+# Add parent directory to path
+sys.path.insert(0, str(Path(__file__).parent.parent))
+
+from utils.spending import (
     # Constants
     NZ_SUPER_SINGLE,
     NZ_SUPER_COUPLE,
@@ -165,6 +171,134 @@ class TestConsumptionFloors:
         # Within bounds
         result_within = floor.calculate(wealth_history, time_step=5, cumulative_inflation=cumulative_inflation)
         assert torch.all(result_within > 0)
+
+
+# ==================== Test Tensor Methods ====================
+
+
+class TestConsumptionFloorTensorMethods:
+    """Test vectorized calculate_tensor methods for consumption floors."""
+    
+    def test_no_floor_tensor(self, wealth_history, cumulative_inflation):
+        """Test NoConsumptionFloor.calculate_tensor returns zeros."""
+        floor = NoConsumptionFloor()
+        result = floor.calculate_tensor(wealth_history, cumulative_inflation)
+        
+        n_sims, n_timesteps = cumulative_inflation.shape
+        assert result.shape == (n_sims, n_timesteps)
+        assert torch.all(result == 0)
+    
+    def test_fixed_real_floor_tensor(self, wealth_history, cumulative_inflation):
+        """Test FixedRealFloor.calculate_tensor matches loop-based calculate."""
+        floor = FixedRealFloor(init_floor=30_000, t_0=0)
+        
+        # Calculate using tensor method
+        result_tensor = floor.calculate_tensor(wealth_history, cumulative_inflation)
+        
+        # Calculate using loop (reference)
+        n_sims, n_timesteps = cumulative_inflation.shape
+        result_loop = torch.zeros((n_sims, n_timesteps))
+        for t in range(n_timesteps):
+            result_loop[:, t] = floor.calculate(
+                wealth_history[:, :t+1], t, cumulative_inflation=cumulative_inflation
+            )
+        
+        assert result_tensor.shape == (n_sims, n_timesteps)
+        assert torch.allclose(result_tensor, result_loop, atol=1.0)
+    
+    def test_declining_real_floor_tensor(self, wealth_history, cumulative_inflation):
+        """Test DecliningRealFloor.calculate_tensor matches loop-based calculate."""
+        floor = DecliningRealFloor(init_floor=40_000, decline_rate=0.02, t_0=0)
+        
+        # Calculate using tensor method
+        result_tensor = floor.calculate_tensor(wealth_history, cumulative_inflation)
+        
+        # Calculate using loop (reference)
+        n_sims, n_timesteps = cumulative_inflation.shape
+        result_loop = torch.zeros((n_sims, n_timesteps))
+        for t in range(n_timesteps):
+            result_loop[:, t] = floor.calculate(
+                wealth_history[:, :t+1], t, cumulative_inflation=cumulative_inflation
+            )
+        
+        assert result_tensor.shape == (n_sims, n_timesteps)
+        assert torch.allclose(result_tensor, result_loop, atol=1.0)
+    
+    def test_composite_floor_tensor(self, wealth_history, cumulative_inflation):
+        """Test CompositeFloor.calculate_tensor takes maximum across floors."""
+        floor1 = FixedRealFloor(init_floor=25_000, t_0=0)
+        floor2 = DecliningRealFloor(init_floor=45_000, decline_rate=0.03, t_0=0)
+        
+        composite = CompositeFloor([floor1, floor2], t_0=0)
+        
+        # Calculate using tensor method
+        result_tensor = composite.calculate_tensor(wealth_history, cumulative_inflation)
+        
+        # Calculate using loop (reference)
+        n_sims, n_timesteps = cumulative_inflation.shape
+        result_loop = torch.zeros((n_sims, n_timesteps))
+        for t in range(n_timesteps):
+            result_loop[:, t] = composite.calculate(
+                wealth_history[:, :t+1], t, cumulative_inflation=cumulative_inflation
+            )
+        
+        assert result_tensor.shape == (n_sims, n_timesteps)
+        assert torch.allclose(result_tensor, result_loop, atol=1.0)
+    
+    def test_floor_tensor_respects_time_bounds(self, wealth_history, cumulative_inflation):
+        """Test calculate_tensor respects t_0 and t_end bounds."""
+        floor = FixedRealFloor(init_floor=30_000, t_0=2, t_end=7)
+        
+        result = floor.calculate_tensor(wealth_history, cumulative_inflation)
+        n_sims, n_timesteps = cumulative_inflation.shape
+        
+        # Before t_0 should be zero
+        assert torch.all(result[:, 0] == 0)
+        assert torch.all(result[:, 1] == 0)
+        
+        # After t_end should be zero
+        assert torch.all(result[:, 8] == 0)
+        assert torch.all(result[:, 9] == 0)
+        
+        # Within bounds should be positive
+        assert torch.all(result[:, 2] > 0)
+        assert torch.all(result[:, 5] > 0)
+        assert torch.all(result[:, 7] > 0)
+    
+    def test_tensor_method_correctness_all_timesteps(self, wealth_history, cumulative_inflation):
+        """Test tensor method produces identical results to loop for all timesteps."""
+        floor = DecliningRealFloor(init_floor=50_000, decline_rate=0.015, t_0=0)
+        
+        # Tensor method
+        result_tensor = floor.calculate_tensor(wealth_history, cumulative_inflation)
+        
+        # Loop method (ground truth)
+        n_sims, n_timesteps = cumulative_inflation.shape
+        result_loop = torch.zeros((n_sims, n_timesteps))
+        for t in range(n_timesteps):
+            result_loop[:, t] = floor.calculate(
+                wealth_history[:, :t+1], t, cumulative_inflation=cumulative_inflation
+            )
+        
+        # Should be identical within floating point precision
+        assert torch.allclose(result_tensor, result_loop, rtol=1e-5, atol=1e-3)
+    
+    def test_tensor_method_with_nonzero_t0(self, wealth_history, cumulative_inflation):
+        """Test tensor method with t_0 > 0."""
+        floor = FixedRealFloor(init_floor=35_000, t_0=3, adjust_init_floor_for_inflation=True)
+        
+        # Tensor method
+        result_tensor = floor.calculate_tensor(wealth_history, cumulative_inflation)
+        
+        # Loop method
+        n_sims, n_timesteps = cumulative_inflation.shape
+        result_loop = torch.zeros((n_sims, n_timesteps))
+        for t in range(n_timesteps):
+            result_loop[:, t] = floor.calculate(
+                wealth_history[:, :t+1], t, cumulative_inflation=cumulative_inflation
+            )
+        
+        assert torch.allclose(result_tensor, result_loop, atol=1.0)
 
 
 # ==================== Test Desired Spending Rules ====================

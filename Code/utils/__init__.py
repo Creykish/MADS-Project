@@ -65,7 +65,7 @@ helpers : Utility functions
 from .return_generators import (
     ReturnGenerator,
     CholeskyBootstrapReturns,
-    BlockBootstrapReturns,
+    BlockBootstrapReturnsLoader,
 )
 
 # Allocation policies
@@ -74,6 +74,7 @@ from .allocation import (
     ConstantAllocation,
     TimeBasedPolicy,
     ControlMatrixPolicy,
+    project_onto_simplex,
 )
 
 # Spending policies
@@ -107,7 +108,7 @@ __all__ = [
     # Return generators
     "ReturnGenerator",
     "CholeskyBootstrapReturns",
-    "BlockBootstrapReturns",
+    "BlockBootstrapReturnsLoader",
     
     # Allocation policies
     "AllocationPolicy",
@@ -135,4 +136,5 @@ __all__ = [
     "load_historical_returns",
     "sample_without_replacement",
     "calculate_statistics",
+    "project_onto_simplex",
 ]

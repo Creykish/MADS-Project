@@ -9,6 +9,10 @@ Provides various metrics for evaluating and optimizing retirement strategies:
 
 import torch
 from abc import ABC, abstractmethod
+from typing import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from .spending import ConsumptionFloor
 
 class Objective(ABC):
     """Base class for optimization objectives."""
@@ -63,13 +67,15 @@ class CRRAUtility(Objective):
         - γ > 1: more risk averse
         - γ < 1: less risk averse
         Typical range: 1-10, literature often uses 2-5
-    consumption_floor : float
-        Minimum consumption level (subsistence). Utility is zero at this level.
-        Consumption is measured as multiples of this floor.
+    consumption_floor : ConsumptionFloor
+        Minimum consumption level (subsistence). Dynamic floor that varies 
+        with time/inflation. Utility is zero when C = C_floor.
     epsilon : float
         Small constant to avoid invalid operations on consumption at/below floor
     scaling : float
         Scaling factor for the utility values
+    normalize : bool
+        If True and gamma > 1, normalize utility
     
     Notes
     -----
@@ -81,14 +87,14 @@ class CRRAUtility(Objective):
     there is a minimum subsistence level (e.g., from social insurance).
     """
     
-    def __init__(self, gamma: float = 2.0, consumption_floor: float = 0.0, 
+    def __init__(self, gamma: float = 2.0, consumption_floor: 'ConsumptionFloor' = None, 
                  epsilon: float = 1e-8, scaling: float = 1.0, normalize: bool = False):
         if gamma < 0:
             raise ValueError(f"gamma must be non-negative, got {gamma}")
         if abs(gamma - 1.0) < 1e-6:
             raise ValueError("gamma = 1 is undefined for CRRA. Use LogConsumptionUtility instead.")
-        if consumption_floor < 0:
-            raise ValueError(f"consumption_floor must be non-negative, got {consumption_floor}")
+        if consumption_floor is None:
+            raise ValueError("consumption_floor (ConsumptionFloor object) is required")
         
         self.gamma = gamma
         self.consumption_floor = consumption_floor
@@ -96,29 +102,47 @@ class CRRAUtility(Objective):
         self.scaling = scaling
         self.normalize = normalize
     
-    def evaluate(self, wealth: torch.Tensor, consumption: torch.Tensor) -> torch.Tensor:
+    def evaluate(self, wealth: torch.Tensor, consumption: torch.Tensor, 
+                 cumulative_inflation: torch.Tensor = None) -> torch.Tensor:
         """
         Evaluate negative CRRA utility (for minimization).
+        
+        Parameters
+        ----------
+        wealth : torch.Tensor
+            Wealth trajectories (n_sims, n_timesteps + 1)
+        consumption : torch.Tensor
+            Consumption trajectories (n_sims, n_timesteps)
+        cumulative_inflation : torch.Tensor, optional
+            Cumulative inflation (n_sims, n_timesteps). Required if using dynamic floor.
         
         Returns
         -------
         torch.Tensor
             Scalar cost (negative mean CRRA utility)
         """
+        # Calculate floor values (shape: n_sims, n_timesteps)
+        if cumulative_inflation is None:
+            raise ValueError("cumulative_inflation required for ConsumptionFloor")
+        
+        floor_values = self.consumption_floor.calculate_tensor(
+            wealth=wealth,
+            cumulative_inflation=cumulative_inflation
+        )
+        
         # Ensure consumption is above floor
         consumption_safe = torch.maximum(
             consumption, 
-            torch.tensor(self.consumption_floor + self.epsilon, device=consumption.device)
+            floor_values + self.epsilon
         )
         
-        if self.consumption_floor > 0:
-            # Consumption as multiples of floor: x = C / C_floor
-            # Shifted CRRA: U(x) = (x^(1-γ) - 1) / (1-γ), where U(1) = 0
-            x = consumption_safe / self.consumption_floor
-            utility = ((x ** (1 - self.gamma)) - 1.0) / (1 - self.gamma)
-        else:
-            # No floor: standard CRRA
-            utility = (consumption_safe ** (1 - self.gamma)) / (1 - self.gamma)
+        # Consumption as multiples of floor: x = C / C_floor
+        # Shifted CRRA: U(x) = (x^(1-γ) - 1) / (1-γ), where U(1) = 0
+        x = consumption_safe / torch.maximum(
+            floor_values,
+            torch.tensor(self.epsilon, device=consumption.device)
+        )
+        utility = ((x ** (1 - self.gamma)) - 1.0) / (1 - self.gamma)
         
         if self.normalize and self.gamma > 1:
             utility = utility * (self.gamma - 1)  # Normalize so limit is 1 as consumption → ∞

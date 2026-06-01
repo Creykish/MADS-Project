@@ -1,0 +1,41 @@
+country,iso,development_year,development_classification,sample_period_start,sample_period_end
+United Kingdom,GBR,1841,Agricultural labor share,1841-01,2019-12
+Netherlands,NLD,1849,Agricultural labor share,1914-01,2019-12
+Belgium,BEL,1856,Agricultural labor share,1897-01,2019-12
+France,FRA,1866,Agricultural labor share,1866-01,2019-12
+Norway,NOR,1881,Establishment of exchange,1914-02,2019-12
+Germany,DEU,1882,Agricultural labor share,1882-01,2019-12
+Denmark,DNK,1890,Agricultural labor share,1890-01,2019-12
+Switzerland,CHE,1890,Agricultural labor share,1914-01,2019-12
+United States,USA,1890,Agricultural labor share,1890-01,2019-12
+Canada,CAN,1891,Agricultural labor share,1891-01,2019-12
+Argentina,ARG,1895,Agricultural labor share,1947-02,1966-12
+New Zealand,NZL,1896,Agricultural labor share,1896-01,2019-12
+Australia,AUS,1901,Agricultural labor share,1901-01,2019-12
+Sweden,SWE,1910,Agricultural labor share,1910-01,2019-12
+Austria,AUT,1920,Agricultural labor share,1925-02,2019-12
+Chile period I,CHL,1920,Agricultural labor share,1927-01,1970-12
+Greece,GRC,1920,Agricultural labor share,1977-01,2019-12
+Czechoslovakia,CSK,1921,Agricultural labor share,1926-01,1946-06
+Japan,JPN,1930,Agricultural labor share,1930-01,2019-12
+Portugal,PRT,1930,Agricultural labor share,1934-01,2019-12
+Italy,ITA,1931,Agricultural labor share,1931-01,2019-12
+Ireland,IRL,1936,Agricultural labor share,1936-01,2019-12
+Singapore,SGP,1947,Agricultural labor share,1970-01,2019-12
+Luxembourg,LUX,1948,OEEC membership,1982-01,2019-12
+Turkey,TUR,1948,OEEC membership,1986-02,2019-12
+Spain,ESP,1959,OEEC membership,1959-01,2019-12
+Finland,FIN,1969,OECD membership,1969-01,2019-12
+Iceland,ISL,1991,Establishment of exchange,2002-01,2019-12
+Mexico,MEX,1994,OECD membership,1994-01,2019-12
+Czech Republic,CZE,1995,OECD membership,1995-01,2019-12
+Hungary,HUN,1996,OECD membership,1996-01,2019-12
+Poland,POL,1996,OECD membership,1996-01,2019-12
+South Korea,KOR,1996,OECD membership,1996-01,2019-12
+Slovakia,SVK,2000,OECD membership,2000-01,2019-12
+Chile period II,CHL,2010,OECD membership,2010-01,2019-12
+Estonia,EST,2010,OECD membership,2010-01,2019-12
+Israel,ISR,2010,OECD membership,2010-01,2019-12
+Slovenia,SVN,2010,OECD membership,2010-01,2019-12
+Latvia,LVA,2016,OECD membership,2016-01,2019-12
+Lithuania,LTU,2018,OECD membership,2018-01,2019-12
