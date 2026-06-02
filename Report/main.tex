@@ -31,11 +31,11 @@ style=apa,
 
 \section{Foreword and Research Context}
 
-This research is conducted in partnership with Consilium NZ LTD (hereafter, Consilium). Consilium is a New Zealand-based financial services company that provides tools and consulting services to financial advisers and their clients in areas including investment management, portfolio construction, risk management, and financial planning. Consilium also offers managed funds and portfolio solutions designed to support advisers in meeting a wide range of client needs. The aim of this research partnership is to examine and improve lifetime asset allocation strategies for individual investors, with particular focus on retirees in the New Zealand context. Our objective is to produce insights and recommendations that may help Consilium better support advisers and their clients.
+This research is conducted in partnership with Consilium NZ LTD (hereafter, Consilium). Consilium is a New Zealand-based financial services company that provides tools and consulting services to financial advisers and their clients in areas including investment management, portfolio construction, risk management, and financial planning. Consilium also offers managed funds and portfolio solutions designed to support advisers in meeting a wide range of client needs. The aim of this research partnership is to examine and improve lifetime asset allocation strategies for individual investors, with particular focus on retirees in the New Zealand context. Our objective is to produce insights and recommendations that may help Consilium better support its tools, services, and clients in making informed and effective decisions about asset allocation through retirement. In this report, we present the findings of our research, which includes a review of the relevant literature, the development and implementation of a simulation and optimization framework for evaluating asset allocation strategies, and the analysis of results to derive practical implications for investors and financial advisers.
 
-Although this research is conducted in partnership with Consilium, the views expressed in this paper are ours and do not necessarily reflect the official policy or position of Consilium. We retain full academic independence in the design, analysis, and reporting of this work. We also retain full ownership of the intellectual property associated with this research, while granting Consilium a non-exclusive licence to use the findings internally and share them with clients and partners. No confidential or proprietary information provided by Consilium has been used in this study.
+Although this research is conducted in partnership with Consilium, the views expressed in this paper are the author's and do not necessarily reflect the official policy or position of Consilium. The author retains full academic independence in the design, analysis, and reporting of this work. The author also retains full ownership of the intellectual property associated with this research, while granting Consilium a non-exclusive licence to use the findings internally and share them with clients and partners. No confidential or proprietary methods or information provided by Consilium has been disclosed in this study.
 
-We thank Consilium for their support and collaboration in this research project, and for the feedback that has helped shape the direction and focus of this work.
+We thank Consilium for their support and collaboration in this research project, and for the feedback that has helped shape the direction and focus of this work. We would also like to acknowledge the support of Ian Perera from the New Zealand Society of Actuaries (NZSA) for his interest and feedback on this research. Any errors or omissions in this report are the responsibility of the author alone.
 
 
 \tableofcontents
@@ -122,21 +122,21 @@ Consilium does not have an official position on the optimal glidepath shape nor 
 
 \begin{table}[h!]
   \centering
-  \caption{Availability of portfolio models across risk levels by family}
+  \caption{Availability of Consilium model portfolios across risk levels by family}
   \label{tab:portfolio_availability}
   \begin{tabular}{lccccc}
   \toprule
   \textbf{Risk Level} & \textbf{Synergy} & \textbf{Synergy} & \textbf{Synergy} & \textbf{SRI} & \textbf{Classic} \\
   \textbf{(Growth/Income)} & \textbf{PIE} & \textbf{Classic} & \textbf{SRI} & \textbf{} & \textbf{} \\
   \midrule
-    20/80 & -- & x & x & x & x \\
+    20/80 & - & x & x & x & x \\
     30/70 & x & x & x & x & x \\
     40/60 & x & x & x & x & x \\
     50/50 & x & x & x & x & x \\
     60/40 & x & x & x & x & x \\
-    70/30 & -- & x & x & x & x \\
+    70/30 & - & x & x & x & x \\
     80/20 & x & x & x & x & x \\
-    90/10 & -- & x & x & x & x \\
+    90/10 & - & x & x & x & x \\
     98/02 & x & x & x & x & x \\
       \bottomrule
   \end{tabular}
@@ -199,7 +199,7 @@ Rates are set in Schedule 1 of the New Zealand Superannuation and Retirement Inc
   \end{tabular}
 \end{table}
 
-After deduction of standard tax (code M), the fortnightly after-tax rates are approximately \$1,110 for a single person living alone and \$1,708 combined for a couple, equivalent to roughly \$28,900 and \$44,400 per year respectively \parencite{winz2026benefitRates, winz2026SuperRates}. These figures differ slightly from those used in \textcite{matthews2025guidelines} (who report \$519 and \$799 per week for singles and couples respectively) due to differing tax rate assumptions; this study uses the WINZ statutory rates as the primary reference.
+After deduction of standard tax (code M), the fortnightly after-tax rates are approximately \$1,110 for a single person living alone and \$1,708 combined for a couple, equivalent to roughly \$28,900 and \$44,400 per year respectively \parencite{winz2026benefitRates, winz2026SuperRates}.
 
 \subsubsection*{Indexation and the Wage Floor}
 
@@ -290,7 +290,7 @@ For the purposes of this study, we treat the expenditure guidelines as an empiri
 
 \section{Methods for Simulating and Optimising Lifetime Wealth Trajectories}
 
-The crux of our analysis is the ability to simulate realistic wealth trajectories for individual investors. This in and of itself is not a novel contribution, but the specific features of our simulation framework are designed to accommodate the particular questions we seek to answer. The goal, however, is to develop a flexible, modular framework that can be extended beyond the specific questions of this thesis to support ongoing research and policy analysis for Consilium and others. In this respect, while the specific questions we ask in this thesis are narrowly focused on the optimality of age-based glidepaths in the New Zealand retirement context, the framework we develop is intended to be more broadly applicable to a wide range of questions in the lifetime asset allocation space, including questions about optimal whole-life allocation and spending strategies, the role of housing and other non-financial assets, and the interaction between retirement savings and other life goals such as homeownership. To this end, much of this section will describe the general structure of the simulation framework, with specific details about the calibration to the New Zealand context and the particular questions we ask in this thesis reserved for later sections. Included also, in the appendix of this thesis will be possible extensions to the framework that could be implemented in future work, such as the inclusion of housing and other non-financial assets, and the modelling of homeownership decisions and their interaction with retirement savings and spending.
+The crux of our analysis is the ability to simulate realistic wealth trajectories for individual investors. This in and of itself is not a novel contribution, but the specific features of our simulation framework are designed to accommodate the particular questions we seek to answer. The goal, however, is to develop a flexible, modular framework that can be extended beyond the specific questions of this report to support ongoing research and policy analysis for Consilium and others. In this respect, while the specific questions we ask in this report are narrowly focused on the optimality of age-based glidepaths in the New Zealand retirement context, the framework we develop is intended to be more broadly applicable to a wide range of questions in the lifetime asset allocation space, including questions about optimal whole-life allocation and spending strategies, the role of housing and other non-financial assets, and the interaction between retirement savings and other life goals such as homeownership. To this end, much of this section will describe the general structure of the simulation framework, with specific details about the calibration to the New Zealand context and the particular questions we ask in this report reserved for later sections. Included also, in the appendix of this report will be possible extensions to the framework that could be implemented in future work, such as the inclusion of housing and other non-financial assets, and the modelling of homeownership decisions and their interaction with retirement savings and spending.
 
 The problem of simulating lifetime wealth trajectories has essentially two components: the methods used to simulate investor behavoiur and the methods used to simulate return dynamics. The former includes the specification of the asset allocation strategy, the spending rule, and the risk measure used to evaluate outcomes. The latter includes the choice of return-generation methodology (IID Monte Carlo, historical rolling periods, or block bootstrap). In this section, we will describe the general structure of our simulation framework, and how it accommodates different choices in these areas. We will also discuss the advantages and disadvantages of different approaches, and how we have calibrated our framework to the New Zealand context.
 
@@ -334,7 +334,7 @@ Note that the system of equations above is agnostic to the return-generation pro
 \begin{asidebox}
 \asideboxtitle{Implications for Consilium: Matrix Operations and Computational Efficiency}
 
-The effort taken to express the model in matrix form is not only for mathematical clarity; it also allows us to leverage vectorised operations through highly optimised linear algebra libraries (for example, \texttt{numpy} \parencite{numpy}) to vectorise the the calculations across the matrices longest dimension (the path dimension). This means that we can compute the wealth evolution across all paths virtually simultaneously using efficient matrix operations, rather than iterating through each path sequentially with for-loops. This vectorised approach can take advantage of modern CPU architectures and optimised libraries to perform computations much faster than a non-vectorised implementation, which can substantially accelerate simulation when path counts and horizon lengths are large. Compared to the GPS, which takes upwards to 30 seconds to simulate less than 1000 paths over a 30-year horizon, our matrix-based implementation can simulate 100,000 paths over a 50-year horizon in under a second on a standard laptop. This dramatic improvement in computational efficiency enables us here to explore a much wider range of strategies with much more vigour than would be possible with the GPS tool, and also opens the door to more complex strategies that may require more computational resources, such as those that involve path-dependent allocations or more sophisticated risk measures.
+The effort taken to express the model in matrix form is not only for mathematical clarity; it also allows us to leverage vectorised operations through highly optimised linear algebra libraries (for example, \texttt{numpy} \parencite{numpy}) to vectorise the the calculations across the matrices longest dimension (the path dimension). This means that we can compute the wealth evolution across all paths virtually simultaneously using efficient matrix operations, rather than iterating through each path sequentially with for-loops. This vectorised approach can take advantage of modern CPU architectures and optimised libraries to perform computations much faster than a non-vectorised implementation, which can substantially accelerate simulation when path counts and horizon lengths are large. Compared to the GPS, which takes upwards to 30 seconds to simulate less than 1000 paths over a 30-year horizon, our matrix-based implementation can simulate 500,000 paths over the same horizon in under a second on a standard laptop. This dramatic improvement in computational efficiency enables us here to explore a much wider range of strategies with much more vigour than would be possible with the GPS tool, and also opens the door to more complex strategies that may require more computational resources, such as those that involve path-dependent allocations or more sophisticated risk measures.
 
 Refactoring the GPS tool to use matrix operations would be a significant improvement in its computational efficiency and flexibility. It would allow Consilium to support more complex strategies and larger simulations, which could significantly enhance the tool's value for financial advisors and their clients. 
 \end{asidebox}
@@ -351,13 +351,11 @@ Net inflows, \(\pi_t\), are modelled by equation \ref{net_inflows} as the differ
   \pi_t = y_t - \hat{c}_t
 \end{equation}
 
-Note that we will constrain \(\pi_{t+1} \ge -W_{t} \) such that the investor cannot withdraw more than their current wealth balance (go into debt). This is a realistic constraint, as it is not possible for a retiree to withdraw more than their current wealth balance. In practice, retirees may have access to credit or other sources of funds that could allow them to temporarily withdraw more than their current wealth balance, but this is not a sustainable strategy and would likely lead to financial distress in the long run. By imposing this constraint, we ensure that our simulations reflect the realistic limitations faced by retirees in managing their withdrawals.
-
+Note that we will constrain \(\pi_{t+1} \ge -W_{t} \) such that the investor cannot withdraw more than their current wealth balance (go into debt). This is a realistic constraint for a typical retiree. While retirees may have access to credit or other sources of funds that could allow them to temporarily withdraw more than their current wealth balance, this is not a sustainable strategy and would likely lead to financial distress in the long run.
 
 \subsubsection{Inflation}
 
-Central to any model of consumption is the treatment of inflation. In the context of retirement planning, inflation is a critical factor that erodes the purchasing power of money over time and therefore has a significant impact on the real value of withdrawals and the sustainability of retirement savings. Inflated dollar amounts can also be a significant source of confusion, as retirees and planners may have different perceptions of what constitutes a reasonable withdrawal amount depending on whether they are thinking in ``real'' (inflation-adjusted) or ``nominal'' (actual dollar) terms. Real consumption refers to the purchasing power of the retiree's spending, while nominal consumption refers to the actual dollar amount spent. The two are related by the inflation rate, which erodes the purchasing power of money over time. 
-
+Central to any model of consumption is the treatment of inflation. In the context of retirement planning, inflation is a critical factor that erodes the purchasing power of money over time and therefore has a significant impact on the real value of withdrawals and the sustainability of retirement savings. Inflated dollar amounts can also be a significant source of confusion, as retirees and planners may have different perceptions of what constitutes a reasonable withdrawal amount depending on whether they are thinking in ``real'' (inflation-adjusted) or ``nominal'' (actual dollar) terms.
 
 In our framework, we denote the rate of inflation at time \(t\) as \(\iota_t\), and the cumulative inflation factor from time 0 to time \(t\) as \(s_t = \prod_{i=1}^{t} (1 + \iota_i)\). Real dollar amounts can be converted to nominal dollars by multiplying some initial real amount by the cumulative inflation factor. At \(t=0\) (the point of retirement), real and nominal dollar amounts are the same, but as time progresses, the real value of a given nominal amount will decline if there is positive inflation. For example, if a retiree desires to maintain a constant real consumption level of \$50,000 per year, and cumulative inflation over the first three years of retirement is 10\%, then the nominal withdrawal amounts in year three would need to be \$55,000 to maintain the same real purchasing power. 
 
@@ -424,13 +422,13 @@ To model this more realistically, we specify a minimum real spending requirement
 c_t = \max\left(c^*_t, \underline{c}_t\right)
 \end{equation}
 
-This consumption floor is designed such that it can be variable over time, or even with respect to other state variables such as wealth or health status. For example, the floor could be set to reflect the empirical expenditure benchmarks for New Zealand retirees, which vary by household composition and housing tenure. The floor could also be adjusted for inflation or other factors that affect the cost of living over time. Random shocks to the floor could also be introduced to reflect unexpected expenses, such as health shocks or changes in housing costs. Based on emprical evidence, \textcite{riig2024spending} suggest that the spending guidelines from \textcite{matthews2025guidelines} could decline in real terms by approximately 2\% per year after age 65. This can be modelled as in equation \ref{riig_consumption_floor} as follows:
+This consumption floor is designed such that it can be variable over time, or even with respect to other state variables such as wealth or health status. For example, the floor could be set to reflect the empirical expenditure benchmarks for New Zealand retirees, which vary by household composition and housing tenure. The floor could also be adjusted for inflation or other factors that affect the cost of living over time. Random shocks to the floor could also be introduced to reflect unexpected expenses, such as health shocks or changes in housing costs. This can be modelled as in equation \ref{real_consumption_floor} as follows:
 
-\begin{equation}\label{riig_consumption_floor}
-  \underline{c}_t = \underline{c}_0 \times (1 - 0.02)^{t} \times s_t
+\begin{equation}\label{real_consumption_floor}
+  \underline{c}_t = \underline{c}_0 \times s_t
 \end{equation}
 
-Where \(\underline{c}_0\) is the initial real consumption floor at age 65, and \(s_t\) is the cumulative inflation factor at time \(t\) since retirement. 
+Where \(\underline{c}_0\) is the initial consumption floor at age 65, and \(s_t\) is the cumulative inflation factor at time \(t\) since retirement. 
 
 
 \subsubsection{Income}
@@ -596,7 +594,7 @@ To illustrate this more concretely, consider Figure \ref{control_matrix_example}
     \label{control_matrix_example}
 \end{figure}
 
-The key insight is that the dimensions of \(\theta\) correspond to the different state variables that the policy can depend on. Here we have extended it to two dimensions, time and wealth, which allows for policies that can adjust allocations based on both the investor's current age (or time since retirement) and their current wealth level. It is also possible to extend this approach to allow for dependence on additional state variables, such as health status or macroeconomic indicators, by adding additional dimensions to the control matrix. These can be both discrete and continuous, and the use of interpolation allows us to have a parsimonious parameterisation of the policy function while still allowing for a high degree of flexibility in the shape of the asset allocation strategy across different state variables. Compared to a neural network approach (as in \textcite{parker2024simple}), the control-matrix approach allows for a more interpretable policy representation, as the parameters directly correspond to allocations at specific points in the state space, and the interpolation provides a clear mechanism for how the policy varies across different states. However, it is probably less flexible and will have a higher number of parameters than a neural network at higher dimensions, which is a trade-off that we are willing to make for the sake of interpretability in this analysis.
+A key concept in this framework is that the dimensions of \(\theta\) correspond to the different state variables that the policy can depend on. Here we have extended it to two dimensions, time and wealth, which allows for policies that can adjust allocations based on both the investor's current age and their current wealth level. It is also possible to extend this approach to allow for dependence on additional state variables, such as health status or macroeconomic indicators, by adding additional dimensions to the control matrix. These can be both discrete and continuous, and the use of interpolation allows us to have a parsimonious parameterisation of the policy function while still allowing for a high degree of flexibility in the shape of the asset allocation strategy across different state variables. Compared to a neural network approach (as in \textcite{parker2024simple}), the control-matrix approach allows for a more interpretable policy representation, as the parameters directly correspond to allocations at specific points in the state space, and the interpolation provides a clear mechanism for how the policy varies across different states. However, it is probably less flexible and will have a higher number of parameters than a neural network at higher dimensions, which is a trade-off that we are willing to make for the sake of interpretability in this analysis.
 
 
 \subsubsection{Optimisation of Asset Allocation Policies}
@@ -693,7 +691,7 @@ International equity returns are constructed as market-capitalization-weighted a
 
 To generate bootstrapped return paths, we resample contiguous blocks of years from the historical data, where each block corresponds to a continuous period within a single country's history. The JST database has gaps due to wars, data quality issues, and currency crises, so we first identify all continuous periods and prevent sampling across discontinuities. 
 
-For each simulated path of length $T = 40$ years, we repeatedly draw random blocks until we accumulate the required number of observations. Each block starts at a randomly selected position within a continuous country period, and has a length drawn from a Poisson distribution with mean $\lambda = 10$ years. Blocks are truncated at period boundaries to prevent artificial transitions between countries. We pre-generate approximately 50,000 paths of 40 years each by partitioning a large batch of 2 million block draws into non-overlapping segments.
+For each simulated path of length $T = 40$ years, we repeatedly draw random blocks until we accumulate the required number of observations. Each block starts at a randomly selected position within a continuous country period, and has a length drawn from a Poisson distribution with mean $\lambda = 10$ years. Blocks are truncated at period boundaries to prevent artificial transitions between countries. We pre-generate approximately 500,000 paths of 40 years each by partitioning a large batch of 2 million block draws into non-overlapping segments.
 
 This procedure ensures that each bootstrap path preserves the empirical autocorrelation structure within blocks (capturing business cycle dynamics and mean reversion), the cross-sectional correlation among asset classes and inflation, and the time-varying composition of the global investment opportunity set. The detailed sampling algorithm, period identification procedure, and implementation notes are provided in Appendix \ref{appendix:block_bootstrap_sampling_procedure}.
 
@@ -732,6 +730,105 @@ Bills & 0.61\% per year \\
 Having established the simulation and optimisation framework, we now apply it to evaluate candidate lifetime allocation policies in the New Zealand retirement context.
 
 
+\subsection{Investor Preferences and Risk Measures}
+
+For this purposes of this report, we are interested simulating a house hold consisting of two retirees of the same age. We simulate the wealth trajectories of this household over a 35-year retirement period, from age 65 to age 100. Our investors/retirees have an assumed real consumption floor equal to the ``No Frills Metro'' expendature as defined by the \textcite{matthews2025guidelines}. The couple also have a desired spending target equal to the ``Choice Metro'' expenditure, which declines by 2\% in real terms each year (until it reaches the consumption floar at around age 90), similar to the data and recommendations presented in \textcite{riig2024spending}. In this picture, our retiring couple is one that knows approximately how much they want to spend in retirement, and how little they absolutely need. They are primarily concerned with the risk of running out of money. Spending above the floor is valuable to them, but they are not willing to take on a lot of risk to achieve it. This is a common situation for many retirees, who have a good sense of their desired lifestyle in retirement and the minimum they need to get by, and are primarily concerned with ensuring that they do not run out of money.
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=0.6\textwidth]{../Figs/desired_spending.png}
+    \caption{Desired spending targets and consumption floors for the simulated retirees, based on the expenditure guidelines from \textcite{matthews2025guidelines} and \textcite{riig2024spending}. The desired spending target declines in real terms by 2\% per year, while the consumption floor remains constant in real terms.}
+    \label{fig:desired_spending}
+\end{figure}
+
+
+\subsubsection{Heuristics of Risk and Success}
+
+The relative sucess of a strategy is informed by the conservative nature of the hypothesised retirees, who are primarily concerned with the risk of running out of money. To capture this, we focus on two key metrics: the bankruptcy density and the impoverishment density. The bankruptcy density measures how frequently wealth hits zero across the entire simulation ensemble and time horizon, while the impoverishment density counts occurrences where ex-post real consumption falls below the inflation-adjusted consumption floor. These metrics provide a more direct measure of the risks that our retirees are concerned about.
+
+Let $W_{i,t}$ and $C_{i,t}$ denote wealth and consumption for simulation $i\in\{1,\dots,N_{\mathrm{sims}}\}$ at time $t\in\{1,\dots,T\}$. Define the binary bankruptcy indicator
+\begin{equation}\label{eq:bankruptcy_indicator}
+B_{i,t} \;=\; \begin{cases} 1 & \text{if } W_{i,t} = 0, \\ 0 & \text{otherwise.} \end{cases}
+\end{equation}
+
+The \emph{bankruptcy density} measures how frequently wealth hits zero across the entire simulation ensemble and time horizon:
+\begin{equation}\label{eq:bankruptcy_density}
+\mathrm{Bankruptcy\ Density} \,=\, \frac{1}{N_{\mathrm{sims}}\,T} \sum_{i=1}^{N_{\mathrm{sims}}}\sum_{t=1}^{T} B_{i,t}.
+\end{equation}
+
+The \emph{impoverishment density} counts occurrences where ex-post real consumption falls below the inflation-adjusted consumption floor $F_{i,t}$ (see Equation \ref{real_consumption_floor}). Using the indicator
+\begin{equation}\label{eq:impoverishment_indicator}
+I_{i,t} \;=\; \begin{cases} 1 & \text{if } C_{i,t} < F_{i,t}, \\ 0 & \text{otherwise,} \end{cases}
+\end{equation}
+we define
+\begin{equation}\label{eq:impoverishment_density}
+\mathrm{Impoverishment\ Density} \,=\, \frac{1}{N_{\mathrm{sims}}\,T} \sum_{i=1}^{N_{\mathrm{sims}}}\sum_{t=1}^{T} I_{i,t}.
+\end{equation}
+
+\begin{asidebox}
+  \asideboxtitle{A Note on the Appropriateness of these Risk Measures for more Risk-Tolerant Investors}
+  
+  While the risk measures used here are appropriate for the very risk averse retirees we are modelling, they are not the only relevant metrics for evaluating all asset allocation or spending strategies, particularly for clients who are looking to maximise the expected utility of their consumption rather than just minimise the risk of running out of money. While the scope of this report is limited, a potential extension of this work would be to evaluate the performance of different asset allocation strategies under a wider range of risk measures, including those that capture the expected utility of consumption, the variability of consumption, or other dimensions of risk and reward that may be relevant for different types of investors. This may also allow the optimisation of dynamic spending strategies in addition to asset allocation strategies, which is an important area of research in retirement planning that we have not explored in this report. Here we focus only on retirees who have relatively fixed spending targets, but a valuable future extension to this work would be to evaluate the performance of different asset allocation strategies for retirees with more flexible spending targets, who may be willing to adjust their consumption in response to changes in their wealth or market conditions. This would require a more complex modelling framework that allows for dynamic spending strategies, and it would also require the use of different risk measures that capture the trade-offs between consumption and wealth in a more nuanced way.
+
+\end{asidebox}
+
+
+\subsubsection{Cost Functions for Optimisation}
+
+The heuristics described above provide interpretable metrics for evaluating asset allocation strategies, but they are not differentiable with respect to policy parameters $\theta$ and are thus unsuitable for gradient-based optimisation. We therefore construct a differentiable cost function that serves as a proxy for these risk measures and encourages the optimiser to find policies aligned with retiree preferences.
+
+\paragraph{CRRA Utility Component}
+
+We employ a shifted CRRA (Constant Relative Risk Aversion) utility function defined over normalized consumption. Let $c_{i,t}$ denote real consumption in simulation path $i$ at time $t$, $\underline{c}_{i,t}$ the corresponding inflation-adjusted consumption floor (Equation \ref{real_consumption_floor}), and $w_{i,t}$ the simulated wealth. We define the normalized consumption multiple as
+\begin{equation}
+x_{i,t} \;=\; \frac{c_{i,t}}{\underline{c}_{i,t}}\,.
+\end{equation}
+The shifted CRRA utility (with $U(1)=0$ at the floor) is
+\begin{equation}
+U_{\gamma}(x) \,=\, \frac{x^{1-\gamma} - 1}{1-\gamma} \quad (\gamma > 1).
+\end{equation}
+The CRRA utility has a finite upper bound when $\gamma>1$:
+\begin{equation}
+\lim_{x\to\infty} U_{\gamma}(x) = \frac{1}{\gamma-1}.
+\end{equation}
+Throughout all optimizations, we restrict to $\gamma > 1$ to ensure strict risk aversion. To make utility values comparable across different risk aversion parameters, we apply a normalization for $\gamma>1$:
+\begin{equation}\label{eq:normalized_crra}
+\tilde{U}_{\gamma}(x) \,=\, (\gamma-1)\,U_{\gamma}(x) \,=\, (\gamma-1)\frac{x^{1-\gamma}-1}{1-\gamma} \,.
+\end{equation}
+By construction $\lim_{x\to\infty}\tilde{U}_{\gamma}(x)=1$ for $\gamma>1$, simplifying comparisons across parameter values. Based on practical experience, we use $\gamma=5$, which provides good balance between encouraging policies that minimize downside risk while allowing flexibility in consumption above the floor. The CRRA-based cost is the negative mean normalized utility across all simulations and time periods:
+\begin{equation}\label{eq:cost_crra}
+\mathrm{Cost}_{\mathrm{CRRA}} \,=\, -\frac{1}{N_{\mathrm{sims}}\,T} \sum_{i=1}^{N_{\mathrm{sims}}}\sum_{t=1}^{T} \tilde{U}_{\gamma} \!\left(\frac{c_{i,t}}{\underline{c}_{i,t}}\right).
+\end{equation}
+
+\paragraph{Wealth Penalty Component}
+
+We found that CRRA utility alone provides insufficient incentive to avoid low-wealth outcomes. We therefore add a sigmoid-based penalty that directly discourages zero or near-zero wealth:
+\begin{equation}\label{eq:penalty_wealth}
+\mathrm{Penalty}_{\mathrm{wealth}} \,=\, -\frac{1}{N_{\mathrm{sims}}\,T} \sum_{i=1}^{N_{\mathrm{sims}}}\sum_{t=1}^{T} \sigma\bigl(k\,w_{i,t}\bigr) \quad\text{where}\quad \sigma(z)\,=\,\frac{1}{1+e^{-z}}\,.
+\end{equation}
+
+The parameter $k$ controls the steepness of the sigmoid ``knee,'' directly affecting how strongly the penalty increases as wealth approaches zero. For large $k \to \infty$, the penalty approaches a step function resembling the bankruptcy indicator (Equation \ref{eq:bankruptcy_indicator}), creating a hard constraint against zero wealth. For smaller $k$, the function softly penalizes low but positive wealth outcomes, encouraging solutions that maintain a wealth buffer. However, if $k$ is too small, the penalty becomes ineffective; if too large, the optimization landscape becomes ill-conditioned. From practical experience with the spending and wealth ranges in our model, $k = 1 \times 10^{-4}$ provides good balance between effective downside protection and manageable optimization dynamics.
+
+\paragraph{Combined Cost Function}
+
+The total cost to minimize is:
+\begin{equation}\label{eq:total_cost}
+\mathrm{Cost} \,=\, \mathrm{Cost}_{\mathrm{CRRA}} \, + \, \mathrm{Penalty}_{\mathrm{wealth}}.
+\end{equation}
+
+Figure \ref{fig:cost_function_components} illustrates how these cost function components vary across different risk aversion parameters $\gamma$ and wealth penalty steepness parameters $k$. The left panel shows the normalized CRRA utility as a function of normalized consumption, demonstrating increased risk aversion (steeper utility curves) for larger values of $\gamma$. The right panel shows the sigmoid wealth penalty for different steepness values, illustrating how larger $k$ values create sharper penalties as wealth approaches zero.
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=0.95\textwidth]{../Figs/cost_function_components.png}
+    \caption{Components of the cost function used in optimization. Panel (a) shows normalized CRRA utility $\tilde{U}_{\gamma}(x)$ as a function of normalized consumption $x = c / \underline{c}$ for different risk aversion coefficients ($\gamma = 2, 3, 5, 8, 10$). Higher $\gamma$ values produce steeper, more concave utility curves reflecting greater risk aversion. Panel (b) shows the sigmoid wealth penalty $-\sigma(k w)$ for different steepness parameters ($k = 10^{-5}$ to $10^{-2}$). Larger $k$ values create sharper ``knees'' that more aggressively penalize low and negative wealth outcomes.}
+    \label{fig:cost_function_components}
+\end{figure}
+
+
+
+
+
 \subsection{Asset Allocation in Zero Dimensions: Fixed Allocation Strategies}
 
 
@@ -745,6 +842,50 @@ Having established the simulation and optimisation framework, we now apply it to
 \section{Discussion and Implications}
 
 \section{Conclusion}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+% APENDIX APENDIX APENDIX APENDIX APENDIX APENDIX APENDIX APENDIX APENDIX APENDIX APENDIX APENDIX
+% APENDIX APENDIX APENDIX APENDIX APENDIX APENDIX APENDIX APENDIX APENDIX APENDIX APENDIX APENDIX
+% APENDIX APENDIX APENDIX APENDIX APENDIX APENDIX APENDIX APENDIX APENDIX APENDIX APENDIX APENDIX
+% APENDIX APENDIX APENDIX APENDIX APENDIX APENDIX APENDIX APENDIX APENDIX APENDIX APENDIX APENDIX
+% APENDIX APENDIX APENDIX APENDIX APENDIX APENDIX APENDIX APENDIX APENDIX APENDIX APENDIX APENDIX
+% APENDIX APENDIX APENDIX APENDIX APENDIX APENDIX APENDIX APENDIX APENDIX APENDIX APENDIX APENDIX
+% APENDIX APENDIX APENDIX APENDIX APENDIX APENDIX APENDIX APENDIX APENDIX APENDIX APENDIX APENDIX
+% APENDIX APENDIX APENDIX APENDIX APENDIX APENDIX APENDIX APENDIX APENDIX APENDIX APENDIX APENDIX
+% APENDIX APENDIX APENDIX APENDIX APENDIX APENDIX APENDIX APENDIX APENDIX APENDIX APENDIX APENDIX
+% APENDIX APENDIX APENDIX APENDIX APENDIX APENDIX APENDIX APENDIX APENDIX APENDIX APENDIX APENDIX
+% APENDIX APENDIX APENDIX APENDIX APENDIX APENDIX APENDIX APENDIX APENDIX APENDIX APENDIX APENDIX
+% APENDIX APENDIX APENDIX APENDIX APENDIX APENDIX APENDIX APENDIX APENDIX APENDIX APENDIX APENDIX
+% APENDIX APENDIX APENDIX APENDIX APENDIX APENDIX APENDIX APENDIX APENDIX APENDIX APENDIX APENDIX
+% APENDIX APENDIX APENDIX APENDIX APENDIX APENDIX APENDIX APENDIX APENDIX APENDIX APENDIX APENDIX
+% APENDIX APENDIX APENDIX APENDIX APENDIX APENDIX APENDIX APENDIX APENDIX APENDIX APENDIX APENDIX
+% APENDIX APENDIX APENDIX APENDIX APENDIX APENDIX APENDIX APENDIX APENDIX APENDIX APENDIX APENDIX
+% APENDIX APENDIX APENDIX APENDIX APENDIX APENDIX APENDIX APENDIX APENDIX APENDIX APENDIX APENDIX
+% APENDIX APENDIX APENDIX APENDIX APENDIX APENDIX APENDIX APENDIX APENDIX APENDIX APENDIX APENDIX
+% APENDIX APENDIX APENDIX APENDIX APENDIX APENDIX APENDIX APENDIX APENDIX APENDIX APENDIX APENDIX
+% APENDIX APENDIX APENDIX APENDIX APENDIX APENDIX APENDIX APENDIX APENDIX APENDIX APENDIX APENDIX
+% APENDIX APENDIX APENDIX APENDIX APENDIX APENDIX APENDIX APENDIX APENDIX APENDIX APENDIX APENDIX
+% APENDIX APENDIX APENDIX APENDIX APENDIX APENDIX APENDIX APENDIX APENDIX APENDIX APENDIX APENDIX
+% APENDIX APENDIX APENDIX APENDIX APENDIX APENDIX APENDIX APENDIX APENDIX APENDIX APENDIX APENDIX
+% APENDIX APENDIX APENDIX APENDIX APENDIX APENDIX APENDIX APENDIX APENDIX APENDIX APENDIX APENDIX
+
+
+
+
+
 
 
 
@@ -790,19 +931,7 @@ The algorithm proceeds as follows:
     \end{equation}
 \end{enumerate}
 
-\subsection{Properties and Computational Complexity}
-
-This projection has several desirable properties for our optimisation problem:
-
-\begin{itemize}
-    \item \textbf{Feasibility:} After each gradient step, the policy parameters remain feasible (non-negative and summing to at most one) while staying as close as possible to the unconstrained gradient update in Euclidean distance.
-    
-    \item \textbf{Optimality preservation:} The projection preserves the optimality conditions for constrained optimisation. If the unconstrained optimum lies outside the feasible set, the projected gradient descent algorithm is guaranteed to converge to a local minimum on the constraint boundary under standard regularity conditions, provided the step size is appropriately chosen.
-    
-    \item \textbf{Computational efficiency:} The algorithm runs in \(\mathcal{O}(n \log n)\) time due to the sorting step, where \(n\) is the number of risky assets. For our typical applications with 2--3 risky asset classes, this overhead is negligible.
-\end{itemize}
-
-This approach allows us to perform unconstrained gradient-based optimisation while ensuring that all iterates remain within the feasible allocation space, which is critical for the economic interpretability and practical implementation of the resulting policies.
+\clearpage
 
 \section{Replication and Discussion of Control Matrix Optimisation as Proposed by \textcite{Makinen2024}}
 
@@ -852,7 +981,7 @@ Additionally, the control matrix has limited effective resolution in early perio
 \section{Block-Bootstrapping: Investable Universes}
 \label{appendix:block_bootstrap_investable_universes}
 
-To implement the block bootstrap methodology for New Zealand retirees, we must first construct appropriate investable universes from the JST database. A critical insight from \textcite{anarkulova2025beyond} is that the bootstrap procedure should reflect the investment opportunity set available to the domestic investor, which differs from simply using aggregate global indices. Specifically, at each bootstrap iteration, we designate one country as the ``home'' or ``domestic'' country, representing the investor's perspective, and construct return series for three asset classes relative to that country's viewpoint: domestic short-term government bills (cash), domestic intermediate-term government bonds, and international equities.
+To implement the block bootstrap methodology for New Zealand retirees, we must first construct appropriate investable universes from the JST database \parencite{jorda2017macrofinancial}. A critical insight from \textcite{anarkulova2025beyond} is that the bootstrap procedure should reflect the investment opportunity set available to the domestic investor, which differs from simply using aggregate global indices. Specifically, at each bootstrap iteration, we designate one country as the ``home'' or ``domestic'' country, representing the investor's perspective, and construct return series for three asset classes relative to that country's viewpoint: domestic short-term government bills (cash), domestic intermediate-term government bonds, and international equities.
 
 This approach requires us to define, for each year in the historical data, which countries can serve as domestic markets and which can serve as sources of foreign returns. These definitions are not uniform across time, as data availability and quality vary significantly across countries and periods. The following sections describe how we construct these investable universes and define the corresponding asset classes.
 
@@ -905,11 +1034,9 @@ At each iteration of the block bootstrap, we randomly select a domestic country 
 Following \textcite{anarkulova2025beyond}, our implementation of the block bootstrap method for simulating returns relies on constructing a market-capitalisation-weighted aggregate return series for international securities. To do this, we need to construct a timeseries of market capitalization weights for the countries in the JST database. This is necessary because the JST database does not include equity market capitalization weights. 
 
 
-We define equity market capitalization weights as the ratio of a country's total market capitalization to the total market capitalization of the country cohort. To construct the baseline capitalization weights, we combine data from the World Bank's World Development Indicators (WDI) database and historical estimates from Global Financial Data (GFD). The World Bank provides market capitalization of listed domestic companies (in inflation-adjusted US Dollars) from the World Federation of Exchanges database \parencite{data__worldbankMktCap}. This dataset covers 1975--2024 with good coverage for most developed economies. The data is publicly available under a CC BY-4.0 license and represents the most authoritative source of the two used in our analysis for market capitalization figures. However, the WDI dataset does not cover the historical period of interest for our analysis (1870--1975), so we supplement it with estimates from GFD, which provides long-run historical estimates of market capitalization weights for major economies.
+We define equity market capitalization weights as the ratio of a country's total market capitalization to the total market capitalization of the country cohort. To construct the baseline capitalization weights, we combine data from the World Bank's World Development Indicators (WDI) database and historical estimates from Global Financial Data (GFD). The World Bank provides market capitalization of listed domestic companies (in inflation-adjusted US Dollars) from the World Federation of Exchanges database \parencite{data__worldbankMktCap}. This dataset covers 1975--2024 with good coverage for most developed economies. The data is publicly available under a CC BY-4.0 license and represents the most authoritative source of the two used in our analysis for market capitalization figures. However, the WDI dataset does not cover the historical period of interest for our analysis (1870--1975), so we supplement it with estimates from GFD, which provides long-run historical estimates of market capitalization weights for major economies. This is the dataset leveraged by \textcite{anarkulova2025beyond} to construct their international equity return series. However, we do not have direct access to the GFD database, so we rely on a published chart from Finaeon's website \parencite[sourced from][]{data__gfdMktCap} that displays market capitalization weights a number of countries from 1782 to 2022. We extract approximate values from this chart using an image processing method that counts pixels of different colors corresponding to each country. This method is subject to measurement error and should be interpreted with caution, but it provides a rough estimate of the historical market capitalization weights for the countries in the JST database.
 
-The GFD database provides historical estimates of a number of macro-financial variables, including market capitalization weights for major economies. This is the dataset leveraged by \textcite{anarkulova2025beyond} to construct their international equity return series. However, we do not have direct access to the GFD database, so we rely on a published chart from Finaeon's website \parencite[sourced from][]{data__gfdMktCap} that displays market capitalization weights a number of countries from 1782 to 2022. We extract approximate values from this chart using an image processing method that counts pixels of different colors corresponding to each country. This method is subject to measurement error and should be interpreted with caution, but it provides a rough estimate of the historical market capitalization weights for the countries in the JST database.
-
-The World Bank data processing is straightforward and follows standard data cleaning procedures:
+The World Bank data processing is straightforward and follows the following wrangling procedures:
 
 \begin{enumerate}
     \item Load the raw CSV file containing market capitalization values in current US\$ for all countries
@@ -920,7 +1047,8 @@ The World Bank data processing is straightforward and follows standard data clea
     \item Re-normalize weights to sum to 1.0 after applying the floor
 \end{enumerate}
 
-The extraction of historical market capitalization weights from the GFD database presents significant methodological challenges. Without direct access to the underlying GFD database, we must rely on a published chart from \textcite{data__gfdMktCap} that displays market cap percentages as a stacked area graph. The extraction procedure involves the following steps:
+
+Again, with no direct access to the GFD database, we rely on a published chart from \textcite{data__gfdMktCap} that displays market cap percentages as a stacked area graph. The extraction procedure involves the following steps:
 
 \begin{enumerate}
     \item Crop the chart image to isolate the plotting area
@@ -934,11 +1062,13 @@ The extraction of historical market capitalization weights from the GFD database
 
 This introduces several sources of uncertainty and measurement error. Because we extract percentages by analyzing the pixel colors in the chart image, each country is represented by a distinct color, and we count pixels of each color at each year's x-coordinate position. This approach is fundamentally limited by the chart resolution and image quality, interpolation between discrete x-axis positions, anti-aliasing and edge effects at color boundaries, and potential color bleeding or compression artifacts. For these reasons, the pixel-counting method produces noisy estimates. To mitigate this, we apply a 3-year centered rolling average to reduce this noise, but which may over-smooth genuine historical variation.
 
-Furthermore, the original chart displays only five countries relevant to the JST data (USA, UK, Germany, France, and Japan), with all other countries aggregated into an ``Other'' category. To construct weights for all JST countries, we must distribute this unclassified mass evenly across the remaining 13 countries. This is a strong and likely unrealistic assumption, as it ignores the actual variation in market capitalizations among these countries. Finally, because we do not have access to the original GFD database, we cannot validate our extracted values against the true underlying data. The accuracy of our historical estimates is therefore unknown, but what data we have extracted roughly aligns with the World Bank data in the overlapping period (see Figure \ref{fig:combined_market_cap}). The extracted GFD data shows reasonable aggregate patterns (e.g., U.S. dominance in the mid-20th century, rising Japanese share in the 1980s), but individual country estimates, particularly for the ``Other'' countries, should be interpreted with considerable caution. However, because the share of the ``Other'' category is relatively small in the later period and the goal is to capture broad historical trends rather than precise country-level weights, we consider this approach acceptable for our purposes.
+Furthermore, the original chart displays only five countries relevant to the JST data (USA, UK, Germany, France, and Japan), with all other countries aggregated into an ``Other'' category. To construct weights for all JST countries, we distribute this unclassified mass evenly across the remaining 13 countries. This is a strong and likely unrealistic assumption, as it ignores the actual variation in market capitalizations among these countries. 
+
+Because we do not have access to the original GFD database, we also cannot validate our extracted values against the true underlying data. The accuracy of our historical estimates is therefore unknown, but what data we have extracted roughly aligns with the World Bank data in the overlapping period (see Figure \ref{fig:combined_market_cap}). The extracted GFD data shows reasonable aggregate patterns (e.g., U.S. dominance in the mid-20th century, rising Japanese share in the 1980s), but individual country estimates, particularly for the ``Other'' countries, should be interpreted with considerable caution. However, because the goal is to capture broad historical trends rather than precise country-level weights, we consider this approach acceptable for our purposes.
 
 The final, combined dataset of weights prioritizes the more reliable World Bank data where available and fills historical gaps with the GFD estimates. Figure \ref{fig:combined_market_cap} displays the three datasets side-by-side: GFD extracted estimates (panel a), World Bank data (panel b), and the combined final dataset (panel c). The overlap period (1988--1989) shows reasonable consistency between the two sources.
 
-Users of this dataset should be aware of several important caveats. The market cap weights extracted from the GFD data are approximate and should not be interpreted as precise measurements. They are sufficient for characterizing broad historical trends but are unsuitable for applications requiring exact country-level weights. The even redistribution of the unclassified percentage across all JST countries is a strong simplifying assumption. In reality, countries like Australia, Canada, and Switzerland likely had substantially different market capitalizations than smaller European economies. The GFD and World Bank datasets may differ in their treatment of market entries, exits, and index composition. These methodological differences are absorbed into our combined series but are not explicitly documented. Ideally, historical market cap weights would be constructed from direct access to the GFD database or from alternative sources such as the Dimson-Marsh-Staunton Global Returns Database. However, these sources were not available for this study.
+Users of this dataset should be aware of several important caveats. The market cap weights extracted from the GFD data should not be interpreted as precise measurements. They are sufficient for characterizing broad historical trends and the construction of a proxy index, but are unsuitable for applications requiring exact country-level weights. The even redistribution of the unclassified percentage across all JST countries is a strong simplifying assumption. In reality, countries like Australia, Canada, and Switzerland likely had substantially different market capitalizations than smaller European economies. The GFD and World Bank datasets may differ in their treatment of market entries, exits, and index composition. These methodological differences are absorbed into our combined series but are not explicitly documented. Ideally, historical market cap weights would be constructed from direct access to the GFD database or from alternative sources such as the Dimson-Marsh-Staunton Global Returns Database (as used by \textcite{estrada2014glidepath,estrada2015retirement}). However, these sources were not available for this study.
 
 Despite these limitations, we believe the combined dataset provides a reasonable approximation of historical market capitalization weights for the JST countries and is suitable for the portfolio construction and simulation exercises undertaken in this research. The primary analyses focus on aggregate portfolio behavior rather than individual country dynamics, which reduces the impact of country-level measurement error. Nevertheless, readers should interpret historical results (particularly those prior to 1988) with appropriate caution regarding the data quality constraints described above.
 
