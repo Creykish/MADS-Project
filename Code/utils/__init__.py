@@ -99,6 +99,24 @@ from .helpers import (
     calculate_statistics,
 )
 
+# Experiment
+from .experiment import (
+    SimulationConfig,
+    OptimizationResult,
+    experiment_filename,
+    save_experiment,
+    load_experiment,
+    load_experiments,
+)
+
+# Metrics
+from .metrics import (
+    compute_wealth_metrics,
+    compute_consumption_metrics,
+    compute_experiment_metrics,
+    pool_experiment_metrics,
+)
+
 # Package metadata
 __version__ = "0.1.0"
 __author__ = "Callum Davidson"
@@ -132,9 +150,17 @@ __all__ = [
     "shortfall_probability",
     "bankruptcy_penalty",
     
-    # Helpers
-    "load_historical_returns",
-    "sample_without_replacement",
-    "calculate_statistics",
-    "project_onto_simplex",
+    # Experiment
+    "SimulationConfig",
+    "OptimizationResult",
+    "experiment_filename",
+    "save_experiment",
+    "load_experiment",
+    "load_experiments",
+
+    # Metrics
+    "compute_wealth_metrics",
+    "compute_consumption_metrics",
+    "compute_experiment_metrics",
+    "pool_experiment_metrics",
 ]

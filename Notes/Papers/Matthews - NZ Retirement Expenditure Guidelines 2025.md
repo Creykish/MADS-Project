@@ -73,10 +73,8 @@ CPI for period: 2.70%. Retiree inflation range: 2.54%–3.16%.
 
 Why retirees diverge from CPI:
 - Over-index on property rates (+11.9% sub-index) and household energy
-- Under-index on telecoms (–25.2% sub-index — pensioners don't buy new phones much)
+- Under-index on telecoms (–25.2% sub-index)
 - Food CPI ran above headline, and food is large share of retiree budget
-
-**For my model:** don't use headline CPI for retirement spending. Retiree-specific inflation runs ~0–0.5% above CPI historically. Call it 0.3% excess.
 
 ---
 

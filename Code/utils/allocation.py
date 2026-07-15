@@ -22,6 +22,9 @@ import torch
 from abc import ABC, abstractmethod
 
 
+CONSTRAINT_TOL = 1e-6
+
+
 def project_onto_simplex(x: torch.Tensor, epsilon: float = 1e-8) -> torch.Tensor:
     """
     Project allocations onto the constraint set (Equation 13).
@@ -233,7 +236,7 @@ class ConstantAllocation(AllocationPolicy):
         self.allocation[0] = 1.0 - self.allocation[1:].sum()
         
         # Validate final allocation satisfies constraints (Equation 13)
-        assert torch.allclose(self.allocation.sum(), torch.tensor(1.0)), "Total allocation must sum to 1.0"
+        assert torch.allclose(self.allocation.sum(), torch.tensor(1.0, device=self.device)), "Total allocation must sum to 1.0"
         assert (self.allocation >= 0).all(), "Allocations must be non-negative"
         assert (self.allocation <= 1).all(), "Allocations cannot exceed 1.0"
 
@@ -299,7 +302,8 @@ class TimeBasedPolicy(AllocationPolicy):
             policy_settings.shape[1] == self.n_assets - 1
         ), "Policy nodes must specify allocations for risky assets only (n_assets - 1)"
         assert (
-            (policy_settings >= 0).all() and (policy_settings.sum(dim=1) <= 1.0).all()
+            (policy_settings >= -CONSTRAINT_TOL).all()
+            and (policy_settings.sum(dim=1) <= 1.0 + CONSTRAINT_TOL).all()
         ), "Policy settings must satisfy constraints (Equation 13)"
     
         policy_settings = policy_settings.to(device=self.device)
@@ -315,6 +319,9 @@ class TimeBasedPolicy(AllocationPolicy):
         risky_alloc = (1 - alpha) * y_0 + alpha * y_1
         allocation[1:] = risky_alloc
         allocation[0] = 1 - allocation[1:].sum()
+        
+        # Clamp to handle floating-point precision issues (e.g., tiny negatives like -1e-7)
+        allocation.clamp_(min=0)
         
         # Validate interpolated allocation satisfies constraints
         assert (allocation >= 0).all(), "Interpolated allocation must be non-negative"
@@ -382,7 +389,8 @@ class WealthBasedPolicy(AllocationPolicy):
             policy_settings.shape[1] == self.n_assets - 1
         ), "Policy nodes must specify allocations for risky assets only (n_assets - 1)"
         assert (
-            (policy_settings >= 0).all() and (policy_settings.sum(dim=1) <= 1.0).all()
+            (policy_settings >= -CONSTRAINT_TOL).all()
+            and (policy_settings.sum(dim=1) <= 1.0 + CONSTRAINT_TOL).all()
         ), "Policy settings must satisfy constraints (Equation 13)"
         
         x_1 = torch.searchsorted(self.wealth_nodes, w)
@@ -487,7 +495,8 @@ class ControlMatrixPolicy(AllocationPolicy):
             wealth.shape == torch.Size([self.n_sims])
         ), "Wealth input must be a 1D tensor of shape (n_sims,)"
         assert (
-            (policy_settings >= 0).all() and (policy_settings.sum(dim=2) <= 1.0).all()
+            (policy_settings >= -CONSTRAINT_TOL).all()
+            and (policy_settings.sum(dim=2) <= 1.0 + CONSTRAINT_TOL).all()
         ), "Policy settings must satisfy constraints (Equation 13): non-negative and sum <= 1"
 
         policy_settings = policy_settings.to(device=self.device)

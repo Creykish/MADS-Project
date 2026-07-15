@@ -145,3 +145,6 @@ latexbuild/
 out/
 
 *.npy
+*.pkl
+*.zip
+*.parquet

@@ -1,221 +1,339 @@
-import yaml
 import zipfile
 import json
-import pickle
 import io
-from pathlib import Path
-from typing import Any, Dict, Optional
-from dataclasses import dataclass, field
+import os
+import warnings
+from typing import Any, Dict, List, Optional
+from dataclasses import asdict, dataclass
 
-# Lazy import to avoid circular dependency
-def _get_create_generator_from_config():
-    """Lazy import to avoid circular dependency."""
-    from .return_generators import create_generator_from_config
-    return create_generator_from_config
+import numpy as np
+
+# ---------------------------------------------------------------------------
+# Fixed-policy experiment dataclasses and helpers
+# ---------------------------------------------------------------------------
+
+@dataclass
+class SimulationConfig:
+    """Configuration parameters for a simulation experiment."""
+    # Simulation parameters
+    N_ASSETS: int
+    N_SIMULATIONS: int
+    SIMULATION_YEARS: int
+    RETURN_SAMPLER: str
+
+    # Wealth & spending parameters
+    INITIAL_WEALTH: float
+    DESIRED_SPENDING: float
+    SPENDING_DECLINE_RATE: float
+    CONSUMPTION_FLOOR: float
+    FLOOR_DECLINE_RATE: float
+    INCOME_TYPE: str
+
+    # Optimization parameters
+    INITIAL_POLICY: list
+    OPTIMIZER_TYPE: str
+
+    # Policy structure defaults (1, 1) -> constant/fixed allocation
+    TIME_NODE_COUNT: int = 1
+    WEALTH_NODE_COUNT: int = 1
 
 
 @dataclass
-class ExperimentResults:
-    """Container for experiment results."""
-    policy: Optional[Any] = None  # Optimized policy (numpy array, torch tensor, etc.)
-    cost_history: Optional[Any] = None  # Cost history during optimization
-    extra: Dict[str, Any] = field(default_factory=dict)  # Additional results
+class OptimizationResult:
+    """Results from a fixed-policy optimization run."""
+    best_policy: np.ndarray
+    best_utility: float
+    policy_history: np.ndarray
+    cost_history: np.ndarray
+    wealth_simulated: np.ndarray
+    consumption_simulated: np.ndarray
+    cumulative_inflation: np.ndarray
+    time_nodes: Optional[np.ndarray] = None
+    wealth_nodes: Optional[np.ndarray] = None
 
 
-@dataclass
-class Experiment:
-    """
-    Container for experiment configuration and results.
-    Supports saving/loading to zip files with intelligent format selection.
-    Tracks generator metadata for full reproducibility.
-    """
+class LazyArrayStore:
+    """Loads archived arrays on first access and caches them in memory."""
 
-    name: str
-    description: str
-    parameters: Dict[str, Any]
-    results: ExperimentResults = field(default_factory=ExperimentResults)
-    generator_config: Dict[str, Any] = field(default_factory=dict)  # Metadata about return generator
+    def __init__(self, filepath: str, arrays_meta: Dict[str, Dict[str, Any]]):
+        self._filepath = filepath
+        self._arrays_meta = arrays_meta
+        self._cache: Dict[str, np.ndarray] = {}
 
-    def add_result(self, name: str, data: Any) -> None:
-        """Add a result to the experiment (stored in extra dict)."""
-        self.results.extra[name] = data
-    
-    def set_generator_config(self, generator_type: str, **kwargs) -> None:
-        """
-        Record metadata about the return generator used.
-        
-        Examples
-        --------
-        # For Cholesky bootstrap
-        exp.set_generator_config("cholesky", mean_returns=mean_ret, cov_matrix=cov)
-        
-        # For block bootstrap
-        exp.set_generator_config("block_bootstrap", path="path/to/data.npy")
-        """
-        self.generator_config = {
-            "type": generator_type,
-            "config": kwargs
-        }
+    def get(self, name: str) -> np.ndarray:
+        if name in self._cache:
+            return self._cache[name]
+        if name not in self._arrays_meta:
+            raise KeyError(f"Array '{name}' not found in archive metadata")
 
-    def get_result(self, name: str) -> Any:
-        """Retrieve a result by name from extra dict."""
-        return self.results.extra.get(name)
+        with zipfile.ZipFile(self._filepath, "r") as zf:
+            arr = _read_array_from_archive(zf, self._arrays_meta[name])
 
-    def reconstruct_generator(self):
-        """
-        Reconstruct the return generator from saved config.
-        
-        Returns
-        -------
-        ReturnGenerator or None
-            The reconstructed generator, or None if no config was saved.
-        """
-        if not self.generator_config:
+        self._cache[name] = arr
+        return arr
+
+    def get_optional(self, name: str) -> Optional[np.ndarray]:
+        if name not in self._arrays_meta:
             return None
-        
-        create_fn = _get_create_generator_from_config()
-        return create_fn(self.generator_config["config"])
-    
-    def save_to_zip(self, filepath: str) -> None:
-        """
-        Save experiment config and results to a zip file.
+        return self.get(name)
 
-        Results are saved based on their type:
-        - dict/list: saved as JSON
-        - pd.DataFrame: saved as parquet
-        - numpy arrays: saved as pickle
-        - other: saved as pickle
-        """
-        filepath = Path(filepath)
-        filepath.parent.mkdir(parents=True, exist_ok=True)
 
-        with zipfile.ZipFile(filepath, "w", zipfile.ZIP_DEFLATED) as zf:
-            # Save metadata
-            metadata = {
-                "name": self.name,
-                "description": self.description,
-                "parameters": self.parameters,
-                "generator_config": self.generator_config,
-            }
-            zf.writestr("metadata.yaml", yaml.dump(metadata))
+class LazyOptimizationResult:
+    """Optimization result wrapper that lazily loads ndarray fields from disk."""
 
-            # Save results
-            if self.results.policy is not None:
-                self._save_result_to_zip(zf, "policy", self.results.policy)
-            if self.results.cost_history is not None:
-                self._save_result_to_zip(zf, "cost_history", self.results.cost_history)
-            for result_name, data in self.results.extra.items():
-                self._save_result_to_zip(zf, result_name, data)
+    def __init__(self, best_utility: float, array_store: LazyArrayStore):
+        self.best_utility = float(best_utility)
+        self._array_store = array_store
+        self._warned_missing_fields: set[str] = set()
 
-    def _save_result_to_zip(
-        self, zf: zipfile.ZipFile, name: str, data: Any
-    ) -> None:
-        """Save a single result to the zip file with appropriate format."""
-        try:
-            import pandas as pd
+    def _warn_missing_optional_array(self, name: str) -> None:
+        if name in self._warned_missing_fields:
+            return
+        warnings.warn(
+            (
+                f"Optional array '{name}' is missing from this experiment archive. "
+                "This is expected for older file versions; returning None."
+            ),
+            UserWarning,
+            stacklevel=2,
+        )
+        self._warned_missing_fields.add(name)
 
-            is_dataframe = isinstance(data, pd.DataFrame)
-        except ImportError:
-            is_dataframe = False
+    @property
+    def best_policy(self) -> np.ndarray:
+        return self._array_store.get("best_policy")
 
-        try:
-            import numpy as np
+    @property
+    def policy_history(self) -> np.ndarray:
+        return self._array_store.get("policy_history")
 
-            is_array = isinstance(data, np.ndarray)
-        except ImportError:
-            is_array = False
+    @property
+    def cost_history(self) -> np.ndarray:
+        return self._array_store.get("cost_history")
 
-        if isinstance(data, (dict, list)):
-            # Save as JSON
-            zf.writestr(f"results/{name}.json", json.dumps(data))
-        elif is_dataframe:
-            # Save DataFrame as parquet
-            buffer = io.BytesIO()
-            data.to_parquet(buffer, index=True)
-            zf.writestr(f"results/{name}.parquet", buffer.getvalue())
-        elif is_array:
-            # Save array as pickle
-            zf.writestr(f"results/{name}.pkl", pickle.dumps(data))
-        else:
-            # Default to pickle for other objects
-            zf.writestr(f"results/{name}.pkl", pickle.dumps(data))
+    @property
+    def wealth_simulated(self) -> np.ndarray:
+        return self._array_store.get("wealth_simulated")
 
-    @classmethod
-    def load_from_zip(cls, filepath: str) -> "Experiment":
-        """Load experiment from a zip file."""
-        filepath = Path(filepath)
+    @property
+    def consumption_simulated(self) -> np.ndarray:
+        return self._array_store.get("consumption_simulated")
 
-        with zipfile.ZipFile(filepath, "r") as zf:
-            # Load metadata
-            metadata_yaml = zf.read("metadata.yaml").decode("utf-8")
-            metadata = yaml.safe_load(metadata_yaml)
+    @property
+    def cumulative_inflation(self) -> np.ndarray:
+        return self._array_store.get("cumulative_inflation")
 
-            # Load results
-            policy = None
-            cost_history = None
-            extra = {}
-            result_files = [f for f in zf.namelist() if f.startswith("results/")]
+    @property
+    def time_nodes(self) -> Optional[np.ndarray]:
+        arr = self._array_store.get_optional("time_nodes")
+        if arr is None:
+            self._warn_missing_optional_array("time_nodes")
+        return arr
 
-            for result_file in result_files:
-                name, ext = cls._parse_result_filename(result_file)
-                data = cls._load_result_from_zip(zf, result_file, ext)
-                
-                if name == "policy":
-                    policy = data
-                elif name == "cost_history":
-                    cost_history = data
-                else:
-                    extra[name] = data
+    @property
+    def wealth_nodes(self) -> Optional[np.ndarray]:
+        arr = self._array_store.get_optional("wealth_nodes")
+        if arr is None:
+            self._warn_missing_optional_array("wealth_nodes")
+        return arr
 
-        results = ExperimentResults(policy=policy, cost_history=cost_history, extra=extra)
-        
-        return cls(
-            name=metadata["name"],
-            description=metadata["description"],
-            parameters=metadata["parameters"],
-            generator_config=metadata.get("generator_config", {}),
-            results=results,
+    def materialize(self) -> OptimizationResult:
+        """Load and return a fully materialized OptimizationResult."""
+        return OptimizationResult(
+            best_policy=self.best_policy,
+            best_utility=self.best_utility,
+            policy_history=self.policy_history,
+            cost_history=self.cost_history,
+            wealth_simulated=self.wealth_simulated,
+            consumption_simulated=self.consumption_simulated,
+            cumulative_inflation=self.cumulative_inflation,
+            time_nodes=self.time_nodes,
+            wealth_nodes=self.wealth_nodes,
         )
 
-    @staticmethod
-    def _parse_result_filename(filename: str) -> tuple:
-        """Extract name and extension from result filename."""
-        # Remove 'results/' prefix
-        name_with_ext = filename.replace("results/", "")
-        # Split name and extension
-        if "." in name_with_ext:
-            name, ext = name_with_ext.rsplit(".", 1)
-            return name, ext
-        return name_with_ext, ""
 
-    @staticmethod
-    def _load_result_from_zip(zf: zipfile.ZipFile, filename: str, ext: str) -> Any:
-        """Load a result from the zip file based on its extension."""
-        data = zf.read(filename)
+def experiment_filename(config: SimulationConfig) -> str:
+    """Return the canonical archive filename for a given SimulationConfig."""
+    time_node_count = config.TIME_NODE_COUNT
+    wealth_node_count = config.WEALTH_NODE_COUNT
 
-        if ext == "json":
-            return json.loads(data.decode("utf-8"))
-        elif ext == "parquet":
-            import pandas as pd
+    if time_node_count > 1 and wealth_node_count > 1:
+        return (
+            f"experiment_{config.INITIAL_WEALTH}_{config.RETURN_SAMPLER}_"
+            f"{time_node_count}tnodes_{wealth_node_count}wnodes.zip"
+        )
+    if time_node_count > 1:
+        return (
+            f"experiment_{config.INITIAL_WEALTH}_{config.RETURN_SAMPLER}_"
+            f"{time_node_count}tnodes.zip"
+        )
+    if wealth_node_count > 1:
+        return (
+            f"experiment_{config.INITIAL_WEALTH}_{config.RETURN_SAMPLER}_"
+            f"{wealth_node_count}wnodes.zip"
+        )
+    return f"experiment_{config.INITIAL_WEALTH}_{config.RETURN_SAMPLER}.zip"
 
-            return pd.read_parquet(io.BytesIO(data))
-        elif ext == "pkl":
-            return pickle.loads(data)
-        else:
-            # Try JSON first, then pickle as fallback
-            try:
-                return json.loads(data.decode("utf-8"))
-            except Exception:
-                return pickle.loads(data)
 
-    def __repr__(self) -> str:
-        """String representation of the experiment."""
-        parts = []
-        if self.results.policy is not None:
-            parts.append(f"policy ({type(self.results.policy).__name__})")
-        if self.results.cost_history is not None:
-            parts.append(f"cost_history ({type(self.results.cost_history).__name__})")
-        for name, data in self.results.extra.items():
-            parts.append(f"{name} ({type(data).__name__})")
-        result_summary = ", ".join(parts)
-        return f"Experiment(name={self.name!r}, results=[{result_summary}])"
+def _write_array_to_archive(zf: zipfile.ZipFile, name: str, arr: np.ndarray) -> Dict[str, Any]:
+    """Write a numpy array as .npy inside the archive."""
+    np_arr = np.asarray(arr)
+    path = f"arrays/{name}.npy"
+    buf = io.BytesIO()
+    np.save(buf, np_arr, allow_pickle=False)
+    zf.writestr(path, buf.getvalue())
+    return {
+        "path": path,
+        "format": "npy",
+    }
+
+
+def _read_array_from_archive(zf: zipfile.ZipFile, meta: Dict[str, Any]) -> np.ndarray:
+    """Read an array saved by _write_array_to_archive."""
+    raw = zf.read(meta["path"])
+    if meta.get("format") != "npy":
+        raise ValueError(f"Unsupported array format: {meta.get('format')}")
+    return np.load(io.BytesIO(raw), allow_pickle=False)
+
+
+def save_experiment(
+    config: SimulationConfig,
+    result: OptimizationResult,
+    results_dir: str = "Results",
+) -> None:
+    """Persist a (config, result) pair to *results_dir* as a structured zip archive.
+
+    Archive contents:
+    - metadata.json: config + scalar metrics
+    - arrays/*.npy: ndarray payloads from OptimizationResult
+    """
+    os.makedirs(results_dir, exist_ok=True)
+    filename = experiment_filename(config)
+    filepath = os.path.join(results_dir, filename)
+
+    arrays_meta: Dict[str, Any] = {}
+    array_fields = {
+        "best_policy": result.best_policy,
+        "policy_history": result.policy_history,
+        "cost_history": result.cost_history,
+        "wealth_simulated": result.wealth_simulated,
+        "consumption_simulated": result.consumption_simulated,
+        "cumulative_inflation": result.cumulative_inflation,
+        "time_nodes": result.time_nodes,
+        "wealth_nodes": result.wealth_nodes,
+    }
+
+    with zipfile.ZipFile(filepath, "w", zipfile.ZIP_DEFLATED) as zf:
+        for name, value in array_fields.items():
+            if value is None:
+                continue
+            arrays_meta[name] = _write_array_to_archive(zf, name, np.asarray(value))
+
+        metadata = {
+            "schema_version": 1,
+            "config": asdict(config),
+            "result_scalars": {
+                "best_utility": float(result.best_utility),
+            },
+            "arrays": arrays_meta,
+        }
+        zf.writestr("metadata.json", json.dumps(metadata, indent=2))
+
+    print(f"Experiment saved to {filepath}")
+
+
+def load_experiment(filepath: str, lazy_arrays: bool = True) -> Dict[str, Any]:
+    """Load a single experiment archive and return ``{'config': ..., 'result': ...}``.
+
+    Parameters
+    ----------
+    filepath:
+        Path to the archived experiment zip.
+    lazy_arrays:
+        If True, array payloads are loaded on first access instead of immediately.
+    """
+    with zipfile.ZipFile(filepath, "r") as zf:
+        metadata = json.loads(zf.read("metadata.json").decode("utf-8"))
+
+        config = SimulationConfig(**metadata["config"])
+        arrays_meta = metadata["arrays"]
+        best_utility = float(metadata["result_scalars"]["best_utility"])
+
+    if lazy_arrays:
+        result = LazyOptimizationResult(
+            best_utility=best_utility,
+            array_store=LazyArrayStore(filepath=filepath, arrays_meta=arrays_meta),
+        )
+    else:
+        with zipfile.ZipFile(filepath, "r") as zf:
+            arrays = {
+                name: _read_array_from_archive(zf, arr_meta)
+                for name, arr_meta in arrays_meta.items()
+            }
+
+        if "time_nodes" not in arrays:
+            warnings.warn(
+                (
+                    "Optional array 'time_nodes' is missing from this experiment archive. "
+                    "This is expected for older file versions; returning None."
+                ),
+                UserWarning,
+                stacklevel=2,
+            )
+        if "wealth_nodes" not in arrays:
+            warnings.warn(
+                (
+                    "Optional array 'wealth_nodes' is missing from this experiment archive. "
+                    "This is expected for older file versions; returning None."
+                ),
+                UserWarning,
+                stacklevel=2,
+            )
+
+        result = OptimizationResult(
+            best_policy=arrays["best_policy"],
+            best_utility=best_utility,
+            policy_history=arrays["policy_history"],
+            cost_history=arrays["cost_history"],
+            wealth_simulated=arrays["wealth_simulated"],
+            consumption_simulated=arrays["consumption_simulated"],
+            cumulative_inflation=arrays["cumulative_inflation"],
+            time_nodes=arrays.get("time_nodes"),
+            wealth_nodes=arrays.get("wealth_nodes"),
+        )
+
+    return {"config": config, "result": result}
+
+
+def load_experiments(
+    results_dir: str = "Results",
+    return_sampler: Optional[str] = None,
+    lazy_arrays: bool = True,
+) -> List[Dict[str, Any]]:
+    """Load all experiment archives from *results_dir*.
+
+    Parameters
+    ----------
+    results_dir:
+        Directory containing ``experiment_*.zip`` files.
+    return_sampler:
+        If provided, only load experiments whose ``RETURN_SAMPLER`` matches.
+    lazy_arrays:
+        If True, array payloads are loaded on first access instead of immediately.
+
+    Returns
+    -------
+    List of ``{'config': SimulationConfig, 'result': OptimizationResult}`` dicts,
+    sorted by ``INITIAL_WEALTH``.
+    """
+    files = [
+        f for f in os.listdir(results_dir)
+        if f.startswith("experiment") and f.endswith(".zip")
+    ]
+    experiments = []
+    for fname in files:
+        payload = load_experiment(os.path.join(results_dir, fname), lazy_arrays=lazy_arrays)
+        if return_sampler is None or payload["config"].RETURN_SAMPLER == return_sampler:
+            experiments.append(payload)
+    experiments.sort(key=lambda e: e["config"].INITIAL_WEALTH)
+    return experiments
