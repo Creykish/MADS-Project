@@ -74,6 +74,7 @@ from .allocation import (
     ConstantAllocation,
     TimeBasedPolicy,
     ControlMatrixPolicy,
+    WealthBasedPolicy,
     project_onto_simplex,
 )
 
@@ -133,6 +134,7 @@ __all__ = [
     "ConstantAllocation",
     "TimeBasedPolicy",
     "ControlMatrixPolicy",
+    "WealthBasedPolicy",
     
     # Spending policies
     "SpendingPolicy",

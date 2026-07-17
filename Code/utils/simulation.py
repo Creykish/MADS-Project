@@ -16,7 +16,7 @@ def simulate_wealth_trajectory(
     cumulative_inflation: torch.Tensor,
     allocation_policy: AllocationPolicy,
     spending_policy: SpendingPolicy,
-    initial_wealth: float,
+    initial_wealth: float | torch.Tensor,
     policy_settings: torch.Tensor,
     **kwargs
 ) -> Tuple[torch.Tensor, torch.Tensor]:
@@ -54,9 +54,12 @@ def simulate_wealth_trajectory(
     consumption_history = []
 
     # Initialize
-    wealth_t = torch.full(
-        (n_sims,), initial_wealth, dtype=returns.dtype, device=returns.device
-    )
+    if isinstance(initial_wealth, torch.Tensor):
+        wealth_t = initial_wealth.to(dtype=returns.dtype, device=returns.device)
+    else:
+        wealth_t = torch.full(
+            (n_sims,), initial_wealth, dtype=returns.dtype, device=returns.device
+        )
     wealth = torch.zeros(
         (n_sims, n_timesteps + 1), dtype=returns.dtype, device=returns.device
     )
