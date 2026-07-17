@@ -286,7 +286,7 @@ A central limitation of these guidelines is that they are constructed from cross
 
 For the purposes of this study, we treat the expenditure guidelines as an empirical anchor for age-65 spending levels. We calibrate initial retirement spending to the No Frills and Choices benchmarks as the lower and upper bounds for a representative retiree, and model real consumption as declining at approximately 2 percent per year thereafter. NZ Super is treated as a guaranteed, inflation-linked income floor from age 65. Under this calibration, the required drawdown from financial assets diminishes progressively as retirement spending falls toward the level already covered by NZ Super. This pattern has material implications for both the required savings balance at retirement and the optimal asset allocation strategy during decumulation.
 
-\section{Methods for Simulating and Optimising Lifetime Wealth Trajectories}
+\section{Methods}
 
 The crux of our analysis is the ability to simulate realistic wealth trajectories for individual investors. This in and of itself is not a novel contribution, but the specific features of our simulation framework are designed to accommodate the particular questions we seek to answer. The goal, however, is to develop a flexible, modular framework that can be extended beyond the specific questions of this report to support ongoing research and policy analysis for Consilium and others. In this respect, while the specific questions we ask in this report are narrowly focused on the optimality of age-based glidepaths in the New Zealand retirement context, the framework we develop is intended to be more broadly applicable to a wide range of questions in the lifetime asset allocation space, including questions about optimal whole-life allocation and spending strategies, the role of housing and other non-financial assets, and the interaction between retirement savings and other life goals such as homeownership. To this end, much of this section will describe the general structure of the simulation framework, with specific details about the calibration to the New Zealand context and the particular questions we ask in this report reserved for later sections. Included also, in the appendix of this report will be possible extensions to the framework that could be implemented in future work, such as the inclusion of housing and other non-financial assets, and the modelling of homeownership decisions and their interaction with retirement savings and spending.
 
@@ -595,24 +595,14 @@ To illustrate this more concretely, consider Figure \ref{control_matrix_example}
 A key concept in this framework is that the dimensions of \(\theta\) correspond to the different state variables that the policy can depend on. Here we have extended it to two dimensions, time and wealth, which allows for policies that can adjust allocations based on both the investor's current age and their current wealth level. It is also possible to extend this approach to allow for dependence on additional state variables, such as health status or macroeconomic indicators, by adding additional dimensions to the control matrix. These can be both discrete and continuous, and the use of interpolation allows us to have a parsimonious parameterisation of the policy function while still allowing for a high degree of flexibility in the shape of the asset allocation strategy across different state variables. Compared to a neural network approach (as in \textcite{parker2024simple}), the control-matrix approach allows for a more interpretable policy representation, as the parameters directly correspond to allocations at specific points in the state space, and the interpolation provides a clear mechanism for how the policy varies across different states. However, it is probably less flexible and will have a higher number of parameters than a neural network at higher dimensions, which is a trade-off that we are willing to make for the sake of interpretability in this analysis.
 
 
-\subsubsection{Optimisation of Asset Allocation Policies}
-
-
-The optimisation of \(\theta\) is the core of our analysis, as it allows us to find the asset allocation strategy that maximises our chosen risk measure of the resulting wealth trajectories. \textcite{Makinen2024} use an adjoint method to compute the gradient of the risk measure with respect to the policy parameters, which allows for efficient optimisation even in high-dimensional parameter spaces. This is a powerful and efficient approach, but it is also quite complex to implement and limits the potential range of cost functions that can be used as the risk measure to those that only depend on the terminal wealth distribution. For this reason, we have implemented a more straightforward approach that relies on automatic differentiation using the PyTorch Python library \parencite{pytorch}. This allows us to compute the gradient of the risk measure with respect to the policy parameters without having to derive and implement the adjoint equations, and it also allows us to use a wider range of risk measures that can depend on the entire wealth trajectory rather than just the terminal wealth distribution. The trade-off is that this approach is likely to be less computationally efficient than the adjoint method, particularly as the dimensionality of the policy parameter space increases, but we believe that the increased flexibility in terms of risk measures and ease of implementation makes it a worthwhile trade-off for our analysis.
-
-The construction of our simulation framework has been carefully designed to be fully differentiable (using PyTorch's automatic differentiation capabilities) so that we can compute the gradient of our chosen risk measure with respect to the policy parameters \(\theta\) and use this gradient to perform optimisation using a gradient-based algorithm such as stochastic gradient descent or Adam \parencite{adam}. This allows us to efficiently search for the optimal policy parameters that maximise our chosen risk measure, even in high-dimensional parameter spaces.
-
-To constrain the policy parameters \(\theta\) to satisfy the allocation constraints from Equation \ref{allocation_constraints} (i.e., that the allocations must be non-negative and sum to at most one), we project the parameters onto the feasible set after each gradient update using the simplex projection algorithm of \textcite{duchi2008efficient}. This efficient \(\mathcal{O}(n \log n)\) algorithm finds the Euclidean projection onto the constraint set, ensuring that policy parameters remain feasible while staying as close as possible to the unconstrained gradient update. The projection preserves the optimality conditions for constrained optimisation, guaranteeing convergence to a local optimum on the constraint boundary under standard regularity conditions. A detailed description of the algorithm is provided in Appendix \ref{appendix:simplex_projection}.
-
-
-\section{Methods and Data for Simulating and Bootstrapping Asset Returns}
+\subsection{Methods and Data for Simulating and Bootstrapping Asset Returns}
 
 Central to our analysis is the ability to simulate a large number of realistic asset return trajectories. As previously noted, there are two broad approaches to simulating returns: synthetic return generation using a parametric model, and bootstrapping from historical returns. The advantage of synthetic return generation is that it allows us to explore a wider range of possible return dynamics and also to create a larger number of return trajectories than would be possible with historical data alone. The disadvantage is that it relies on strong assumptions about the return-generating process, which may not or may not be an accurate representation of reality. For example, the easiests and therefore most commonly used model is the geometric Brownian motion (GBM) model, which assumes that returns are normally distributed and independent over time. In reality, asset returns exhibit features such as volatility clustering, fat tails, and serial correlation, which are not captured by the time-independent GBM model. Time series models such as GARCH can capture some of these features, but they also introduce additional complexity and make their own set of assumptions that may not hold in practice. Bootstrapping from historical returns, on the other hand, allows us to capture the empirical distribution of returns without making strong parametric assumptions. However, it is limited by the length and quality of the historical data. Underpinning both approaches is the assumption that the future will be similar to the past; in the case of synthetic return generation, this is because the model parameters are typically estimated, informed, or evaluated against historical data; in the case of bootstrapping from directly resampling from historical returns. This assumption may not hold if there are structural changes in the economy or financial markets that lead to different return dynamics in the future. This limitation is inherent to this type of research, and it forms the underlying uncertainty in any conclusions we draw from our simulations. 
 
 We will aim to generate a large number of return trajectories using both approaches, and we will evaluate the performance of different asset allocation strategies under both sets of return simulations. We will use three asset classes in our analysis: short-term bills (cash), fixed income (bonds), and equities. These asset classes are chosen because they represent the main building blocks of a typical retirement portfolio.
 
 
-\subsection{Geometric Brownian Motion (GBM) Model for Synthetic Return Generation}
+\subsubsection{Geometric Brownian Motion (GBM) Model for Synthetic Return Generation}
 
 
 Consilium has historically used a simple geometric Brownian motion (GBM) model to generate synthetic returns for its analysis. Because the company already has established expectations of long-run returns and volatilities for different asset classes in its internal models, the GBM model is a convenient way to generate return trajectories that are consistent with these expectations.
@@ -654,14 +644,9 @@ CPI & 0.00001394 & -0.00025973 & -0.00051254 & 0.00025696 \\
 \end{table}
 
 
-
-
-
-\subsection{Block Bootstrap Methodology}
+\subsubsection{Block Bootstrap Methodology}
 
 Our block bootstrap implementation follows \textcite{anarkulova2025beyond}, adapted for a different dataset and asset allocation structure. The key advantage of the block bootstrap is that by resampling contiguous blocks of historical returns rather than individual observations, we preserve the short-run time-series dependencies and cross-sectional correlations present in asset returns while generating a large and diverse set of synthetic paths for Monte Carlo simulation.
-
-\subsubsection{Data Sources and Asset Class Construction}
 
 We construct return series for four variables---Equities, Bonds, Bills, and CPI inflation---using annual data from the Jordà-Schularick-Taylor (JST) Macrohistory Database \parencite{jorda2017macrofinancial}, which provides total returns and macroeconomic variables for 18 advanced economies from 1870 to the present. This long-run panel data allows us to capture return dynamics across multiple business cycles, market regimes, wars, and financial crises.
 
@@ -684,8 +669,6 @@ CPI & 1.00 & 0.00 \\
 \end{table}
 
 International equity returns are constructed as market-capitalization-weighted aggregates across eligible foreign countries, based on weights from the World Bank's World Development Indicators \parencite{data__worldbankMktCap} supplemented with historical estimates from Global Financial Data \parencite[sourced from][]{data__gfdMktCap}. International bond returns use weights based on GDP and government debt-to-GDP ratios from the JST database. Currency conversions are performed via USD as the intermediary currency, and hedged returns eliminate currency risk while unhedged returns include both asset and currency components. Detailed descriptions of the eligibility criteria, weight construction, currency conversion methodology, and asset class formulas are provided in Appendices \ref{appendix:block_bootstrap_investable_universes}--\ref{appendix:asset_class_returns}.
-
-\subsubsection{Sampling Procedure}
 
 To generate bootstrapped return paths, we resample contiguous blocks of years from the historical data, where each block corresponds to a continuous period within a single country's history. The JST database has gaps due to wars, data quality issues, and currency crises, so we first identify all continuous periods and prevent sampling across discontinuities. 
 
@@ -720,15 +703,7 @@ Bills & 0.61\% per year \\
 \end{table}
 
 
-
-
-
-\section{Optimal Retirement Asset Allocation Strategies for New Zealand Retirees}
-
-Having established the simulation and optimisation framework, we now apply it to evaluate candidate lifetime allocation policies in the New Zealand retirement context.
-
-
-\subsection{Investor Preferences and Risk Measures}
+\subsection{Representative Retiree Household and Spending Targets}
 
 For this purposes of this report, we are interested simulating a house hold consisting of two retirees of the same age. We simulate the wealth trajectories of this household over a 35-year retirement period, from age 65 to age 100. Our investors/retirees have an assumed real consumption floor equal to the ``No Frills Metro'' expendature as defined by the \textcite{matthews2025guidelines}. The couple also have a desired spending target equal to the ``Choice Metro'' expenditure, which declines by 2\% in real terms each year (until it reaches the consumption floar at around age 90), similar to the data and recommendations presented in \textcite{riig2024spending}. In this picture, our retiring couple is one that knows approximately how much they want to spend in retirement, and how little they absolutely need. They are primarily concerned with the risk of running out of money. Spending above the floor is valuable to them, but they are not willing to take on a lot of risk to achieve it. This is a common situation for many retirees, who have a good sense of their desired lifestyle in retirement and the minimum they need to get by, and are primarily concerned with ensuring that they do not run out of money.
 
@@ -739,29 +714,39 @@ For this purposes of this report, we are interested simulating a house hold cons
     \label{fig:desired_spending}
 \end{figure}
 
+\subsection{Heuristics of Risk and Success}
 
-\subsubsection{Heuristics of Risk and Success}
+Where \textcite{anarkulova2025beyond} (and others) use a version of the CRRA utility function based on the consumption of the retiree, we choose instead focus strictly on the risk of running out of savings. In particular, we choose to minimise what we call the ``bankruptcy density'' of the retiree's wealth trajectory over a 35-year retirement period (from age 65 to age 100). The bankruptcy density is a measure of how frequently the retiree's wealth hits zero across all timesteps and simulation paths. Given that our retirees have a expenditure that is strictly larger than their income, wealth trajectories that hit zero wealth will remain at zero for the remainder of the retirement period. The bankruptcy density therefore captures not only whether the retiree runs out of money, but also punishes strategies that hit zero wealth earlier in retirement and thus experience bankruptcy over a longer sustained period. It should be noted that our method of simulating the lifetime wealth trajectories of retirees is also fully capable of generating consumption trajectories that could be used to evaluate optimise for a CRRA utility function, which could be a useul extension of this work. 
 
-The relative sucess of a strategy is informed by the conservative nature of the hypothesised retirees, who are primarily concerned with the risk of running out of money. To capture this, we focus on two key metrics: the bankruptcy density and the impoverishment density. The bankruptcy density measures how frequently wealth hits zero across the entire simulation ensemble and time horizon, while the impoverishment density counts occurrences where ex-post real consumption falls below the inflation-adjusted consumption floor. These metrics provide a more direct measure of the risks that our retirees are concerned about.
+While this approach is not as common in the literature, we think it presents a more interpretable goal with less ambiguity. It is difficult, for instance, to determine what the appropriate parameterisation of a CRRA utility function should be for a given retiree. Whereas, simply minimising the risk of running out of money is a more straightforward goal. Additionally, where the investor is likely to prematurely deplete their savings, consumption utility becomes dominated by those destituted retirees and becomes a proxy of bankruptcy density. Furthermore, with our investors having a fixed upper limit on their desired spending, the utility of consumption is bounded, which we have found tends to result in worse convergence properties for the optimisation of the CRRA utility function. While outside the scope of this report, we note that a potential extension of this work would be relax this upper bond or even allow it to be a function of wealth, which would allow for a more flexible utility function that could capture the trade-offs between consumption and wealth in a more nuanced way. This would also allow for the optimisation of dynamic spending strategies in addition to asset allocation strategies, which is an important area of research in retirement planning that we have not explored in this report. We also do not consider the utility of bequests in our analysis. Based on literature review earlier in this report, this motive is often small and many studies have found that large bequests are often accidental.
 
-Let $W_{i,t}$ and $C_{i,t}$ denote wealth and consumption for simulation $i\in\{1,\dots,N_{\mathrm{sims}}\}$ at time $t\in\{1,\dots,T\}$. Define the binary bankruptcy indicator
-\begin{equation}\label{eq:bankruptcy_indicator}
-B_{i,t} \;=\; \begin{cases} 1 & \text{if } W_{i,t} = 0, \\ 0 & \text{otherwise.} \end{cases}
-\end{equation}
 
-The \emph{bankruptcy density} measures how frequently wealth hits zero across the entire simulation ensemble and time horizon:
+\subsubsection{Bankruptcy Density and the Cost Function for Optimisation}
+
+We define the bankruptcy density formally as follows in Equation \ref{eq:bankruptcy_density}, where \(H(\cdot)\) is the step function defined by \(H(-w)=1\) if \(w\leq 0\), and \(H(-w)=0\) otherwise. Here, \(N_{\mathrm{sims}}\) is the total number of simulation paths, and \(T\) is the total number of time periods in each simulation path. The bankruptcy density is therefore the average number of time periods across all simulation paths in which wealth is zero, divided by the total number of time periods. A lower bankruptcy density indicates a more successful strategy, as it means that wealth is less likely to hit zero and that retirees are more likely to be able to maintain their desired spending targets throughout retirement.
+
 \begin{equation}\label{eq:bankruptcy_density}
-\mathrm{Bankruptcy\ Density} \,=\, \frac{1}{N_{\mathrm{sims}}\,T} \sum_{i=1}^{N_{\mathrm{sims}}}\sum_{t=1}^{T} B_{i,t}.
+\mathrm{Bankruptcy\ Density} \,=\, \frac{1}{N_{\mathrm{sims}}\,T} \sum_{i=1}^{N_{\mathrm{sims}}}\sum_{t=1}^{T} H(-w_{i,t}).
 \end{equation}
 
-The \emph{impoverishment density} counts occurrences where ex-post real consumption falls below the inflation-adjusted consumption floor $F_{i,t}$ (see Equation \ref{real_consumption_floor}). Using the indicator
-\begin{equation}\label{eq:impoverishment_indicator}
-I_{i,t} \;=\; \begin{cases} 1 & \text{if } C_{i,t} < F_{i,t}, \\ 0 & \text{otherwise,} \end{cases}
+This metric as it is defined above is not differentiable, so for the purposes of optimisation we use a differentiable approximation to the bankruptcy density as our cost function. Specifically, we replace the step function \(H(-w_{i,t})\) with a sigmoid surrogate. A smooth approximation is \(H(-w_{i,t}) \approx 2(1-\varsigma(k w_{i,t}))\) if \(w \ge 0 \), and, up to an additive constant that does not affect optimisation, this is equivalent to maximising \(\varsigma(k w_{i,t})\) or minimising \(-\varsigma(k w_{i,t})\), as in Equation \ref{eq:penalty_wealth}. 
+
+\begin{equation}\label{eq:penalty_wealth}
+\mathrm{Penalty}_{\mathrm{wealth}} \,=\, -\frac{1}{N_{\mathrm{sims}}\,T} \sum_{i=1}^{N_{\mathrm{sims}}}\sum_{t=1}^{T} \varsigma\bigl(k\,w_{i,t}\bigr) \quad\text{where}\quad \varsigma(z)\,=\,\frac{1}{1+e^{-z}}\,.
 \end{equation}
-we define
-\begin{equation}\label{eq:impoverishment_density}
-\mathrm{Impoverishment\ Density} \,=\, \frac{1}{N_{\mathrm{sims}}\,T} \sum_{i=1}^{N_{\mathrm{sims}}}\sum_{t=1}^{T} I_{i,t}.
+
+Here, \(k\) is a scaling parameter that controls the steepness of the sigmoid function. The sigmoid function is smooth and continuous, so it allows us to compute gradients with respect to the policy parameters during optimisation. The penalty term is negative, so that strategies that result in lower wealth (and therefore higher bankruptcy density) are penalised more heavily, while strategies that maintain higher wealth are rewarded. The parameter $k$ controls the steepness of the sigmoid ``knee,'' directly affecting how strongly the penalty increases as wealth approaches zero. For large $k \to \infty$, the surrogate approaches a step-function objective based on \(H(-w)\). For smaller $k$, the function also penalises low but positive wealth outcomes, encouraging solutions that maintain a wealth buffer. However, if $k$ is too small, the penalty becomes ineffective and the optimisation begins to take on more a greedy approach to maximising wealth, which can lead to riskier strategies that are more likely to result in bankruptcy. Conversely, if $k$ is too large, the optimisation landscape becomes ill-conditioned. From practical experience with the spending and wealth ranges in our model, $k = 1 \times 10^{-4}$ provides a good balance between effective downside protection and manageable optimisation dynamics.
+
+\subsubsection{Bankruptcy Probability}
+Another important metric we will discuss is the ``bankruptcy probability,'' (also called the ``probability of ruin'') which is the probability that a retiree's wealth hits zero at any point during retirement. This is a more traditional metric used in the literature, and it is defined as the proportion of simulation paths in which wealth hits zero at least once during the retirement period:
+
+\begin{equation}\label{eq:bankruptcy_probability}
+\mathrm{Bankruptcy\ Probability} \,=\, \frac{1}{N_{\mathrm{sims}}} \sum_{i=1}^{N_{\mathrm{sims}}} I\left(\min_{t=1}^{T} w_{i,t} \leq 0\right)
 \end{equation}
+
+where $I(\cdot)$ is an indicator function equal to 1 if the condition is true and 0 otherwise. In contrast to bankruptcy density, which measures the cumulative duration of bankruptcy events, bankruptcy probability captures only whether bankruptcy occurs at all, regardless of timing or persistence.
+
+While this metric does not capture the timing or duration of bankruptcy events, it provides a useful summary measure of the overall risk of running out of money in retirement. Importantly, there is a potential trade-off between bankruptcy density and bankruptcy probability. A strategy could theoretically have a low bankruptcy density but high bankruptcy probability if bankruptcies occur late in the retirement period (near end of life). For example, a strategy might successfully preserve wealth throughout most of retirement but eventually deplete it in the final years; such a strategy would exhibit many bankruptcy paths but accumulate relatively few total timesteps of bankruptcy. Conversely, a strategy might prevent bankruptcy entirely in many paths while experiencing early and sustained bankruptcy in others, producing fewer bankruptcy paths overall but higher cumulative bankruptcy timesteps. We will use both metrics to evaluate the performance of different asset allocation strategies, and we will discuss how these metrics relate to each other and to the overall risk profile of the retiree household.
 
 \begin{asidebox}
   \asideboxtitle{A Note on the Appropriateness of these Risk Measures for more Risk-Tolerant Investors}
@@ -771,66 +756,165 @@ we define
 \end{asidebox}
 
 
-\subsubsection{Cost Functions for Optimisation}
+\subsection{Optimisation Procedure}
 
-The heuristics described above provide interpretable metrics for evaluating asset allocation strategies, but they are not differentiable with respect to policy parameters $\theta$ and are thus unsuitable for gradient-based optimisation. We therefore construct a differentiable cost function that serves as a proxy for these risk measures and encourages the optimiser to find policies aligned with retiree preferences.
+The optimisation of \(\theta\) is the core of our analysis, as it allows us to find the asset allocation strategy that maximises our chosen risk measure of the resulting wealth trajectories. \textcite{Makinen2024} use an adjoint method to compute the gradient of the risk measure with respect to the policy parameters, which allows for efficient optimisation even in high-dimensional parameter spaces. This is a powerful and efficient approach, but it is also quite complex to implement and limits the potential range of cost functions that can be used as the risk measure to those that only depend on the terminal wealth distribution. For this reason, we implement a more straightforward approach based on automatic differentiation in Python using PyTorch \parencite{pytorch}. This allows us to compute gradients of the risk measure with respect to the policy parameters without deriving adjoint equations, and it also allows us to use risk measures that depend on the full wealth trajectory rather than terminal wealth alone. The trade-off is lower computational efficiency relative to an adjoint implementation at high parameter dimensionality, but with greater flexibility and simpler implementation.
 
-\paragraph{CRRA Utility Component}
+Our simulation framework is fully differentiable, so we can optimise policy parameters directly with a gradient-based method. Optimisation is performed using Stochastic Gradient Descent (SGD) with momentum, implemented in PyTorch. We found that other optimisers such as AdamW and RMSProp did not perform as well, tending to get stuck in local minima more frequently. This is likely partially due to the constraints on the policy parameters, which can create a non-smooth optimisation landscape that is difficult for adaptive optimisers to navigate. We adaptively adjust the learning rate during optimisation based on the improvement of the objective function. We start with a learning rate of 0.01, and if the objective does not improve for 50 consecutive iterations, we reduce the learning rate by a factor of 5. Optimisation stops after 600 consecutive iterations without improvement. We initialize policy parameters \(\theta\) to a uniform allocation across all assets. We optimise over a total of 400,000 simulation paths, which we found to be sufficient to ensure stable convergence of the optimisation between different runs. The optimisation procedure is implemented in Python and is available in the accompanying repository.
 
-We employ a shifted CRRA (Constant Relative Risk Aversion) utility function defined over normalized consumption. Let $c_{i,t}$ denote real consumption in simulation path $i$ at time $t$, $\underline{c}_{i,t}$ the corresponding inflation-adjusted consumption floor (Equation \ref{real_consumption_floor}), and $w_{i,t}$ the simulated wealth. We define the normalized consumption multiple as
-\begin{equation}
-x_{i,t} \;=\; \frac{c_{i,t}}{\underline{c}_{i,t}}\,.
-\end{equation}
-The shifted CRRA utility (with $U(1)=0$ at the floor) is
-\begin{equation}
-U_{\gamma}(x) \,=\, \frac{x^{1-\gamma} - 1}{1-\gamma} \quad (\gamma > 1).
-\end{equation}
-The CRRA utility has a finite upper bound when $\gamma>1$:
-\begin{equation}
-\lim_{x\to\infty} U_{\gamma}(x) = \frac{1}{\gamma-1}.
-\end{equation}
-Throughout all optimizations, we restrict to $\gamma > 1$ to ensure strict risk aversion. To make utility values comparable across different risk aversion parameters, we apply a normalization for $\gamma>1$:
-\begin{equation}\label{eq:normalized_crra}
-\tilde{U}_{\gamma}(x) \,=\, (\gamma-1)\,U_{\gamma}(x) \,=\, (\gamma-1)\frac{x^{1-\gamma}-1}{1-\gamma} \,.
-\end{equation}
-By construction $\lim_{x\to\infty}\tilde{U}_{\gamma}(x)=1$ for $\gamma>1$, simplifying comparisons across parameter values. Based on practical experience, we use $\gamma=5$, which provides good balance between encouraging policies that minimize downside risk while allowing flexibility in consumption above the floor. The CRRA-based cost is the negative mean normalized utility across all simulations and time periods:
-\begin{equation}\label{eq:cost_crra}
-\mathrm{Cost}_{\mathrm{CRRA}} \,=\, -\frac{1}{N_{\mathrm{sims}}\,T} \sum_{i=1}^{N_{\mathrm{sims}}}\sum_{t=1}^{T} \tilde{U}_{\gamma} \!\left(\frac{c_{i,t}}{\underline{c}_{i,t}}\right).
-\end{equation}
+To enforce the allocation constraints from Equation \ref{allocation_constraints} (non-negativity and weights summing to at most one), we project policy parameters onto the feasible set after each gradient update using the simplex projection algorithm of \textcite{duchi2008efficient}. This efficient \(\mathcal{O}(n \log n)\) procedure computes the Euclidean projection onto the constraint set, ensuring policy parameters remain feasible while staying as close as possible to the unconstrained update. A detailed description of the algorithm is provided in Appendix \ref{appendix:simplex_projection}.
 
-\paragraph{Wealth Penalty Component}
 
-We found that CRRA utility alone provides insufficient incentive to avoid low-wealth outcomes. We therefore add a sigmoid-based penalty that directly discourages zero or near-zero wealth:
-\begin{equation}\label{eq:penalty_wealth}
-\mathrm{Penalty}_{\mathrm{wealth}} \,=\, -\frac{1}{N_{\mathrm{sims}}\,T} \sum_{i=1}^{N_{\mathrm{sims}}}\sum_{t=1}^{T} \sigma\bigl(k\,w_{i,t}\bigr) \quad\text{where}\quad \sigma(z)\,=\,\frac{1}{1+e^{-z}}\,.
-\end{equation}
 
-The parameter $k$ controls the steepness of the sigmoid ``knee,'' directly affecting how strongly the penalty increases as wealth approaches zero. For large $k \to \infty$, the penalty approaches a step function resembling the bankruptcy indicator (Equation \ref{eq:bankruptcy_indicator}), creating a hard constraint against zero wealth. For smaller $k$, the function softly penalizes low but positive wealth outcomes, encouraging solutions that maintain a wealth buffer. However, if $k$ is too small, the penalty becomes ineffective; if too large, the optimization landscape becomes ill-conditioned. From practical experience with the spending and wealth ranges in our model, $k = 1 \times 10^{-4}$ provides good balance between effective downside protection and manageable optimization dynamics.
 
-\paragraph{Combined Cost Function}
 
-The total cost to minimize is:
-\begin{equation}\label{eq:total_cost}
-\mathrm{Cost} \,=\, \mathrm{Cost}_{\mathrm{CRRA}} \, + \, \mathrm{Penalty}_{\mathrm{wealth}}.
-\end{equation}
+\section{Results}
 
-Figure \ref{fig:cost_function_components} illustrates how these cost function components vary across different risk aversion parameters $\gamma$ and wealth penalty steepness parameters $k$. The left panel shows the normalized CRRA utility as a function of normalized consumption, demonstrating increased risk aversion (steeper utility curves) for larger values of $\gamma$. The right panel shows the sigmoid wealth penalty for different steepness values, illustrating how larger $k$ values create sharper penalties as wealth approaches zero.
+In this section, we apply the framework developed above to evaluate candidate retirement allocation policies in a New Zealand setting. We begin by specifying the experimental setup, including the representative retiree household and spending targets, the heuristics of risk and success, and the optimisation procedure. We then present the results of our analysis. We will proceed from zero dimensions to one-dimensional policies (time-based and wealth-based glide-paths) and finally to two-dimensional control matrices that permit adaptation along both dimensions. This progression allows us to examine how successive degrees of adaptability affect portfolio performance and risk outcomes. We will discuss the results of each of these policy classes in turn, comparing the evolution of the policy matrix as we vary experimental parameters, and evaluating the performance of the resulting policies under both synthetic and bootstrapped return simulations. We will also discuss the implications of our findings for retirement planning in New Zealand, and highlight areas for future research.
 
-\begin{figure}[h!]
+
+\subsection{Asset Allocation in Zero Dimensions: Fixed Allocation Strategies}
+
+We begin with the simplest case: a policy with zero decision nodes, which we refer to as a fixed allocation strategy. A fixed allocation strategy maintains constant weights across all assets throughout the retirement horizon, regardless of time elapsed or current wealth. Such a policy can be represented by a single parameter vector $\theta$ that specifies the allocation proportions and does not vary with time or wealth. Fixed allocation strategies serve three important roles in our analysis. First, they provide a transparent baseline against which to measure the performance gains of more sophisticated, dynamic strategies. Second, they isolate the effects of asset class selection and return dynamics from any adaptive rebalancing benefits. Third, because the optimisation landscape is considerably simpler in the zero-dimensional case, we can achieve reliable convergence and develop confidence in our optimisation procedure before scaling to higher-dimensional policies. 
+
+Because we are not simulating the accumulation period of our retirees, we do not have a specific initial wealth level to use in our simulations. Instead, we choose to treat initial wealth as an experimental parameter and we run our optimisation procedure over a range of fixed initial wealth levels. This allows us to evaluate how the optimal fixed allocation strategy varies with the retiree's starting wealth, and to assess the robustness of the resulting strategies across different wealth levels. We varied the initial wealth levels from \$500,000 to \$1,000,000 in increments of \$50,000. The resulting allocations are shown in Figure \ref{fig:fixed_allocation_results}. 
+
+Studying how the optimal allocation varies with initial wealth provides some interesting insights into the dynamics of the problem and the nature of the datasets. The 1870--present bootstrapped sample produces fixed 100\% equity allocations for all initial wealth levels, while the 1950--present bootstrapped sample and the GBM model produce allocations that vary with initial wealth. The reason for the dominance of the all-equity allocation in the 1870--present bootstrapped sample is likely due to the presence of various historic periods of high domestic inflation, for which the unhedged international equity exposure in our asset class construction provides a natural hedge. We will discuss this further in a later section, but for now we note that the presence of these historic periods of high inflation in the 1870--present bootstrapped sample is likely to be a key driver of the optimal allocation to equities in this case. The 1950--present bootstrapped sample and the GBM model, on the other hand, do not contain these historic periods of high inflation, and therefore the optimal allocation to equities is lower for these datasets.
+
+Both the 1950--present bootstrapped sample and the GBM model show a clear trend of decreasing equity allocation with increasing initial wealth, with low-wealth retirees being optimally allocated 100\% to equities. This is an interesting dynamic, and it might be counter-intuitive at first glance. One might expect that retirees with higher initial wealth levels would be able to take on more risk and therefore allocate more heavily to equities, while lower-wealth retirees would need to be more conservative in their allocations. However, the optimisation procedure is designed to minimise the risk of running out of money, and for low-wealth retirees, the major risk to their retirement security is not in fact market risk but rather the fact that consumption already exceeds the capacity of their savings and they are therefore at a high risk of running out of money irrespective of market dynamics. We have come to term this the ``hail-mary zone'' of wealth where the optimal strategy is to maximise expected returns at all costs and thus to allocate entirely to the riskiest assets in the hope that favourable market returns will allow them to achieve a sufficient level of wealth to accommodate their desired spending targets. On the other hand, for higher-wealth retirees the risk of exceeding the consumptive capacity of their savings is lower, and so market risk becomes a more significant factor in the optimisation. In this case, the optimal strategy is to diversify into safer asset classes to reduce market risk and protect the consumptive capacity of their wealth in the face of adverse market conditions. In other words, when the investor's wealth and consumption requirements place them in the hail-mary zone, the strategy becomes subject to \textit{budgetary dominance} and the optimal allocation aims to maximise expected asset returns in the hope of increasing their consumptive capacity. Whereas, when the investor's wealth and spending requirements place them outside of the hail-mary zone, the strategy becomes \textit{market dominated} and the optimal allocation increasingly aims to protect the consumptive capacity of their savings in the event of adverse market conditions.
+
+We speculate that the point at which the optimal allocation switches from the ``hail-mary'' approach to one that minimises market risk is likely an important threshold in the optimisation problem. Another noteworthy effect of this interplay of risks can be seen in the terminal wealth statistics. In both the GBM model and the 1950--present bootstrapped sample, mean terminal wealth actually decreases slightly as initial wealth increases. In the GBM model, this occurs for initial wealth approximately \$700k, and in the 1950--present bootstrap, for initial wealth levels between approximately \$600k and \$750k. We think that this shows the optimal strategy essentially trading long-term expected returns for market risk reduction, resulting in simultaneously lower levels of terminal wealth and lower likelihoods of running out of money. We also think that another reason that the 1870--present bootstrapped sample produces a 100\% equity allocation for all initial wealth levels is likely due to the fact that the presence of historic periods of high inflation in this dataset means that the retiree's expected spending is systematically higher across that ensemble of return paths. Therefore all scenarios tested in that dataset are budgetarily dominated ``hail-mary'' scenarios.
+
+Another interesting difference between the datasets is the presence of systematically higher allocations to bonds in the GBM model relative to the 1950--present bootstrapped sample. This is similar to findings by \textcite{anarkulova2025beyond}, who found that IID return assumptions (as in the GBM model) which ignore time-series effects tend to over-allocate to bonds relative to bootstrapped return assumptions. While both the GBM and 1950--present allocations have comparable allocations to equities, the GBM model has higher allocations to bonds and lower allocations to cash, whereas the 1950--present bootstrapped sample almost never allocates to bonds. We will investigate this further in a later section.
+
+
+\begin{figure}[ht!]
     \centering
-    \includegraphics[width=0.95\textwidth]{../Figs/cost_function_components.png}
-    \caption{Components of the cost function used in optimization. Panel (a) shows normalized CRRA utility $\tilde{U}_{\gamma}(x)$ as a function of normalized consumption $x = c / \underline{c}$ for different risk aversion coefficients ($\gamma = 2, 3, 5, 8, 10$). Higher $\gamma$ values produce steeper, more concave utility curves reflecting greater risk aversion. Panel (b) shows the sigmoid wealth penalty $-\sigma(k w)$ for different steepness parameters ($k = 10^{-5}$ to $10^{-2}$). Larger $k$ values create sharper ``knees'' that more aggressively penalize low and negative wealth outcomes.}
-    \label{fig:cost_function_components}
+    \includegraphics[width=1\textwidth]{../Code/Analysis/Plots/Fixed_Policy_Analysis.png}
+    \caption{Optimal fixed allocation strategies for different initial wealth levels and return sampling methodologies. Figures (a, b, c) show the optimal allocations for the GBM model, the 1870--present bootstrapped sample, and the 1950--present bootstrapped sample  respectively. The x-axis shows the initial wealth level, and the y-axis shows the allocation to each asset class. Figures (d, e, f) show the corresponding bankruptcy densities for the optimal fixed allocation strategies under each return sampling methodology. Figures (g, h, i) show the bankruptcy probabilities for the optimal fixed allocation strategies under each return sampling methodology. (j, k, l) show the corresponding expected final wealth distributions for the optimal fixed allocation strategies under each return sampling methodology.}
+    \label{fig:fixed_allocation_results}
+\end{figure}
+
+\clearpage
+
+
+\subsection{Asset Allocation in the Time Dimension: Glide-Path Strategies}
+
+As in the fixed-allocation case, we treat initial wealth as an experimental parameter and run our optimisation procedure over the same range of initial wealth levels. We also study the effect of varying the resolution of the glide-path by increasing the number of rows (or ``nodes'') in the time dimension of the policy matrix from 2 to 8, which allows for more complex time-varying allocation strategies.
+
+The evolution of the policy matrix as we increase the number of time nodes and the initial wealth of the investor is shown in Figure \ref{fig:glide_path_evolution}. Across all datasets and initial wealth levels, we see that the optimal glide-paths tend to be rising-equity glide-paths or 100\% equity allocations. As with the fixed strategy, low-wealth retirees are allocated entirely to equities. Overall asset allocations comparable to the fixed allocation strategy acrros all wealth levels and sampling methodologies. This frontloading of safe assets in the initial retirement period suggests that the optimal glide-path strategies are hedging against sequence risk in the early retirement period, which is consistent with the findings of \textcite{anarkulova2025beyond}, \textcite{pfau2014rising}, and \textcite{estrada2014glidepath}. The ability to frontload safe assets in the early retirement period also leads to higher initial allocations to safe assets than in the fixed allocation case. Indeed, where the fixed allocation case produced a 100\% equity allocation for all wealth levels in the 1870--present bootstrapped sample, the glide-path case produces small allocations to cash in the initial retirement period for higher-wealth retirees (see Figures \ref{fig:glide_path_evolution} e, h, k, n, and q). Additionally, as the resolution of the glide-path increases, so does this initial allocation to safe assets. Outside the initial retirement period, all glide-paths allocate almost entirely to equities. This suggests that the safe asset allocation is primarily a hedge against sequence risk in the early retirement period, and that once the retiree has survived this initial period, the optimal strategy is to maximise expected returns by allocating entirely to equities. This is consistent with the findings of \textcite{anarkulova2025beyond}. 
+
+As glide-path resolution increases, the policy concentrates its hedge in the early retirement period more efficiently. This concentration enables the policy to target paths most susceptible to sequence risk without becoming overly conservative for the remainder of retirement. The effect of increasing node count on the bankruptcy density and mean terminal wealth of the resulting wealth trajectories is shown in Figures \ref{fig:glide_path_bankruptcy_density_results} and \ref{fig:glide_path_results_mean_terminal_wealth} respectively. As the resolution of the glide-path is increased, the bankruptcy density decreases, particularly for higher-wealth retirees. This effect is most pronounced in the GBM model, followed by the 1950--present bootstrapped sample, and is less pronounced in the 1870--present bootstrapped sample. This demonstrates that frontloading safe assets in the early retirement period effectively hedges sequence risk, and that increasing glide-path resolution enables more efficient hedging. The fact that this effect is strongest in the IID returns of the GBM model suggests that sequence risk is potentially exaggerated in IID return assumptions, and that mean-reversions and other time-series effects in the bootstrapped samples may reduce the impact of sequence risk on the optimal allocation strategy, in line with the findings of \textcite{anarkulova2025beyond}.
+
+Increasing glide-path resolution substantially reduces the mean terminal wealth trade-off observed in the fixed allocation case. Recall that in the fixed allocation case, mean terminal wealth declined slightly as initial wealth increased for both the GBM model and 1950--present bootstrapped sample, reflecting the optimal strategy's choice to sacrifice expected returns for market risk reduction. In contrast, when glide-paths have sufficient resolution to frontload safe assets early in retirement, this trade-off is greatly diminished for the GBM model and largely eliminated for the 1950--present sample. This improvement suggests that efficiently hedging sequence risk in the early retirement period enables strategies to maintain higher expected returns throughout retirement. The 1870--present bootstrapped sample is an exception, with increasing glide-path resolution slightly reducing mean terminal wealth, likely because small early allocations to safe assets dampen expected returns in later periods. However, this effect is minimal and does not disrupt the monotonic relationship between initial wealth and terminal wealth.
+
+An important but counterintuitive finding emerges in the bankruptcy probability results (Figure \ref{fig:glide_path_bankruptcy_probability_results}). While bankruptcy probability generally declines with both glide-path resolution and initial wealth, there is a marked local increase in bankruptcy probability in the $\$550k$--$\$800k$ range, with peaks at approximately $\$550k$ for the 1950--present sample and $\$700k$ for the GBM model. Notably, this anomaly intensifies as glide-path resolution increases, which is at first puzzling. We interpret this as evidence of the density-probability trade-off discussed earlier; by concentrating safe asset hedges in the early retirement period, glide-paths successfully reduce cumulative bankruptcy duration (lower density), but at the cost of allowing bankruptcies to occur more frequently late in the retirement horizon (higher probability in this wealth band). These peaks in bankruptcy probability correlate with local reductions in mean terminal wealth at identical initial wealth levels, consistent with the hypothesis that early hedging sacrifices long-term growth. The key insight here is that strategies minimizing bankruptcy density may inadvertently increase the likelihood of late-life depletion, and evaluating retirement policies requires examining both metrics rather than relying on any single measure. 
+
+Significantly, no glidepath strategy produces a safe/risky asset allocation that resembles those recommended by the traditional 100-age or 120-age rules of thumb or those implemented by \textcite{superlife2026sipo}. Instead, all glide-path strategies allocate almost entirely to equities after the initial retirement period, with only small allocations to safe assets in the early retirement period. We do not find any evidence that the traditional age-based rules of thumb are optimal for our representative retiree household.
+
+\begin{figure}
+    \centering
+    \includegraphics[width=.9\textwidth]{../Code/Analysis/Plots/Time_Based_Policy_Bankruptcy_Density_Comparison.png}
+    \caption{
+      The bankruptcy density of the wealth trajectories resulting from the optimal glide-path policy matrix as we increase the number of time nodes and the initial wealth of the investor. The top row (figures a, b, c) shows the bankruptcy density for all policies and initial wealth levels for the GBM model, the 1870--present bootstrapped sample, and the 1950--present bootstrapped sample respectively. The middle row (figures d, e, f) shows the difference in bankruptcy density between various glide-path policies and the fixed allocation policy for each return sampling methodology. The bottom row (figures g, h, i) shows relative percentage differences in bankruptcy density between various glide-path policies and the fixed allocation policy for each return sampling methodology.
+    }
+    \label{fig:glide_path_bankruptcy_density_results}
+\end{figure}
+
+\begin{figure}
+    \centering
+    \includegraphics[width=.94\textwidth]{../Code/Analysis/Plots/Time_Based_Policy_Bankruptcy_Probability_Comparison.png}
+    \caption{
+      As in Figure \ref{fig:glide_path_bankruptcy_density_results}, but showing the bankruptcy probability of the wealth trajectories resulting from the optimal glide-path policy matrix as we increase the number of time nodes and the initial wealth of the investor.
+    }
+    \label{fig:glide_path_bankruptcy_probability_results}
+\end{figure}
+
+\begin{figure}
+    \centering
+    \includegraphics[width=.9\textwidth]{../Code/Analysis/Plots/Time_Based_Policy_Mean_Terminal_Wealth_Comparison.png}
+    \caption{
+      As in Figure \ref{fig:glide_path_bankruptcy_density_results}, but showing the mean terminal wealth of the wealth trajectories resulting from the optimal glide-path policy matrix as we increase the number of time nodes and the initial wealth of the investor.
+    }
+    \label{fig:glide_path_results_mean_terminal_wealth}
+\end{figure}
+
+\begin{figure}
+    \centering
+    \includegraphics[width=.9\textwidth]{../Code/Analysis/Plots/Time_Based_Policy_Median_Terminal_Wealth_Comparison.png}
+    \caption{
+      As in Figure \ref{fig:glide_path_bankruptcy_density_results}, but showing the median terminal wealth of the wealth trajectories resulting from the optimal glide-path policy matrix as we increase the number of time nodes and the initial wealth of the investor.
+    }
+    \label{fig:glide_path_results_median_terminal_wealth}
+\end{figure}
+
+
+\begin{figure}
+    \centering
+    \includegraphics[width=.9\textwidth]{../Code/Analysis/Plots/Time_Based_Policy_Evolution.png}
+    \caption{Evolution of the optimal glide-path policy matrix as we increase the number of time nodes and the initial wealth of the investor. Each plot shows the optimal allocation to cash and bonds interpolated over time (as it is done in the simulation), with the equities allocation (not shown) being the remainder. Node count increases from right to left, with the fixed policy shown on the far right of each plot.}
+    \label{fig:glide_path_evolution}
 \end{figure}
 
 
 
 
+\clearpage
+% \paragraph{CRRA Utility Component}
 
-\subsection{Asset Allocation in Zero Dimensions: Fixed Allocation Strategies}
+% We employ a shifted CRRA (Constant Relative Risk Aversion) utility function defined over normalized consumption. Let $c_{i,t}$ denote real consumption in simulation path $i$ at time $t$, $\underline{c}_{i,t}$ the corresponding inflation-adjusted consumption floor (Equation \ref{real_consumption_floor}), and $w_{i,t}$ the simulated wealth. We define the normalized consumption multiple as
+% \begin{equation}
+% x_{i,t} \;=\; \frac{c_{i,t}}{\underline{c}_{i,t}}\,.
+% \end{equation}
+% The shifted CRRA utility (with $U(1)=0$ at the floor) is
+% \begin{equation}
+% U_{\gamma}(x) \,=\, \frac{x^{1-\gamma} - 1}{1-\gamma} \quad (\gamma > 1).
+% \end{equation}
+% The CRRA utility has a finite upper bound when $\gamma>1$:
+% \begin{equation}
+% \lim_{x\to\infty} U_{\gamma}(x) = \frac{1}{\gamma-1}.
+% \end{equation}
+% Throughout all optimizations, we restrict to $\gamma > 1$ to ensure strict risk aversion. To make utility values comparable across different risk aversion parameters, we apply a normalization for $\gamma>1$:
+% \begin{equation}\label{eq:normalized_crra}
+% \tilde{U}_{\gamma}(x) \,=\, (\gamma-1)\,U_{\gamma}(x) \,=\, (\gamma-1)\frac{x^{1-\gamma}-1}{1-\gamma} \,.
+% \end{equation}
+% By construction $\lim_{x\to\infty}\tilde{U}_{\gamma}(x)=1$ for $\gamma>1$, simplifying comparisons across parameter values. Based on practical experience, we use $\gamma=5$, which provides good balance between encouraging policies that minimize downside risk while allowing flexibility in consumption above the floor. The CRRA-based cost is the negative mean normalized utility across all simulations and time periods:
+% \begin{equation}\label{eq:cost_crra}
+% \mathrm{Cost}_{\mathrm{CRRA}} \,=\, -\frac{1}{N_{\mathrm{sims}}\,T} \sum_{i=1}^{N_{\mathrm{sims}}}\sum_{t=1}^{T} \tilde{U}_{\gamma} \!\left(\frac{c_{i,t}}{\underline{c}_{i,t}}\right).
+% \end{equation}
+
+% \paragraph{Wealth Penalty Component}
+
+% We found that CRRA utility alone provides insufficient incentive to avoid low-wealth outcomes. We therefore add a sigmoid-based penalty that directly discourages zero or near-zero wealth:
+% \begin{equation}\label{eq:penalty_wealth}
+% \mathrm{Penalty}_{\mathrm{wealth}} \,=\, -\frac{1}{N_{\mathrm{sims}}\,T} \sum_{i=1}^{N_{\mathrm{sims}}}\sum_{t=1}^{T} \sigma\bigl(k\,w_{i,t}\bigr) \quad\text{where}\quad \sigma(z)\,=\,\frac{1}{1+e^{-z}}\,.
+% \end{equation}
+
+% The parameter $k$ controls the steepness of the sigmoid ``knee,'' directly affecting how strongly the penalty increases as wealth approaches zero. For large $k \to \infty$, the penalty approaches a step function resembling the bankruptcy indicator (Equation \ref{eq:bankruptcy_indicator}), creating a hard constraint against zero wealth. For smaller $k$, the function softly penalizes low but positive wealth outcomes, encouraging solutions that maintain a wealth buffer. However, if $k$ is too small, the penalty becomes ineffective; if too large, the optimization landscape becomes ill-conditioned. From practical experience with the spending and wealth ranges in our model, $k = 1 \times 10^{-4}$ provides good balance between effective downside protection and manageable optimization dynamics.
+
+% \paragraph{Combined Cost Function}
+
+% The total cost to minimize is:
+% \begin{equation}\label{eq:total_cost}
+% \mathrm{Cost} \,=\, \mathrm{Cost}_{\mathrm{CRRA}} \, + \, \mathrm{Penalty}_{\mathrm{wealth}}.
+% \end{equation}
+
+% Figure \ref{fig:cost_function_components} illustrates how these cost function components vary across different risk aversion parameters $\gamma$ and wealth penalty steepness parameters $k$. The left panel shows the normalized CRRA utility as a function of normalized consumption, demonstrating increased risk aversion (steeper utility curves) for larger values of $\gamma$. The right panel shows the sigmoid wealth penalty for different steepness values, illustrating how larger $k$ values create sharper penalties as wealth approaches zero.
+
+% \begin{figure}[h!]
+%     \centering
+%     \includegraphics[width=0.95\textwidth]{../Figs/cost_function_components.png}
+%     \caption{Components of the cost function used in optimization. Panel (a) shows normalized CRRA utility $\tilde{U}_{\gamma}(x)$ as a function of normalized consumption $x = c / \underline{c}$ for different risk aversion coefficients ($\gamma = 2, 3, 5, 8, 10$). Higher $\gamma$ values produce steeper, more concave utility curves reflecting greater risk aversion. Panel (b) shows the sigmoid wealth penalty $-\sigma(k w)$ for different steepness parameters ($k = 10^{-5}$ to $10^{-2}$). Larger $k$ values create sharper ``knees'' that more aggressively penalize low and negative wealth outcomes.}
+%     \label{fig:cost_function_components}
+% \end{figure}
 
 
-\subsection{Asset Allocation in One Dimension: Time-Based Glide-Paths}
+
+
+
+
+
+
 
 \subsection{Asset Allocation in One Dimension: Wealth-Based Glide-Paths}
 

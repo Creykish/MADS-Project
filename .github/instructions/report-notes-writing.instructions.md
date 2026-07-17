@@ -67,3 +67,12 @@ applyTo:
 - Informal phrasing and vague qualifiers without context.
 - Over-hedging clear empirical statements.
 - Unexplained jargon or inconsistent terminology.
+- Typical AI phrasing constructions:
+  - "This finding underscores a critical insight", "highlights the importance of", "underscores the significance of" → Use direct phrasing: "The key insight here is...", "This demonstrates that...", "Consequently..."
+  - "It's not just X, it's Y" → Use simple statement: "X is Y" or "Rather, Y"
+  - "and here the kicker:" or "here's the catch:" → Use proper transition: "However,", "The complication is", or simple comma
+  - Replacing simple copulas (*is*, *are*) with inflated constructions (*serves as a*, *marks the*, *constitutes a*) → Prefer direct: "This is X" not "This serves as an important X"
+- Colons unless necessary; prefer simple commas for most transitions and lists.
+
+## Bonus Tips
+- Good use of semicolons is great, as in "Colons unless necessary; prefer simple commas for most transitions and lists." Don't just use semicolons to replace colons though and don't overuse them. 
