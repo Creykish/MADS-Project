@@ -335,5 +335,14 @@ def load_experiments(
         payload = load_experiment(os.path.join(results_dir, fname), lazy_arrays=lazy_arrays)
         if return_sampler is None or payload["config"].RETURN_SAMPLER == return_sampler:
             experiments.append(payload)
-    experiments.sort(key=lambda e: e["config"].INITIAL_WEALTH)
+    # Ensure mixed fixed-wealth (numeric) and distributed (None) runs are sortable.
+    # Sort order: distributed (None) first, then increasing numeric wealth.
+    experiments.sort(
+        key=lambda e: (
+            e["config"].INITIAL_WEALTH is not None,
+            float(e["config"].INITIAL_WEALTH)
+            if e["config"].INITIAL_WEALTH is not None
+            else float("-inf"),
+        )
+    )
     return experiments

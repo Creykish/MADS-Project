@@ -147,4 +147,3 @@ out/
 *.npy
 *.pkl
 *.zip
-*.parquet
