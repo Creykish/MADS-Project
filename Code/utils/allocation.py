@@ -507,7 +507,7 @@ class ControlMatrixPolicy(AllocationPolicy):
 
         policy_settings = policy_settings.to(device=self.device)
         
-        w = wealth.clamp(self.wealth_nodes[0], self.wealth_nodes[-1]).to(
+        w = wealth.detach().clamp(self.wealth_nodes[0], self.wealth_nodes[-1]).to(
             device=self.device
         )
         t_ = torch.tensor([t] * self.n_sims, device=self.device)
