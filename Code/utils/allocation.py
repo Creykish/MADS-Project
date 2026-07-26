@@ -395,9 +395,12 @@ class WealthBasedPolicy(AllocationPolicy):
         # the interval-selection weights (alpha), which would otherwise create an O(T²)
         # recurrent graph: alpha_t depends on wealth_t, which depends on allocations at
         # t-1..0, each of which depends on policy_settings.
+        assert wealth.ndim == 1, "Wealth input must be a 1D tensor"
+
         w = wealth.detach().clamp(self.wealth_nodes[0], self.wealth_nodes[-1]).to(
             device=self.device
         )
+        n_local = w.shape[0]
 
         x_1 = torch.searchsorted(self.wealth_nodes, w)
         x_0 = x_1 - 1
@@ -409,8 +412,8 @@ class WealthBasedPolicy(AllocationPolicy):
         alpha = alpha.unsqueeze(1)  # Reshape from (n_sims,) to (n_sims, 1) for broadcasting
         risky_alloc = (1 - alpha) * y_0 + alpha * y_1
         
-        # Initialize allocation as 2D tensor (n_sims, n_assets)
-        allocation = torch.zeros(self.n_sims, self.n_assets, device=self.device)
+        # Initialize allocation as 2D tensor (batch_n_sims, n_assets)
+        allocation = torch.zeros(n_local, self.n_assets, device=self.device)
         allocation[:, 1:] = risky_alloc
         allocation[:, 0] = 1 - allocation[:, 1:].sum(dim=1)
 
@@ -497,9 +500,7 @@ class ControlMatrixPolicy(AllocationPolicy):
         assert (
             policy_settings.shape[2] == self.n_assets - 1
         ), "Policy settings must specify allocations for risky assets only (n_assets - 1)"
-        assert (
-            wealth.shape == torch.Size([self.n_sims])
-        ), "Wealth input must be a 1D tensor of shape (n_sims,)"
+        assert wealth.ndim == 1, "Wealth input must be a 1D tensor"
         assert (
             (policy_settings >= -CONSTRAINT_TOL).all()
             and (policy_settings.sum(dim=2) <= 1.0 + CONSTRAINT_TOL).all()
@@ -510,7 +511,8 @@ class ControlMatrixPolicy(AllocationPolicy):
         w = wealth.detach().clamp(self.wealth_nodes[0], self.wealth_nodes[-1]).to(
             device=self.device
         )
-        t_ = torch.tensor([t] * self.n_sims, device=self.device)
+        n_local = w.shape[0]
+        t_ = torch.full((n_local,), float(t), device=self.device)
         t_1 = torch.searchsorted(self.time_nodes, t_)
         t_0 = t_1 - 1
         w_1 = torch.searchsorted(self.wealth_nodes, w)
