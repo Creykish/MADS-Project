@@ -1083,6 +1083,33 @@ The algorithm proceeds as follows:
     \end{equation}
 \end{enumerate}
 
+\subsection{Projected Gradients Before Adam Updates}
+
+For the control-matrix optimisation runs that use Adam, we found it useful to project the raw gradient before calling the optimiser step. Let \(\boldsymbol{\theta}_{t} \in \Theta\) denote the risky-asset weights at iteration \(t\), and let \(\mathbf{g}_{t}=\nabla_{\boldsymbol{\theta}}\mathcal{L}(\boldsymbol{\theta}_{t})\) be the raw gradient of the loss.
+
+We first apply a boundary mask so that updates do not push already active box constraints further outside the feasible region. Define
+\begin{equation}\label{adam_active_sets_appendix}
+  \mathcal{A}_{\text{low}} = \{j : \theta_{t,j} \leq \epsilon,\ g_{t,j} > 0\},
+  \qquad
+  \mathcal{A}_{\text{high}} = \{j : \theta_{t,j} \geq 1-\epsilon,\ g_{t,j} < 0\}.
+\end{equation}
+We then set
+\begin{equation}\label{adam_masked_grad_appendix}
+  \tilde g_{t,j}=
+  \begin{cases}
+    0, & j \in \mathcal{A}_{\text{low}} \cup \mathcal{A}_{\text{high}},\\
+    g_{t,j}, & \text{otherwise.}
+  \end{cases}
+\end{equation}
+
+Next, we project onto the simplex tangent space at the current node by enforcing a zero-sum direction across risky assets
+\begin{equation}\label{adam_tangent_projection_appendix}
+\bar{\mathbf g}_{t}
+= \tilde{\mathbf g}_{t}
+- \frac{1}{k-1}\left(\mathbf{1}^{\top}\tilde{\mathbf g}_{t}\right)\mathbf{1}.
+\end{equation}
+After this recentering, we apply the same boundary mask again. The resulting projected gradient replaces the raw gradient in the optimiser state update. In implementation terms, Adam receives \(\bar{\mathbf g}_{t}\) rather than \(\mathbf g_{t}\), and we still apply the Euclidean simplex projection in Equation \ref{simplex_projection_problem_appendix} after each parameter step as a feasibility safeguard.
+
 \clearpage
 
 \section{Replication and Discussion of Control Matrix Optimisation as Proposed by \textcite{Makinen2024}}
