@@ -163,6 +163,109 @@ def project_simple(x: torch.Tensor, epsilon: float = 1e-8) -> torch.Tensor:
     return x_proj * scale
 
 
+def project_policy_gradients(policy_tensor: torch.Tensor, eps: float = 1e-8) -> None:
+    """Project policy gradients onto the simplex tangent space.
+
+    This helper is intended for risky-asset policy tensors whose feasible set is
+    elementwise box constraints ($0 \le x_i \le 1$) plus a row-wise simplex
+    inequality ($\sum_i x_i \le 1$). The projected gradient preserves feasibility
+    under a gradient-descent step near active constraints.
+
+    Parameters
+    ----------
+    policy_tensor : torch.Tensor
+        Policy parameter tensor with gradient stored in ``policy_tensor.grad``.
+    eps : float, optional
+        Boundary tolerance used to detect active constraints.
+    """
+    if policy_tensor.grad is None:
+        return
+
+    with torch.no_grad():
+        grad = policy_tensor.grad
+
+        # Remove directions that would move outside active box constraints.
+        at_lower = (policy_tensor <= eps) & (grad > 0)
+        at_upper = (policy_tensor >= 1 - eps) & (grad < 0)
+        grad = grad.masked_fill(at_lower | at_upper, 0.0)
+
+        # Project to tangent space of the row-wise simplex: sum_j grad_j = 0.
+        grad = grad - grad.mean(dim=-1, keepdim=True)
+
+        # Reapply active-boundary mask after recentering.
+        grad = grad.masked_fill(at_lower | at_upper, 0.0)
+        policy_tensor.grad.copy_(grad)
+
+@torch.no_grad()
+def project_policy_gradients_tangent_cone(
+    policy: torch.Tensor,
+    budget: float = 1.0,
+    eps: float = 1e-8,
+) -> None:
+    """
+    Project gradients onto the tangent cone of:
+
+        x >= 0
+        sum(x) <= budget
+
+    for gradient descent updates x <- x - lr * grad.
+
+    This is intentionally inequality-aware:
+    - lower-bound constraints only matter when x_i is near 0 and grad_i > 0
+    - budget constraint only matters when sum(x) is active and sum(grad) < 0
+    """
+    if policy.grad is None:
+        return
+
+    x = policy.detach()
+    g = policy.grad.detach().clone()
+
+    original_shape = g.shape
+    x_flat = x.reshape(-1, x.shape[-1])
+    g_flat = g.reshape(-1, g.shape[-1])
+
+    out = g_flat.clone()
+
+    for r in range(out.shape[0]):
+        xr = x_flat[r]
+        gr = out[r]
+
+        # Active lower bound: x_i == 0 and descent wants x_i negative.
+        blocked = (xr <= eps) & (gr > 0)
+        gr[blocked] = 0.0
+
+        # Active budget: sum(x) == budget and descent wants sum(x) to increase.
+        sum_active = xr.sum() >= budget - eps
+        wants_more_budget = gr.sum() < 0
+
+        if sum_active and wants_more_budget:
+            free = ~blocked
+
+            # Active-set loop because recentering can re-activate lower bounds.
+            for _ in range(gr.numel()):
+                if free.sum() == 0:
+                    break
+
+                s = gr[free].sum()
+
+                # If s >= 0, descent does not increase the risky budget.
+                if s >= 0:
+                    break
+
+                gr[free] = gr[free] - s / free.sum()
+
+                newly_blocked = (xr <= eps) & (gr > 0) & free
+                if not newly_blocked.any():
+                    break
+
+                gr[newly_blocked] = 0.0
+                free[newly_blocked] = False
+
+        out[r] = gr
+
+    policy.grad.copy_(out.reshape(original_shape))
+
+
 class AllocationPolicy(ABC):
     """Base class for allocation policies."""
 
@@ -543,4 +646,150 @@ class ControlMatrixPolicy(AllocationPolicy):
         assert (allocations >= -1e-6).all(), "Interpolated allocations must be non-negative"
         assert (allocations.sum(dim=1) <= 1.0 + 1e-6).all(), "Interpolated allocations must sum to at most 1.0"
         
+        return allocations
+
+
+class ControlMatrixDynamicBoundsPolicy(AllocationPolicy):
+    """2D control matrix policy with time-varying wealth bounds and bilinear interpolation.
+
+    Variant of ControlMatrixPolicy where the wealth grid shifts at each time node,
+    allowing the bounds to adapt over the investment horizon (e.g., tracking expected
+    wealth trajectories so the grid stays well-populated regardless of wealth drift).
+
+    Interpolation proceeds in two steps:
+    1. At each bracketing time node (t_0, t_1), interpolate linearly in wealth using
+       that node's own wealth grid.
+    2. Interpolate linearly in time between the two wealth-interpolated values.
+    """
+
+    def __init__(
+        self,
+        n_assets: int,
+        n_sims: int,
+        time_nodes: torch.Tensor,
+        wealth_nodes: torch.Tensor,
+        device: torch.device = torch.device("cpu"),
+    ):
+        """
+        Parameters
+        ----------
+        n_assets : int
+            Total number of assets (including safe asset at index 0)
+        n_sims : int
+            Number of simulation paths
+        time_nodes : torch.Tensor
+            Strictly increasing time points for the control grid, shape (n_time_nodes,)
+        wealth_nodes : torch.Tensor
+            Strictly increasing wealth levels at each time node,
+            shape (n_time_nodes, n_wealth_nodes). Each row defines the wealth grid
+            at the corresponding time node.
+        device : torch.device, optional
+            Device for tensor operations
+        """
+        super().__init__(n_assets, n_sims, device)
+        self.time_nodes = time_nodes.to(device=self.device)
+        self.wealth_nodes = wealth_nodes.to(device=self.device)
+        assert self.wealth_nodes.ndim == 2, \
+            "wealth_nodes must be 2D: (n_time_nodes, n_wealth_nodes)"
+        assert self.wealth_nodes.shape[0] == self.time_nodes.shape[0], \
+            "wealth_nodes must have one row per time node"
+        assert torch.all(self.time_nodes[1:] > self.time_nodes[:-1]), \
+            "Time nodes must be strictly increasing"
+        assert torch.all(self.wealth_nodes[:, 1:] > self.wealth_nodes[:, :-1]), \
+            "Wealth nodes must be strictly increasing at each time node"
+
+    def get_allocation(
+        self,
+        t: float | int,
+        wealth: torch.Tensor,
+        policy_settings: torch.Tensor,
+        **kwargs
+    ) -> torch.Tensor:
+        """Bilinear interpolation with time-varying wealth grids.
+
+        At each bracketing time node the wealth is interpolated against that
+        node's own wealth grid; the two results are then blended in time.
+
+        Parameters
+        ----------
+        t : float or int
+            Current time index (must be within time_nodes range)
+        wealth : torch.Tensor
+            Current wealth levels, shape (n_sims,)
+        policy_settings : torch.Tensor
+            Shape (n_time_nodes, n_wealth_nodes, n_assets-1) specifying the
+            control matrix of risky asset allocations
+
+        Returns
+        -------
+        torch.Tensor
+            Shape (n_sims, n_assets) with interpolated allocation.
+        """
+        assert (
+            t >= self.time_nodes[0] and t <= self.time_nodes[-1]
+        ), "Time index out of bounds for policy nodes"
+        assert (
+            policy_settings.shape[0] == self.time_nodes.shape[0]
+        ), "Number of time nodes must match first dimension of policy settings"
+        assert (
+            policy_settings.shape[1] == self.wealth_nodes.shape[1]
+        ), "Number of wealth nodes must match second dimension of policy settings"
+        assert (
+            policy_settings.shape[2] == self.n_assets - 1
+        ), "Policy settings must specify allocations for risky assets only (n_assets - 1)"
+        assert wealth.ndim == 1, "Wealth input must be a 1D tensor"
+        assert (
+            (policy_settings >= -CONSTRAINT_TOL).all()
+            and (policy_settings.sum(dim=2) <= 1.0 + CONSTRAINT_TOL).all()
+        ), "Policy settings must satisfy constraints (Equation 13): non-negative and sum <= 1"
+
+        policy_settings = policy_settings.to(device=self.device)
+
+        # Find time bracket (scalar, all sims share the same t)
+        t_1_idx = int(torch.searchsorted(self.time_nodes, torch.tensor(float(t), device=self.device)).item())
+        t_0_idx = t_1_idx - 1
+
+        alpha_t = (float(t) - self.time_nodes[t_0_idx]) / (
+            self.time_nodes[t_1_idx] - self.time_nodes[t_0_idx]
+        )  # scalar tensor
+
+        # Wealth grids at the two bracketing time nodes
+        wn_0 = self.wealth_nodes[t_0_idx]  # (n_wealth_nodes,)
+        wn_1 = self.wealth_nodes[t_1_idx]  # (n_wealth_nodes,)
+
+        # Clamp wealth and find brackets in t_0's wealth grid
+        w0 = wealth.detach().clamp(wn_0[0], wn_0[-1]).to(device=self.device)
+        w0_1 = torch.searchsorted(wn_0, w0)
+        w0_0 = w0_1 - 1
+        alpha_w0 = (w0 - wn_0[w0_0]) / (wn_0[w0_1] - wn_0[w0_0])
+
+        # Clamp wealth and find brackets in t_1's wealth grid
+        w1 = wealth.detach().clamp(wn_1[0], wn_1[-1]).to(device=self.device)
+        w1_1 = torch.searchsorted(wn_1, w1)
+        w1_0 = w1_1 - 1
+        alpha_w1 = (w1 - wn_1[w1_0]) / (wn_1[w1_1] - wn_1[w1_0])
+
+        # Interpolate risky allocations at t_0 using t_0's wealth grid
+        f_t0 = (
+            (1 - alpha_w0).unsqueeze(1) * policy_settings[t_0_idx, w0_0]
+            + alpha_w0.unsqueeze(1) * policy_settings[t_0_idx, w0_1]
+        )
+
+        # Interpolate risky allocations at t_1 using t_1's wealth grid
+        f_t1 = (
+            (1 - alpha_w1).unsqueeze(1) * policy_settings[t_1_idx, w1_0]
+            + alpha_w1.unsqueeze(1) * policy_settings[t_1_idx, w1_1]
+        )
+
+        # Blend in time
+        risky_alloc = (1 - alpha_t) * f_t0 + alpha_t * f_t1
+
+        allocations = torch.cat(
+            [1 - risky_alloc.sum(dim=1, keepdim=True), risky_alloc], dim=1
+        )
+
+        # Validate interpolated allocations satisfy constraints
+        assert (allocations >= -1e-6).all(), "Interpolated allocations must be non-negative"
+        assert (allocations.sum(dim=1) <= 1.0 + 1e-6).all(), "Interpolated allocations must sum to at most 1.0"
+
         return allocations

@@ -36,6 +36,7 @@ class SimulationConfig:
     # Policy structure defaults (1, 1) -> constant/fixed allocation
     TIME_NODE_COUNT: int = 1
     WEALTH_NODE_COUNT: int = 1
+    USES_DYNAMIC_WEALTH_BOUNDS: bool = False
 
 
 @dataclass

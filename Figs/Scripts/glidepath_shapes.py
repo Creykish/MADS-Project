@@ -12,7 +12,6 @@ inferno colormap.  Output is saved as ../glidepath-shapes.png.
 import os
 import numpy as np
 import matplotlib.pyplot as plt
-import matplotlib.cm as cm
 
 script_dir = os.path.dirname(os.path.abspath(__file__))
 output_path = os.path.join(script_dir, "..", "glidepath_shapes.png")
@@ -50,12 +49,12 @@ invu_eq = np.concatenate(
 
 static = np.full(N, 0.60)
 
-cmap = cm.get_cmap("inferno")
-c_de = cmap(0.85)  # bright yellow-orange
-c_re = cmap(0.63)  # orange
-c_u = cmap(0.45)  # red-orange
-c_invu = cmap(0.30)  # dark maroon / deep red
-c_static = cmap(0.73)  # amber
+# Distinct, colorblind-friendly line palette with strong separation.
+c_de = "#0072B2"  # blue
+c_re = "#D55E00"  # vermillion
+c_u = "#009E73"  # bluish green
+c_invu = "#CC79A7"  # reddish purple
+c_static = "#F0E442"  # yellow
 
 fig, ax = plt.subplots(figsize=(8.5, 4.8))
 

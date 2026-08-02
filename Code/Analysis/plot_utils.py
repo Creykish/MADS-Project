@@ -4,6 +4,11 @@ import numpy as np
 import matplotlib.pyplot as plt
 import polars as pl
 
+ASSET_COLOURS = {
+    'Cash': '#000000',
+    'Bonds': '#6464FF',
+    'Stocks': '#ff6464',
+}
 
 def _wealth_bucket_key(x: np.ndarray, bucket: float = 50_000.0) -> np.ndarray:
     """Bucket wealth values for alignment across datasets."""

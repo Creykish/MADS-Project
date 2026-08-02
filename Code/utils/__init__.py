@@ -38,6 +38,7 @@ allocation : Module for asset allocation policies
     - ConstantAllocation
     - TimeBasedPolicy
     - ControlMatrixPolicy
+    - ControlMatrixDynamicBoundsPolicy
 
 spending : Module for spending/consumption policies
     - SpendingPolicy (ABC)
@@ -74,8 +75,11 @@ from .allocation import (
     ConstantAllocation,
     TimeBasedPolicy,
     ControlMatrixPolicy,
+    ControlMatrixDynamicBoundsPolicy,
     WealthBasedPolicy,
     project_onto_simplex,
+    project_policy_gradients,
+    project_policy_gradients_tangent_cone
 )
 
 # Spending policies
@@ -134,6 +138,7 @@ __all__ = [
     "ConstantAllocation",
     "TimeBasedPolicy",
     "ControlMatrixPolicy",
+    "ControlMatrixDynamicBoundsPolicy",
     "WealthBasedPolicy",
     
     # Spending policies
