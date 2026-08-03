@@ -1,5 +1,7 @@
 """Utility functions for analysis notebooks."""
 
+
+
 import numpy as np
 import matplotlib.pyplot as plt
 import polars as pl
@@ -8,6 +10,12 @@ ASSET_COLOURS = {
     'Cash': '#000000',
     'Bonds': '#6464FF',
     'Stocks': '#ff6464',
+}
+
+RETURN_SAMPLER_DISPLAY_NAMES = {
+    'cholesky': 'IID GBM',
+    'block_bootstrapped': 'Block Bootstrapped\n(1870-2020)',
+    'block_bootstrapped_1950': 'Block Bootstrapped\n(1950-2020)',
 }
 
 def _wealth_bucket_key(x: np.ndarray, bucket: float = 50_000.0) -> np.ndarray:
@@ -199,6 +207,7 @@ def plot_metric_vs_node_baseline(
                 label=f"{n}",
                 color=c,
                 linestyle=linestyle,
+                zorder=10
             )
 
             ax3.plot(
@@ -209,6 +218,7 @@ def plot_metric_vs_node_baseline(
                 label=f"{n}",
                 color=c,
                 linestyle=linestyle,
+                zorder=10
             )
 
         if sampler_common_x:
@@ -230,6 +240,9 @@ def plot_metric_vs_node_baseline(
         ax1.set_xlim(x_min, x_max)
         ax2.set_xlim(x_min, x_max)
         ax3.set_xlim(x_min, x_max)
+
+        ax2.axhline(0.0, color='black', linestyle='--', linewidth=1.0, zorder=5)
+        ax3.axhline(0.0, color='black', linestyle='--', linewidth=1.0, zorder=5)
 
         ax1.text(0.02, 1.01, _get_plot_letter(j, 0, len(samplers_to_plot)), transform=ax1.transAxes, fontsize=16, va='bottom', ha='left')
         ax2.text(0.02, 1.01, _get_plot_letter(j, 1, len(samplers_to_plot)), transform=ax2.transAxes, fontsize=16, va='bottom', ha='left')
@@ -462,6 +475,7 @@ def plot_metric_vs_known_wealth_fixed_baseline(
                 label=f'{n}',
                 color=c,
                 linestyle=linestyle,
+                zorder=10
             )
 
             ax3.plot(
@@ -472,6 +486,7 @@ def plot_metric_vs_known_wealth_fixed_baseline(
                 label=f'{n}',
                 color=c,
                 linestyle=linestyle,
+                zorder=10
             )
 
         if sampler_common_x:
@@ -493,6 +508,9 @@ def plot_metric_vs_known_wealth_fixed_baseline(
         ax1.set_xlim(x_min, x_max)
         ax2.set_xlim(x_min, x_max)
         ax3.set_xlim(x_min, x_max)
+
+        ax2.axhline(0.0, color='black', linestyle='--', linewidth=1.0, zorder=5)
+        ax3.axhline(0.0, color='black', linestyle='--', linewidth=1.0, zorder=5)
 
         ax1.text(0.02, 1.01, _get_plot_letter(j, 0, len(samplers_to_plot)), transform=ax1.transAxes, fontsize=16, va='bottom', ha='left')
         ax2.text(0.02, 1.01, _get_plot_letter(j, 1, len(samplers_to_plot)), transform=ax2.transAxes, fontsize=16, va='bottom', ha='left')
