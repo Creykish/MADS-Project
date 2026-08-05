@@ -18,6 +18,13 @@ RETURN_SAMPLER_DISPLAY_NAMES = {
     'block_bootstrapped_1950': 'Block Bootstrapped\n(1950-2020)',
 }
 
+
+def _ordered_samplers(samplers: list[str]) -> list[str]:
+    """Order samplers by canonical display-name mapping key order."""
+    canonical = [s for s in RETURN_SAMPLER_DISPLAY_NAMES if s in samplers]
+    extras = sorted(s for s in samplers if s not in RETURN_SAMPLER_DISPLAY_NAMES)
+    return canonical + extras
+
 def _wealth_bucket_key(x: np.ndarray, bucket: float = 50_000.0) -> np.ndarray:
     """Bucket wealth values for alignment across datasets."""
     return np.round(x / bucket).astype(int)
@@ -101,10 +108,12 @@ def plot_metric_vs_node_baseline(
     # Default sampler display names
     if sampler_display_names is None:
         sampler_display_names = {s: s for s in samplers_to_plot}
+
+    ordered_samplers = _ordered_samplers(samplers_to_plot)
     
     fig, axes = plt.subplots(
         3,
-        len(samplers_to_plot),
+        len(ordered_samplers),
         figsize=(12, 7),
         dpi=300,
         squeeze=True,
@@ -114,13 +123,13 @@ def plot_metric_vs_node_baseline(
     linestyles = [None, '--', '-.', ':', (0, (3, 1, 1, 1)), (0, (5, 1))]
     markers = ['o', 's', '^', 'D', 'v', '*']
 
-    if len(samplers_to_plot) == 1:
+    if len(ordered_samplers) == 1:
         axes = axes.reshape(3, 1)
 
     metric_label = metric_label or metric.replace('_', ' ').title()
     denom = max(nodes_to_plot) - min(nodes_to_plot)
 
-    for j, sampler in enumerate(samplers_to_plot):
+    for j, sampler in enumerate(ordered_samplers):
         ax1: plt.Axes = axes[0, j]
         ax2: plt.Axes = axes[1, j]
         ax3: plt.Axes = axes[2, j]
@@ -244,9 +253,9 @@ def plot_metric_vs_node_baseline(
         ax2.axhline(0.0, color='black', linestyle='--', linewidth=1.0, zorder=5)
         ax3.axhline(0.0, color='black', linestyle='--', linewidth=1.0, zorder=5)
 
-        ax1.text(0.02, 1.01, _get_plot_letter(j, 0, len(samplers_to_plot)), transform=ax1.transAxes, fontsize=16, va='bottom', ha='left')
-        ax2.text(0.02, 1.01, _get_plot_letter(j, 1, len(samplers_to_plot)), transform=ax2.transAxes, fontsize=16, va='bottom', ha='left')
-        ax3.text(0.02, 1.01, _get_plot_letter(j, 2, len(samplers_to_plot)), transform=ax3.transAxes, fontsize=16, va='bottom', ha='left')
+        ax1.text(0.02, 1.01, _get_plot_letter(j, 0, len(ordered_samplers)), transform=ax1.transAxes, fontsize=16, va='bottom', ha='left')
+        ax2.text(0.02, 1.01, _get_plot_letter(j, 1, len(ordered_samplers)), transform=ax2.transAxes, fontsize=16, va='bottom', ha='left')
+        ax3.text(0.02, 1.01, _get_plot_letter(j, 2, len(ordered_samplers)), transform=ax3.transAxes, fontsize=16, va='bottom', ha='left')
 
         if top_ylim is not None:
             ax1.set_ylim(*top_ylim)
@@ -278,7 +287,7 @@ def plot_metric_vs_node_baseline(
             return ''
         return f'${int(x/1000)}k'
 
-    for j in range(len(samplers_to_plot)):
+    for j in range(len(ordered_samplers)):
         axes[2, j].xaxis.set_major_formatter(plt.FuncFormatter(_safe_k_formatter))
         axes[2, j].tick_params(axis='x', rotation=45)
 
@@ -326,6 +335,8 @@ def plot_metric_vs_known_wealth_fixed_baseline(
     diff_as_percent: bool = True,
     rel_diff_as_percent: bool = True,
     sampler_display_names: dict[str, str] | None = None,
+    baseline_label: str = 'Baseline',
+    legend_title: str = 'Node Count',
 ) -> tuple[plt.Figure, np.ndarray]:
     """
     Compare outcome metrics against a fixed baseline, varying either wealth or time node dimensions.
@@ -383,10 +394,12 @@ def plot_metric_vs_known_wealth_fixed_baseline(
     # Default sampler display names
     if sampler_display_names is None:
         sampler_display_names = {s: s for s in samplers_to_plot}
+
+    ordered_samplers = _ordered_samplers(samplers_to_plot)
     
     fig, axes = plt.subplots(
         3,
-        len(samplers_to_plot),
+        len(ordered_samplers),
         figsize=(12, 7),
         dpi=300,
         squeeze=True,
@@ -396,13 +409,13 @@ def plot_metric_vs_known_wealth_fixed_baseline(
     linestyles = [None, '--', '-.', ':', (0, (3, 1, 1, 1)), (0, (5, 1))]
     markers = ['o', 's', '^', 'D', 'v', '*']
 
-    if len(samplers_to_plot) == 1:
+    if len(ordered_samplers) == 1:
         axes = axes.reshape(3, 1)
 
     metric_label = metric_label or metric.replace('_', ' ').title()
     denom = max(nodes_to_plot) - min(nodes_to_plot)
 
-    for j, sampler in enumerate(samplers_to_plot):
+    for j, sampler in enumerate(ordered_samplers):
         ax1: plt.Axes = axes[0, j]
         ax2: plt.Axes = axes[1, j]
         ax3: plt.Axes = axes[2, j]
@@ -415,6 +428,19 @@ def plot_metric_vs_known_wealth_fixed_baseline(
         baseline_x = baseline_x[baseline_mask]
         baseline_y = baseline_y[baseline_mask]
         baseline_key = _wealth_bucket_key(baseline_x)
+
+        # Always show fixed baseline explicitly on the top row.
+        if baseline_x.size > 0:
+            ax1.plot(
+                baseline_x,
+                baseline_y,
+                marker='o',
+                markersize=4,
+                label=baseline_label,
+                color='blue',
+                linestyle='-',
+                zorder=12,
+            )
 
         sampler_common_x = []
 
@@ -512,9 +538,9 @@ def plot_metric_vs_known_wealth_fixed_baseline(
         ax2.axhline(0.0, color='black', linestyle='--', linewidth=1.0, zorder=5)
         ax3.axhline(0.0, color='black', linestyle='--', linewidth=1.0, zorder=5)
 
-        ax1.text(0.02, 1.01, _get_plot_letter(j, 0, len(samplers_to_plot)), transform=ax1.transAxes, fontsize=16, va='bottom', ha='left')
-        ax2.text(0.02, 1.01, _get_plot_letter(j, 1, len(samplers_to_plot)), transform=ax2.transAxes, fontsize=16, va='bottom', ha='left')
-        ax3.text(0.02, 1.01, _get_plot_letter(j, 2, len(samplers_to_plot)), transform=ax3.transAxes, fontsize=16, va='bottom', ha='left')
+        ax1.text(0.02, 1.01, _get_plot_letter(j, 0, len(ordered_samplers)), transform=ax1.transAxes, fontsize=16, va='bottom', ha='left')
+        ax2.text(0.02, 1.01, _get_plot_letter(j, 1, len(ordered_samplers)), transform=ax2.transAxes, fontsize=16, va='bottom', ha='left')
+        ax3.text(0.02, 1.01, _get_plot_letter(j, 2, len(ordered_samplers)), transform=ax3.transAxes, fontsize=16, va='bottom', ha='left')
 
         if top_ylim is not None:
             ax1.set_ylim(*top_ylim)
@@ -546,7 +572,7 @@ def plot_metric_vs_known_wealth_fixed_baseline(
             return ''
         return f'${int(x/1000)}k'
 
-    for j in range(len(samplers_to_plot)):
+    for j in range(len(ordered_samplers)):
         axes[2, j].xaxis.set_major_formatter(plt.FuncFormatter(_safe_k_formatter))
         axes[2, j].tick_params(axis='x', rotation=45)
 
@@ -559,10 +585,10 @@ def plot_metric_vs_known_wealth_fixed_baseline(
             labels=labels,
             loc='upper center',
             bbox_to_anchor=(0.5, 1.06),
-            ncol=len(nodes_to_plot),
+            ncol=len(nodes_to_plot)+1,
             fontsize=9,
             frameon=True,
-            title='Node Count',
+            title=legend_title,
             title_fontsize=10,
             facecolor='#c4c4c4',
             edgecolor='black',
