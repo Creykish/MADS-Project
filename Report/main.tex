@@ -1224,6 +1224,61 @@ The wage channel itself is also state-dependent and incomplete. The Phillips-cur
   This suggests that Consilium's current inflation treatment is likely too weak for retirement decumulation analysis. A constant-rate framework cannot represent inflation persistence, regime shifts, or clustered inflation shocks, and therefore cannot properly value inflation-hedging instruments or identify when they should become more prominent in higher-wealth retirement portfolios. Moreover, Consilium does not currently have any inflation-mitigation instruments in its conservative or moderate portfolios, which may be a gap in the current strategic asset allocation framework. If \textcite{anarkulova2025beyond} are correct that bonds display a negative correlation with inflation at long horizons (such that they lose value due to inflation), then the current SAA framework may be systematically exposing retirees to inflation risk. 
 \end{asidebox}
 
+
+\subsection{Basic Mathematical Intuition for the Hail-Mary Zone} 
+The fact that below a certain wealth threshold the optimal strategy is to maximise expected return, even at the cost of increased risk, is not something that has been widely discussed in the literature relating to this problem. The explanation by \textcite{pfau2014rising} for why rising-equity glidepaths emerge in their analysis comes close to this understanding, but does not explicitly identify the hail-mary zone as a distinct region of the optimisation landscape, likely because their analysis is based on a single initial wealth level and so does not consider the full implications of wealth and spending. In this section we provide a simple mathematical intuition for why the hail-mary zone emerges, and why it is a natural consequence of the optimisation problem faced by retirees. 
+
+Consider a retiree who needs to fund a fixed level of consumption over a retirement horizon of \(T\) years. They consume one unit of wealth per year and begin retirement with \(w_0\) units of wealth. The retiree's objective is to minimise the expected number of years in which they are unable to fund their consumption, which we refer to as their bankruptcy density. Assuming for simplicity that wealth does not otherwise grow or decline, the number of years spent in bankruptcy is given by Equation \ref{bankruptcy_years}. 
+
+\begin{equation} \label{bankruptcy_years} 
+  D(w_0) = \max(T - w_0, 0) 
+\end{equation}
+
+Now suppose the retiree is offered a gamble. With probability \(p\), their wealth increases by \(A\%\), while with probability \(1-p\) they lose all remaining wealth. The resulting wealth after taking the gamble is therefore 
+
+\begin{equation} \label{hail_mary_gamble} 
+  W = \begin{cases} 
+    (1+A)w_0 & \text{with probability } p,\\ 
+    0 & \text{with probability } 1-p. 
+  \end{cases} 
+\end{equation} 
+
+Consider the case where a successful gamble generates enough wealth to fully fund retirement: 
+
+\begin{equation} \label{complete_rescue} 
+  (1+A)w_0 \geq T. 
+\end{equation} 
+
+In this region, a successful gamble eliminates bankruptcy entirely, 
+
+\begin{equation} 
+  D_{\text{win}} = 0, 
+\end{equation} 
+
+while a failed gamble still results in 
+
+\begin{equation} 
+  D_{\text{lose}} = T. 
+\end{equation} 
+
+The expected bankruptcy density is therefore 
+
+\begin{equation} \label{expected_bankruptcy_complete} 
+  E[D_{\text{bet}}] = (1-p)T. 
+\end{equation}
+
+The retiree should take the gamble whenever 
+\begin{equation} \label{complete_rescue_condition} 
+  (1-p)T < T - w_0. 
+\end{equation} 
+
+Rearranging yields 
+\begin{equation} \label{hail_mary_threshold} 
+  w_0 < pT. 
+\end{equation} 
+
+Equation \ref{hail_mary_threshold} defines the boundary of the hail-mary zone. If current wealth can fund less than a fraction \(p\) of the remaining retirement horizon, then a gamble capable of fully rescuing retirement should be accepted, despite the possibility of total ruin. Conversely, once wealth exceeds this threshold the downside risk outweighs the potential benefit, because additional wealth beyond that required to fund retirement provides no further reduction in bankruptcy density. As in the case of the eponymous book \parencite{hailMary}, there exist a region where the outlook of the retiree is so dire that the only rational response is to take a high-risk gamble in the hope of a miraculous outcome. This is the hail-mary zone.
+
 \section{Conclusion}
 
 This research was motivated by the apparent lack of empirical support for glidepath frameworks that are so widely used and recommended in retirement planning. Where the literature does exist, it often disagreed with the declining-risk intuition that underpins glidepath design. We therefore set out to investigate the optimality of glidepath strategies in a retirement context, and to compare them with alternative allocation mechanisms that are responsive to wealth and time. In doing so, we believe that we have provided a more complete and empirically grounded answer to the question of whether glidepaths are an appropriate allocation vehicle for retirees. In addition, the research has highlighted the importance of other modelling assumptions, and has raised potentially fruitful avenues for future research.
